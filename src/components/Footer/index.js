@@ -1,70 +1,71 @@
 import React from "react";
 import "./footer.scss";
 import logo from "./LOGO.png";
-import { Link } from "react-router-dom";
+import style from './footer.module.scss'
+import { Link } from "react_router_dom";
 
 const Footer = () => {
   return (
-    <footer className="footer">
-      <div className="footer-top">
-        <div className="container">
-          <div className="footer-brand-wrapper">
-            <Link to="./" className="logo">
+    <footer className={style.footer}>
+      <div className={style.footer_top}>
+        <div className={style.container}>
+          <div className={style.footer_brand_wrapper}>
+            <Link to="./" className={style.logo}>
               <img src={logo} alt="Zilong logo" />
             </Link>
-            <ul className="footer-list">
+            <ul className={style.footer_list}>
               <li>
-                <a href="./index.html" className="footer-link">Home</a>
+                <a  className={style.footer_link}>Home</a>
               </li>
               <li>
-                <a href="#" className="footer-link">Movie</a>
+                <a href="#" className={style.footer_link}>Movie</a>
               </li>
               <li>
-                <a href="#" className="footer-link">TV Show</a>
+                <a href="#" className={style.footer_link}>TV Show</a>
               </li>
               <li>
-                <a href="#" className="footer-link">Web Series</a>
+                <a href="#" className={style.footer_link}>Web Series</a>
               </li>
               <li>
-                <a href="#" className="footer-link">Pricing</a>
+                <a href="#" className={style.footer_link}>Pricing</a>
               </li>
             </ul>
           </div>
-          <div className="divider" />
-          <div className="quicklink-wrapper">
-            <ul className="quicklink-list">
+          <div className={style.divider} />
+          <div className={style.quicklink_wrapper}>
+            <ul className={style.quicklink_list}>
               <li>
-                <a href="#" className="quicklink-link">Faq</a>
+                <a href="#" className={style.quicklink_link}>Faq</a>
               </li>
               <li>
-                <a href="#" className="quicklink-link">Help center</a>
+                <a href="#" className={style.quicklink_link}>Help center</a>
               </li>
               <li>
-                <a href="#" className="quicklink-link">Terms of use</a>
+                <a href="#" className={style.quicklink_link}>Terms of use</a>
               </li>
               <li>
-                <a href="#" className="quicklink-link">Privacy</a>
+                <a href="#" className={style.quicklink_link}>Privacy</a>
               </li>
             </ul>
-            <ul className="social-list">
+            <ul className={style.social_list}>
               <li>
-                <a href="#" className="social-link">
-                  <ion-icon name="logo-facebook" />
+                <a href="#" className={style.social_link}>
+                  <ion_icon name="logo_facebook" />
                 </a>
               </li>
               <li>
-                <a href="#" className="social-link">
-                  <ion-icon name="logo-twitter" />
+                <a href="#" className={style.social_link}>
+                  <ion_icon name="logo_twitter" />
                 </a>
               </li>
               <li>
-                <a href="#" className="social-link">
-                  <ion-icon name="logo-pinterest" />
+                <a href="#" className={style.social_link}>
+                  <ion_icon name="logo_pinterest" />
                 </a>
               </li>
               <li>
-                <a href="#" className="social-link">
-                  <ion-icon name="logo-linkedin" />
+                <a href="#" className={style.social_link}>
+                  <ion_icon name="logo_linkedin" />
                 </a>
               </li>
             </ul>
