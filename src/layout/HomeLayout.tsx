@@ -1,9 +1,13 @@
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
-import React from "react";
-import "./style.scss";
 
-const NavbarFooter = ({ children }) => {
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import React, { ReactNode } from "react";
+import style from "./HomeLayout.module.scss";
+interface HomeLayoutProps {
+  children: ReactNode;
+}
+
+const HomeLayout = ({ children }: HomeLayoutProps) => {
   return (
     <>
       <div className="flex flex-col w-full background  relative">
@@ -17,4 +21,4 @@ const NavbarFooter = ({ children }) => {
   );
 };
 
-export default NavbarFooter;
+export default HomeLayout;

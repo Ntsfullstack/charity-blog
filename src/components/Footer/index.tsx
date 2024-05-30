@@ -1,8 +1,6 @@
 import React from "react";
-import "./footer.scss";
-import logo from "./LOGO.png";
-import style from './footer.module.scss'
-import { Link } from "react_router_dom";
+import { Link } from "react-router-dom";
+import style from "./Footer.module.scss";
 
 const Footer = () => {
   return (
@@ -11,7 +9,6 @@ const Footer = () => {
         <div className={style.container}>
           <div className={style.footer_brand_wrapper}>
             <Link to="./" className={style.logo}>
-              <img src={logo} alt="Zilong logo" />
             </Link>
             <ul className={style.footer_list}>
               <li>
@@ -50,22 +47,18 @@ const Footer = () => {
             <ul className={style.social_list}>
               <li>
                 <a href="#" className={style.social_link}>
-                  <ion_icon name="logo_facebook" />
                 </a>
               </li>
               <li>
                 <a href="#" className={style.social_link}>
-                  <ion_icon name="logo_twitter" />
                 </a>
               </li>
               <li>
                 <a href="#" className={style.social_link}>
-                  <ion_icon name="logo_pinterest" />
                 </a>
               </li>
               <li>
                 <a href="#" className={style.social_link}>
-                  <ion_icon name="logo_linkedin" />
                 </a>
               </li>
             </ul>

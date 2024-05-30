@@ -2,72 +2,24 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Switch from "antd/lib/switch";
 import { Button, Popover } from "antd";
-import logo from "./LOGO.png";
+
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [clicked, setClicked] = useState(false);
-  const headerRef = useRef(null);
-  const navbarRef = useRef(null);
-  const overlayRef = useRef(null);
-  const navOpenBtnRef = useRef(null);
 
-  const hide = () => {
-    setClicked(false);
-  };
 
-  const handleClickChange = (open) => {
-    setClicked(open);
-  };
-
-  const handleDropdown = () => {
-    const dropdown = document.getElementById("dropdown");
-    dropdown.classList.toggle("show");
-  };
-
-  const handleNavClick = () => {
-    navbarRef.current.classList.toggle("active");
-    overlayRef.current.classList.toggle("active");
-    document.body.classList.toggle("active");
-  };
-
-  useEffect(() => {
-    const header = headerRef.current;
-    window.addEventListener("scroll", function () {
-      window.scrollY >= 10
-        ? header.classList.add("active")
-        : header.classList.remove("active");
-    });
-  }, []);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const clickContent = (
-    <div className="favContent">
-      <div className="d-flex justify-content-center">
-        <h6 className="text-center">
-          Please login to see your favorite movies
-        </h6>
-      </div>
-    </div>
-  );
 
   return (
-    <div className="header" ref={headerRef}>
+    <div className="header" >
       <div className="container">
-        <div className="overlay" ref={overlayRef} onClick={handleNavClick} />
+        <div className="overlay" />
         <Link to="/" className="logo">
-          <img src={logo} alt="zilong" />
+          
         </Link>
         <div className="header-actions">
           <button className="search-btn">
-            <ion-icon name="search-outline" />
           </button>
           <div className="lang-wrapper">
             <label htmlFor="language">
-              <ion-icon name="globe-outline" />
             </label>
             <div className="Search">
               <Link to="/Search">
@@ -101,7 +53,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <nav className="navbar" ref={navbarRef}>
+        <nav className="navbar">
           <ul className="navbar-list">
             <li>
               <Link to="/" className="navbar-link">
@@ -112,28 +64,12 @@ const Navbar = () => {
               <Switch checked={false} onChange={() => { }} />
             </li>
             <li>
-              <Popover
-                content={
-                  <div>
-                    {clickContent}
-                    <a onClick={hide} className="btn btn-danger mt-4 l-5">
-                      Close
-                    </a>
-                  </div>
-                }
-                trigger="click"
-                open={clicked}
-                onOpenChange={handleClickChange}
-              >
-                <Button className="btn btn-outline-primary">Favorite</Button>
-              </Popover>
+            
             </li>
           </ul>
         </nav>
         <button
           className="menu-open-btn"
-          onClick={handleNavClick}
-          ref={navOpenBtnRef}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
