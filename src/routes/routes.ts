@@ -4,4 +4,5 @@ export const ROUTES = {
   login: "/login",
   auth: "/auth",
   managerBlogs: "managerBlogs",
+  createBlog: "createBlog",
 } as const;

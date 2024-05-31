@@ -1,11 +1,12 @@
-import React from 'react'
-import AdminLayout from './AdminLayout'
+import React from "react";
+import MyEditor from "../components/Editor/Editor";
 const CreateBlog = () => {
   return (
-    <AdminLayout>
-      <div>Create Blog</div>
-    </AdminLayout>
-  )
-}
+    <div>
+      <h1>Create Blog</h1>
+      <MyEditor />
+    </div>
+  );
+};
 
-export default CreateBlog
+export default CreateBlog;

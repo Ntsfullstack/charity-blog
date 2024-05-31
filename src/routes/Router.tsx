@@ -6,6 +6,7 @@ import { ROUTES } from "./routes";
 import AdminLayout from "../pages/auth/screen/AdminLayout";
 import Homepage from "../pages/home/screen";
 import Login from "../pages/login/login";
+import CreateBlog from "../pages/auth/screen/CreateBlog";
 
 const router = createBrowserRouter([
   {
@@ -23,16 +24,21 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTES.login,
-        element: <Login/>,
+        element: <Login />,
       },
       {
         path: ROUTES.auth,
         element: <AdminLayout />,
         children: [
           {
+            path: ROUTES.createBlog,
+            element: <CreateBlog />,
+          },
+          {
             path: ROUTES.managerBlogs,
             element: <div>managerBlogs</div>,
           },
+         
         ],
       },
     ],

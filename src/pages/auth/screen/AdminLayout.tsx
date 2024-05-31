@@ -62,7 +62,6 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }} />
         <Content style={{ margin: "0 16px" }}>
-          {children}
           <Outlet />
         </Content>
       </Layout>

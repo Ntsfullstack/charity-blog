@@ -12,8 +12,13 @@
     "@types/react-dom": "^18.3.0",
     "antd": "^5.17.4",
     "axios": "^1.7.2",
+    "dompurify": "^3.1.4",
+    "draft-convert": "^2.1.13",
+    "draft-js": "^0.11.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-draft-wysiwyg": "^1.15.0",
+    "react-hook-form": "^7.51.5",
     "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
     "sass": "^1.77.2",
@@ -47,5 +52,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/dompurify": "^3.0.5",
+    "@types/draft-convert": "^2.1.8",
+    "@types/draft-js": "^0.11.18",
+    "@types/react-draft-wysiwyg": "^1.13.8"
   }
 }
