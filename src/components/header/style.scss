@@ -1,13 +1,17 @@
 /* src/Header.scss */
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between;  // changed to space-between for better spacing
   align-items: center;
   padding: 20px;
   background-color: #282c34;
   color: white;
 
   .logo {
+    img {
+      max-height: 40px;  // ensure the logo fits well in the header
+    }
+    
     a {
       color: white;
       text-decoration: none;
@@ -27,12 +31,19 @@
           color: white;
           text-decoration: none;
           font-size: 18px;
+          transition: color 0.3s;
+
+          &:hover {
+            color: #61dafb;  // add a hover effect for links
+          }
         }
       }
     }
   }
 
   .auth-buttons {
+    display: flex;  // ensure buttons are aligned horizontally
+    
     .login-btn,
     .signup-btn {
       background: none;
@@ -41,11 +52,22 @@
       padding: 10px 20px;
       cursor: pointer;
       margin-left: 10px;
+      transition: background-color 0.3s, color 0.3s;
+
+      &:hover {
+        background-color: #61dafb;
+        color: #282c34;
+      }
     }
 
     .signup-btn {
       background-color: white;
       color: #282c34;
+
+      &:hover {
+        background-color: transparent;
+        color: white;
+      }
     }
   }
 }

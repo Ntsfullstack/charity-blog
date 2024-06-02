@@ -1,12 +1,13 @@
 // src/Header.js
 import React from 'react';
 import './style.scss';
+import logo from './LOGO.png';
 
 const Header = () => {
   return (
     <header className="header">
       <div className="logo">
-        <a href="/">MyLogo</a>
+        <a href="/"><img src={logo} alt="Logo"></img></a>
       </div>
       <nav className="nav">
         <ul>
