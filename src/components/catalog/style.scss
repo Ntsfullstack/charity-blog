@@ -4,7 +4,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 20px;
-    width: 400px;
+    width: 350px;
   
     h2 {
       text-align: center;
@@ -22,6 +22,8 @@
         transition: border-color 0.3s ease; /* Thêm hiệu ứng hover */
         
         &:hover {
+            background-color: #accdf2;
+        
           border-color: #ccc; /* Thay đổi màu border khi hover */
         }
       }
