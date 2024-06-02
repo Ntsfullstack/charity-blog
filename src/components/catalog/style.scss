@@ -1,0 +1,30 @@
+/* style.scss */
+
+.Catalog {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 400px;
+  
+    h2 {
+      text-align: center;
+      padding: 5px;
+      font-size: 1.5rem;
+    }
+    .list-container {
+      li {
+        font-size: 20px;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-radius: 3px;
+        list-style-type: none;
+        border: 1px solid transparent; /* Thêm border cho mỗi mục */
+        transition: border-color 0.3s ease; /* Thêm hiệu ứng hover */
+        
+        &:hover {
+          border-color: #ccc; /* Thay đổi màu border khi hover */
+        }
+      }
+    }
+  }
+  

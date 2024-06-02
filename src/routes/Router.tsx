@@ -18,6 +18,7 @@ const router = createBrowserRouter([
         path: ROUTES.main,
         element: <Homepage />,
       },
+
       {
         path: ROUTES.settings,
         element: <div>Settings</div>,
