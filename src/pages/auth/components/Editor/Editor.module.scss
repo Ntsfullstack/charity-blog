@@ -1,10 +1,83 @@
 
-  
-  .public-DraftStyleDefault-block {
-    margin: 0px !important;
+pre {
+  margin: 0;
+  --tw-border-opacity: 1;
+  --tw-bg-opacity: 1;
+  --tw-text-opacity: 1;
+  border: 1px solid rgb(0 0 0 / var(--tw-border-opacity));
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  white-space: pre-wrap;
+  border-radius: 0.25rem;
+  caret-color: #fff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    Liberation Mono, Courier New, monospace;
+}
+
+pre > * {
+  padding:0 8px;
+  color: inherit;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  border-radius: 0.125rem;
+  background-color: rgb(23 23 23 / var(--tw-bg-opacity));
+  font-family: inherit; /* Inherit from the parent */
+  color: inherit;
+  caret-color: #fff;
+}
+/* MyEditor.css */
+.my_editor_container {
+    border: 1px solid #f0f0f0; /* Viền nhẹ nhàng */
+    padding: 16px; /* Khoảng đệm bên trong */
   }
   
-  .wrapperClassName {
-    height: 500px;
+  .toolbar_class {
+    border-bottom: 1px solid #f0f0f0; /* Viền dưới nhẹ nhàng */
+    padding: 8px;
+  }
+  
+  .editor_class {
+    min-height: 200px;
+    padding: 12px;
+  }
+  
+  .html_output {
+    margin-top: 16px;
+    font-family: monospace; /* Phông chữ monospace cho dễ đọc HTML */
+  }
+
+.myEditor {
+    &__toolbar {
+      background-color: #f0f0f0;
+      padding: 10px;
+  
+      &-button {
+        border: 1px solid #ddd;
+        padding: 5px 10px;
+        margin-right: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+  
+        &:hover {
+          background-color: #e0e0e0;
+        }
+  
+        &--active {
+          background-color: #007bff;
+          color: #fff;
+        }
+      }
+  
+ 
+  
+    }
+  
+    &__wrapper {
+      border: 1px solid #ddd;
+    }
+  
+    &__editor {
+      min-height: 200px;
+      padding: 10px;
+    }
   }
   
