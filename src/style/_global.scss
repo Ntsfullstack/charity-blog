@@ -1,21 +1,37 @@
 :root {
   --scale-ratio: 1;
+
+  --neutral-25: #f3f3f4;
+  --neutral-50: #dbdbde;
+  --neutral-100: #c3c3c3;
+  --neutral-300: #93939b;
+  --neutral-400: #7b7b84;
+  --neutral-500: #64646c;
+  --neutral-600: #4e4e54;
+  --neutral-700: #38383c;
+  --neutral-800: #212124;
+  --neutral-900: #0b0b0c;
 }
 
 @function scale($pixelNumber) {
   @return calc($pixelNumber * var(--scale-ratio) * 1px);
 }
 
-@font-face {
-  font-family: 'Montserrat-Regular';
-  src: url('../assets/fonts/Montserrat-Regular.ttf') format('truetype');
-}
 
 html,
-body,
-#root {
+body {
+  box-sizing: border-box;
   margin: 0;
   min-height: 100lvh;
+  &::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--neutral-50);
+  }
 }
 
 /* For Mobile Portrait View */
@@ -42,27 +58,27 @@ body,
 // }
 
 .text-12 {
-  font-family: 'Montserrat-Regular';
+  font-family: "Montserrat-Regular";
   font-size: scale(14);
   font-weight: 500;
 }
 
 .text-14 {
-  font-family: 'Montserrat-Regular';
+  font-family: "Montserrat-Regular";
   font-size: scale(14);
   font-weight: 500;
   line-height: scale(14);
 }
 
 .text-16 {
-  font-family: 'Montserrat-Regular';
+  font-family: "Montserrat-Regular";
   font-size: scale(16);
   font-weight: 600;
   line-height: scale(16);
 }
 
 .text-16-bold {
-  font-family: 'Montserrat-Regular';
+  font-family: "Montserrat-Regular";
   font-size: scale(16);
   font-weight: 700;
   line-height: scale(19);
@@ -106,22 +122,13 @@ body,
   height: scale(18);
 }
 
-.marker {
-  background-image: url('./../assets/images/png/car.png');
-  background-size: contain;
-  width: 35px;
-  height: 50px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
 .mapboxgl-popup {
   max-width: 200px;
 }
 
 .mapboxgl-popup-content {
   text-align: center;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .flexRow {
@@ -150,5 +157,25 @@ body,
   .ant-skeleton-avatar.ant-skeleton-avatar-circle {
     width: scale(24) !important;
     height: scale(24) !important;
+  }
+}
+@mixin hide-scrollbar {
+  overflow: scroll;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@mixin scrollbar {
+  &::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--neutral-50);
   }
 }
