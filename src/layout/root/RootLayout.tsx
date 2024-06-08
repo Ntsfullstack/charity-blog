@@ -1,9 +1,9 @@
-import { Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Suspense } from "react";
+import { Outlet } from "react-router-dom";
 
 function RootLayout() {
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
       <Outlet />
     </Suspense>
   );

@@ -1,79 +1,77 @@
-// const { useState } = React;
+import React, { ReactNode } from "react";
+import { Layout, Menu } from "antd";
+import {
+  FunnelPlotOutlined,
+  HomeOutlined,
+  TagOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-// const { Breadcrumb, Layout, Menu, theme } = antd;
-// const { Header, Content, Footer, Sider } = Layout;
-// function getItem(label, key, icon, children) {
-//   return {
-//     key,
-//     icon,
-//     children,
-//     label,
-//   };
-// }
-// const items = [];
-// const App = () => {
-//   const [collapsed, setCollapsed] = useState(false);
-//   const {
-//     token: { colorBgContainer, borderRadiusLG },
-//   } = theme.useToken();
-//   return (
-//     <Layout
-//       style={{
-//         minHeight: "100vh",
-//       }}
-//     >
-//       <Sider
-//         collapsible
-//         collapsed={collapsed}
-//         onCollapse={(value) => setCollapsed(value)}
-//       >
-//         <div className="demo-logo-vertical" />
-//         <Menu
-//           theme="dark"
-//           defaultSelectedKeys={["1"]}
-//           mode="inline"
-//           items={items}
-//         />
-//       </Sider>
-//       <Layout>
-//         <Header
-//           style={{
-//             padding: 0,
-//             background: colorBgContainer,
-//           }}
-//         />
-//         <Content
-//           style={{
-//             margin: "0 16px",
-//           }}
-//         >
-//           <Breadcrumb
-//             style={{
-//               margin: "16px 0",
-//             }}
-//           >
-//             <Breadcrumb.Item>User</Breadcrumb.Item>
-//             <Breadcrumb.Item>Bill</Breadcrumb.Item>
-//           </Breadcrumb>
-//           <div
-//             style={{
-//               padding: 24,
-//               minHeight: 360,
-//               background: colorBgContainer,
-//               borderRadius: borderRadiusLG,
-//             }}
-//           >
-//             Bill is a cat.
-//           </div>
-//         </Content>
-//         <Footer
-//           style={{
-//             textAlign: "center",
-//           }}
-//         >
-//           Ant Design ©{new Date().getFullYear()} Created by Ant UED
-//         </Footer>
-//       </Layout>
-//     </Layout>
-//   );
-// };
+const { Sider } = Layout;
+
+type MenuItem = {
+  label: string;
+  key: string;
+  icon: ReactNode;
+};
+
+const items: MenuItem[] = [
+  {
+    label: "Manager Blog",
+    key: "/auth/managerBlog",
+    icon: <HomeOutlined />,
+  },
+  {
+    label: "Manager User",
+    key: "/auth/managerUser",
+    icon: <UserOutlined />,
+  },
+  {
+    label: "Create Blog",
+    key: "/auth/createBlog",
+    icon: <TagOutlined />,
+  },
+  {
+    label: "Settings",
+    key: "/auth/settings",
+    icon: <FunnelPlotOutlined />,
+  },
+
+];
+
+interface SidebarProps {
+  collapsed: boolean;
+  setCollapsed: (collapsed: boolean) => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ collapsed, setCollapsed }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleMenuClick = ({ key }: { key: string }) => {
+    navigate(key);
+  };
+
+  return (
+    <Sider collapsible collapsed={collapsed} onCollapse={setCollapsed}>
+      <div style={{ padding: "16px", textAlign: "center" }}>
+        <img src="https://placehold.co/200x55" alt="Logo" />
+      </div>
+
+      <Menu
+        theme="dark"
+        selectedKeys={[location.pathname]}
+        mode="inline"
+        items={items.map(item => ({
+          key: item.key,
+          icon: item.icon,
+          label: item.label,
+        }))}
+        onClick={handleMenuClick}
+      />
+    </Sider>
+  );
+};
+
+export default Sidebar;
