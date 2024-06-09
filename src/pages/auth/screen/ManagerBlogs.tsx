@@ -5,7 +5,8 @@ import { Button, Input, Popconfirm, Space, Table } from "antd";
 import type { FilterDropdownProps } from "antd/es/table/interface";
 import { deletePost, getListBlogs, updatePost } from "../api/auth.api";
 import { useNavigate } from "react-router-dom";
-
+import Loading from "../../../components/Loading/Loading";
+import style from "./ManagerBlogs.module.scss";
 interface DataType {
   _id: string;
   title: string;
@@ -38,6 +39,7 @@ const ManthumbnailrBlogs: React.FC = () => {
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
   const [data, setData] = useState<DataType[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -45,9 +47,9 @@ const ManthumbnailrBlogs: React.FC = () => {
     const fetchBlogs = async () => {
       try {
         const res = await getListBlogs();
-        console.log(res);
+        setLoading(true);
 
-        if (res && res.status === 200 as any) {
+        if (res && res.status === (200 as any)) {
           setData(
             res.data.map((item: DataType) => ({
               _id: item._id, // Ensure _id is present and unique
@@ -64,6 +66,8 @@ const ManthumbnailrBlogs: React.FC = () => {
         }
       } catch (error) {
         console.error("Error fetching blogs:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -182,7 +186,7 @@ const ManthumbnailrBlogs: React.FC = () => {
       key: "thumbnail",
       width: "10%",
       render: (value) => (
-        <img src={value} alt="Thumbnail" style={{ width: 50, height: 50 }} />
+        <img src={value} alt="Thumbnail" style={{ width: 70, height: 50 }} />
       ),
     },
     {
@@ -232,8 +236,11 @@ const ManthumbnailrBlogs: React.FC = () => {
     },
   ];
 
-  return (
+  return loading ? (
+    <Loading></Loading>
+  ) : (
     <Table
+      className={style.table}
       columns={columns}
       dataSource={data}
       rowKey="slug"

@@ -13,7 +13,7 @@ const FormLogin = () => {
       console.log("Login Success:", response.status);
       if (response.token !== undefined) {
         localStorage.setItem("token", JSON.stringify(response.token));
-        navigate("/auth");
+        navigate("/auth/manager-blog");
       }
     } catch (error: any) {
       console.error("Login Error:", error.message);

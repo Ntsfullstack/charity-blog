@@ -1,4 +1,10 @@
-:global(.ant-layout-content){
-    overflow: scroll;
-    
-}
+.table {
+    &:global(.ant-layout-content) {
+      overflow: scroll;
+    }
+  
+    :global(.ant-layout-sider-trigger ) {
+      bottom: auto !important;
+    }
+  }
+  

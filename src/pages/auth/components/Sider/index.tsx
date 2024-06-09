@@ -64,6 +64,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, setCollapsed }) => {
       <Menu
         theme="dark"
         selectedKeys={[location.pathname]}
+        
         mode="inline"
         items={items.map((item) => ({
           key: item.key,
