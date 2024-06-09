@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { ROUTES } from "./routes";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
-
+import Loading from "../components/Loading/Loading";
 // Import components using lazy loading
 const EditUser = React.lazy(() => import("../pages/auth/screen/EditUser"));
 const EditBlog = React.lazy(() => import("../pages/auth/screen/EditBlog"));
@@ -14,27 +14,31 @@ const Homepage = React.lazy(() => import("../pages/home/screen"));
 const CreateBlog = React.lazy(() => import("../pages/auth/screen/CreateBlog"));
 const Login = React.lazy(() => import("../pages/login/login"));
 const Register = React.lazy(() => import("../pages/register/register"));
-const ManagerBlogs = React.lazy(() => import("../pages/auth/screen/ManagerBlogs"));
-const ManagerUsers = React.lazy(() => import("../pages/auth/screen/ManagerUser"));
+const ManagerBlogs = React.lazy(
+  () => import("../pages/auth/screen/ManagerBlogs")
+);
+const ManagerUsers = React.lazy(
+  () => import("../pages/auth/screen/ManagerUser")
+);
 const Post = React.lazy(() => import("../pages/posts/screen/posts"));
 
 // Create the router configuration
 const routerConfig = [
   {
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense>
         <RootLayout />
       </Suspense>
     ),
     errorElement: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense>
         <ErrorPage />
       </Suspense>
     ),
     children: [
       {
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense>
             <HomeLayout />
           </Suspense>
         ),
@@ -42,7 +46,7 @@ const routerConfig = [
           {
             path: ROUTES.main,
             element: (
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense>
                 <Homepage />
               </Suspense>
             ),
@@ -50,7 +54,7 @@ const routerConfig = [
           {
             path: ROUTES.post,
             element: (
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense >
                 <Post />
               </Suspense>
             ),
@@ -64,7 +68,7 @@ const routerConfig = [
       {
         path: ROUTES.register,
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loading />}>
             <Register />
           </Suspense>
         ),
@@ -72,7 +76,7 @@ const routerConfig = [
       {
         path: ROUTES.auth,
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loading />}>
             <AdminLayout />
           </Suspense>
         ),
@@ -80,7 +84,7 @@ const routerConfig = [
           {
             path: ROUTES.managerBlogs,
             element: (
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<Loading />}>
                 <ManagerBlogs />
               </Suspense>
             ),
@@ -88,7 +92,7 @@ const routerConfig = [
           {
             path: ROUTES.createBlog,
             element: (
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<Loading />}>
                 <CreateBlog />
               </Suspense>
             ),
@@ -96,7 +100,7 @@ const routerConfig = [
           {
             path: ROUTES.managerUser,
             element: (
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<Loading />}>
                 <ManagerUsers />
               </Suspense>
             ),
@@ -104,7 +108,7 @@ const routerConfig = [
           {
             path: ROUTES.editUser,
             element: (
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<Loading />}>
                 <EditUser />
               </Suspense>
             ),
@@ -112,7 +116,7 @@ const routerConfig = [
           {
             path: ROUTES.editBlog,
             element: (
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<Loading />}>
                 <EditBlog />
               </Suspense>
             ),
@@ -124,7 +128,7 @@ const routerConfig = [
   {
     path: ROUTES.login,
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loading />}>
         <Login />
       </Suspense>
     ),

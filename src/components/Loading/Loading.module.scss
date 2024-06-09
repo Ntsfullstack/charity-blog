@@ -1,0 +1,13 @@
+.loading_container{ 
+    display: flex;           /* Use Flexbox for easy centering */
+    justify-content: center; /* Horizontally center the content */
+    align-items: center;     /* Vertically center the content */
+    position: fixed;         /* Position over the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;             
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Optional semi-transparent background */
+    z-index: 9999;           /* Ensure it's on top of other elements */
+  }
+  

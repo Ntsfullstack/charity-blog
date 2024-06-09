@@ -1,0 +1,122 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+  height: 40px; /* Adjust as needed */
+}
+
+.menuToggle {
+  display: none;
+}
+
+.menuIcon {
+  display: none;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.nav {
+  ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+  }
+
+  a:hover {
+    color: #007bff;
+  }
+
+  @media (max-width: 768px) {
+    ul {
+      flex-direction: column;
+      padding: 15px;
+      position: absolute;
+      top: 30px; /* Adjust based on header height */
+      left: 0;
+      right: 0;
+      background-color: #f8f9fa;
+    }
+
+    .menuToggle:checked ~ .nav ul {
+      display: flex; /* Show menu when checkbox is checked */
+    }
+  }
+}
+
+.authButtons {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+
+.loginBtn {
+  text-decoration: none;
+  padding: 5px 15px;
+  font-weight: 700;
+  display: inline;
+  text-align: center;
+  align-items: center;
+  border-radius: 5px;
+  background-color: transparent;
+  transition: background-color 0.3s, color 0.3s;
+  &:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+}
+
+.signupBtn {
+  padding: 5px 15px;
+  color: #fff;
+  font-weight: 700;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #007bff;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo{
+    display: none;
+  }
+
+  
+  .menuIcon {
+    display: block; /* Show menu icon on small screens */
+  }
+
+  .nav {
+    position: absolute; /* Adjust position to relative for better layout */
+    display: none;
+    width: 100%;
+    left: 0;
+  }
+}
+.open{
+  display: flex;
+}

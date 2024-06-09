@@ -1,0 +1,10 @@
+.mainContentWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; // Ensure footer is at the bottom
+  }
+  
+  .mainContent {
+    flex: 1; // Take up remaining space between header and footer
+    padding: 20px; // Add some padding for content
+  }

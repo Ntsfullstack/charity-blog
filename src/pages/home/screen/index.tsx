@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from "react";
-import styles from  "./Home.module.scss"; // Make sure you have this file
-import image1 from "./image1.jpg"; // Placeholder image until data is fetched
+import styles from "./Home.module.scss"; // Make sure you have this file
 import { getListBlogs } from "../../auth/api/auth.api";
 import Card from "../../../components/card/Card";
-
-import {BlogPostData} from "../types/blogdata.type"
-
-interface BlogPost {
-  data: BlogPostData[];
-  status: string;
-}
+import { BlogPostData } from "../types/blogdata.type";
 
 const Homepage = () => {
-  const [cardData, setData] = useState([]);
+  const [cardData, setData] = useState<BlogPostData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -20,7 +13,7 @@ const Homepage = () => {
     const fetchBlogData = async () => {
       try {
         const response = await getListBlogs();
-        if (response?.status === "success" as any) {
+        if (response?.status === 200) {
           setData(response?.data);
         }
       } catch (error) {
@@ -39,17 +32,13 @@ const Homepage = () => {
     fetchBlogData();
   }, []);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   return (
     <div className={styles.cardContainer}>
-      <Card cardData={cardData} />
+      <Card cardData={cardData} loading={isLoading} />
     </div>
   );
 };

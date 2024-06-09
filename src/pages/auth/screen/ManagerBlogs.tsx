@@ -47,7 +47,7 @@ const ManthumbnailrBlogs: React.FC = () => {
         const res = await getListBlogs();
         console.log(res);
 
-        if (res && res.status === "success" as any) {
+        if (res && res.status === 200 as any) {
           setData(
             res.data.map((item: DataType) => ({
               _id: item._id, // Ensure _id is present and unique

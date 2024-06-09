@@ -6,7 +6,7 @@ import Sidebar from "../pages/auth/components/Sider"; // Corrected spelling
 const { Header, Content } = Layout;
 
 const AdminLayout = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   return (
     <Layout style={{ minHeight: "100vh" }}>

@@ -1,15 +1,16 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import Header from "../components/header/Header";
 import Footer from "../components/Footer/Footer"; // Make sure the path is correct
 import { Outlet } from "react-router-dom";
-import style from "./HomeLayout.module.scss";
+import styles from "./HomeLayout.module.scss"; // Import styles correctly
 
 const HomeLayout = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-col w-full background relative">
-        <div className="flex-1">
+
+      <div className={styles.mainContentWrapper}>
+        <div className={styles.mainContent}>
           <Outlet />
         </div>
         <Footer />
