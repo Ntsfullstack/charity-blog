@@ -1,6 +1,8 @@
 import axiosInstance from "../../../server/auth.api";
 
-const token = JSON.parse(localStorage.getItem("token") || "")?.token;
+const storedToken = localStorage.getItem("token");
+const token = storedToken ? JSON.parse(storedToken)?.token : null;
+
 export const getInfoUser = async (params: string) => {
   try {
     const response = await axiosInstance.get(`/synthetic/users/${params}`, {

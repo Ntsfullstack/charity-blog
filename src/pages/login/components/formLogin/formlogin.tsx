@@ -12,7 +12,7 @@ const FormLogin = () => {
       const response = await Login(values);
       console.log("Login Success:", response.status);
       if (response.token !== undefined) {
-        localStorage.setItem("token", JSON.stringify(response.data));
+        localStorage.setItem("token", JSON.stringify(response.token));
         navigate("/auth");
       }
     } catch (error: any) {
