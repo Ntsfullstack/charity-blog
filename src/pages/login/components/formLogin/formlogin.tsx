@@ -11,7 +11,7 @@ const FormLogin = () => {
     try {
       const response = await Login(values);
       console.log("Login Success:", response.status);
-      if (response.status === 200) {
+      if (response.token !== undefined) {
         localStorage.setItem("token", JSON.stringify(response.data));
         navigate("/auth");
       }
