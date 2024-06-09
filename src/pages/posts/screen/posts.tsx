@@ -49,7 +49,7 @@ const Post: React.FC = () => {
   }, [slug]);
 
   if (loading) {
-    return <Loading></Loading>;
+    return <Loading />;
   }
 
   if (error) {
@@ -60,16 +60,16 @@ const Post: React.FC = () => {
     return <div>Blog post not found</div>;
   }
 
-  const plainTextContent = convert(post.content); // Convert HTML content to plain text
-
   return (
     <div className={styles.blogContainer}>
       <div className={styles.header}>
         <Title level={1}>{post.title}</Title>
         <div className={styles.metaData}>
           <Text type="secondary">
-            By {" "}
-            <a href={`${post.authorId._id}`} className={styles.Link}>{post.authorId.username}</a>
+            By{" "}
+            <a href={`${post.authorId._id}`} className={styles.Link}>
+              {post.authorId.username}
+            </a>
           </Text>
           <Text type="secondary">
             {dayjs(post.createdAt).format("MMMM D, YYYY")}
@@ -77,7 +77,10 @@ const Post: React.FC = () => {
         </div>
       </div>
       <img src={post.thumbnail} alt={post.title} className={styles.thumbnail} />
-      <Paragraph className={styles.content}>{plainTextContent}</Paragraph>
+      <div
+        className={styles.content}
+        dangerouslySetInnerHTML={{ __html: post.content }}
+      ></div>
     </div>
   );
 };

@@ -1,17 +1,47 @@
 import React from "react";
 import styles from "./Footer.module.scss";
 import logo from "../../assets/images/collapsedLogo.png";
+import {
+  FacebookFilled,
+  TwitchOutlined,
+  LinkedinFilled,
+  YoutubeFilled,
+} from "@ant-design/icons";
 
 const Footer = () => {
   return (
-    <footer id="dk-footer" className={styles.Footer}>
-      <div className={styles.copyright}> 
-        <div className={styles.container}>
-          <div className={styles.row}>
-            <div className={styles.colMd6}>
-              <span>Copyright © 2024, All Right Reserved </span>
-            </div>
-            
+    <footer className="site-footer">
+      <hr />
+      <div className="container">
+        <div className={styles.end_footer}>
+          <div>
+            <p className="copyright-text">
+              Copyright © 2017 All Rights Reserved by
+            </p>
+          </div>
+          <div>
+            <ul className={styles.social_icons}>
+              <li>
+                <a className={styles.facebook} href="#">
+                  <FacebookFilled />
+                </a>
+              </li>
+              <li>
+                <a className={styles.twitter} href="#">
+                  <TwitchOutlined />
+                </a>
+              </li>
+              <li>
+                <a className={styles.youtube} href="#">
+                  <YoutubeFilled />
+                </a>
+              </li>
+              <li>
+                <a className={styles.linkedin} href="#">
+                  <LinkedinFilled />
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

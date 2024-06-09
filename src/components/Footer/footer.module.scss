@@ -1,35 +1,99 @@
-/* Copyright styles */
-.copyright {
-  background-color: #202020;
-  padding: 20px 0;
-  text-align: center; /* Căn giữa nội dung */
+.site-footer {
+  background-color: #26272b;
+  padding: 45px 0 20px;
+  font-size: 15px;
+  line-height: 24px;
+  color: #737373;
 }
-
-.copyright span {
-  color: #878787;
-  margin-right: 10px; /* Thêm khoảng cách giữa chữ và menu */
+.end_footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
 }
-
-.copyright a {
-  color: #878787;
-  text-decoration: none;
-  margin-left: 10px; /* Thêm khoảng cách giữa các mục menu */
-  transition: color 0.3s ease;
+.social_icons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  list-style-type: none;
 }
-
-.copyright a:hover {
-  color: #007bff;
-}
-
-/* Copyright menu styles */
-.copyright-menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: inline-flex; /* Hiển thị menu theo hàng ngang */
+.facebook,
+.twitter,
+.youtube,
+.linkedin {
+  width: 40px;
+  height: 40px;
+  display: flex;
   align-items: center;
+  justify-content: center;
+}
+.copyright-text {
+  margin: 0;
+}
+@media (max-width: 991px) {
+  .site-footer [class^="col-"] {
+    margin-bottom: 30px;
+  }
+}
+@media (max-width: 767px) {
+  .site-footer {
+    padding-bottom: 0;
+  }
+  .site-footer .copyright-text,
+  .site-footer .social-icons {
+    text-align: center;
+  }
+}
+.social-icons {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+.social-icons li {
+  display: inline-block;
+  margin-bottom: 4px;
+  border-radius: 50%;
+}
+.social-icons li.title {
+  margin-right: 15px;
+  text-transform: uppercase;
+  color: #96a2b2;
+  font-weight: 700;
+  font-size: 13px;
+}
+/* Màu sắc cho từng biểu tượng */
+.facebook {
+  background-color: #3b5998;
+  color: white; /* Màu chữ trắng cho Facebook */
+
+  &:hover {
+    background-color: #2d4373; /* Màu khi hover */
+  }
 }
 
-.copyright-menu li {
-  margin-left: 20px; /* Khoảng cách giữa các mục menu */
+.twitter {
+  background-color: #1da1f2;
+  color: white; /* Màu chữ trắng cho Twitter */
+
+  &:hover {
+    background-color: #0c89d9; /* Màu khi hover */
+  }
+}
+
+.youtube {
+  background-color: #ff0000;
+  color: white; /* Màu chữ trắng cho Youtube */
+
+  &:hover {
+    background-color: #cc0000; /* Màu khi hover */
+  }
+}
+
+.linkedin {
+  background-color: #0077b5;
+  color: white; /* Màu chữ trắng cho Linkedin */
+
+  &:hover {
+    background-color: #00598c; /* Màu khi hover */
+  }
 }

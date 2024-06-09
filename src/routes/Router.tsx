@@ -14,6 +14,8 @@ const Homepage = React.lazy(() => import("../pages/home/screen"));
 const CreateBlog = React.lazy(() => import("../pages/auth/screen/CreateBlog"));
 const Login = React.lazy(() => import("../pages/login/login"));
 const Register = React.lazy(() => import("../pages/register/register"));
+const ImageUpload = React.lazy(() => import("../config/uploadImage"))
+
 const ManagerBlogs = React.lazy(
   () => import("../pages/auth/screen/ManagerBlogs")
 );
@@ -70,6 +72,14 @@ const routerConfig = [
         element: (
           <Suspense fallback={<Loading />}>
             <Register />
+          </Suspense>
+        ),
+      },
+      {
+        path:"/upload",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <ImageUpload />
           </Suspense>
         ),
       },

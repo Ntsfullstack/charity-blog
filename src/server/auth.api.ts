@@ -2,8 +2,7 @@ import axios from "axios";
 
 // Lấy token từ local storage hoặc môi trường khác phù hợp
 const storedToken = localStorage.getItem("token");
-const token = storedToken ? JSON.parse(storedToken)?.token : null;
-
+const token = storedToken ? JSON.parse(storedToken) : null;
 
 // Tạo một instance của Axios
 const axiosInstance = axios.create({
