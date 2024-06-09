@@ -1,5 +1,9 @@
 import React, { ReactNode } from "react";
 import { Layout, Menu } from "antd";
+import collapsedLogo from "../../../../assets/images/collapsedLogo.png";
+import expandedLogo from "../../../../assets/images/expandedLogo.png";
+import style from "./Sider.module.scss";
+
 import {
   FunnelPlotOutlined,
   HomeOutlined,
@@ -19,17 +23,17 @@ type MenuItem = {
 const items: MenuItem[] = [
   {
     label: "Manager Blog",
-    key: "/auth/managerBlog",
+    key: "/auth/manager-blog",
     icon: <HomeOutlined />,
   },
   {
     label: "Manager User",
-    key: "/auth/managerUser",
+    key: "/auth/manager-user",
     icon: <UserOutlined />,
   },
   {
     label: "Create Blog",
-    key: "/auth/createBlog",
+    key: "/auth/create-blog",
     icon: <TagOutlined />,
   },
   {
@@ -37,7 +41,6 @@ const items: MenuItem[] = [
     key: "/auth/settings",
     icon: <FunnelPlotOutlined />,
   },
-
 ];
 
 interface SidebarProps {
@@ -55,15 +58,14 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, setCollapsed }) => {
 
   return (
     <Sider collapsible collapsed={collapsed} onCollapse={setCollapsed}>
-      <div style={{ padding: "16px", textAlign: "center" }}>
-        <img src="https://placehold.co/200x55" alt="Logo" />
-      </div>
-
+      <Link to="/" className={style.demo_logo_vertical}>
+        <img src={collapsed ? collapsedLogo : expandedLogo} alt="logo" className={style.logo} />
+      </Link>
       <Menu
         theme="dark"
         selectedKeys={[location.pathname]}
         mode="inline"
-        items={items.map(item => ({
+        items={items.map((item) => ({
           key: item.key,
           icon: item.icon,
           label: item.label,

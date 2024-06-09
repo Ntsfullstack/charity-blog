@@ -1,0 +1,9 @@
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap; /* Allow cards to wrap to the next line */
+  gap: 30px; 
+  justify-content: center;
+  padding: 30px;
+  margin: 0 auto;
+}
+

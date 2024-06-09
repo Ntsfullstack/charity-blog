@@ -1,18 +1,25 @@
-import React, { lazy, Suspense } from "react";
+import React, { Suspense } from "react";
 import { ROUTES } from "./routes";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 
-const RootLayout = lazy(() => import("../layout/root/RootLayout"));
-const ErrorPage = lazy(() => import("../components/error/ErrorPage"));
-const AdminLayout = lazy(() => import("../layout/AdminLayout"));
-const Homepage = lazy(() => import("../pages/home/screen"));
-const CreateBlog = lazy(() => import("../pages/auth/screen/CreateBlog"));
-const Login = lazy(() => import("../pages/login/login"));
-const Register = lazy(() => import("../pages/register/register"));
-const ManagerBlogs = lazy(() => import("../pages/auth/screen/ManagerBlogs"));
-const ManagerUsers = lazy(() => import("../pages/auth/screen/ManagerUser"));
+// Import components using lazy loading
+const EditUser = React.lazy(() => import("../pages/auth/screen/EditUser"));
+const EditBlog = React.lazy(() => import("../pages/auth/screen/EditBlog"));
+const RootLayout = React.lazy(() => import("../layout/root/RootLayout"));
+const AdminLayout = React.lazy(() => import("../layout/AdminLayout"));
+const ErrorPage = React.lazy(() => import("../components/error/ErrorPage"));
+const HomeLayout = React.lazy(() => import("../layout/HomeLayout"));
+const Homepage = React.lazy(() => import("../pages/home/screen"));
+const CreateBlog = React.lazy(() => import("../pages/auth/screen/CreateBlog"));
+const Login = React.lazy(() => import("../pages/login/login"));
+const Register = React.lazy(() => import("../pages/register/register"));
+const ManagerBlogs = React.lazy(() => import("../pages/auth/screen/ManagerBlogs"));
+const ManagerUsers = React.lazy(() => import("../pages/auth/screen/ManagerUser"));
+const Post = React.lazy(() => import("../pages/posts/screen/posts"));
 
-const router = createBrowserRouter([
+// Create the router configuration
+const routerConfig = [
   {
     element: (
       <Suspense fallback={<div>Loading...</div>}>
@@ -26,12 +33,29 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: ROUTES.main,
         element: (
           <Suspense fallback={<div>Loading...</div>}>
-            <Homepage />
+            <HomeLayout />
           </Suspense>
         ),
+        children: [
+          {
+            path: ROUTES.main,
+            element: (
+              <Suspense fallback={<div>Loading...</div>}>
+                <Homepage />
+              </Suspense>
+            ),
+          },
+          {
+            path: ROUTES.post,
+            element: (
+              <Suspense fallback={<div>Loading...</div>}>
+                <Post />
+              </Suspense>
+            ),
+          },
+        ],
       },
       {
         path: ROUTES.settings,
@@ -77,6 +101,22 @@ const router = createBrowserRouter([
               </Suspense>
             ),
           },
+          {
+            path: ROUTES.editUser,
+            element: (
+              <Suspense fallback={<div>Loading...</div>}>
+                <EditUser />
+              </Suspense>
+            ),
+          },
+          {
+            path: ROUTES.editBlog,
+            element: (
+              <Suspense fallback={<div>Loading...</div>}>
+                <EditBlog />
+              </Suspense>
+            ),
+          },
         ],
       },
     ],
@@ -89,10 +129,17 @@ const router = createBrowserRouter([
       </Suspense>
     ),
   },
-]);
+];
+
+// Create the router
+const router = createBrowserRouter(routerConfig);
 
 function Router() {
-  return <RouterProvider router={router} />;
+  return (
+    <ErrorBoundary>
+      <RouterProvider router={router} />
+    </ErrorBoundary>
+  );
 }
 
 export default Router;

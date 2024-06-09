@@ -1,37 +1,84 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import type { InputRef, TableColumnsType, TableColumnType } from "antd";
-import { Button, Input, Space, Table } from "antd";
+import { Button, Input, Popconfirm, Space, Table } from "antd";
 import type { FilterDropdownProps } from "antd/es/table/interface";
+import { deletePost, getListBlogs, updatePost } from "../api/auth.api";
+import { useNavigate } from "react-router-dom";
 
 interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
+  _id: string;
+  title: string;
+  slug: string;
+  thumbnail: string;
+  likes: any;
+  author: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  authorId: {
+    _id: string;
+    username: string;
+    email: string;
+    avatar: string;
+    role: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+  };
 }
 
 type DataIndex = keyof DataType;
 
-const data: DataType[] = [
-  {
-    key: "32",
-    name: "Jim Green",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-  },
-  {
-    key: "43",
-    name: "Jim Red",
-    age: 32,
-    address: "London No. 2 Lake Park",
-  },
-];
+const data: DataType[] = [];
 
-const ManagerBlogs: React.FC = () => {
+const ManthumbnailrBlogs: React.FC = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
+  const [data, setData] = useState<DataType[]>([]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const res = await getListBlogs();
+        console.log(res);
+
+        if (res && res.status === "success" as any) {
+          setData(
+            res.data.map((item: DataType) => ({
+              _id: item._id, // Ensure _id is present and unique
+              slug: item.slug,
+              title: item.title,
+              thumbnail: item.thumbnail,
+              author: item.authorId.username,
+              description: item.description,
+            }))
+          );
+        } else {
+          // Handle the case where the response is not successful
+          console.error("API response not successful:", res);
+        }
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      }
+    };
+
+    fetchBlogs(); // Call the function here
+  }, []);
+
+  const handleEdit = async (slug: any) => {
+    navigate(`/auth/edit-blog/${slug}`);
+  };
+  const handleDelete = async (slug: string) => {
+    const res = await deletePost(slug);
+    if (res?.status === 200) {
+      setData(data.filter((item) => item.slug !== slug));
+    }
+  };
 
   const handleSearch = (
     selectedKeys: string[],
@@ -130,30 +177,71 @@ const ManagerBlogs: React.FC = () => {
 
   const columns: TableColumnsType<DataType> = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      width: "30%",
-      ...getColumnSearchProps("name"),
+      title: "Thumbnail",
+      dataIndex: "thumbnail",
+      key: "thumbnail",
+      width: "10%",
+      render: (value) => (
+        <img src={value} alt="Thumbnail" style={{ width: 50, height: 50 }} />
+      ),
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
-      width: "20%",
-      ...getColumnSearchProps("age"),
+      title: "title",
+      dataIndex: "title",
+      key: "title",
+      width: "25%",
+      ...getColumnSearchProps("title"),
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-      ...getColumnSearchProps("address"),
-      sorter: (a, b) => a.address.length - b.address.length,
+      title: "description",
+      dataIndex: "description",
+      key: "description",
+      width: "45%",
+      render: (value) => <p>{value}</p>,
+    },
+    {
+      title: "author",
+      dataIndex: "author",
+      width: "10%",
+      key: "author",
+      ...getColumnSearchProps("author"),
+      sorter: (a, b) => a.author.length - b.author.length,
       sortDirections: ["descend", "ascend"],
+    },
+    {
+      title: "Action",
+      key: "action",
+      width: "10%",
+      render: (_, record) => (
+        <Space size="middle">
+          <Button type="primary" onClick={() => handleEdit(record.slug)}>
+            Edit
+          </Button>
+          <Popconfirm
+            title="Are you sure you want to delete this blog?"
+            onConfirm={() => handleDelete(record.slug)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button key={record.slug} type="primary" danger>
+              Delete
+            </Button>
+          </Popconfirm>
+        </Space>
+      ),
     },
   ];
 
-  return <Table columns={columns} dataSource={data} />;
+  return (
+    <Table
+      columns={columns}
+      dataSource={data}
+      rowKey="slug"
+      pagination={{
+        defaultPageSize: 8,
+      }}
+    />
+  );
 };
 
-export default ManagerBlogs;
+export default ManthumbnailrBlogs;

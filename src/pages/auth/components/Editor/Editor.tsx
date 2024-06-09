@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { EditorState, convertToRaw,ContentState } from "draft-js";
+import { EditorState, convertToRaw, ContentState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
 import { Editor } from "react-draft-wysiwyg";
@@ -9,11 +9,22 @@ import styles from "./Editor.module.scss";
 import { MyEditorProps } from "../../types/types";
 
 const MyEditor = (props: MyEditorProps) => {
+  const [editorState, setEditorState] = useState<EditorState>(
+    EditorState.createEmpty()
+  );
 
-  const [editorState, setEditorState] = useState(() => {
-    const storedContent = localStorage.getItem("editorState");
-    if (storedContent) {
-      const contentBlock = htmlToDraft(storedContent);
+  const dataLocalStorage = localStorage.getItem("editorState");
+  const checkContent = !!props?.content?.content;
+
+  const editorFromPropsOrLocalStorage = () => {
+    if (checkContent) {
+      const contentBlock = htmlToDraft(props.content.content);
+      const contentState = ContentState.createFromBlockArray(
+        contentBlock.contentBlocks
+      );
+      return EditorState.createWithContent(contentState);
+    } else if (dataLocalStorage) {
+      const contentBlock = htmlToDraft(dataLocalStorage);
       const contentState = ContentState.createFromBlockArray(
         contentBlock.contentBlocks
       );
@@ -21,16 +32,18 @@ const MyEditor = (props: MyEditorProps) => {
     } else {
       return EditorState.createEmpty();
     }
-  });
+  };
 
-  useEffect(() => {
+  const getHtmlContent = () => {
     const contentState = editorState.getCurrentContent();
     const rawContent = convertToRaw(contentState);
-    const htmlContent = draftToHtml(rawContent);
-    localStorage.setItem("editorState", htmlContent);
-  }, [editorState]); // Lưu mỗi khi editorState thay đổi
+    return draftToHtml(rawContent);
+  };
 
-  
+  useEffect(() => {
+    setEditorState(editorFromPropsOrLocalStorage());
+  }, [checkContent]);
+
   const onEditorStateChange = (newEditorState: EditorState) => {
     setEditorState(newEditorState);
   };
@@ -41,7 +54,9 @@ const MyEditor = (props: MyEditorProps) => {
     localStorage.setItem("htmlContent", htmlContent);
     props.setPage(2);
   };
-  const checkPage = props.page === 1 ? true : false;
+
+  const checkPage = props.page === 1;
+
   return (
     checkPage && (
       <div className={styles.myEditor}>
@@ -56,13 +71,6 @@ const MyEditor = (props: MyEditorProps) => {
         <div>
           <Button onClick={handleChangePage}>Next</Button>
         </div>
-        {/* <h3>HTML Output</h3>
-        <Input.TextArea
-          className="html-output"
-          value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-          rows={8}
-          disabled
-        /> */}
       </div>
     )
   );

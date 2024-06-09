@@ -4,8 +4,11 @@ export const ROUTES = {
   login: "/login",
   register: "/register",
   auth: "/auth",
-  managerBlogs: "managerBlog",
-  managerUser: "managerUser",
-  createBlog: "createBlog",
+  managerBlogs: "manager-blog",
+  managerUser: "manager-user",
+  createBlog: "create-blog",
+  editUser: "edit-user/:id",
+  editBlog: "edit-blog/:slug",
+  post: "/post/:slug"
   
 } as const;

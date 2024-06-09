@@ -1,31 +1,36 @@
 import axios from "axios";
 
-// Create an instance of Axios
+// Lấy token từ local storage hoặc môi trường khác phù hợp
+const token = JSON.parse(localStorage.getItem("token") || "").token;
+
+// Tạo một instance của Axios
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:4000/", // Replace with your API base URL
+  baseURL: "http://localhost:4000/", // Thay thế bằng URL gốc của API của bạn
 });
 
-// Request interceptor
+// Intercept yêu cầu
 axiosInstance.interceptors.request.use(
   (config) => {
-    // Set the Authorization header with the access token
-    config.headers["Authorization"] = `Bearer YOUR_ACCESS_TOKEN`; // Replace YOUR_ACCESS_TOKEN with your actual token
+    // Đặt header Authorization với token truy cập
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {
-    // Handle request error
+    // Xử lý lỗi yêu cầu
     return Promise.reject(error);
   }
 );
 
-// Response interceptor
+// Intercept phản hồi
 axiosInstance.interceptors.response.use(
   (response) => {
-    // Handle successful response
+    // Xử lý phản hồi thành công
     return response.data;
   },
   (error) => {
-    // Handle response error
+    // Xử lý lỗi phản hồi
     return Promise.reject(error);
   }
 );

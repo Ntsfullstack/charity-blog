@@ -1,33 +1,36 @@
-import React from 'react';
-import './style.scss'; // Import the SCSS file for styling
-import image1 from './image1.jpg'; // Import the image
-
-const Card = () => {
-  // Local data for the cards
-  const cardData = [
-    {
-      imageUrl: image1,
-      title: 'Title 1',
-      subtitle: 'Subtitle 1',
-    },
-
-  ];
-
+import React from "react";
+import styles from "./Card.module.scss"; // Use 'styles' for consistency
+import { Button } from "antd";
+import { BlogPostData } from "../../pages/home/types/blogdata.type";
+import dayjs from "dayjs";
+const Card = (props: any) => {
   return (
-    <div className="card">
-      {cardData.map((card, index) => (
-        <div key={index} className="card-item">
-          <div className="card-image">
-            <img src={card.imageUrl} alt="Card" />
+    <>
+      {props.cardData.map((card: any, index: any) => (
+        <div key={index} className={styles.cardItem}>
+          <div className={styles.cardImage}>
+            <img src={card.thumbnail} alt={`Card ${index + 1}`} />
           </div>
-          <div className="card-content">
-            <h2 className="card-title">{card.title}</h2>
-            <p className="card-subtitle">{card.subtitle}</p>
+          <div className={styles.cardContent}>
+            <h2 className={styles.cardTitle}>{card.title}</h2>
+            <small className={styles.cardMeta}>
+              by
+              <a href={card.authorId._id} className={styles.Link}>
+                {" "}
+                {card.authorId.username}
+              </a>{" "}
+              - <span>{dayjs(card.createdAt).format("DD/MM/YYYY")}</span>
+            </small>
+            <p className={styles.cardSubtitle}>{card.description}</p>
+            <p></p>
+            <a href={`/post/${card.slug}`} className={styles.Link}>
+              <Button type="primary">Read Post</Button>
+            </a>
           </div>
         </div>
       ))}
-    </div>
+    </>
   );
-}
+};
 
 export default Card;

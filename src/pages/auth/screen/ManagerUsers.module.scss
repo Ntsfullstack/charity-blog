@@ -1,0 +1,19 @@
+.editLink {
+    color: blue; // Example color for edit
+    cursor: pointer;
+    text-decoration: underline;
+  
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  
+  .deleteLink {
+    color: red; // Example color for delete
+    cursor: pointer;
+    text-decoration: underline;
+  
+    &:hover {
+      text-decoration: none;
+    }
+  }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Input,
   Form,
@@ -7,57 +7,59 @@ import {
   message,
   UploadProps,
   UploadFile,
-  GetProp,
 } from "antd";
-import {
-  LoadingOutlined,
-  PlusOutlined,
-  UploadOutlined,
-} from "@ant-design/icons";
 import ImgCrop from "antd-img-crop";
 import style from "./SetInfoPost.module.scss";
 import { MyEditorProps } from "../../types/types";
-import Compressor from "compressorjs";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { createPost } from "../../api/auth.api";
 
 const SetInfoPost = (props: MyEditorProps) => {
   const [form] = Form.useForm();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
-  const [content, setContent] = useState(localStorage.getItem("htmlContent"));
-  type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
-  const onFinish = async (values: any) => {
-    const data = {
-      ...values,
-      Content: content,
-    };
-
-    try {
-      const response = await fetch("your_api", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+  useEffect(() => {
+    if (props?.title) {
+      form.setFieldsValue({
+        title: props.title.title,
+        slug: props.title.slug,
+        description: props.title.description,
       });
 
-      const result = await response.json();
-      if (result.success) {
-        localStorage.removeItem("htmlContent");
-        toast.success("Create post successfully");
-      } else {
-        message.error("Create post failed"); // Thông báo nếu tạo bài viết thất bại
-        toast.error("Create post failed");
+      // If there's a thumbnail URL, set it to the fileList
+      if (props.title.thumbnail) {
+        setFileList([
+          {
+            uid: "-1",
+            name: "thumbnail.png",
+            status: "done",
+            url: props.title.thumbnail,
+          },
+        ]);
       }
-    } catch (error) {
-      console.error(error);
-      message.error("An error occurred while creating the post"); // Thông báo lỗi
-    } finally {
-      setLoading(false); // Kết thúc loading
     }
+  }, [props.title, form]);
+
+  const onFinish = async (values: any) => {
+    const posts = async () => {
+      try {
+        const response = await createPost({
+          ...values,
+          content: localStorage.getItem("htmlContent") || "",
+        });
+        if (response?.status === 200) {
+          localStorage.removeItem("htmlContent");
+        } else {
+          message.error("Create post failed"); // Thông báo nếu tạo bài viết thất bại
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    posts();
   };
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -68,7 +70,7 @@ const SetInfoPost = (props: MyEditorProps) => {
     if (!src) {
       src = await new Promise((resolve) => {
         const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj as FileType);
+        reader.readAsDataURL(file.originFileObj as File);
         reader.onload = () => resolve(reader.result as string);
       });
     }
@@ -116,7 +118,7 @@ const SetInfoPost = (props: MyEditorProps) => {
           </ImgCrop>
 
           <Form.Item
-            name="Title"
+            name="title"
             label="Title"
             rules={[{ required: true }]}
             className={style.formItem}
@@ -125,7 +127,7 @@ const SetInfoPost = (props: MyEditorProps) => {
           </Form.Item>
 
           <Form.Item
-            name="Slug"
+            name="slug"
             label="Slug"
             rules={[{ required: true }]}
             className={style.formItem}
@@ -134,7 +136,7 @@ const SetInfoPost = (props: MyEditorProps) => {
           </Form.Item>
 
           <Form.Item
-            name="Description"
+            name="description"
             label="Description"
             className={style.formItem}
           >
@@ -145,7 +147,7 @@ const SetInfoPost = (props: MyEditorProps) => {
             wrapperCol={{ offset: 8, span: 16 }}
             className={style.submitItem}
           >
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={loading}>
               Submit
             </Button>
           </Form.Item>
