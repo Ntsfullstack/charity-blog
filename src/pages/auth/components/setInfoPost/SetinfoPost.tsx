@@ -52,7 +52,7 @@ const SetInfoPost = (props: MyEditorProps) => {
       const progressArray: number[] = new Array(fileList.length).fill(0);
 
       const uploadPromises = fileList.map((file, index) => {
-        return new Promise((resolve :any, reject) => {
+        return new Promise((resolve: any, reject) => {
           const fileName = `images/${Date.now()}-${file.name}`;
           const fileRef = ref(storage, fileName);
           const uploadTask = uploadBytesResumable(
@@ -187,7 +187,7 @@ const SetInfoPost = (props: MyEditorProps) => {
           onFinish={handlePostSubmit}
           className={style.form}
         >
-                   <ImgCrop rotationSlider>
+          <ImgCrop rotationSlider>
             <Upload
               listType="picture-card"
               fileList={fileList}
@@ -207,7 +207,11 @@ const SetInfoPost = (props: MyEditorProps) => {
             </div>
           ))}
 
-          <Button type="primary" onClick={handleUpload} loading={uploadingImages}>
+          <Button
+            type="primary"
+            onClick={handleUpload}
+            loading={uploadingImages}
+          >
             Upload Images
           </Button>
         </Form>
@@ -276,7 +280,9 @@ const SetInfoPost = (props: MyEditorProps) => {
                   <a href={thumbnail} target="_blank" rel="noopener noreferrer">
                     {thumbnail}
                   </a>
-                  <Button onClick={() => copyImageUrl(thumbnail)}>Copy URL</Button>{" "}
+                  <Button onClick={() => copyImageUrl(thumbnail)}>
+                    Copy URL
+                  </Button>{" "}
                 </li>
               </ul>
             </div>
@@ -288,4 +294,3 @@ const SetInfoPost = (props: MyEditorProps) => {
 };
 
 export default SetInfoPost;
-

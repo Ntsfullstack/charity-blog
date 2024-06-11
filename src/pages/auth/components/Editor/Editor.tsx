@@ -4,45 +4,50 @@ import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { Button, Input } from "antd";
+import { Button } from "antd";
 import styles from "./Editor.module.scss";
 import { MyEditorProps } from "../../types/types";
 
 const MyEditor = (props: MyEditorProps) => {
-  const [editorState, setEditorState] = useState<EditorState>(
-    EditorState.createEmpty()
-  );
-
-  const dataLocalStorage = localStorage.getItem("editorState");
-  const checkContent = !!props?.content?.content;
-
-  const editorFromPropsOrLocalStorage = () => {
-    if (checkContent) {
-      const contentBlock = htmlToDraft(props.content.content);
+  const [editorState, setEditorState] = useState<EditorState>(() => {
+    if (props.content) {
+      const contentBlock = htmlToDraft(props.content);
       const contentState = ContentState.createFromBlockArray(
         contentBlock.contentBlocks
       );
       return EditorState.createWithContent(contentState);
-    } else if (dataLocalStorage) {
-      const contentBlock = htmlToDraft(dataLocalStorage);
-      const contentState = ContentState.createFromBlockArray(
-        contentBlock.contentBlocks
-      );
-      return EditorState.createWithContent(contentState);
-    } else {
-      return EditorState.createEmpty();
     }
-  };
 
-  const getHtmlContent = () => {
-    const contentState = editorState.getCurrentContent();
-    const rawContent = convertToRaw(contentState);
-    return draftToHtml(rawContent);
-  };
+    const initialContent = localStorage.getItem("htmlContent");
+    if (initialContent) {
+      const contentBlock = htmlToDraft(initialContent);
+      const contentState = ContentState.createFromBlockArray(
+        contentBlock.contentBlocks
+      );
+      return EditorState.createWithContent(contentState);
+    }
+
+    return EditorState.createEmpty();
+  });
 
   useEffect(() => {
-    setEditorState(editorFromPropsOrLocalStorage());
-  }, [checkContent]);
+    if (props.content) {
+      const contentBlock = htmlToDraft(props.content);
+      const contentState = ContentState.createFromBlockArray(
+        contentBlock.contentBlocks
+      );
+      setEditorState(EditorState.createWithContent(contentState));
+    } else {
+      const storedContent = localStorage.getItem("htmlContent");
+      if (storedContent) {
+        const contentBlock = htmlToDraft(storedContent);
+        const contentState = ContentState.createFromBlockArray(
+          contentBlock.contentBlocks
+        );
+        setEditorState(EditorState.createWithContent(contentState));
+      }
+    }
+  }, [props.content]);
 
   const onEditorStateChange = (newEditorState: EditorState) => {
     setEditorState(newEditorState);

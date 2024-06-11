@@ -5,26 +5,27 @@ import SetInfoPost from "../components/setInfoPost/SetinfoPost";
 import { getBlog } from "../api/auth.api";
 
 interface DataType {
-  data: {
-    slug: string;
-    title: string;
-    thumbnail: string;
-    author: string;
-    content: string;
-    description: string;
-  }[];
+  slug: string;
+  title: string;
+  thumbnail: string;
+  author: string;
+  content: string;
+  description: string;
 }
 
 const EditBlog = () => {
   const { slug } = useParams();
   const [page, setPage] = useState(1);
-  const [data, setData] = useState<DataType[]>([]);
+  const [data, setData] = useState<DataType | null>(null); // Adjust state to hold a single DataType object
+
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await getBlog(slug as string); // Pass slug as a string directly
-        if (res?.data.status === "success") {
-          setData(res.data.data); // Assuming API returns an array of DataType
+        const res = await getBlog(slug as string);
+
+        console.log(res);
+        if (res?.status === 200) {
+          setData(res.data); // Assuming API returns a single DataType object
         } else {
           console.error("API response not successful:", res);
         }
@@ -34,16 +35,21 @@ const EditBlog = () => {
     };
 
     if (slug) {
-      // Check if slug is available before fetching
       fetchBlog();
     }
-  }, [slug]); 
+  }, [slug]);
 
   return (
     <div>
-      <h1>edit Blog</h1>
-      <MyEditor page={page} setPage={setPage} content={data}/>
-      <SetInfoPost page={page} setPage={setPage} title={data} />
+      <h1>Edit Blog</h1>
+      {data ? (
+        <>
+          <MyEditor page={page} setPage={setPage} content={data.content} />
+          <SetInfoPost page={page} setPage={setPage} title={data.title} />
+        </>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 };
