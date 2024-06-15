@@ -7,14 +7,15 @@ import {
   LoginOutlined,
   SettingOutlined,
   UserOutlined,
+  CloseOutlined,
 } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux-setup/redux";
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(!!localStorage.getItem("token"));
   const [openDropdown, setDropdown] = useState(false);
+  const [isNavOpen, setNavOpen] = useState(false); // State to manage nav open/close
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,13 +27,8 @@ const Header = () => {
 
   const items = [
     {
-      label: "Thay thông tin",
-      key: "1",
-      icon: <UserOutlined />,
-    },
-    {
       label: "Trang cài đặt",
-      key: "2",
+      key: "1",
       icon: <SettingOutlined />,
       onClick: () => {
         navigate("/auth/manager-blog");
@@ -40,20 +36,23 @@ const Header = () => {
     },
     {
       label: "Đăng xuất",
-      key: "3",
-      icon: <LoginOutlined />,  
+      key: "2",
+      icon: <LoginOutlined />,
       danger: true,
       onClick: handleLogout,
     },
   ];
 
-  const handleMenuClick = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
   const menuProps = {
     items,
-    onClick: handleMenuClick,
+  };
+
+  const toggleNav = () => {
+    setNavOpen(!isNavOpen);
+  };
+
+  const closeNav = () => {
+    setNavOpen(false);
   };
 
   return (
@@ -67,13 +66,16 @@ const Header = () => {
         type="checkbox"
         id="menu-toggle"
         className={styles.menuToggle}
-        checked={isMenuOpen}
-        onChange={handleMenuClick}
+        checked={isNavOpen}
+        onChange={toggleNav}
       />
       <label htmlFor="menu-toggle" className={styles.menuIcon}>
         ☰
       </label>
-      <nav className={`${styles.nav} ${isMenuOpen ? styles.open : ""}`}>
+      <nav className={`${styles.nav} ${isNavOpen ? styles.open : ""}`}>
+        <button className={styles.closeButton} onClick={closeNav}>
+          <CloseOutlined />
+        </button>
         <ul>
           <li>
             <a href="/">Home</a>
@@ -89,27 +91,28 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-
-      {isLogin ? (
-        <div className={styles.modal_container}>
-          <Dropdown menu={menuProps} overlayClassName={styles.dropdown}>
-            <div className={styles.logout_button}>
-              <img
-                src="https://placehold.co/50x50"
-                alt="User Avatar"
-                onClick={() => setDropdown(!openDropdown)}
-              />
-            </div>
-          </Dropdown>
-        </div>
-      ) : (
-        <div className={styles.authButtons}>
-          <Link to="/login">
-            <Button className={styles.loginBtn}>Login</Button>
-          </Link>
-          <Button className={styles.signupBtn}>Sign Up</Button>
-        </div>
-      )}
+      {isNavOpen && <div className={styles.overlay} onClick={closeNav}></div>}
+      <div className={styles.login}>
+        {isLogin ? (
+          <div className={styles.modal_container}>
+            <Dropdown menu={menuProps} overlayClassName={styles.dropdown}>
+              <div className={styles.logout_button}>
+                <img
+                  src="https://placehold.co/50x50"
+                  alt="User Avatar"
+                  onClick={() => setDropdown(!openDropdown)}
+                />
+              </div>
+            </Dropdown>
+          </div>
+        ) : (
+          <div className={styles.authButtons}>
+            <Link to="/login">
+              <Button className={styles.loginBtn}>Login</Button>
+            </Link>
+          </div>
+        )}
+      </div>
     </header>
   );
 };

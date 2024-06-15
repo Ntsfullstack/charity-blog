@@ -125,13 +125,18 @@ small {
 }
 
 @media (max-width: 768px) {
+  .cardSubtitle {
+    display: none;
+  }
   .cardItem {
+    aspect-ratio: 3 / 3.5;
     flex-basis: 45%; /* Two cards per row on smaller screens */
   }
 }
 
 @media (max-width: 480px) {
   .cardItem {
+    aspect-ratio: 3 / 3.2;
     flex-basis: 100%; /* One card per row on very small screens */
   }
 
@@ -141,8 +146,6 @@ small {
   }
 
   .cardSubtitle {
-    font-size: 0.8125rem; /* Smaller font size for very small screens */
-    line-height: 1.125rem; // 18px / 16 = 1.125rem
-    -webkit-line-clamp: 2; /* Display fewer lines on smaller screens */
+    display: none;
   }
 }

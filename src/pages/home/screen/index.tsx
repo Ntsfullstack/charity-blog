@@ -9,8 +9,8 @@ const Homepage = () => {
   const [cardData, setCardData] = useState<BlogPostData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [page, setPage] = useState<number>(1);
-  const limit = 15;
+  const page = 1;
+  const [limit, setLimit] = useState<number>(10);
 
   useEffect(() => {
     const fetchBlogData = async () => {
@@ -18,7 +18,7 @@ const Homepage = () => {
         const response = await getListBlogs(page, limit);
         if (response?.status === 200) {
           // Append new data to the existing cardData
-          setCardData((prevData) => [...prevData, ...response.data]);
+          setCardData(response.data);
         }
       } catch (error) {
         console.error("Error fetching blog data:", error);
@@ -33,10 +33,12 @@ const Homepage = () => {
     };
 
     fetchBlogData();
-  }, [page]); // Include page in the dependency array to fetch data when page changes
-
+  }, [limit]); // Include page in the dependency array to fetch data when page changes
   const handleLoadMore = () => {
-    setPage((prevPage) => prevPage + 1); // Increment page number to load more data
+    if (limit > cardData.length) {
+      return;
+    }
+    setLimit((limit) => limit + 5); // Increment page number to load more data
   };
 
   if (error) {
