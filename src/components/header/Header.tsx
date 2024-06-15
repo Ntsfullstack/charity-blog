@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./Header.module.scss";
 import logo from "../../assets/images/expandedLogo.png";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Dropdown, Space } from "antd";
+import { Button, Dropdown, Menu } from "antd";
 import {
   LoginOutlined,
   SettingOutlined,
@@ -73,21 +73,36 @@ const Header = () => {
         ☰
       </label>
       <nav className={`${styles.nav} ${isNavOpen ? styles.open : ""}`}>
-        <button className={styles.closeButton} onClick={closeNav}>
+        {/* <button className={styles.closeButton} onClick={closeNav}>
           <CloseOutlined />
-        </button>
+        </button> */}
         <ul>
           <li>
-            <a href="/">Home</a>
+            <a href="/">TRANG CHỦ</a>
+          </li>
+          <li className={styles.dropdownLi}>
+            <a href="/services">GIỚI THIỆU</a>
+            <div className={styles.dropdownContent}>
+              <a href="/about-us">Tầm nhìn, sứ mệnh</a>
+              <a href="/about-us">Thư ngỏ</a>
+              {/* Add more dropdown items here */}
+            </div>
           </li>
           <li>
-            <a href="/about">About</a>
+            <a href="/contact">TIN TỨC</a>
+            <div className={styles.dropdownContent}>
+              <a href="/about-us">Tin tức, sự kiện</a>
+              <a href="/about-us">Thông cáo báo chí</a>
+              {/* Add more dropdown items here */}
+            </div>
           </li>
-          <li>
-            <a href="/services">Services</a>
-          </li>
-          <li>
-            <a href="/contact">Contact</a>
+          {/* Dropdown for "About" */}
+          <li className={styles.dropdownLi}>
+            <a href="/about">LIÊN HỆ</a>
+            <div className={styles.dropdownContent}>
+              <a href="/about-us">Về chúng tôi</a>
+              {/* Add more dropdown items here */}
+            </div>
           </li>
         </ul>
       </nav>
