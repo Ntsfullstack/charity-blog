@@ -63,7 +63,7 @@ const Post: React.FC = () => {
   return (
     <div className={styles.blogContainer}>
       <div className={styles.header}>
-        <Title level={1}>{post.title}</Title>
+        <h1 className={styles.Title}>{post.title}</h1>
         <div className={styles.metaData}>
           <Text type="secondary">
             By{" "}

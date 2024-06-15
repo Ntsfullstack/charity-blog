@@ -1,0 +1,26 @@
+.trigger {
+  cursor: pointer;
+}
+
+.dropdown {
+  &__overlay {
+    zoom: var(--scale-ratio);
+
+    :global(.ant-dropdown-menu) {
+      margin-top: 12px;
+      border-radius: 12px;
+
+      :global(.ant-dropdown-menu-item) {
+        padding: 12px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 18px;
+        color: #4b4b4e;
+
+        &:hover {
+          color: var(--color-primary);
+        }
+      }
+    }
+  }
+}

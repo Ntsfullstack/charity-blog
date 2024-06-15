@@ -1,11 +1,15 @@
-.demo_logo_vertical{
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
+.demo_logo_vertical {
+  height: 1.875rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.25rem;
 }
-.logo{
-    height: 100%;
-    width: 100%;
+
+.logo {
+  height: 100%;
+  width: 100%;
+}
+:global(.ant-layout-sider-trigger) {
+  bottom: auto !important;
 }

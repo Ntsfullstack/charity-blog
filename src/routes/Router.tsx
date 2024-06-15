@@ -14,7 +14,8 @@ const Homepage = React.lazy(() => import("../pages/home/screen"));
 const CreateBlog = React.lazy(() => import("../pages/auth/screen/CreateBlog"));
 const Login = React.lazy(() => import("../pages/login/login"));
 const Register = React.lazy(() => import("../pages/register/register"));
-const ImageUpload = React.lazy(() => import("../config/uploadImage"))
+const ImageUpload = React.lazy(() => import("../config/uploadImage"));
+const Setting = React.lazy(() => import("../pages/auth/screen/Setting"));
 
 const ManagerBlogs = React.lazy(
   () => import("../pages/auth/screen/ManagerBlogs")
@@ -56,7 +57,7 @@ const routerConfig = [
           {
             path: ROUTES.post,
             element: (
-              <Suspense >
+              <Suspense>
                 <Post />
               </Suspense>
             ),
@@ -76,7 +77,7 @@ const routerConfig = [
         ),
       },
       {
-        path:"/upload",
+        path: "/upload",
         element: (
           <Suspense fallback={<Loading />}>
             <ImageUpload />
@@ -128,6 +129,14 @@ const routerConfig = [
             element: (
               <Suspense fallback={<Loading />}>
                 <EditBlog />
+              </Suspense>
+            ),
+          },
+          {
+            path: ROUTES.settings,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Setting />
               </Suspense>
             ),
           },

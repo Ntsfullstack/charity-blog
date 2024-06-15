@@ -1,0 +1,78 @@
+.Setting {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.code_snippet {
+  position: relative;
+  border: 1px solid #ddd;
+  background-color: #f7f7f7;
+  padding: 1rem;
+  border-radius: 0.3125rem; // 5px
+  margin-bottom: 1.25rem; // 20px
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1); // 0 2px 4px
+  overflow: hidden;
+}
+
+pre {
+  margin: 0;
+}
+
+.copy_button {
+  position: absolute;
+  top: 0.3125rem; // 5px
+  right: 0.3125rem; // 5px
+  padding: 0.3125rem 0.625rem; // 5px 10px
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 0.1875rem; // 3px
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 0.875rem; // 14px
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+}
+
+.copy_button:hover {
+  background-color: #0056b3;
+}
+
+.FormLink,
+.getLinkImage {
+  flex-basis: 40%;
+  max-width: 40%;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem; // 20px
+}
+
+.getLinkImage {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem; // 20px
+  flex-direction: column;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .FormLink,
+  .getLinkImage {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
+  .form {
+    flex-direction: column;
+  }
+
+  .Setting {
+    flex-direction: column;
+    align-items: center;
+  }
+}

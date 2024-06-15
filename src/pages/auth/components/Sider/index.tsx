@@ -5,8 +5,8 @@ import expandedLogo from "../../../../assets/images/expandedLogo.png";
 import style from "./Sider.module.scss";
 
 import {
-  FunnelPlotOutlined,
   HomeOutlined,
+  SettingOutlined,
   TagOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -39,7 +39,7 @@ const items: MenuItem[] = [
   {
     label: "Settings",
     key: "/auth/settings",
-    icon: <FunnelPlotOutlined />,
+    icon: <SettingOutlined />,
   },
 ];
 
@@ -59,12 +59,15 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, setCollapsed }) => {
   return (
     <Sider collapsible collapsed={collapsed} onCollapse={setCollapsed}>
       <Link to="/" className={style.demo_logo_vertical}>
-        <img src={collapsed ? collapsedLogo : expandedLogo} alt="logo" className={style.logo} />
+        <img
+          src={collapsed ? collapsedLogo : expandedLogo}
+          alt="logo"
+          className={style.logo}
+        />
       </Link>
       <Menu
         theme="dark"
         selectedKeys={[location.pathname]}
-        
         mode="inline"
         items={items.map((item) => ({
           key: item.key,

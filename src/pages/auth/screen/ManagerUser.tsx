@@ -197,6 +197,7 @@ const ManagerUsers: React.FC = () => {
     <Table
       columns={columns}
       dataSource={data}
+      className={style.table}
       rowKey="key"
       pagination={{
         defaultPageSize: 8,

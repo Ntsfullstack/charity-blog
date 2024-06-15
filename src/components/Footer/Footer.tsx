@@ -16,7 +16,7 @@ const Footer = () => {
         <div className={styles.end_footer}>
           <div>
             <p className="copyright-text">
-              Copyright © 2017 All Rights Reserved by
+              Copyright © 2024 All Rights Reserved by
             </p>
           </div>
           <div>

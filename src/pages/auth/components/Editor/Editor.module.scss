@@ -1,4 +1,3 @@
-
 pre {
   margin: 0;
   --tw-border-opacity: 1;
@@ -14,70 +13,67 @@ pre {
 }
 
 pre > * {
-  padding:0 8px;
+  padding: 0 0.5rem; // 8px / 16 = 0.5rem
   color: inherit;
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   border-radius: 0.125rem;
   background-color: rgb(23 23 23 / var(--tw-bg-opacity));
-  font-family: inherit; /* Inherit from the parent */
+  font-family: inherit;
   color: inherit;
   caret-color: #fff;
 }
+
 /* MyEditor.css */
 .my_editor_container {
-    border: 1px solid #f0f0f0; /* Viền nhẹ nhàng */
-    padding: 16px; /* Khoảng đệm bên trong */
-  }
-  
-  .toolbar_class {
-    border-bottom: 1px solid #f0f0f0; /* Viền dưới nhẹ nhàng */
-    padding: 8px;
-  }
-  
-  .editor_class {
-    min-height: 200px;
-    padding: 12px;
-  }
-  
-  .html_output {
-    margin-top: 16px;
-    font-family: monospace; /* Phông chữ monospace cho dễ đọc HTML */
-  }
+  border: 1px solid #f0f0f0;
+  padding: 1rem; // 16px / 16 = 1rem
+}
+
+.toolbar_class {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 0.5rem; // 8px / 16 = 0.5rem
+}
+
+.editor_class {
+  min-height: 12.5rem; // 200px / 16 = 12.5rem
+  padding: 0.75rem; // 12px / 16 = 0.75rem
+}
+
+.html_output {
+  margin-top: 1rem; // 16px / 16 = 1rem
+  font-family: monospace;
+}
 
 .myEditor {
-    &__toolbar {
-      background-color: #f0f0f0;
-      padding: 10px;
-  
-      &-button {
-        border: 1px solid #ddd;
-        padding: 5px 10px;
-        margin-right: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-  
-        &:hover {
-          background-color: #e0e0e0;
-        }
-  
-        &--active {
-          background-color: #007bff;
-          color: #fff;
-        }
-      }
-  
- 
-  
-    }
-  
-    &__wrapper {
+  &__toolbar {
+    background-color: #f0f0f0;
+    padding: 0.625rem; // 10px / 16 = 0.625rem
+
+    &-button {
       border: 1px solid #ddd;
-    }
-  
-    &__editor {
-      min-height: 200px;
-      padding: 10px;
+      padding: 0.3125rem 0.625rem; // 5px / 16 = 0.3125rem, 10px / 16 = 0.625rem
+      margin-right: 0.3125rem; // 5px / 16 = 0.3125rem
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #e0e0e0;
+      }
+
+      &--active {
+        background-color: #007bff;
+        color: #fff;
+      }
     }
   }
-  
+
+  &__wrapper {
+    border: 1px solid #ddd;
+  }
+
+  &__editor {
+    min-height: 12.5rem; // 200px / 16 = 12.5rem
+    padding: 0.625rem; // 10px / 16 = 0.625rem
+  }
+}

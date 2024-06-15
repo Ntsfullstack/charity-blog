@@ -5,13 +5,14 @@
   justify-content: center;
   align-items: center;
   height: 600px;
+  width: 100%;
   background-size: cover;
   background-position: center;
   position: relative;
   transition: background-image 2s ease-in-out;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -21,8 +22,8 @@
     z-index: 1;
   }
 
-  .prev-slide,
-  .next-slide {
+  .prev_slide,
+  .next_slide {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -34,11 +35,11 @@
     z-index: 2;
   }
 
-  .prev-slide {
+  .prev_slide {
     left: 10px; /* Adjust left position */
   }
 
-  .next-slide {
+  .next_slide {
     right: 10px; /* Adjust right position */
   }
 }

@@ -66,17 +66,19 @@ export const getComments = async (params: any) => {
     console.error("Login Error:", error.message);
   }
 };
-
-export const getListBlogs = async () => {
+export const getListBlogs = async (page: number, limit: number) => {
   try {
+    const token = localStorage.getItem("token"); // Retrieve token from localStorage
     const response = await axiosInstance.get("/auth/Post", {
+      params: { page, limit },
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
     return response;
   } catch (error: any) {
-    console.error(" Error:", error.message);
+    console.error("Error:", error.message);
+    throw error;
   }
 };
 export const getBlog = async (slug: string) => {
@@ -107,7 +109,7 @@ export const updatePost = async (slug: string, params: any) => {
 
 export const deletePost = async (slug: string) => {
   try {
-    const response = await axiosInstance.delete("/auth/Post/"+slug);
+    const response = await axiosInstance.delete("/auth/Post/" + slug);
     return response;
   } catch (error) {
     console.log(error);
@@ -116,6 +118,14 @@ export const deletePost = async (slug: string) => {
 export const createPost = async (data: any) => {
   try {
     const response = await axiosInstance.post("/auth/Post", data);
+    return response;
+  } catch (error: any) {
+    console.error(" Error:", error.message);
+  }
+};
+export const updateBanner = async (data: any) => {
+  try {
+    const response = await axiosInstance.put("/updatebanner", data);
     return response;
   } catch (error: any) {
     console.error(" Error:", error.message);

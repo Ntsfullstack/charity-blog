@@ -40,13 +40,15 @@ const ManthumbnailrBlogs: React.FC = () => {
   const searchInput = useRef<InputRef>(null);
   const [data, setData] = useState<DataType[]>([]);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const limit = 10;
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await getListBlogs();
+        const res = await getListBlogs(page, limit);
         setLoading(true);
 
         if (res && res.status === (200 as any)) {
@@ -240,6 +242,7 @@ const ManthumbnailrBlogs: React.FC = () => {
     <Loading></Loading>
   ) : (
     <Table
+      scroll={{ x: "800px" }}
       className={style.table}
       columns={columns}
       dataSource={data}
