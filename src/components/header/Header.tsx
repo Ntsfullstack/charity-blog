@@ -77,6 +77,9 @@ const Header = () => {
         ☰
       </label>
       <nav className={`${styles.nav} ${isNavOpen ? styles.open : ""}`}>
+        <button className={styles.closeButton} onClick={closeNav}>
+          <CloseOutlined />
+        </button>
         <ul>
           <li>
             <a href="/">TRANG CHỦ</a>
