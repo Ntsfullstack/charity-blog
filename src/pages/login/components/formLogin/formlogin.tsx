@@ -10,8 +10,8 @@ const FormLogin = () => {
   const onFinish = async (values: LoginParams) => {
     try {
       const response = await Login(values);
-      if (response.token !== undefined) {
-        localStorage.setItem("token", JSON.stringify(response.token));
+      if (response !== undefined) {
+        localStorage.setItem("token", JSON.stringify(response));
         navigate("/auth/manager-blog");
       }
     } catch (error: any) {

@@ -24,6 +24,7 @@ const EditBlog = () => {
         const res = await getBlog(slug as string);
 
         if (res?.status === 200) {
+          console.log(res);
           setData(res.data); // Assuming API returns a single DataType object
         } else {
           console.error("API response not successful:", res);
@@ -44,7 +45,7 @@ const EditBlog = () => {
       {data ? (
         <>
           <MyEditor page={page} setPage={setPage} content={data.content} />
-          <SetInfoPost page={page} setPage={setPage} title={data.title} />
+          <SetInfoPost page={page} setPage={setPage} title={data} />
         </>
       ) : (
         <p>Loading...</p>

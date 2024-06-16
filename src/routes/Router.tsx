@@ -3,6 +3,8 @@ import { ROUTES } from "./routes";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import Loading from "../components/Loading/Loading";
+import ProtectedRoute from "../layout/ProtectedRoute"; // Import ProtectedRoute
+
 // Import components using lazy loading
 const EditBlog = React.lazy(() => import("../pages/auth/screen/EditBlog"));
 const RootLayout = React.lazy(() => import("../layout/root/RootLayout"));
@@ -15,30 +17,28 @@ const Login = React.lazy(() => import("../pages/login/login"));
 const Register = React.lazy(() => import("../pages/register/register"));
 const ImageUpload = React.lazy(() => import("../config/uploadImage"));
 const Setting = React.lazy(() => import("../pages/auth/screen/Setting"));
-
 const ManagerBlogs = React.lazy(
   () => import("../pages/auth/screen/ManagerBlogs")
 );
-
 const Post = React.lazy(() => import("../pages/posts/screen/posts"));
 
 // Create the router configuration
 const routerConfig = [
   {
     element: (
-      <Suspense>
+      <Suspense fallback={<Loading />}>
         <RootLayout />
       </Suspense>
     ),
     errorElement: (
-      <Suspense>
+      <Suspense fallback={<Loading />}>
         <ErrorPage />
       </Suspense>
     ),
     children: [
       {
         element: (
-          <Suspense>
+          <Suspense fallback={<Loading />}>
             <HomeLayout />
           </Suspense>
         ),
@@ -46,7 +46,7 @@ const routerConfig = [
           {
             path: ROUTES.main,
             element: (
-              <Suspense>
+              <Suspense fallback={<Loading />}>
                 <Homepage />
               </Suspense>
             ),
@@ -54,7 +54,7 @@ const routerConfig = [
           {
             path: ROUTES.post,
             element: (
-              <Suspense>
+              <Suspense fallback={<Loading />}>
                 <Post />
               </Suspense>
             ),
@@ -84,42 +84,51 @@ const routerConfig = [
       {
         path: ROUTES.auth,
         element: (
-          <Suspense fallback={<Loading />}>
-            <AdminLayout />
-          </Suspense>
+          <ProtectedRoute>
+            <Suspense fallback={<Loading />}>
+              <AdminLayout />
+            </Suspense>
+          </ProtectedRoute>
         ),
         children: [
           {
             path: ROUTES.managerBlogs,
             element: (
-              <Suspense fallback={<Loading />}>
-                <ManagerBlogs />
-              </Suspense>
+              <ProtectedRoute>
+                <Suspense fallback={<Loading />}>
+                  <ManagerBlogs />
+                </Suspense>
+              </ProtectedRoute>
             ),
           },
           {
             path: ROUTES.createBlog,
             element: (
-              <Suspense fallback={<Loading />}>
-                <CreateBlog />
-              </Suspense>
+              <ProtectedRoute>
+                <Suspense fallback={<Loading />}>
+                  <CreateBlog />
+                </Suspense>
+              </ProtectedRoute>
             ),
           },
-
           {
             path: ROUTES.editBlog,
             element: (
-              <Suspense fallback={<Loading />}>
-                <EditBlog />
-              </Suspense>
+              <ProtectedRoute>
+                <Suspense fallback={<Loading />}>
+                  <EditBlog />
+                </Suspense>
+              </ProtectedRoute>
             ),
           },
           {
             path: ROUTES.settings,
             element: (
-              <Suspense fallback={<Loading />}>
-                <Setting />
-              </Suspense>
+              <ProtectedRoute>
+                <Suspense fallback={<Loading />}>
+                  <Setting />
+                </Suspense>
+              </ProtectedRoute>
             ),
           },
         ],

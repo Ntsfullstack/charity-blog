@@ -1,9 +1,10 @@
 export interface MyEditorProps {
   page: number;
   setPage: (page: number) => void;
-  content?: any;
+  content?: string | any;
   title?: any;
-  thumbnail?: any;
+  thumbnail?: string | any;
   author?: any;
   slug?: any;
+  _id?: any;
 }

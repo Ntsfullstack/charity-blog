@@ -14,7 +14,7 @@ import { MyEditorProps } from "../../types/types";
 import { storage, firestore } from "../../../../config/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
-import { createPost } from "../../api/auth.api"; // Import createPost function
+import { createPost, updatePost } from "../../api/auth.api"; // Import createPost function
 
 const SetInfoPost = (props: MyEditorProps) => {
   const [form] = Form.useForm();
@@ -26,11 +26,13 @@ const SetInfoPost = (props: MyEditorProps) => {
   const [thumbnail, setThumbnail] = useState<string>("");
 
   useEffect(() => {
+    console.log(props);
     if (props?.title) {
       form.setFieldsValue({
         title: props.title.title,
         slug: props.title.slug,
         description: props.title.description,
+        thumbnail: props.title.thumbnail,
       });
       if (props.title.thumbnail) {
         setFileList([
@@ -117,7 +119,12 @@ const SetInfoPost = (props: MyEditorProps) => {
         description: values.description,
         title: values.title,
       };
-      await createPost(postData);
+
+      if (props) {
+        await updatePost(postData);
+      } else {
+        await createPost(postData);
+      }
       console.log("Post created successfully");
     } catch (err) {
       console.error(err);
@@ -187,19 +194,17 @@ const SetInfoPost = (props: MyEditorProps) => {
           onFinish={handlePostSubmit}
           className={style.form}
         >
-          <ImgCrop rotationSlider>
-            <Upload
-              listType="picture-card"
-              fileList={fileList}
-              beforeUpload={beforeUpload}
-              maxCount={1}
-              onChange={onChange}
-              onPreview={onPreview}
-              onRemove={onRemove}
-            >
-              {fileList.length < 1 && "+ Upload"}
-            </Upload>
-          </ImgCrop>
+          <Upload
+            listType="picture-card"
+            fileList={fileList}
+            beforeUpload={beforeUpload}
+            maxCount={1}
+            onChange={onChange}
+            onPreview={onPreview}
+            onRemove={onRemove}
+          >
+            {fileList.length < 1 && "+ Upload"}
+          </Upload>
 
           {fileList.map((file, index) => (
             <div key={file.uid}>

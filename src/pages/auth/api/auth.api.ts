@@ -69,7 +69,7 @@ export const getComments = async (params: any) => {
 export const getListBlogs = async (page: number, limit: number) => {
   try {
     const token = localStorage.getItem("token"); // Retrieve token from localStorage
-    const response = await axiosInstance.get("/auth/Post", {
+    const response = await axiosInstance.get("/Post", {
       params: { page, limit },
       headers: {
         Authorization: `Bearer ${token}`,
@@ -93,20 +93,20 @@ export const getBlog = async (slug: string) => {
     console.error(" Error:", error.message);
   }
 };
-
-export const updatePost = async (slug: string, params: any) => {
+export const updatePost = async (params: any) => {
+  const { slug } = params; // Extract slug from params
   try {
-    const response = await axiosInstance.put("/auth/Post", {
+    const response = await axiosInstance.put(`/auth/Post/${slug}`, params, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data;
+    return response.data; // Trả về dữ liệu từ phản hồi (response.data)
   } catch (error: any) {
-    console.error(" Error:", error.message);
+    console.error("Error:", error.message);
+    throw error; // Ném lỗi để xử lý ở phần gọi hàm updatePost
   }
 };
-
 export const deletePost = async (slug: string) => {
   try {
     const response = await axiosInstance.delete("/auth/Post/" + slug);
@@ -123,6 +123,7 @@ export const createPost = async (data: any) => {
     console.error(" Error:", error.message);
   }
 };
+
 export const updateBanner = async (data: any) => {
   try {
     const response = await axiosInstance.put("/updatebanner", data);
