@@ -13,6 +13,22 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+.closeButton {
+  background: none;
+  border: none;
+  opacity: 0;
+  visibility: hidden;
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 99999;
+}
+.menuToggle:checked ~ .closeButton {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
 
 .logo img {
   height: 40px;
@@ -177,6 +193,10 @@
 }
 
 @media (max-width: 768px) {
+  .menuToggle:checked .closeButton {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
   .login {
     order: 3;
   }
@@ -218,66 +238,12 @@
     transform: translate3d(0, 0, 0);
     opacity: 1;
   }
-  .menuToggle:checked ~ .close {
-    visibility: visible;
-    opacity: 1;
-  }
-  .menuToggle:checked ~ .coating {
+
+  .menuToggle:checked ~ .overlay {
     opacity: 1;
   }
 
   .menuIcon {
     display: block;
   }
-}
-
-.close {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  padding: 0;
-  font-size: 16px;
-  color: #fff;
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transform: rotate(-90deg);
-  transform: rotate(-90deg);
-  -webkit-transition: 0.2s ease;
-  transition: 0.2s ease;
-  z-index: 9999;
-}
-
-.menuToggle {
-  display: none;
-}
-
-.menuIcon {
-  cursor: pointer;
-}
-
-.nav {
-  display: flex;
-  flex-direction: column;
-  padding: calc(30px);
-  & li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 20px;
-    text-decoration: none;
-  }
-}
-
-.nav.open {
-  display: block;
-}
-
-.closeButton {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  position: absolute;
-  top: 10px;
-  right: 10px;
 }

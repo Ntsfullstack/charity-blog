@@ -76,10 +76,10 @@ const Header = () => {
       <label htmlFor="menu-toggle" className={styles.menuIcon}>
         ☰
       </label>
-      <nav className={`${styles.nav} ${isNavOpen ? styles.open : ""}`}>
-        <button className={styles.closeButton} onClick={closeNav}>
-          <CloseOutlined />
-        </button>
+      <button className={styles.closeButton} onClick={closeNav}>
+        <CloseOutlined />
+      </button>
+      <nav className={styles.nav}>
         <ul>
           <li>
             <a href="/">TRANG CHỦ</a>
