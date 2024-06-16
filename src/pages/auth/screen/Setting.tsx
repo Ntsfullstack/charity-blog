@@ -40,6 +40,7 @@ const Setting: React.FC = () => {
         selection.addRange(range);
         document.execCommand("copy");
         selection.removeAllRanges();
+        setUploadedImageUrls([]);
         message.success("Copied to clipboard", 2);
       } else {
         message.error("Failed to copy: Unable to access the selection", 2);
