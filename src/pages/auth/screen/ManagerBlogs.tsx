@@ -248,19 +248,25 @@ const ManthumbnailrBlogs: React.FC = () => {
     },
   ];
 
-  return loading ? (
-    <Loading></Loading>
-  ) : (
-    <Table
-      scroll={{ x: "800px" }}
-      className={style.table}
-      columns={columns}
-      dataSource={data}
-      rowKey="slug"
-      pagination={{
-        defaultPageSize: 8,
-      }}
-    />
+  return (
+    <>
+      <h1>Trình quản lí bài viết</h1>
+      {loading ? (
+        <Loading></Loading>
+      ) : (
+        <Table
+          scroll={{ x: "700px" }}
+          className={style.table}
+          columns={columns}
+          dataSource={data}
+          rowKey="slug"
+          pagination={{
+            defaultPageSize: 8,
+          }}
+        />
+      )}
+      ;
+    </>
   );
 };
 

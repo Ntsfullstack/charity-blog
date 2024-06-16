@@ -33,7 +33,7 @@ const items: MenuItem[] = [
     icon: <TagOutlined />,
   },
   {
-    label: "Settings",
+    label: "Edit Banner",
     key: "/auth/settings",
     icon: <SettingOutlined />,
   },

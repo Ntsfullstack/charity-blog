@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./Header.module.scss";
 import logo from "../../assets/images/expandedLogo.png";
 import { Link, useNavigate } from "react-router-dom";
-import { Avatar, Button, Dropdown, Space } from "antd";
+import { Avatar, Button, Dropdown, Menu } from "antd";
 import {
   LoginOutlined,
   SettingOutlined,
@@ -18,14 +18,15 @@ const Header = () => {
   const [isNavOpen, setNavOpen] = useState(false); // State to manage nav open/close
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleAvatar = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setDropdown(!openDropdown);
-  };
+
   const handleLogout = () => {
     dispatch(logout());
     setIsLogin(false);
     window.location.reload();
+  };
+  const handleAvatar = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setDropdown(!openDropdown);
   };
 
   const items = [
@@ -76,9 +77,6 @@ const Header = () => {
         ☰
       </label>
       <nav className={`${styles.nav} ${isNavOpen ? styles.open : ""}`}>
-        {/* <button className={styles.closeButton} onClick={closeNav}>
-          <CloseOutlined />
-        </button> */}
         <ul>
           <li>
             <a href="/">TRANG CHỦ</a>

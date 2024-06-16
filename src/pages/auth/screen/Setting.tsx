@@ -156,96 +156,100 @@ const Setting: React.FC = () => {
   };
 
   return (
-    <div className={style.Setting}>
-      <Form
-        form={form}
-        className={style.FormLink}
-        name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
-        <Form.Item<FieldType>
-          label="ảnh 1"
-          name="image_one"
-          rules={[{ required: true, message: "nhập vào link ảnh" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item<FieldType>
-          label="ảnh 2"
-          name="image_two"
-          rules={[{ required: true, message: "nhập vào link ảnh" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item<FieldType>
-          label="ảnh 3"
-          name="image_three"
-          rules={[{ required: true, message: "nhập vào link ảnh" }]}
-        >
-          <Input />
-        </Form.Item>
+    <>
+      <h1>Chỉnh ảnh banner</h1>
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
-      <div className={style.getLinkImage}>
+      <div className={style.Setting}>
         <Form
-          name="setInfoPost"
+          form={form}
+          className={style.FormLink}
+          name="basic"
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
-          className={style.form}
+          style={{ maxWidth: 600 }}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
         >
-          <Upload
-            listType="picture-card"
-            fileList={fileList}
-            beforeUpload={beforeUpload}
-            maxCount={1}
-            onChange={onChange}
-            onPreview={onPreview}
-            onRemove={onRemove}
+          <Form.Item<FieldType>
+            label="ảnh 1"
+            name="image_one"
+            rules={[{ required: true, message: "nhập vào link ảnh" }]}
           >
-            {fileList.length < 1 && "+ Upload"}
-          </Upload>
-
-          {fileList.map((file, index) => (
-            <div key={file.uid}>
-              <Progress percent={Math.round(uploadProgress[index] || 0)} />
-            </div>
-          ))}
-
-          <Button
-            type="primary"
-            onClick={handleUpload}
-            // loading={uploadingImages}
+            <Input />
+          </Form.Item>
+          <Form.Item<FieldType>
+            label="ảnh 2"
+            name="image_two"
+            rules={[{ required: true, message: "nhập vào link ảnh" }]}
           >
-            Upload Images
-          </Button>
+            <Input />
+          </Form.Item>
+          <Form.Item<FieldType>
+            label="ảnh 3"
+            name="image_three"
+            rules={[{ required: true, message: "nhập vào link ảnh" }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
         </Form>
+        <div className={style.getLinkImage}>
+          <Form
+            name="setInfoPost"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
+            className={style.form}
+          >
+            <Upload
+              listType="picture-card"
+              fileList={fileList}
+              beforeUpload={beforeUpload}
+              maxCount={1}
+              onChange={onChange}
+              onPreview={onPreview}
+              onRemove={onRemove}
+            >
+              {fileList.length < 1 && "+ Upload"}
+            </Upload>
 
-        {uploadedImageUrls.length > 0 && (
-          <>
-            <p>Link ảnh:</p>
-            <div className={style.code_snippet}>
-              <pre>
-                <code ref={LinkImage}>{uploadedImageUrls.join("\n")}</code>
-              </pre>
-              <button className={style.copy_button} onClick={copyCode}>
-                Copy
-              </button>
-            </div>
-          </>
-        )}
+            {fileList.map((file, index) => (
+              <div key={file.uid}>
+                <Progress percent={Math.round(uploadProgress[index] || 0)} />
+              </div>
+            ))}
+
+            <Button
+              type="primary"
+              onClick={handleUpload}
+              // loading={uploadingImages}
+            >
+              Upload Images
+            </Button>
+          </Form>
+
+          {uploadedImageUrls.length > 0 && (
+            <>
+              <p>Link ảnh:</p>
+              <div className={style.code_snippet}>
+                <pre>
+                  <code ref={LinkImage}>{uploadedImageUrls.join("\n")}</code>
+                </pre>
+                <button className={style.copy_button} onClick={copyCode}>
+                  Copy
+                </button>
+              </div>
+            </>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
