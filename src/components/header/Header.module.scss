@@ -61,13 +61,15 @@
       a {
         display: block;
         padding: 20px 20px;
-        color: #333;
+        color:#003366 ;
         text-decoration: none;
         transition: background-color 0.3s ease;
         font-family: "Roboto", sans-serif;
+        font-size: bold;
 
         &:hover {
-          background-color: #f0f0f0;
+          background-color:goldenrod;
+          color: white;
         }
       }
 
@@ -87,16 +89,18 @@
         a {
           padding: 10px 20px;
           display: block;
-          color: #333;
+          color: #003366;
           text-decoration: none;
           &:hover {
-            background-color: #f0f0f0;
+            background-color: goldenrod;
+            color: white;
           }
         }
       }
 
       &:hover .dropdownContent {
         display: block;
+        
       }
     }
   }

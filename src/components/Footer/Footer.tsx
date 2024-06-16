@@ -1,65 +1,37 @@
 import React from "react";
-import styles from "./Footer.module.scss";
-import logo from "../../assets/images/collapsedLogo.png";
-import {
-  FacebookFilled,
-  TwitchOutlined,
-  LinkedinFilled,
-  YoutubeFilled,
-} from "@ant-design/icons";
+import styles from "./footer.module.scss";
+import logo from "../../assets/images/Logo.png";
+import { Input } from "antd";
 
-const Footer = () => {
+const { Search } = Input;
+
+const Footer: React.FC = () => {
   return (
-    <footer>
-      <div className={styles.footer}>
-        <div className={styles.row}>
-          <ul className={styles.social_icons}>
-            <li>
-              <a className={styles.facebook} href="#">
-                <FacebookFilled />
-              </a>
-            </li>
-            <li>
-              <a className={styles.twitter} href="#">
-                <TwitchOutlined />
-              </a>
-            </li>
-            <li>
-              <a className={styles.youtube} href="#">
-                <YoutubeFilled />
-              </a>
-            </li>
-            <li>
-              <a className={styles.linkedin} href="#">
-                <LinkedinFilled />
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div className={styles.row}>
-          <ul>
-            <li>
-              <a href="#">Contact us</a>
-            </li>
-            <li>
-              <a href="#">Our Services</a>
-            </li>
-            <li>
-              <a href="#">Privacy Policy</a>
-            </li>
-            <li>
-              <a href="#">Terms &amp; Conditions</a>
-            </li>
-            <li>
-              <a href="#">Career</a>
-            </li>
-          </ul>
-        </div>
-        <div className={styles.row}>
-          INFERNO Copyright © 2024 Inferno - All rights reserved || Designed By:
-          Zilong
+    <footer className={styles.footer}>
+      <div className={styles.column}>
+        <div className={styles.logoContainer}>
+          <img src={logo} alt="Company Logo" className={styles.logo} />
+          <p className={styles.companyName}>CÔNG TY ĐẤU GIÁ HỢP DANH BẢO PHONG</p>
         </div>
       </div>
+      <div className={styles.column}>
+        <h3>Liên hệ</h3>
+        <ul className={styles.contactInfo}>
+          <li>Hotline: 024.6272.2468</li>
+          <li>Hotline: 0984.135.369</li>
+          <li>Email: <a href="mailto:daugiabaophong@gmail.com">daugiabaophong@gmail.com</a></li>
+          <li>Địa chỉ: Tầng 5, số 167 An Trạch, P. Ô Chợ Dừa, Q. Đống Đa, TP. Hà Nội</li>
+        </ul>
+      </div>
+      <div className={styles.column}>
+        <div className={styles.inputContainer}>
+          <Search placeholder="Nhập email của bạn" enterButton="Đăng ký" size="large" />
+          <p className={styles.subscribeText}>Đăng ký để nhận thông tin mới nhất từ chúng tôi</p>
+        </div>
+      </div>
+      {/* <div className={styles.copyRight}>
+        &copy; 2024 Inferno - All rights reserved || Designed By: Zilong
+      </div> */}
     </footer>
   );
 };

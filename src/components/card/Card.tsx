@@ -42,7 +42,7 @@ const Card: React.FC<CardProps> = ({ cardData, loading }) => {
               <h2 className={styles.cardTitle}>{card.title}</h2>
               <small className={styles.cardMeta}>
                 by
-                <a href={`/author/${card.authorId._id}`} className={styles.Link}>
+                <a href={`/author/${card.authorId._id}`} className={styles.Links}>
                   {" "}
                   {card.authorId.username}
                 </a>{" "}

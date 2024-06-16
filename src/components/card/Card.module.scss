@@ -108,10 +108,20 @@ small {
   background-color: #1890ff;
   border-color: #1890ff;
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 /* Link Styling */
 .Link {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  color: #1890ff;
+  margin-top: auto; /* Not necessary if using flex: 1 on .cardSubtitle */
+
+}
+.Links {
   text-decoration: none;
   color: #1890ff;
   margin-top: auto; /* Not necessary if using flex: 1 on .cardSubtitle */
