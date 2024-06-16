@@ -1,36 +1,34 @@
 .container {
-    height: 100svh;
-    // background-image: url('../../../../assets/images/login-background.jpeg');
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 100vh;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.backdrop {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #161d58;
+  opacity: 0.8;
+}
+
+.card {
+  width: 504px;
+  border-radius: 12px;
+  padding: 44px 32px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 52px;
+
+  & > img {
+    width: 90px;
   }
-  
-  .backdrop {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: #161d58;
-    opacity: 0.8;
-  }
-  
-  .card {
-    width: 504px;
-    border-radius: 12px;
-    padding: 44px 32px;
-    background-color: #ffffff;
-    box-sizing: border-box;
-    z-index: 1;
-  }
-  
-  .logo {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 52px;
-  
-    & > img {
-      width: 90px;
-    }
-  }
-  
+}

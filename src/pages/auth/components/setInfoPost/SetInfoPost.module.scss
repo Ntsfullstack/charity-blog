@@ -1,56 +1,55 @@
-.InfoPost{
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
-    padding: 20px;
-    position: absolute;
-    inset : 0;
-    z-index: 100;
-    
+.InfoPost {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 20px;
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+}
+.InfoPost {
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
-}.InfoPost {
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  
-    .header {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 28px;
+    font-family: Oswald;
+    margin: 0;
+  }
+
+  .form {
+    .ant-form-item-label label {
+      font-weight: 500;
+    }
+
+    .uploadItem .ant-upload.ant-upload-select-picture-card {
+      width: 180px;
+      height: 180px;
+    }
+
+    .uploadButton {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      margin-bottom: 20px;
     }
-  
-    h1 {
-      font-size: 28px;
-      margin: 0;
+
+    .formItem {
+      margin-bottom: 16px;
     }
-  
-    .form {
-      .ant-form-item-label label {
-        font-weight: 500;
-      }
-    
-      .uploadItem .ant-upload.ant-upload-select-picture-card {
-        width: 180px;
-        height: 180px;
-      }
-  
-      .uploadButton {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-    
-      .formItem {
-        margin-bottom: 16px;
-      }
-    
-      .submitItem {
-        text-align: right;
-      }
+
+    .submitItem {
+      text-align: right;
     }
   }
-  
+}

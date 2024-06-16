@@ -1,8 +1,4 @@
-@import url(../../../style/_global.scss);
-
-html {
-  font-size: 16px; // Đặt giá trị cơ sở cho rem, bạn có thể thay đổi giá trị này.
-}
+@import url(../../../style/index.module.scss);
 
 .blogContainer {
   max-width: 50rem; // 800px / 16 = 50rem

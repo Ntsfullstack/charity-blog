@@ -37,40 +37,65 @@
     display: flex;
 
     li {
-      margin-right: 20px;
+      position: relative;
 
       a {
-        text-decoration: none;
+        display: block;
+        padding: 20px 20px;
         color: #333;
-        font-weight: 500;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
 
         &:hover {
-          color: #007bff;
+          background-color: #f0f0f0;
         }
+      }
+
+      .dropdownContent {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        display: none;
+        min-width: 150px; /* Độ rộng tối thiểu của dropdown */
+        white-space: nowrap; /* Ngăn ngừa text bị xuống dòng */
+        max-height: 300px; /* Chiều cao tối đa của dropdown */
+        overflow-y: auto; /* Cho phép cuộn khi nội dung quá dài */
+
+        a {
+          padding: 10px 20px;
+          display: block;
+          color: #333;
+          text-decoration: none;
+
+          &:hover {
+            background-color: #f0f0f0;
+          }
+        }
+      }
+
+      &:hover .dropdownContent {
+        display: block;
       }
     }
   }
 
   &.open {
-    display: block;
+    transform: translateY(0);
   }
 }
-.authButtons {
-  display: flex;
-  align-items: center;
 
-  .loginBtn {
-    margin-right: 10px;
-  }
-
-  .signupBtn {
-    background-color: #007bff;
-    color: white;
-
-    &:hover {
-      background-color: #0056b3;
-    }
-  }
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  display: block;
 }
 
 .modal_container {
@@ -114,88 +139,32 @@
   }
 }
 
-.nav.open {
-  display: block;
-}
-
-.closeButton {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  opacity: 0;
-  visibility: hidden;
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-}
 
 @media (max-width: 768px) {
-  .login {
-    order: 3;
-  }
-  .logo {
-    order: 2;
-  }
-  .closeButton {
-    opacity: 1;
-    visibility: visible;
+  .menuIcon {
+    display: block;
   }
 
   .nav {
-    opacity: 0;
-    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+    z-index: 100;
+  }
+
+  .overlay {
     position: fixed;
     top: 0;
     left: 0;
-    background: #fff;
-    width: 320px;
+    width: 100%;
     height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    z-index: 9999;
-    -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);
-    -webkit-transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    -o-transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    order: 1;
-  }
-
-  .nav ul {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .nav ul li {
-    margin-right: 0;
-    margin-bottom: 10px;
-  }
-
-  .menuToggle:checked ~ .nav {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  }
-  .menuToggle:checked ~ .close {
-    visibility: visible;
-    opacity: 1;
-  }
-  .menuToggle:checked ~ .coating {
-    opacity: 1;
-  }
-
-  .menuIcon {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
     display: block;
   }
 }
