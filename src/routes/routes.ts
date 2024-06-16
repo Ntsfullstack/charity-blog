@@ -4,7 +4,6 @@ export const ROUTES = {
   register: "/register",
   auth: "/auth",
   managerBlogs: "manager-blog",
-  managerUser: "manager-user",
   createBlog: "create-blog",
   editUser: "edit-user/:id",
   editBlog: "edit-blog/:slug",

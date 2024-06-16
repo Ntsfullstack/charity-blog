@@ -1,12 +1,10 @@
+@import url(../../../style/index.module.scss);
+
 .table {
   &:global(.ant-layout-content) {
     overflow: scroll;
   }
-
   :global(.ant-layout-sider-trigger) {
     bottom: auto !important;
-  }
-  :global(.ant-table) {
-    overflow: scroll !important;
   }
 }

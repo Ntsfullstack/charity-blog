@@ -23,7 +23,6 @@ const EditBlog = () => {
       try {
         const res = await getBlog(slug as string);
 
-        console.log(res);
         if (res?.status === 200) {
           setData(res.data); // Assuming API returns a single DataType object
         } else {

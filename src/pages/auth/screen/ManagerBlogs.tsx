@@ -3,8 +3,9 @@ import { SearchOutlined } from "@ant-design/icons";
 import type { InputRef, TableColumnsType, TableColumnType } from "antd";
 import { Button, Input, Popconfirm, Space, Table } from "antd";
 import type { FilterDropdownProps } from "antd/es/table/interface";
-import { deletePost, getListBlogs, updatePost } from "../api/auth.api";
+import { deletePost, getListBlogs } from "../api/auth.api";
 import { useNavigate } from "react-router-dom";
+import Highlighter from "react-highlight-words";
 import Loading from "../../../components/Loading/Loading";
 import style from "./ManagerBlogs.module.scss";
 interface DataType {
@@ -31,8 +32,6 @@ interface DataType {
 }
 
 type DataIndex = keyof DataType;
-
-const data: DataType[] = [];
 
 const ManthumbnailrBlogs: React.FC = () => {
   const [searchText, setSearchText] = useState("");
@@ -179,6 +178,17 @@ const ManthumbnailrBlogs: React.FC = () => {
         setTimeout(() => searchInput.current?.select(), 100);
       }
     },
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ""}
+        />
+      ) : (
+        text
+      ),
   });
 
   const columns: TableColumnsType<DataType> = [

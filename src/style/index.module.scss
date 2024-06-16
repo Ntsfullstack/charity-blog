@@ -1,27 +1,2 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@import './global';
-@import './variables.module';
-@mixin hide-scrollbar {
-    overflow: scroll;
-    scrollbar-width: none;
-  
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-  
-  @mixin scrollbar {
-    &::-webkit-scrollbar {
-      height: 4px;
-      width: 4px;
-    }
-  
-    &::-webkit-scrollbar-thumb {
-      border-radius: 10px;
-      background-color: var(--neutral-50);
-    }
-  }
-  
+@import "./global";
+@import "./variables.module";

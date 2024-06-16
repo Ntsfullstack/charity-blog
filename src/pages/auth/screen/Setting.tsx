@@ -8,14 +8,11 @@ import {
   UploadFile,
   Progress,
 } from "antd";
-import ImgCrop from "antd-img-crop";
 import { storage, firestore } from "../../../config/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 
 import style from "./Setting.module.scss";
-import { useDispatch } from "react-redux";
-import { setBannerImages } from "../../../redux-setup/redux";
 import { updateBanner } from "../api/auth.api";
 
 type FieldType = {

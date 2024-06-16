@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import Loading from "../components/Loading/Loading";
 // Import components using lazy loading
-const EditUser = React.lazy(() => import("../pages/auth/screen/EditUser"));
 const EditBlog = React.lazy(() => import("../pages/auth/screen/EditBlog"));
 const RootLayout = React.lazy(() => import("../layout/root/RootLayout"));
 const AdminLayout = React.lazy(() => import("../layout/AdminLayout"));
@@ -20,9 +19,7 @@ const Setting = React.lazy(() => import("../pages/auth/screen/Setting"));
 const ManagerBlogs = React.lazy(
   () => import("../pages/auth/screen/ManagerBlogs")
 );
-const ManagerUsers = React.lazy(
-  () => import("../pages/auth/screen/ManagerUser")
-);
+
 const Post = React.lazy(() => import("../pages/posts/screen/posts"));
 
 // Create the router configuration
@@ -108,22 +105,7 @@ const routerConfig = [
               </Suspense>
             ),
           },
-          {
-            path: ROUTES.managerUser,
-            element: (
-              <Suspense fallback={<Loading />}>
-                <ManagerUsers />
-              </Suspense>
-            ),
-          },
-          {
-            path: ROUTES.editUser,
-            element: (
-              <Suspense fallback={<Loading />}>
-                <EditUser />
-              </Suspense>
-            ),
-          },
+
           {
             path: ROUTES.editBlog,
             element: (

@@ -1,6 +1,12 @@
 {
   "compilerOptions": {
-    "jsx": "react-jsx",
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es6",
+    "jsx": "react",
+    // "jsx": "react-jsx",
     "allowUmdGlobalAccess": true,
     /* Visit https://aka.ms/tsconfig to read more about this file */
 

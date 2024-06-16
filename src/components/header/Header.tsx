@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./Header.module.scss";
 import logo from "../../assets/images/expandedLogo.png";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Dropdown, Space } from "antd";
+import { Avatar, Button, Dropdown, Space } from "antd";
 import {
   LoginOutlined,
   SettingOutlined,
@@ -18,7 +18,10 @@ const Header = () => {
   const [isNavOpen, setNavOpen] = useState(false); // State to manage nav open/close
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const handleAvatar = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setDropdown(!openDropdown);
+  };
   const handleLogout = () => {
     dispatch(logout());
     setIsLogin(false);
@@ -95,14 +98,24 @@ const Header = () => {
       <div className={styles.login}>
         {isLogin ? (
           <div className={styles.modal_container}>
-            <Dropdown menu={menuProps} overlayClassName={styles.dropdown}>
-              <div className={styles.logout_button}>
-                <img
-                  src="https://placehold.co/50x50"
-                  alt="User Avatar"
-                  onClick={() => setDropdown(!openDropdown)}
-                />
-              </div>
+            <Dropdown
+              menu={menuProps}
+              trigger={["click"]}
+              overlayClassName={styles.dropdown}
+            >
+              <button
+                onClick={(e) => {
+                  handleAvatar(e);
+                }}
+                style={{
+                  border: "none",
+                  background: "none",
+                  padding: 0,
+                  cursor: "pointer",
+                }}
+              >
+                <Avatar size={50} icon={<UserOutlined />} />
+              </button>
             </Dropdown>
           </div>
         ) : (

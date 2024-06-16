@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Banner from "../components/banner/Banner";
 
 const authSlice = createSlice({
   name: "auth",

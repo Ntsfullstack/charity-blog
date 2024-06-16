@@ -8,11 +8,9 @@ import store from "./redux-setup/store"; // Adjusted import path if needed
 const root = ReactDOM.createRoot(document.getElementById("root")!); // Non-null assertion
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <App />
+  </Provider>
 );
 
 reportWebVitals();

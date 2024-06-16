@@ -26,11 +26,7 @@ const items: MenuItem[] = [
     key: "/auth/manager-blog",
     icon: <HomeOutlined />,
   },
-  {
-    label: "Manager User",
-    key: "/auth/manager-user",
-    icon: <UserOutlined />,
-  },
+
   {
     label: "Create Blog",
     key: "/auth/create-blog",

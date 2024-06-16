@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Form, Input, Checkbox, Button } from "antd";
+import React from "react";
+import { Form, Input, Button } from "antd";
 import { Login } from "../../api/login.api";
 import { LoginParams } from "../../types/type";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,6 @@ const FormLogin = () => {
   const onFinish = async (values: LoginParams) => {
     try {
       const response = await Login(values);
-      console.log("Login Success:", response.status);
       if (response.token !== undefined) {
         localStorage.setItem("token", JSON.stringify(response.token));
         navigate("/auth/manager-blog");

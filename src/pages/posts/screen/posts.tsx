@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getBlog } from "../../auth/api/auth.api";
-import { Button, Spin, Typography } from "antd";
+import { Typography } from "antd";
 import dayjs from "dayjs";
-import { convert } from "html-to-text";
 import styles from "./Posts.module.scss";
 import Loading from "../../../components/Loading/Loading";
 
-const { Title, Paragraph, Text } = Typography;
+const { Text } = Typography;
 
 interface BlogPost {
   title: string;

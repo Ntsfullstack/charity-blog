@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import MyEditor from "../components/Editor/Editor";
 import SetInfoPost from "../components/setInfoPost/SetinfoPost";
-import { EditorState } from "draft-js";
+import MyEditor from "../components/Editor/Editor";
 
 const CreateBlog = () => {
   const [page, setPage] = useState(1);
@@ -9,15 +8,8 @@ const CreateBlog = () => {
   return (
     <div>
       <h1>Create Blog</h1>
-      <MyEditor
-        page={page}
-        setPage={setPage}
-      />
-      <SetInfoPost
-        page={page}
-        setPage={setPage}
-
-      />
+      <MyEditor page={page} setPage={setPage} />
+      <SetInfoPost page={page} setPage={setPage} />
     </div>
   );
 };
