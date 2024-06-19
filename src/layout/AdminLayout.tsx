@@ -13,7 +13,6 @@ const AdminLayout = () => {
       <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
       <Layout>
         <Header style={{ background: "#fff", padding: 0 }} />{" "}
-        {/* Added basic styling */}
         <Content style={{ margin: "16px", overflow: "hidden" }}>
           <Outlet /> {/* Ensure Outlet is used to render child routes */}
         </Content>

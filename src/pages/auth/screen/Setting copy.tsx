@@ -16,7 +16,6 @@ import {
   Timestamp,
   Firestore,
 } from "firebase/firestore";
-import { updateBanner } from "../api/auth.api";
 
 interface ImageItem {
   url: string;
@@ -32,6 +31,7 @@ const Setting: React.FC<SettingProps> = () => {
   const [previewVisible, setPreviewVisible] = useState<boolean>(false);
   const [previewImage, setPreviewImage] = useState<string>("");
   const [previewTitle, setPreviewTitle] = useState<string>("");
+  const [uploadedUrls, setUploadedUrls] = useState<string[]>([]);
   const [url, setUrl] = useState<any[]>([]);
   let banner = [] as any[];
 
@@ -68,38 +68,41 @@ const Setting: React.FC<SettingProps> = () => {
     try {
       setSubmitting(true);
 
-      const uploadedUrls: string[] = [];
-
-      await Promise.all(
+      const uploadedUrls = await Promise.all(
         fileList.map(async (file) => {
           const fileName = `uploads/images/${Date.now()}-${file.name}`;
           const fileRef = ref(storage, fileName);
           const uploadTask = uploadBytesResumable(fileRef, file.originFileObj);
 
-          // Wait for upload to complete
-          const snapshot = await uploadTask;
-
-          // Get download URL
-          const downloadUrl = await getDownloadURL(snapshot.ref);
-
-          const item: ImageItem = {
-            url: downloadUrl,
-            path: fileName,
-            uploadedAt: Timestamp.now(),
-          };
-
-          uploadedUrls.push(downloadUrl);
-          if (fileList.length === uploadedUrls.length) {
-            const res = await updateBanner(uploadedUrls);
-            if (res) {
-              setSubmitting(false);
-            }
-          }
-          await addDoc(collection(firestore, "images"), item);
+          const downloadUrl = await new Promise<string>((resolve, reject) => {
+            uploadTask.on(
+              "state_changed",
+              null,
+              (error) => {
+                console.error(error);
+                reject(error);
+              },
+              async () => {
+                const url = await getDownloadURL(uploadTask.snapshot.ref);
+                banner.push(url);
+                const item: ImageItem = {
+                  url,
+                  path: fileName,
+                  uploadedAt: Timestamp.now(),
+                };
+                setUrl(banner);
+                await addDoc(collection(firestore, "images"), item);
+                return url;
+              }
+            );
+          });
+          return downloadUrl;
         })
       );
 
       setFileList([]);
+      setUploadedUrls(uploadedUrls); // Store uploaded URLs in state
+
       message.success(`Images added successfully.`, 2);
     } catch (err) {
       console.error(err);
@@ -108,7 +111,8 @@ const Setting: React.FC<SettingProps> = () => {
       setSubmitting(false);
     }
   };
-  console.log(url);
+  console.log("uploadedUrls", url);
+
   const getBase64 = (file: File) =>
     new Promise<string>((resolve, reject) => {
       const reader = new FileReader();
@@ -137,7 +141,7 @@ const Setting: React.FC<SettingProps> = () => {
             onChange={handleChange}
             onRemove={onRemove}
             multiple={true}
-            maxCount={5}
+            maxCount={4}
           >
             <div className="uploadIcon">
               <UploadOutlined />
@@ -155,6 +159,30 @@ const Setting: React.FC<SettingProps> = () => {
           </Button>
         </Form.Item>
       </Form>
+      <Modal
+        visible={previewVisible}
+        title={previewTitle}
+        footer={null}
+        onCancel={handleCancel}
+      >
+        <img alt="example" style={{ width: "100%" }} src={previewImage} />
+      </Modal>
+
+      {/* Display uploaded URLs */}
+      {uploadedUrls.length > 0 && (
+        <div className="uploadedUrlsContainer">
+          <h3>Uploaded URLs:</h3>
+          <ul>
+            {uploadedUrls.map((url, index) => (
+              <li key={index}>
+                <a href={url} target="_blank" rel="noopener noreferrer">
+                  {url}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
