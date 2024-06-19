@@ -5,6 +5,7 @@ import { Typography } from "antd";
 import dayjs from "dayjs";
 import styles from "./Posts.module.scss";
 import Loading from "../../../components/Loading/Loading";
+import Rate from "../../../components/Rate/Rate";
 
 const { Text } = Typography;
 
@@ -80,6 +81,12 @@ const Post: React.FC = () => {
         className={styles.content}
         dangerouslySetInnerHTML={{ __html: post.content }}
       ></div>
+      <div className={styles.rate}>
+        <p>
+          <Text type="secondary">Rate this post:</Text>
+        </p>
+        <Rate></Rate>
+      </div>
     </div>
   );
 };
