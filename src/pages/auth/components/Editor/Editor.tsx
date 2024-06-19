@@ -5,6 +5,8 @@ import htmlToDraft from "html-to-draftjs";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { Button } from "antd";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"; // Import necessary functions from Firebase Storage
+import { storage } from "../../../../config/firebase"; // Adjust the path based on your folder structure
 import styles from "./Editor.module.scss";
 import { MyEditorProps } from "../../types/types";
 
@@ -60,6 +62,35 @@ const MyEditor = (props: MyEditorProps) => {
     props.setPage(2);
   };
 
+  const uploadImageCallBack = (file: any) => {
+    return new Promise((resolve, reject) => {
+      // Create a reference to the file location in Firebase Storage
+      const storageRef = ref(storage, `images/${file.name}`);
+      // Upload the file and monitor the progress
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Monitor the upload progress
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(`Upload is ${progress}% done`);
+        },
+        (error) => {
+          // Handle upload errors
+          reject(error);
+        },
+        () => {
+          // Get the download URL once the upload is complete
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            resolve({ data: { url: downloadURL } });
+          });
+        }
+      );
+    });
+  };
+
   const checkPage = props.page === 1;
 
   return (
@@ -72,7 +103,21 @@ const MyEditor = (props: MyEditorProps) => {
           toolbarClassName={styles.myEditor__toolbar}
           wrapperClassName={styles.myEditor__wrapper}
           editorClassName={styles.myEditor__editor}
-        />
+          toolbar={{
+            inline: { inDropdown: true },
+            list: { inDropdown: true },
+            textAlign: { inDropdown: true },
+            link: { inDropdown: true },
+            history: { inDropdown: true },
+            blockType: { inDropdown: true },
+            colorPicker: { inDropdown: true },
+            image: {
+              previewImage: true,
+              uploadCallback: uploadImageCallBack,
+              alt: { present: true, mandatory: true },
+            },
+          }}
+        ></Editor>
         <div>
           <Button onClick={handleChangePage}>Next</Button>
         </div>

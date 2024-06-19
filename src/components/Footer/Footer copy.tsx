@@ -20,7 +20,7 @@
 //             </p>
 //           </div>
 //           <div>
-//             <ul className={styles.social_icons}>
+//          `   < className={styles.social_icons}>
 //               <li>
 //                 <a className={styles.facebook} href="#">
 //                   <FacebookFilled />
@@ -41,7 +41,7 @@
 //                   <LinkedinFilled />
 //                 </a>
 //               </li>
-//             </ul>
+//             </`ul>
 //           </div>
 //         </div>
 //       </div>

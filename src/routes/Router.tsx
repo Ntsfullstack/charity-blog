@@ -4,6 +4,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import Loading from "../components/Loading/Loading";
 import ProtectedRoute from "../layout/ProtectedRoute"; // Import ProtectedRoute
+import AboutUs from "../pages/main_page/components/about_us/about_us";
+import MainPage from "../pages/main_page/screen";
 
 // Import components using lazy loading
 const EditBlog = React.lazy(() => import("../pages/auth/screen/EditBlog"));
@@ -56,6 +58,14 @@ const routerConfig = [
             element: (
               <Suspense fallback={<Loading />}>
                 <Post />
+              </Suspense>
+            ),
+          },
+          {
+            path: ROUTES.MainPage,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <MainPage />
               </Suspense>
             ),
           },

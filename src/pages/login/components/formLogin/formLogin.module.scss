@@ -19,7 +19,9 @@
     color: var(--neutral-500);
   }
 }
-
+.header__title {
+  text-align: center;
+}
 .buttonGroup {
   margin-top: 62px;
   display: flex;

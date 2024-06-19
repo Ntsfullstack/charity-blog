@@ -1,32 +1,20 @@
 import React, { useState, useEffect } from "react";
-import {
-  Input,
-  Form,
-  Upload,
-  Button,
-  message,
-  UploadFile,
-  Progress,
-} from "antd";
-import ImgCrop from "antd-img-crop";
-import style from "./SetInfoPost.module.scss";
-import { MyEditorProps } from "../../types/types";
+import { Input, Form, Upload, Button, message, UploadFile } from "antd";
 import { storage, firestore } from "../../../../config/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
-import { createPost, updatePost } from "../../api/auth.api"; // Import createPost function
+import { createPost, updatePost } from "../../api/auth.api";
+import style from "./SetInfoPost.module.scss";
+import { MyEditorProps } from "../../types/types";
 
 const SetInfoPost = (props: MyEditorProps) => {
   const [form] = Form.useForm();
-  const [uploadingImages, setUploadingImages] = useState(false);
   const [postingData, setPostingData] = useState(false);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const [uploadProgress, setUploadProgress] = useState<number[]>([]);
   const content = localStorage.getItem("htmlContent");
-  const [thumbnail, setThumbnail] = useState<string>("");
+  const [urlImage, setUrlImage] = useState<string>("");
 
   useEffect(() => {
-    console.log(props);
     if (props?.title) {
       form.setFieldsValue({
         title: props.title.title,
@@ -43,81 +31,60 @@ const SetInfoPost = (props: MyEditorProps) => {
             url: props.title.thumbnail,
           },
         ]);
+        setUrlImage(props.title.thumbnail);
       }
     }
   }, [props.title, form]);
 
-  const handleUpload = async () => {
+  const handleUpload = async (file: UploadFile) => {
     try {
-      setUploadingImages(true);
-      const newImageUrls: string[] = [];
-      const progressArray: number[] = new Array(fileList.length).fill(0);
+      const fileName = `images/${Date.now()}-${file.name}`;
+      const fileRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(
+        fileRef,
+        file.originFileObj as any
+      );
 
-      const uploadPromises = fileList.map((file, index) => {
-        return new Promise((resolve: any, reject) => {
-          const fileName = `images/${Date.now()}-${file.name}`;
-          const fileRef = ref(storage, fileName);
-          const uploadTask = uploadBytesResumable(
-            fileRef,
-            file.originFileObj as any
-          );
-
-          uploadTask.on(
-            "state_changed",
-            (snapshot) => {
-              const progress =
-                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              progressArray[index] = progress;
-              setUploadProgress([...progressArray]);
-            },
-            (error) => {
-              reject(error);
-            },
-            async () => {
-              try {
-                const downloadUrl = await getDownloadURL(
-                  uploadTask.snapshot.ref
-                );
-                newImageUrls.push(downloadUrl);
-                setThumbnail(downloadUrl);
-                console.log(`Uploaded file available at: ${downloadUrl}`);
-                const item = {
-                  url: downloadUrl,
-                  path: fileName,
-                  uploadedAt: Timestamp.now(),
-                };
-                await addDoc(collection(firestore, "images"), item);
-                resolve();
-              } catch (error) {
-                reject(error);
-              }
-            }
-          );
-        });
-      });
-
-      await Promise.all(uploadPromises);
-
-      setFileList([]);
-      message.success("Images added successfully.", 2);
+      uploadTask.on(
+        "state_changed",
+        null,
+        (error) => {
+          message.error("Upload failed.", 2);
+          console.error(error);
+        },
+        async () => {
+          const downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
+          setUrlImage(downloadUrl);
+          const item = {
+            url: downloadUrl,
+            path: fileName,
+            uploadedAt: Timestamp.now(),
+          };
+          await addDoc(collection(firestore, "images"), item);
+          message.success("Image uploaded successfully.", 2);
+        }
+      );
     } catch (err) {
       console.error(err);
-      message.error("Error adding images.", 2);
-    } finally {
-      setUploadingImages(false);
+      message.error("Error uploading image.", 2);
     }
   };
 
   const handlePostSubmit = async () => {
+    if (!urlImage) {
+      message.error("Please upload an image first.", 2);
+      return;
+    }
+
     try {
       setPostingData(true);
       const values = form.getFieldsValue();
       const postData = {
         content,
         slug: values.slug,
-        thumbnail,
         description: values.description,
         title: values.title,
+        thumbnail: urlImage,
       };
 
       if (props) {
@@ -134,11 +101,6 @@ const SetInfoPost = (props: MyEditorProps) => {
     }
   };
 
-  const copyImageUrl = (url: string) => {
-    navigator.clipboard.writeText(url);
-    message.success("Image URL copied to clipboard.", 2);
-  };
-
   const beforeUpload = (file: any) => {
     if (!["image/jpeg", "image/png"].includes(file.type)) {
       message.error(`${file.name} is not a valid image type`, 2);
@@ -147,8 +109,12 @@ const SetInfoPost = (props: MyEditorProps) => {
     return false;
   };
 
-  const onChange = ({ fileList }: { fileList: UploadFile[] }) => {
+  const onChange = async ({ fileList }: { fileList: UploadFile[] }) => {
     setFileList(fileList.filter((file) => file.status !== "error"));
+    const latestFile = fileList[fileList.length - 1];
+    if (latestFile) {
+      await handleUpload(latestFile);
+    }
   };
 
   const onRemove = (file: UploadFile) => {
@@ -205,20 +171,6 @@ const SetInfoPost = (props: MyEditorProps) => {
           >
             {fileList.length < 1 && "+ Upload"}
           </Upload>
-
-          {fileList.map((file, index) => (
-            <div key={file.uid}>
-              <Progress percent={Math.round(uploadProgress[index] || 0)} />
-            </div>
-          ))}
-
-          <Button
-            type="primary"
-            onClick={handleUpload}
-            loading={uploadingImages}
-          >
-            Upload Images
-          </Button>
         </Form>
 
         <Form
@@ -229,16 +181,6 @@ const SetInfoPost = (props: MyEditorProps) => {
           onFinish={handlePostSubmit}
           className={style.form}
         >
-          <Form.Item
-            name="thumbnail"
-            label="Thumbnail"
-            initialValue={thumbnail}
-            rules={[{ required: true }]}
-            className={style.formItem}
-          >
-            <Input />
-          </Form.Item>
-
           <Form.Item
             name="title"
             label="Title"
@@ -269,30 +211,16 @@ const SetInfoPost = (props: MyEditorProps) => {
             wrapperCol={{ offset: 8, span: 16 }}
             className={style.submitItem}
           >
-            <Button type="primary" htmlType="submit" loading={postingData}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={postingData}
+              disabled={!urlImage}
+            >
               Submit
             </Button>
           </Form.Item>
         </Form>
-
-        {/* Display uploaded image URLs */}
-        <div>
-          {thumbnail.length > 0 && (
-            <div>
-              <h2>Uploaded Images:</h2>
-              <ul>
-                <li>
-                  <a href={thumbnail} target="_blank" rel="noopener noreferrer">
-                    {thumbnail}
-                  </a>
-                  <Button onClick={() => copyImageUrl(thumbnail)}>
-                    Copy URL
-                  </Button>{" "}
-                </li>
-              </ul>
-            </div>
-          )}
-        </div>
       </div>
     )
   );

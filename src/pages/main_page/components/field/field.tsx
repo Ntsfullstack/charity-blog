@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './Field.module.scss';
+import React from "react";
+import styles from "./field.module.scss";
 
 const Field: React.FC = () => {
   return (
@@ -10,7 +10,8 @@ const Field: React.FC = () => {
         className={styles.fieldImage}
       />
       <div className={styles.fieldText}>
-        Lĩnh vực hoạt động của chúng tôi là đấu giá tài sản, đảm bảo tính minh bạch và công bằng cho tất cả các bên tham gia.
+        Lĩnh vực hoạt động của chúng tôi là đấu giá tài sản, đảm bảo tính minh
+        bạch và công bằng cho tất cả các bên tham gia.
       </div>
     </div>
   );

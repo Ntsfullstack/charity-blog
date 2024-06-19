@@ -16,7 +16,6 @@ const ContentLayout = ({ children }: ContentLayoutProps) => {
         <div className="fixed top-0 left-0 right-0 z-50"></div>
         <div className="flex-1">{children}</div>
         <Footer />
-        {/* <Footer /> */}
       </div>
     </>
   );

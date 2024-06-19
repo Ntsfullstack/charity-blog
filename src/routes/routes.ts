@@ -1,6 +1,5 @@
 export const ROUTES = {
   main: "/",
-  home: "/home",
   login: "/login",
   register: "/register",
   auth: "/auth",
@@ -10,4 +9,5 @@ export const ROUTES = {
   editBlog: "edit-blog/:slug",
   settings: "settings",
   post: "/post/:slug",
+  MainPage: "/MainPage",
 } as const;
