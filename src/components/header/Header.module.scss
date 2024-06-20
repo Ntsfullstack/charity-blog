@@ -44,6 +44,37 @@
   font-size: 24px;
   cursor: pointer;
 }
+.searchBox {
+  display: flex;
+  align-items: center;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin-left: 20px;
+  
+  input {
+    border: none;
+    background-color: transparent;
+    margin-left: 10px;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    width: 200px;
+  }
+
+  button {
+    padding: 8px 12px;
+    background-color: #1890ff;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 100%; /* Đảm bảo button có chiều cao tương đương với ô menu */
+
+    &:hover {
+      background-color: #40a9ff;
+    }
+  }
+}
 
 .nav {
   display: flex;
@@ -55,6 +86,7 @@
     padding: 0;
     display: flex;
 
+
     li {
       position: relative;
 
@@ -65,7 +97,7 @@
         text-decoration: none;
         transition: background-color 0.3s ease;
         font-family: "Roboto", sans-serif;
-        font-size: bold;
+        font-weight: bold;
 
         &:hover {
           background-color:goldenrod;

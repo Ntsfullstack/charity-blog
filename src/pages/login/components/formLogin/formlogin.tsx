@@ -15,8 +15,9 @@ const FormLogin = () => {
       console.log(response.status);
       if (response.status === 200) {
         console.log("sucess");
-        localStorage.setItem("token", JSON.stringify(response));
         navigate("/auth/manager-blog");
+        localStorage.setItem("token", JSON.stringify(response));
+    
       }
     } catch (error: any) {
       console.error("Login Error:", error.message);

@@ -109,6 +109,10 @@ const Header = () => {
             </div>
           </li>
         </ul>
+        <div className={styles.searchBox}>
+              <input type="text" placeholder="Tìm kiếm..." />
+              <button type="submit">Tìm</button>
+            </div>
       </nav>
       {isNavOpen && <div className={styles.overlay} onClick={closeNav}></div>}
       <div className={styles.login}>
