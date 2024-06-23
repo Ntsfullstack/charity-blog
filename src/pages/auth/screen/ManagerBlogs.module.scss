@@ -7,4 +7,7 @@
   :global(.ant-layout-sider-trigger) {
     bottom: auto !important;
   }
+  :global(.ant-table-cell) {
+    max-width: 200px;
+  }
 }

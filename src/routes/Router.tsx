@@ -19,6 +19,7 @@ const Login = React.lazy(() => import("../pages/login/login"));
 const Register = React.lazy(() => import("../pages/register/register"));
 const ImageUpload = React.lazy(() => import("../config/uploadImage"));
 const Setting = React.lazy(() => import("../pages/auth/screen/Setting"));
+const SearchPost = React.lazy(() => import("../pages/SeachPost/SearchPost"));
 const ManagerBlogs = React.lazy(
   () => import("../pages/auth/screen/ManagerBlogs")
 );
@@ -50,6 +51,14 @@ const routerConfig = [
             element: (
               <Suspense fallback={<Loading />}>
                 <Homepage />
+              </Suspense>
+            ),
+          },
+          {
+            path: ROUTES.SearchPost,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <SearchPost />
               </Suspense>
             ),
           },

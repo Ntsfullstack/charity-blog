@@ -38,6 +38,7 @@ const authSlice = createSlice({
     setBannerImages: (state, action) => {
       state.BannerImages = action.payload;
     },
+    
   },
 });
 

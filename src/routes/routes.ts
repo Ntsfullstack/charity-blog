@@ -10,4 +10,5 @@ export const ROUTES = {
   settings: "settings",
   post: "/post/:slug",
   MainPage: "/MainPage",
+  SearchPost: "/search/:query",
 } as const;

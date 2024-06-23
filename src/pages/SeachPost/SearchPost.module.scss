@@ -1,0 +1,10 @@
+@import "../../style/index.module.scss";
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap; /* Allow cards to wrap to the next line */
+  gap: scale(30); // 30px / 16 = 1.875rem
+  justify-content: center;
+  padding: scale(30); // 30px / 16 = 1.875rem
+  margin: 0 auto;
+}

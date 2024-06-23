@@ -14,9 +14,11 @@ const FormLogin = () => {
       const response = await Login(values);
       console.log(response.status);
       if (response.status === 200) {
-        console.log("sucess");
         localStorage.setItem("token", JSON.stringify(response));
         navigate("/auth/manager-blog");
+      } else {
+        console.error("Failed to set token in localStorage");
+        message.error("Login failed. Please try again.");
       }
     } catch (error: any) {
       console.error("Login Error:", error.message);
