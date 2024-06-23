@@ -175,6 +175,7 @@ const DropdownMenu = () => {
     navigate(key);
   };
   return (
+
     <div>
       <header id="nav_menu">
         <div className={clsx(styles.container, cls)}>
@@ -200,6 +201,7 @@ const DropdownMenu = () => {
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
+
               >
                 <path
                   fill="#000000"

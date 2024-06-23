@@ -1,23 +1,124 @@
+.fieldContent h1 {
+  color: #ea2227;
+  font-size: 62px;
+  text-transform: uppercase;
+  position: relative;
+  margin-bottom: 40px;
+  margin-top: 0;
+}
+
 .fieldContainer {
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    background-color: #f9f9f9;
+  display: flex;
+  align-items: center;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.fieldImage {
+  object-fit: cover;
+  border-radius: 5px;
+  padding-right: 10%;
+  // width: 50%; /* Adjust width as needed */
+}
+
+.fieldText {
+  flex: 1; /* Allow text to take remaining space */
+}
+
+.fieldText h2 {
+  font-family: 'calibri bold', 'Roboto', sans-serif;
+  font-size: 40px;
+  color: #fc4f88;
+  margin-top: 0;
+  text-align: left;
+  font-weight: bold; /* Corrected font-weight property */
+}
+
+.fieldText h3 {
+  font-size: 18px;
+  color: #fc4f88;
+  margin-top: 0;
+  text-align: left;
+}
+
+.fieldText p {
+  text-align: left;
+  font-family: "calibri", "Roboto", sans-serif;
+  font-size: 18px;
+  color: #333;
+  margin: 0; /* Reset default margins */
+  color: #868686;
+  max-width: 100%; /* Ensure text doesn't overflow */
+}
+
+.fieldContainer2 {
+ 
+  display: flex;
+  align-items: center;
+  padding-left: 10%; /* Adjust padding as needed */
+  padding-right: 10%; /* Adjust padding as needed */
+  // flex-direction: row-reverse; /* Reverse the flex direction for right-aligned content */
+}
+
+.fieldImage2 {
+
+  object-fit: cover;
+  border-radius: 5px;
+  // width: 50%; /* Adjust width as needed */
+}
+
+.fieldText2 {
+  max-width: 30%;
+  flex: 1; /* Allow text to take remaining space */
+}
+
+.fieldText2 h2 {
+  font-family: 'calibri bold', 'Roboto', sans-serif;
+  font-size: 40px;
+  color: #009ee2;
+  margin-top: 0;
+  text-align: right;
+  font-weight: bold; /* Corrected font-weight property */
+}
+
+.fieldText2 h3 {
+  font-size: 18px;
+  color: #009ee2;
+  margin-top: 0;
+  text-align: right;
+}
+
+.fieldText2 p {
+  text-align: right;
+  font-family: "calibri", "Roboto", sans-serif;
+  font-size: 18px;
+  color: #333;
+  margin: 0; /* Reset default margins */
+  color: #868686;
+  max-width: 100%; /* Ensure text doesn't overflow */
+}
+
+@media (max-width: 768px) {
+  .fieldContainer,
+  .fieldContainer2 {
+    padding-left: 5%;
+    padding-right: 5%;
+    flex-direction: column; /* Stack content vertically on small screens */
+    text-align: center; /* Center align text on small screens */
   }
-  
-  .fieldImage {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 5px;
-    margin-right: 20px;
+
+  .fieldImage,
+  .fieldImage2 {
+    width: 100%; /* Full width image on small screens */
+    margin-bottom: 20px; /* Add space between elements */
   }
-  
-  .fieldText {
-    font-size: 16px;
-    color: #333;
+
+  .fieldText h2,
+  .fieldText2 h2,
+  .fieldText h3,
+  .fieldText2 h3,
+  .fieldText p,
+  .fieldText2 p {
+    text-align: center; /* Center align text on small screens */
   }
-  
+}
