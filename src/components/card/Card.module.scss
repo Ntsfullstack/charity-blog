@@ -119,7 +119,6 @@ small {
   text-decoration: none;
   color: #1890ff;
   margin-top: auto; /* Not necessary if using flex: 1 on .cardSubtitle */
-
 }
 .Links {
   text-decoration: none;
@@ -147,15 +146,44 @@ small {
 @media (max-width: 480px) {
   .cardItem {
     aspect-ratio: 3 / 3.2;
-    flex-basis: 100%; /* One card per row on very small screens */
+    flex-basis: 100%;
+    flex-direction: column;
+  }
+
+  .cardContent {
+    padding: 0.2rem 0.5rem 0.5rem 0.5rem;
   }
 
   .cardTitle {
-    font-size: 1.125rem; /* Smaller font size for very small screens */
-    line-height: 1.375rem; // 22px / 16 = 1.375rem
+    padding: 0rem;
+    margin-bottom: 0 !important;
+    font-size: 0.75rem; /* Adjusted for smaller screens */
+  }
+
+  .cardMeta {
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem; /* Adjusted for smaller screens */
   }
 
   .cardSubtitle {
-    display: none;
+    font-size: 0.875rem; /* Adjusted for smaller screens */
+  }
+
+  .cardContent .link .ant-btn {
+    font-size: 0.875rem; /* Adjust button font size */
+    padding: 0.5rem 1rem; /* Adjust button padding */
+  }
+}
+@media screen and (max-width: 768px) {
+  .button {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    & button {
+      width: 80%;
+    }
+  }
+  .cardContent {
+    justify-content: space-evenly;
   }
 }

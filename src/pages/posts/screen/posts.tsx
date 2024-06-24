@@ -6,10 +6,12 @@ import dayjs from "dayjs";
 import styles from "./Posts.module.scss";
 import Loading from "../../../components/Loading/Loading";
 import Rate from "../../../components/Rate/Rate";
+import RelatedArticles from "../../../relatedArticles/relatedArticles";
 
 const { Text } = Typography;
 
 interface BlogPost {
+  _id: string;
   title: string;
   content: string;
   thumbnail: string;
@@ -87,6 +89,7 @@ const Post: React.FC = () => {
         </p>
         <Rate></Rate>
       </div>
+      <RelatedArticles currentArticleId={post._id}></RelatedArticles>
     </div>
   );
 };

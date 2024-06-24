@@ -1,7 +1,7 @@
 import React from "react";
+import { Skeleton } from "antd";
 import styles from "./Card.module.scss";
-import { Button, Skeleton } from "antd";
-import dayjs from "dayjs";
+import CardItem from "./cardItem";
 
 interface BlogPostData {
   title: string;
@@ -23,39 +23,20 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ cardData, loading }) => {
   return (
     <>
-      {loading ? (
-        Array.from({ length:8 }).map((_, index) => (
-          <div key={index} className={styles.cardItem}>
-            <Skeleton.Image active className={styles.cardImageSkeleton} />
-            <div className={styles.cardContent}>
-              <Skeleton active title={{ width: '80%' }} paragraph={{ rows: 2 }} />
+      {loading
+        ? Array.from({ length: 8 }).map((_, index) => (
+            <div key={index} className={styles.cardItem}>
+              <Skeleton.Image active className={styles.cardImageSkeleton} />
+              <div className={styles.cardContent}>
+                <Skeleton
+                  active
+                  title={{ width: "80%" }}
+                  paragraph={{ rows: 2 }}
+                />
+              </div>
             </div>
-          </div>
-        ))
-      ) : (
-        cardData.map((card, index) => (
-          <div key={index} className={styles.cardItem}>
-            <div className={styles.cardImage}>
-              <img src={card.thumbnail} alt={`Card ${index + 1}`} />
-            </div>
-            <div className={styles.cardContent}>
-              <h2 className={styles.cardTitle}>{card.title}</h2>
-              <small className={styles.cardMeta}>
-                by
-                <a href={`/author/${card.authorId._id}`} className={styles.Links}>
-                  {" "}
-                  {card.authorId.username}
-                </a>{" "}
-                - <span>{dayjs(card.createdAt).format('MMMM D, YYYY')}</span>
-              </small>
-              <p className={styles.cardSubtitle}>{card.description}</p>
-              <a href={`/post/${card.slug}`} className={styles.Link}>
-                <Button type="primary">Read Post</Button>
-              </a>
-            </div>
-          </div>
-        ))
-      )}
+          ))
+        : cardData.map((card, index) => <CardItem key={index} {...card} />)}
     </>
   );
 };

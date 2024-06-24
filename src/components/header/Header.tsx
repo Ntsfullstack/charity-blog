@@ -171,20 +171,89 @@ const DropdownMenu = () => {
     },
   ];
 
+  const menuGioiThieu = (
+    <Menu>
+      <Menu.Item>
+        <Link to="/about/vision" className={styles.dropdown_link_title}>
+          Tầm nhìn, sứ mệnh
+        </Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to="/about/letter" className={styles.dropdown_link}>
+          Thư ngỏ
+        </Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link className={styles.dropdown_link} to="/about/history">
+          Lịch sử
+        </Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to="/about/contact" className={styles.dropdown_link_title}>
+          Liên hệ
+        </Link>
+      </Menu.Item>
+    </Menu>
+  );
+
+  const menuTinTuc = (
+    <Menu>
+      <Menu.Item>
+        <Link to="/news" className={styles.dropdown_link_title}>
+          Tin tức - sự kiện
+        </Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link className={styles.dropdown_link} to="/media">
+          Tuyển dụng, tình nguyện
+        </Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link className={styles.dropdown_link} to="/social-welfare">
+          Thông cáo, báo chí
+        </Link>
+      </Menu.Item>
+    </Menu>
+  );
+
+  const menuHoatDong = (
+    <Menu>
+      <Menu.Item>
+        <Link to="/branding" className={styles.dropdown_link_title}>
+          Văn hóa - Giáo dục
+        </Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link className={styles.dropdown_link} to="/branding">
+          Chăm sóc sức khỏe cộng đồng
+        </Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link className={styles.dropdown_link} to="/illustrations">
+          Hỗ trợ sinh kế
+        </Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to="/photography" className={styles.dropdown_link_title}>
+          An sinh xã hội
+        </Link>
+      </Menu.Item>
+    </Menu>
+  );
+
   const handleMenuClick = ({ key }: { key: string }) => {
     navigate(key);
   };
   return (
-
     <div>
       <header id="nav_menu">
         <div className={clsx(styles.container, cls)}>
           <div className={styles.nav_start}>
             {!showSearch && (
               <div className={styles.logo}>
-                <a href="/">
+                <Link to="/">
                   <img src={logo} alt="Logo" />
-                </a>
+                </Link>
               </div>
             )}
             <input
@@ -201,7 +270,6 @@ const DropdownMenu = () => {
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
-
               >
                 <path
                   fill="#000000"
@@ -217,104 +285,32 @@ const DropdownMenu = () => {
               {width > 768 ? (
                 <ul className={styles.menu_bar}>
                   <li>
-                    <span className={styles.dropdown_link_title}>
-                      Trang chủ
-                    </span>
+                    <Link to="/" className={styles.dropdown_link_title}>
+                      TRANG CHỦ
+                    </Link>
                   </li>
                   <li>
-                    <button className={clsx(styles.nav_link, styles.work)}>
-                      GIỚI THIỆU
-                    </button>
-                    <div
-                      className={clsx(styles.dropdowns, styles.workDropdown)}
-                    >
-                      <ul role="menu">
-                        <li>
-                          <span className={styles.dropdown_link_title}>
-                            Tắm nhìn, sử mêh
-                          </span>
-                        </li>
-                        <li role="menuitem">
-                          <a className={styles.dropdown_link} href="#branding">
-                            thư ngỏ
-                          </a>
-                        </li>
-                        <li role="menuitem">
-                          <a
-                            className={styles.dropdown_link}
-                            href="#illustrations"
-                          >
-                            Lịch sử
-                          </a>
-                        </li>
-                        <li>
-                          <span className={styles.dropdown_link_title}>
-                            Liên hệ
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
+                    <Dropdown overlay={menuGioiThieu}>
+                      <Button className={clsx(styles.nav_link, styles.work)}>
+                        GIỚI THIỆU
+                      </Button>
+                    </Dropdown>
                   </li>
                   <li>
-                    <button className={clsx(styles.nav_link, styles.Discover)}>
-                      TIN TỨC
-                    </button>
-                    <div className={clsx(styles.dropdowns, styles.NEWS)}>
-                      <ul role="menu">
-                        <li>
-                          <span className={styles.dropdown_link_title}>
-                            Tin tức - sự kiện
-                          </span>
-                        </li>
-                        <li role="menuitem">
-                          <a className={styles.dropdown_link} href="#branding">
-                            Tuyển dụng , tình nguyên
-                          </a>
-                        </li>
-                        <li role="menuitem">
-                          <a
-                            className={styles.dropdown_link}
-                            href="#illustrations"
-                          >
-                            Thông cáo , báo chí
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
+                    <Dropdown overlay={menuTinTuc}>
+                      <Button
+                        className={clsx(styles.nav_link, styles.discover)}
+                      >
+                        TIN TỨC
+                      </Button>
+                    </Dropdown>
                   </li>
                   <li>
-                    <button className={clsx(styles.nav_link, styles.work)}>
-                      HOAT DONG
-                    </button>
-                    <div
-                      className={clsx(styles.dropdowns, styles.workDropdown)}
-                    >
-                      <ul role="menu">
-                        <li>
-                          <span className={styles.dropdown_link_title}>
-                            Văn Hóa- Giáo dục
-                          </span>
-                        </li>
-                        <li role="menuitem">
-                          <a className={styles.dropdown_link} href="#branding">
-                            Chăm sóc sức khỏe cộng đồng
-                          </a>
-                        </li>
-                        <li role="menuitem">
-                          <a
-                            className={styles.dropdown_link}
-                            href="#illustrations"
-                          >
-                            Hỗ trợ sinh kế
-                          </a>
-                        </li>
-                        <li>
-                          <span className={styles.dropdown_link_title}>
-                            An sinh xã hội
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
+                    <Dropdown overlay={menuHoatDong}>
+                      <Button className={clsx(styles.nav_link, styles.work)}>
+                        HOẠT ĐỘNG
+                      </Button>
+                    </Dropdown>
                   </li>
                 </ul>
               ) : (

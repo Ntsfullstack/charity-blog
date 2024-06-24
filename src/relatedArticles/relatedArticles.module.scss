@@ -1,0 +1,25 @@
+/* RelatedArticles.module.scss */
+
+.relatedArticlesContainer {
+  margin: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.relatedArticlesContainer h2 {
+  font-size: 24px;
+
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.articlesList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
