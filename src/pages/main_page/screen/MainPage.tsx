@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Home.module.scss"; // Make sure you have this file
+import styles from "./MainPage.module.scss"; // Make sure you have this file
 import { getListBlogs } from "../../auth/api/auth.api";
 import Card from "../../../components/card/Card";
 import { BlogPostData } from "../types/blogdata.type";
 import Banner from "../../../components/banner/Banner";
 
-const Homepage = () => {
+const MainPage = () => {
   const [cardData, setCardData] = useState<BlogPostData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -60,4 +60,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default MainPage;

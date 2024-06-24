@@ -4,16 +4,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import Loading from "../components/Loading/Loading";
 import ProtectedRoute from "../layout/ProtectedRoute"; // Import ProtectedRoute
-import AboutUs from "../pages/main_page/components/about_us/about_us";
-import MainPage from "../pages/main_page/screen";
 
 // Import components using lazy loading
+// const  AboutUs = React.lazy(() => import ("../pages/main_page"));
+const MainPage = React.lazy(() => import("../pages/main_page/screen/MainPage"));
 const EditBlog = React.lazy(() => import("../pages/auth/screen/EditBlog"));
 const RootLayout = React.lazy(() => import("../layout/root/RootLayout"));
 const AdminLayout = React.lazy(() => import("../layout/AdminLayout"));
 const ErrorPage = React.lazy(() => import("../components/error/ErrorPage"));
 const HomeLayout = React.lazy(() => import("../layout/HomeLayout"));
-const Homepage = React.lazy(() => import("../pages/home/screen"));
+const Homepage = React.lazy(() => import("../pages/home/screen/Home"));
 const CreateBlog = React.lazy(() => import("../pages/auth/screen/CreateBlog"));
 const Login = React.lazy(() => import("../pages/login/login"));
 const Register = React.lazy(() => import("../pages/register/register"));

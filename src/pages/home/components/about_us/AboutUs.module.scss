@@ -1,0 +1,44 @@
+.container {
+  background-image: url('../about_us/banner.jpg');
+  background-size: cover; /* Đảm bảo hình nền bao phủ toàn bộ container */
+  background-repeat: no-repeat; /* Ngăn hình nền lặp lại */
+  background-position: center; /* Đặt hình nền ở giữa */
+  padding: 20px;
+  line-height: 1.6;
+  min-height: 100vh; /* Đảm bảo container có chiều cao tối thiểu bằng chiều cao màn hình */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Đưa nội dung lên trên cùng */
+  text-align: center;
+}
+
+.content {
+  max-width: 860px; /* Giới hạn chiều rộng tối đa của nội dung */
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px; /* Thêm khoảng cách ở trên cùng */
+}
+.content h1 {
+  font-size: bold;
+  color: #ea2227;
+  font-size: 62px;
+  text-transform: uppercase;
+  position: relative;
+  margin-bottom: 40px;
+  margin-top: 0;
+}
+
+// ul {
+//   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+//   margin-top: 15px;
+//   margin-bottom: 10px;
+//   padding-left: 20px;
+//   list-style-type: none;
+//   text-align: center; 
+// }
+
+p {
+  font-size: 17px;
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 15px;
+}
