@@ -1,23 +1,22 @@
 .fieldContent h1 {
   color: #ea2227;
   font-size: 62px;
-  text-transform: uppercase;
+ font-weight: bold;
   position: relative;
   margin-bottom: 40px;
-  margin-top: 0;
+  margin-top: 10px;
 }
 
 .fieldContainer {
   display: flex;
   align-items: center;
-  padding-left: 10%;
-  padding-right: 10%;
+  padding-right: 7%;
+  padding-left: 4%;
 }
 
 .fieldImage {
   object-fit: cover;
   border-radius: 5px;
-  padding-right: 10%;
   // width: 50%; /* Adjust width as needed */
 }
 
@@ -52,10 +51,9 @@
 }
 
 .fieldContainer2 {
- 
   display: flex;
   align-items: center;
-  padding-left: 10%; /* Adjust padding as needed */
+  padding-left: 5%; /* Adjust padding as needed */
   padding-right: 10%; /* Adjust padding as needed */
   // flex-direction: row-reverse; /* Reverse the flex direction for right-aligned content */
 }

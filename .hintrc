@@ -27,8 +27,15 @@
       "default",
       {
         "ignore": [
-          "position: sticky"
+          "position: sticky",
+          "max-width: fit-content"
         ]
+      }
+    ],
+    "axe/forms": [
+      "default",
+      {
+        "label": "off"
       }
     ]
   }

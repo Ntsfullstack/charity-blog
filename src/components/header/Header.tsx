@@ -199,7 +199,7 @@ const DropdownMenu = () => {
   const menuTinTuc = (
     <Menu>
       <Menu.Item>
-        <Link to="/news" className={styles.dropdown_link_title}>
+        <Link to="/MainPage" className={styles.dropdown_link_title}>
           Tin tức - sự kiện
         </Link>
       </Menu.Item>
