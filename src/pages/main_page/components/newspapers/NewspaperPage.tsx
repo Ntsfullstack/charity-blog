@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from "react";
-import styles from "./MainPage.module.scss";
-import { getListBlogs } from "../../auth/api/auth.api";
-import Card from "../../../components/card/Card";
-import { BlogPostData } from "../types/blogdata.type";
+import { Link, useLocation } from "react-router-dom";
+import styles from "./Newspaper.module.scss";
+import { getPostsByCategories } from "../../../activity/api/activity.api";
+import Card from "../../../../components/card/Card";
+import { BlogPostData } from "../../types/blogdata.type";
+import Banner from "../../../../components/banner/Banner";
+import CardItemsCategory from "../../../../components/cardItems/CardItemsCategory";
 
-const MainPage = () => {
+const NewspaperPage = () => {
   const [cardData, setCardData] = useState<BlogPostData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const page = 1;
   const [limit, setLimit] = useState<number>(10);
+  const location = useLocation();
+
 
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
-        const response = await getListBlogs(page, limit);
+        const response = await getPostsByCategories("667d84a8dad624ab4905d016");
         if (response?.status === 200) {
           setCardData(response.data);
         }
@@ -48,29 +53,24 @@ const MainPage = () => {
   }
 
   return (
-    <>
-      <div className={styles.title}>
-        <h3>TIN TỨC - SỰ KIỆN</h3>
-        <div className={styles.line}></div>
-        <p>Hãy cập nhật những dự án mới nhất của chúng tôi</p>
-        <h4>TIN NỔI BẬT</h4>
-        <div className={styles.cardContainer}>
-          <Card cardData={highlightedNews} loading={isLoading} />
+    <div className={styles.mainContainer}>
+      <div className={styles.content}>
+        <div className={styles.mainContent}>
+          <div className={styles.title}>
+            <h3>THÔNG CÁO BÁO CHÍ</h3>
+            <div className={styles.cardContainer}>
+              <CardItemsCategory
+                cardData={highlightedNews}
+                loading={isLoading}
+              />
+            </div>
+                    <div className={styles.fieldContainer}>
+    </div>
+          </div>
         </div>
       </div>
-      <h4>TIN TỨC KHÁC</h4>
-      <div className={styles.cardContainer}>
-        <Card cardData={otherNews} loading={isLoading} />
-        <div className={styles.BtnLoadMore}>
-          {cardData.length > 0 && (
-            <button className={styles.loadMoreButton} onClick={handleLoadMore}>
-              Load More
-            </button>
-          )}
-        </div>
-      </div>
-    </>
+    </div>
   );
 };
 
-export default MainPage;
+export default NewspaperPage;

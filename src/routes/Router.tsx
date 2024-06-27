@@ -5,6 +5,9 @@ import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import Loading from "../components/Loading/Loading";
 import ProtectedRoute from "../layout/ProtectedRoute"; // Import ProtectedRoute
 import path from "path";
+import RecruitmentPage from "../pages/main_page/components/recruitment/RecruitmentPage";
+import SharedLayout from "../pages/main_page/screen/SharedLayout";
+import NewspaperPage from "../pages/main_page/components/newspapers/NewspaperPage";
 
 // Import components using lazy loading
 // const  AboutUs = React.lazy(() => import ("../pages/main_page"));
@@ -73,34 +76,39 @@ const routerConfig = [
             ),
           },
           {
-            path: ROUTES.MainPage,
-            element: (
-              <Suspense fallback={<Loading />}>
-                <MainPage />
-              </Suspense>
-            ),
+            element: <SharedLayout />, // Use SharedLayout here
+            children: [
+              {
+                path: ROUTES.MainPage,
+                element: (
+                  <Suspense fallback={<Loading />}>
+                    <MainPage />
+                  </Suspense>
+                ),
+              },
+              {
+                path: ROUTES.tuyenDung,
+                element: (
+                  <Suspense fallback={<Loading />}>
+                    <RecruitmentPage />
+                  </Suspense>
+                ),
+              },
+              {
+                path: ROUTES.thongBaoBaoChi,
+                element: (
+                  <Suspense fallback={<Loading />}>
+                    <NewspaperPage />
+                  </Suspense>
+                ),
+              },
+            ],
           },
           {
             path: ROUTES.Activity,
             element: (
               <Suspense fallback={<Loading />}>
                 <Activity />
-              </Suspense>
-            ),
-          },
-          {
-            path: ROUTES.tuyenDung,
-            element: (
-              <Suspense fallback={<Loading />}>
-                <MainPage/>
-              </Suspense>
-            ),
-          },
-          {
-            path: ROUTES.thongBaoBaoChi,
-            element: (
-              <Suspense fallback={<Loading />}>
-                <MainPage />
               </Suspense>
             ),
           },
