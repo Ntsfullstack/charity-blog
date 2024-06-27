@@ -1,3 +1,5 @@
+import Activity from "../layout/ActivityLayout";
+
 export const ROUTES = {
   main: "/",
   login: "/login",
@@ -11,4 +13,6 @@ export const ROUTES = {
   post: "/post/:slug",
   MainPage: "/MainPage",
   SearchPost: "/search/:query",
+  Mission: "/mission",
+  Activity: "/activity",
 } as const;

@@ -1,72 +1,82 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper';
+import dayjs from 'dayjs';
 import styles from './news.module.scss';
 import { getRelatedArticles } from "../../../../relatedArticles/RelatedArticles.api";
 
-interface NewsItem {
-  id: number;
-  image: string;
-  title: string;
-  description: string;
-  slug: string;
+interface RelatedArticlesProps {
+  currentArticleId: string;
 }
 
-interface NewsProps {
-  slug?: string;
-}
-
-const News: React.FC<NewsProps> = ({ slug = 'default-slug' }) => {
-  const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
+const RelatedArticles: React.FC<RelatedArticlesProps> = ({
+  currentArticleId,
+}) => {
+  const [articles, setArticles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchNews = useCallback(async () => {
-    try {
-      setLoading(true);
-      const data = await getRelatedArticles(slug);
-      if (Array.isArray(data)) {
-        setNewsItems(data);
-      } else {
-        throw new Error('Data is not in the expected format');
-      }
-      setError(null);
-    } catch (err) {
-      console.error('Error fetching news:', err);
-      setError('Không thể tải tin tức. Vui lòng thử lại sau.');
-      setNewsItems([]);
-    } finally {
-      setLoading(false);
-    }
-  }, [slug]);
-
   useEffect(() => {
-    fetchNews();
-  }, [fetchNews]);
+    const fetchRelatedArticles = async () => {
+      setLoading(true);
+      try {
+        const response = await getRelatedArticles(currentArticleId);
+        if (response) {
+          setArticles(response);
+        }
+      } catch (err: any) {
+        setError(err.message || "An error occurred while fetching articles.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  if (loading) return <div className={styles.loading}>Đang tải...</div>;
-  if (error) return <div className={styles.error}>{error}</div>;
+    fetchRelatedArticles();
+  }, [currentArticleId]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error loading articles: {error}</p>;
+  }
 
   return (
-    <div className={styles.fieldContainer}>
-      <h1 className={styles.title}>TIN TỨC - SỰ KIỆN</h1>
-      <p className={styles.description}>Hãy cập nhật những dự án và chương trình mới nhất của chúng tôi. Và đồng hành lan tỏa những điều thiện!</p>
-      {newsItems.length > 0 ? (
-        <div className={styles.newsGrid}>
-          {newsItems.map((item) => (
-            <div key={item.id} className={styles.newsItem}>
-              <img src={item.image} alt={item.title} className={styles.image} />
-              <div className={styles.textContent}>
-                <h3 className={styles.itemTitle}>{item.title}</h3>
-                <p className={styles.itemDescription}>{item.description}</p>
-                <button className={styles.btn}>Đọc thêm</button>
-              </div>
+    <div className={styles.relatedArticlesContainer}>
+      <h2>TIN TỨC-SỰ KIỆN</h2>
+      <Swiper
+        spaceBetween={30}
+        centeredSlides={true}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        pagination={{ clickable: true }}
+        navigation={true}
+        className={styles.carousel}
+      >
+        {articles.map((article, index) => (
+          <SwiperSlide key={index} className={styles.cardItem}>
+            <div className={styles.cardImage}>
+              <img src={article.thumbnail} alt={article.title} />
             </div>
-          ))}
-        </div>
-      ) : (
-        <div className={styles.noNews}>Không có tin tức nào để hiển thị.</div>
-      )}
+            <div className={styles.cardContent}>
+              <h2 className={styles.cardTitle}>{article.title}</h2>
+              <small className={styles.cardMeta}>
+                by
+                <a href={`/author/${article.authorId._id}`} className={styles.link}>
+                  {" "}
+                  {article.authorId.username}
+                </a>{" "}
+                - <span>{dayjs(article.createdAt).format("MMMM D, YYYY")}</span>
+              </small>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };
 
-export default News;
+export default RelatedArticles;

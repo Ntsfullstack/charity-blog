@@ -219,7 +219,7 @@ const DropdownMenu = () => {
   const menuHoatDong = (
     <Menu>
       <Menu.Item>
-        <Link to="/branding" className={styles.dropdown_link_title}>
+        <Link to="/Activity" className={styles.dropdown_link_title}>
           Văn hóa - Giáo dục
         </Link>
       </Menu.Item>

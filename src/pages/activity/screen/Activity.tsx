@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ReactElement } from "react";
 import { useLocation } from "react-router-dom";
-import styles from "./Activity.Module.scss";
+import styles from "./Activity.module.scss";
 import { getListBlogs } from "../../auth/api/auth.api";
 import Card from "../../../components/card/Card";
 import { BlogPostData } from "../types/blogdata.type";

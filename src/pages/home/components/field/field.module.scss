@@ -10,8 +10,9 @@
 .fieldContainer {
   display: flex;
   align-items: center;
-  padding-right: 7%;
-  padding-left: 4%;
+  // padding-right: 7%;
+  // padding-left: 4%;
+  justify-content: space-evenly;
 }
 
 .fieldImage {
@@ -21,6 +22,7 @@
 }
 
 .fieldText {
+  max-width: 25%;
   flex: 1; /* Allow text to take remaining space */
 }
 
@@ -51,10 +53,11 @@
 }
 
 .fieldContainer2 {
+  justify-content: space-evenly;
   display: flex;
   align-items: center;
-  padding-left: 5%; /* Adjust padding as needed */
-  padding-right: 10%; /* Adjust padding as needed */
+  // padding-left: 5%; /* Adjust padding as needed */
+  // padding-right: 10%; /* Adjust padding as needed */
   // flex-direction: row-reverse; /* Reverse the flex direction for right-aligned content */
 }
 
@@ -66,7 +69,7 @@
 }
 
 .fieldText2 {
-  max-width: 30%;
+  max-width: 25%;
   flex: 1; /* Allow text to take remaining space */
 }
 

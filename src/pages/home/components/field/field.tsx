@@ -20,8 +20,8 @@ const Field: React.FC = () => {
     <div className={styles.fieldContainer2}>
     <div className={styles.fieldText2}>
         <h2>CHĂM SÓC SỨC KHỎE CỘNG ĐỒNG</h2>
-        <h3>TRAO CƠ HỘI ĐƯỢC CHĂM SÓC SỨC KHỎE VỚI DỊCH VỤ CHẤT LƯỢNG CAO CHO TẤT CẢ MỌI NGƯỜI</h3>
-      <p>Chúng tôi tổ chức nhiều chương trình khám chữa bệnh, phẫu thuật miễn phí, tài trợ thuốc chữa bệnh, xây dựng và đầu tư trang thiết bị y tế; phối hợp với các bệnh viện và chuyên gia uy tín hàng đầu tạo cơ hội cho hàng trăm nghìn người tiếp cận các dịch vụ y tế chăm sóc tốt nhất.</p>
+        <h3>TRAO CƠ HỘI ĐƯỢC CHĂM SÓC SỨC KHỎE CHO TẤT CẢ MỌI NGƯỜI</h3>
+      <p>Tổ chức nhiều chương trình khám chữa bệnh, phẫu thuật miễn phí, tài trợ thuốc chữa bệnh, xây dựng và đầu tư trang thiết bị y tế; phối hợp với các bệnh viện và chuyên gia uy tín hàng đầu tạo cơ hội cho hàng trăm nghìn người tiếp cận các dịch vụ y tế chăm sóc tốt nhất.</p>
       </div>
       <img
         src="http://quythientam.com/mediacenter//media/images/905/menu/icons/anh2-1558063725.png"

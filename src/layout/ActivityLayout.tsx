@@ -12,7 +12,7 @@ const Activity = () => {
         <div className={styles.mainContent}>
           <Outlet />
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </>
   );
