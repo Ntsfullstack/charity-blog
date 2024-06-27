@@ -1,0 +1,189 @@
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap; /* Allow cards to wrap to the next line */
+  gap: 1.875rem; // 30px / 16 = 1.875rem
+  justify-content: center;
+  padding: 1.875rem; // 30px / 16 = 1.875rem
+  margin: 0 auto;
+}
+
+.cardItem {
+  background-color: white;
+  border-radius: 0.625rem; // 10px / 16 = 0.625rem
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); // 0 4px 8px
+  overflow: hidden;
+  aspect-ratio: 3 / 4.1; /* Maintain 3:4 aspect ratio */
+  width: 20%; /* Adjust for better responsiveness */
+  transition: transform 0.2s ease; /* Add transition for hover effect */
+  display: flex; /* Use flexbox for layout within the card */
+  flex-direction: column;
+  margin-bottom: 1.25rem; // 20px / 16 = 1.25rem
+}
+
+.cardItem:hover {
+  transform: translateY(-0.25rem); // 4px / 16 = 0.25rem
+}
+
+/* Card Image Styling */
+.cardImage {
+  height: auto;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Image aspect ratio */
+  overflow: hidden;
+}
+
+.cardImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.cardItem:hover .cardImage img {
+  transform: scale(1.05);
+}
+
+/* Card Image Skeleton Styling */
+.cardImageSkeleton {
+  width: 100%;
+  height: 11.25rem; // 180px / 16 = 11.25rem
+  border-radius: 0.625rem; // 10px / 16 = 0.625rem
+  margin-bottom: 1.25rem; // 20px / 16 = 1.25rem
+}
+
+/* Card Content Styling */
+.cardContent {
+  padding: 1.25rem; // 20px / 16 = 1.25rem
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Allow content to expand and push button down */
+}
+
+.cardTitle {
+  color: #111827;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5rem; /* Equivalent to 24px */
+  font-weight: 700;
+  letter-spacing: -0.0375rem; // -0.6px / 16 = -0.0375rem
+  line-height: 2rem; /* Equivalent to 32px */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+.cardMeta {
+  font-size: 0.875rem; /* Equivalent to 14px */
+  color: #777;
+  margin-bottom: 0.75rem; // 12px / 16 = 0.75rem
+}
+
+small {
+  font-size: 0.8rem; /* Equivalent to 12.8px */
+  line-height: 1.2rem; /* Equivalent to 19.2px */
+}
+
+.cardSubtitle {
+  color: #374151;
+  font-family: "Roboto", sans-serif;
+  line-height: 1.5rem; /* Equivalent to 24px */
+  margin: 0.75rem 0; // 12px / 16 = 0.75rem
+  display: -webkit-box;
+  max-width: 100%;
+  font-size: 1rem; /* Equivalent to 16px */
+  text-align: left;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  flex: 1; /* Allow subtitle to take up remaining space */
+}
+
+/* Button Styling */
+.cardContent .ant-btn-primary {
+  margin-top: auto; /* Push button to the bottom */
+  background-color: #1890ff;
+  border-color: #1890ff;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Link Styling */
+.Link {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  color: #1890ff;
+  margin-top: auto; /* Not necessary if using flex: 1 on .cardSubtitle */
+}
+.Links {
+  text-decoration: none;
+  color: #1890ff;
+  margin-top: auto; /* Not necessary if using flex: 1 on .cardSubtitle */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .cardItem {
+    flex-basis: 30%; /* Three cards per row on smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .cardSubtitle {
+    display: none;
+  }
+  .cardItem {
+    aspect-ratio: 3 / 3.5;
+    flex-basis: 45%; /* Two cards per row on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .cardItem {
+    aspect-ratio: 3 / 3.2;
+    flex-basis: 100%;
+    flex-direction: column;
+  }
+
+  .cardContent {
+    padding: 0.2rem 0.5rem 0.5rem 0.5rem;
+  }
+
+  .cardTitle {
+    padding: 0rem;
+    margin-bottom: 0 !important;
+    font-size: 0.75rem; /* Adjusted for smaller screens */
+  }
+
+  .cardMeta {
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem; /* Adjusted for smaller screens */
+  }
+
+  .cardSubtitle {
+    font-size: 0.875rem; /* Adjusted for smaller screens */
+  }
+
+  .cardContent .link .ant-btn {
+    font-size: 0.875rem; /* Adjust button font size */
+    padding: 0.5rem 1rem; /* Adjust button padding */
+  }
+}
+@media screen and (max-width: 768px) {
+  .button {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    & button {
+      width: 80%;
+    }
+  }
+  .cardContent {
+    justify-content: space-evenly;
+  }
+}

@@ -4,9 +4,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import Loading from "../components/Loading/Loading";
 import ProtectedRoute from "../layout/ProtectedRoute"; // Import ProtectedRoute
-import path from "path";
-
-
 
 // Import components using lazy loading
 // const  AboutUs = React.lazy(() => import ("../pages/main_page"));
@@ -23,7 +20,7 @@ const Register = React.lazy(() => import("../pages/register/register"));
 const ImageUpload = React.lazy(() => import("../config/uploadImage"));
 const Setting = React.lazy(() => import("../pages/auth/screen/Setting"));
 const SearchPost = React.lazy(() => import("../pages/SeachPost/SearchPost"));
-const Activity =  React.lazy(() => import("../pages/activity/screen/Activity")); 
+const Activity = React.lazy(() => import("../pages/activity/screen/Activity"));
 const ManagerBlogs = React.lazy(
   () => import("../pages/auth/screen/ManagerBlogs")
 );
@@ -88,8 +85,32 @@ const routerConfig = [
               <Suspense fallback={<Loading />}>
                 <Activity />
               </Suspense>
-            )
-          }
+            ),
+          },
+          {
+            path: ROUTES.tuyenDung,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Activity />
+              </Suspense>
+            ),
+          },
+          {
+            path: ROUTES.thongBaoBaoChi,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Activity />
+              </Suspense>
+            ),
+          },
+          {
+            path: ROUTES.about,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Activity />
+              </Suspense>
+            ),
+          },
         ],
       },
       {

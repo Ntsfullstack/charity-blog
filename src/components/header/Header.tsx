@@ -204,12 +204,12 @@ const DropdownMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item>
-        <Link className={styles.dropdown_link} to="/media">
+        <Link className={styles.dropdown_link} to="/tuyen-dung">
           Tuyển dụng, tình nguyện
         </Link>
       </Menu.Item>
       <Menu.Item>
-        <Link className={styles.dropdown_link} to="/social-welfare">
+        <Link className={styles.dropdown_link} to="/thong-cao-bao-chi">
           Thông cáo, báo chí
         </Link>
       </Menu.Item>

@@ -1,10 +1,12 @@
 import React, { useState, useEffect, ReactElement } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styles from "./Activity.module.scss";
 import { getListBlogs } from "../../auth/api/auth.api";
 import Card from "../../../components/card/Card";
 import { BlogPostData } from "../types/blogdata.type";
 import Banner from "../../../components/banner/Banner";
+import { getPostsByCategories } from "../api/activity.api";
+import CardItemsCategory from "../../../components/cardItems/CardItemsCategory";
 
 const Activity = () => {
   const [cardData, setCardData] = useState<BlogPostData[]>([]);
@@ -18,13 +20,13 @@ const Activity = () => {
     { name: "VĂN HÓA GIÁO DỤC", path: "/MainPage" },
     { name: "CHĂM SÓC SỨC KHỎE CỘNG ĐỒNG", path: "/tuyen-dung" },
     { name: "HỖ TRỢ SINH KẾ", path: "/thong-cao-bao-chi" },
-    { name: "AN SINH XÃ HỘI", path: "/activity"}
+    { name: "AN SINH XÃ HỘI", path: "/activity" },
   ];
 
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
-        const response = await getListBlogs(page, limit);
+        const response = await getPostsByCategories("667bcecfec596a8638ebd2a9");
         if (response?.status === 200) {
           setCardData(response.data);
         }
@@ -65,8 +67,12 @@ const Activity = () => {
           <ul>
             {categories.map((category) => (
               <li key={category.name}>
-                <div className={`${styles.categoryBox} ${location.pathname === category.path ? styles.active : ''}`}>
-                  <a href={category.path}>{category.name}</a>
+                <div
+                  className={`${styles.categoryBox} ${
+                    location.pathname === category.path ? styles.active : ""
+                  }`}
+                >
+                  <Link to={category.path}>{category.name}</Link>
                 </div>
               </li>
             ))}
@@ -79,7 +85,10 @@ const Activity = () => {
             <p>Hãy cập nhật những dự án mới nhất của chúng tôi</p>
             <h4>TIN NỔI BẬT</h4>
             <div className={styles.cardContainer}>
-              <Card cardData={highlightedNews} loading={isLoading} />
+              <CardItemsCategory
+                cardData={highlightedNews}
+                loading={isLoading}
+              />
             </div>
           </div>
           <h4>TIN TỨC KHÁC</h4>
@@ -87,7 +96,10 @@ const Activity = () => {
             <Card cardData={otherNews} loading={isLoading} />
             <div className={styles.BtnLoadMore}>
               {cardData.length > 0 && (
-                <button className={styles.loadMoreButton} onClick={handleLoadMore}>
+                <button
+                  className={styles.loadMoreButton}
+                  onClick={handleLoadMore}
+                >
                   Load More
                 </button>
               )}

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper';
-import dayjs from 'dayjs';
-import styles from './news.module.scss';
+import React, { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper";
+import dayjs from "dayjs";
+import styles from "./news.module.scss";
 import { getRelatedArticles } from "../../../../relatedArticles/RelatedArticles.api";
 
 interface RelatedArticlesProps {
@@ -65,7 +65,10 @@ const RelatedArticles: React.FC<RelatedArticlesProps> = ({
               <h2 className={styles.cardTitle}>{article.title}</h2>
               <small className={styles.cardMeta}>
                 by
-                <a href={`/author/${article.authorId._id}`} className={styles.link}>
+                <a
+                  href={`/author/${article.authorId._id}`}
+                  className={styles.link}
+                >
                   {" "}
                   {article.authorId.username}
                 </a>{" "}

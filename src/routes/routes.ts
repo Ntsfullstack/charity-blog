@@ -1,5 +1,3 @@
-import Activity from "../layout/ActivityLayout";
-
 export const ROUTES = {
   main: "/",
   login: "/login",
@@ -15,4 +13,9 @@ export const ROUTES = {
   SearchPost: "/search/:query",
   Mission: "/mission",
   Activity: "/activity",
+  tuyenDung: "/tuyen-dung",
+  thongBaoBaoChi: "/thong-cao-bao-chi",
+  about: "/about",
+  contact: "/contact",
+  privacy: "/privacy",
 } as const;
