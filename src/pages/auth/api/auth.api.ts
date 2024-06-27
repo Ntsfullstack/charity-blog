@@ -132,3 +132,11 @@ export const updateBanner = async (data: any) => {
     console.error(" Error:", error.message);
   }
 };
+export const getTagCategory = async () => {
+  try {
+    const response = await axiosInstance.get("/getCategories");
+    return response;
+  } catch (error: any) {
+    console.error(" Error:", error.message);
+  }
+};

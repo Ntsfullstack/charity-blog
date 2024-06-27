@@ -8,9 +8,9 @@ import { Button } from "antd";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"; // Import necessary functions from Firebase Storage
 import { storage } from "../../../../config/firebase"; // Adjust the path based on your folder structure
 import styles from "./Editor.module.scss";
-import { MyEditorProps } from "../../types/types";
 
-const MyEditor = (props: MyEditorProps) => {
+
+const MyEditor = (props: any) => {
   const [editorState, setEditorState] = useState<EditorState>(() => {
     if (props.content) {
       const contentBlock = htmlToDraft(props.content);

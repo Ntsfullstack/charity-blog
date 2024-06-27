@@ -1,37 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { Input, Form, Upload, Button, message, UploadFile } from "antd";
+import { Input, Form, Upload, Button, message, UploadFile, Select } from "antd";
 import { storage, firestore } from "../../../../config/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
-import { createPost, updatePost } from "../../api/auth.api";
+import { createPost, getTagCategory, updatePost } from "../../api/auth.api";
 import style from "./SetInfoPost.module.scss";
 import { MyEditorProps } from "../../types/types";
+// import TagsCategory from "../TagCategory/tagCategory";
+import type { SelectProps } from "antd";
 
-const SetInfoPost = (props: MyEditorProps) => {
+const SetInfoPost = (props: any) => {
   const [form] = Form.useForm();
   const [postingData, setPostingData] = useState(false);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const content = localStorage.getItem("htmlContent");
   const [urlImage, setUrlImage] = useState<string>("");
+  const [categories, setCategories] = useState<any[]>([]);
+  const [options, setOptions] = useState<ItemProps[]>([]);
+  const [value, setValue] = useState<any>([]);
 
   useEffect(() => {
     if (props?.title) {
       form.setFieldsValue({
-        title: props.title.title,
-        slug: props.title.slug,
-        description: props.title.description,
-        thumbnail: props.title.thumbnail,
+        title: props.title.Post.title,
+        slug: props.title.Post.slug,
+        description: props.title.Post.description,
+        thumbnail: props.title.Post.thumbnail,
       });
-      if (props.title.thumbnail) {
+      if (props.title.Post.thumbnail) {
         setFileList([
           {
             uid: "-1",
             name: "thumbnail.png",
             status: "done",
-            url: props.title.thumbnail,
+            url: props.title.Post.thumbnail,
           },
         ]);
-        setUrlImage(props.title.thumbnail);
+        setUrlImage(props.title.Post.thumbnail);
       }
     }
   }, [props.title, form]);
@@ -85,9 +90,11 @@ const SetInfoPost = (props: MyEditorProps) => {
         description: values.description,
         title: values.title,
         thumbnail: urlImage,
+        category: value,
       };
+      console.log(postData);
 
-      if (props) {
+      if (props?.title) {
         await updatePost(postData);
       } else {
         await createPost(postData);
@@ -136,12 +143,63 @@ const SetInfoPost = (props: MyEditorProps) => {
     imgWindow?.document.write(image.outerHTML);
   };
 
+  interface ItemProps {
+    label: string;
+    value: string;
+  }
+
   const handleChangePage = () => {
     props.setPage(1);
   };
 
   const checkPage = props.page === 2;
 
+  useEffect(() => {
+    if (props.title?.dataCategory) {
+      setCategories(props.title.dataCategory);
+    }
+  }, [props.title]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await getTagCategory();
+        if (!response || !response.data) return;
+
+        const categories: ItemProps[] = response.data.map((category: any) => ({
+          label: category.title,
+          value: category._id,
+        }));
+
+        setOptions(categories);
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  const sharedProps: SelectProps = {
+    mode: "multiple",
+    style: { width: "100%" },
+    options,
+    placeholder: "Select Item...",
+    maxTagCount: "responsive",
+  };
+
+  useEffect(() => {
+    const datas = categories.map((category: any) => ({
+      // label: category.title,
+      value: category._id,
+    }));
+    setValue(datas);
+  }, [categories]);
+
+  const selectProps: SelectProps = {
+    value,
+    onChange: setValue,
+  };
   return (
     checkPage && (
       <div className={style.InfoPost}>
@@ -189,7 +247,6 @@ const SetInfoPost = (props: MyEditorProps) => {
           >
             <Input />
           </Form.Item>
-
           <Form.Item
             name="slug"
             label="Slug"
@@ -198,7 +255,6 @@ const SetInfoPost = (props: MyEditorProps) => {
           >
             <Input />
           </Form.Item>
-
           <Form.Item
             name="description"
             label="Description"
@@ -206,7 +262,7 @@ const SetInfoPost = (props: MyEditorProps) => {
           >
             <Input.TextArea rows={4} />
           </Form.Item>
-
+          <Select {...sharedProps} {...selectProps} />
           <Form.Item
             wrapperCol={{ offset: 8, span: 16 }}
             className={style.submitItem}
