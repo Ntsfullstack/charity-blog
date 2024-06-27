@@ -18,4 +18,7 @@ export const ROUTES = {
   about: "/about",
   contact: "/contact",
   privacy: "/privacy",
+  suckhoecongdong: "/suc-khoe-cong-dong",
+  hoTroSinhKe: "/ho-tro-sinh-ke",
+  anSinhXaHoi: "/an-sinh-xa-hoi",
 } as const;

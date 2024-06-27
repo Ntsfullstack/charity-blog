@@ -17,10 +17,10 @@ const Activity = () => {
   const location = useLocation();
 
   const categories = [
-    { name: "VĂN HÓA GIÁO DỤC", path: "/MainPage" },
-    { name: "CHĂM SÓC SỨC KHỎE CỘNG ĐỒNG", path: "/tuyen-dung" },
-    { name: "HỖ TRỢ SINH KẾ", path: "/thong-cao-bao-chi" },
-    { name: "AN SINH XÃ HỘI", path: "/activity" },
+    { name: "VĂN HÓA GIÁO DỤC", path: "/Activity" },
+    { name: "CHĂM SÓC SỨC KHỎE CỘNG ĐỒNG", path: "/suc-khoe-cong-dong" },
+    { name: "HỖ TRỢ SINH KẾ", path: "/ho-tro-sinh-ke" },
+    { name: "AN SINH XÃ HỘI", path: "/an-sinh-xa-hoi" },
   ];
 
   useEffect(() => {

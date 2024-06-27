@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import Loading from "../components/Loading/Loading";
 import ProtectedRoute from "../layout/ProtectedRoute"; // Import ProtectedRoute
+import path from "path";
 
 // Import components using lazy loading
 // const  AboutUs = React.lazy(() => import ("../pages/main_page"));
@@ -91,7 +92,7 @@ const routerConfig = [
             path: ROUTES.tuyenDung,
             element: (
               <Suspense fallback={<Loading />}>
-                <Activity />
+                <MainPage/>
               </Suspense>
             ),
           },
@@ -99,7 +100,7 @@ const routerConfig = [
             path: ROUTES.thongBaoBaoChi,
             element: (
               <Suspense fallback={<Loading />}>
-                <Activity />
+                <MainPage />
               </Suspense>
             ),
           },
@@ -111,6 +112,31 @@ const routerConfig = [
               </Suspense>
             ),
           },
+          {
+          path: ROUTES.suckhoecongdong,
+          element: (
+            <Suspense fallback={<Loading />}>
+              <Activity />
+            </Suspense>
+          ),
+          },
+          {
+            path: ROUTES.hoTroSinhKe,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Activity />
+              </Suspense>
+            ),
+          },
+          {
+            path: ROUTES.anSinhXaHoi,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Activity />
+              </Suspense>
+            ),
+          }
+
         ],
       },
       {
