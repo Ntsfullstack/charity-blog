@@ -80,16 +80,28 @@ const Activity = () => {
         </div>
         <div className={styles.mainContent}>
           <div className={styles.title}>
-            <h3>TIN TỨC - SỰ KIỆN</h3>
-            <div className={styles.line}></div>
-            <p>Hãy cập nhật những dự án mới nhất của chúng tôi</p>
-            <h4>TIN NỔI BẬT</h4>
+            <h3>VĂN HÓA - GIÁO DỤC</h3>
+            {/* <div className={styles.line}></div> */}
+            {/* <h4>TIN NỔI BẬT</h4> */}
             <div className={styles.cardContainer}>
               <CardItemsCategory
                 cardData={highlightedNews}
                 loading={isLoading}
               />
             </div>
+                    <div className={styles.fieldContainer}>
+      <img
+        src="http://quythientam.com/mediacenter//media/images/905/menu/icons/anh1-1558063714.png"
+        alt="Field Image"
+        className={styles.fieldImage}
+      />
+      <div className={styles.fieldText}>
+        <h2>PHÁT TRIỂN THẾ HỆ TƯƠNG LAI LÀ PHÁT TRIỂN
+TIỀM LỰC CỐT LÕI
+CỦA XÃ HỘI</h2>
+      <p>Với mục tiêu đem tới cơ hội học tập công bằng, cơ hội phát triển xứng đáng cho những tài năng, Quỹ Thiện Tâm hy vọng đem tới nguồn động viên cả về vật chất và tinh thần: Những chương trình xây dựng trường học, nhà bán trú, trao học bổng hằng năm, xây dựng văn hóa đọc; đồng thời tạo chỗ dựa đem tới những cơ hội giáo dục bền vững và lâu dài. </p>
+      </div>
+    </div>
           </div>
           <h4>TIN TỨC KHÁC</h4>
           <div className={styles.cardContainer}>
