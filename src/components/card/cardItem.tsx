@@ -32,12 +32,12 @@ const CardItem: React.FC<CardItemProps> = (props) => {
           </a>{" "}
           - <span>{dayjs(props.createdAt).format("MMMM D, YYYY")}</span>
         </small>
-        <p className={styles.cardSubtitle}>{props.description}</p>
+        {/* <p className={styles.cardSubtitle}>{props.description}</p> */}
         <a
           href={`/post/${props.slug}`}
           className={clsx(styles.link, styles.button)}
         >
-          <Button type="primary">Read Post</Button>
+          <Button type="primary">Đọc tiếp</Button>
         </a>
       </div>
     </div>

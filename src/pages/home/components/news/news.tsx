@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from "react";
 import styles from "./news.module.scss";
 import { getRelatedArticles } from "../../../../relatedArticles/RelatedArticles.api";
 
-
 interface NewsItem {
   id: number;
   image: string;

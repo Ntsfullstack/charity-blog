@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ReactElement } from "react";
 import { useLocation } from "react-router-dom";
-import styles from "./MainPage.module.scss";
+import styles from "./Activity.Module.scss";
 import { getListBlogs } from "../../auth/api/auth.api";
 import Card from "../../../components/card/Card";
 import { BlogPostData } from "../types/blogdata.type";
 import Banner from "../../../components/banner/Banner";
 
-const MainPage = () => {
+const Activity = () => {
   const [cardData, setCardData] = useState<BlogPostData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -15,9 +15,10 @@ const MainPage = () => {
   const location = useLocation();
 
   const categories = [
-    { name: "TIN TỨC-SỰ KIỆN", path: "/MainPage" },
-    { name: "TUYỂN DỤNG", path: "/tuyen-dung" },
-    { name: "THÔNG CÁO BÁO CHÍ", path: "/thong-cao-bao-chi" }
+    { name: "VĂN HÓA GIÁO DỤC", path: "/MainPage" },
+    { name: "CHĂM SÓC SỨC KHỎE CỘNG ĐỒNG", path: "/tuyen-dung" },
+    { name: "HỖ TRỢ SINH KẾ", path: "/thong-cao-bao-chi" },
+    { name: "AN SINH XÃ HỘI", path: "/activity"}
   ];
 
   useEffect(() => {
@@ -98,4 +99,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default Activity;
