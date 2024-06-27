@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import styles from './news.module.scss';
+import React, { useEffect, useState, useCallback } from "react";
+import styles from "./news.module.scss";
 import { getRelatedArticles } from "../../../../relatedArticles/RelatedArticles.api";
+
 
 interface NewsItem {
   id: number;
@@ -14,7 +15,7 @@ interface NewsProps {
   slug?: string;
 }
 
-const News: React.FC<NewsProps> = ({ slug = 'default-slug' }) => {
+const News: React.FC<NewsProps> = ({ slug = "" }) => {
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -22,16 +23,16 @@ const News: React.FC<NewsProps> = ({ slug = 'default-slug' }) => {
   const fetchNews = useCallback(async () => {
     try {
       setLoading(true);
-      const data = await getRelatedArticles(slug);
+      const data = await getRelatedArticles("6664899209d3c73791d3c333");
       if (Array.isArray(data)) {
         setNewsItems(data);
       } else {
-        throw new Error('Data is not in the expected format');
+        throw new Error("Data is not in the expected format");
       }
       setError(null);
     } catch (err) {
-      console.error('Error fetching news:', err);
-      setError('Không thể tải tin tức. Vui lòng thử lại sau.');
+      console.error("Error fetching news:", err);
+      setError("Không thể tải tin tức. Vui lòng thử lại sau.");
       setNewsItems([]);
     } finally {
       setLoading(false);
@@ -48,7 +49,10 @@ const News: React.FC<NewsProps> = ({ slug = 'default-slug' }) => {
   return (
     <div className={styles.fieldContainer}>
       <h1 className={styles.title}>TIN TỨC - SỰ KIỆN</h1>
-      <p className={styles.description}>Hãy cập nhật những dự án và chương trình mới nhất của chúng tôi. Và đồng hành lan tỏa những điều thiện!</p>
+      <p className={styles.description}>
+        Hãy cập nhật những dự án và chương trình mới nhất của chúng tôi. Và đồng
+        hành lan tỏa những điều thiện!
+      </p>
       {newsItems.length > 0 ? (
         <div className={styles.newsGrid}>
           {newsItems.map((item) => (

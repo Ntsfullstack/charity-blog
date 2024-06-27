@@ -5,12 +5,15 @@ import SetInfoPost from "../components/setInfoPost/SetinfoPost";
 import { getBlog } from "../api/auth.api";
 
 interface DataType {
-  slug: string;
-  title: string;
-  thumbnail: string;
-  author: string;
-  content: string;
-  description: string;
+  Post: {
+    _id: string;
+    slug: string;
+    title: string;
+    thumbnail: string;
+    author: string;
+    content: string;
+    description: string;
+  };
 }
 
 const EditBlog = () => {
@@ -44,7 +47,7 @@ const EditBlog = () => {
       <h1>Edit Blog</h1>
       {data ? (
         <>
-          <MyEditor page={page} setPage={setPage} content={data.content} />
+          <MyEditor page={page} setPage={setPage} content={data.Post.content} />
           <SetInfoPost page={page} setPage={setPage} title={data} />
         </>
       ) : (
