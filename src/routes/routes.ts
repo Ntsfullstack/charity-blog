@@ -12,7 +12,7 @@ export const ROUTES = {
   MainPage: "/MainPage",
   SearchPost: "/search/:query",
   Mission: "/mission",
-  Activity: "/activity",
+  Activity: "/Activity",
   tuyenDung: "/tuyen-dung",
   thongBaoBaoChi: "/thong-cao-bao-chi",
   about: "/about",
