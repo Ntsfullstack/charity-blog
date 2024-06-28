@@ -8,6 +8,8 @@ import style from "./SetInfoPost.module.scss";
 import { MyEditorProps } from "../../types/types";
 // import TagsCategory from "../TagCategory/tagCategory";
 import type { SelectProps } from "antd";
+import { toast } from "react-toastify";
+import { Toast } from "react-toastify/dist/components";
 
 const SetInfoPost = (props: any) => {
   const [form] = Form.useForm();
@@ -92,14 +94,12 @@ const SetInfoPost = (props: any) => {
         thumbnail: urlImage,
         category: value,
       };
-      console.log(postData);
-
       if (props?.title) {
         await updatePost(postData);
       } else {
         await createPost(postData);
       }
-      console.log("Post created successfully");
+      toast.success("Post created successfully.");
     } catch (err) {
       console.error(err);
       message.error("Error creating post.", 2);
@@ -147,7 +147,7 @@ const SetInfoPost = (props: any) => {
     label: string;
     value: string;
   }
-
+  const notify = () => toast("Wow so easy!");
   const handleChangePage = () => {
     props.setPage(1);
   };

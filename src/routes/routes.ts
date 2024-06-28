@@ -21,4 +21,5 @@ export const ROUTES = {
   suckhoecongdong: "/suc-khoe-cong-dong",
   hoTroSinhKe: "/ho-tro-sinh-ke",
   anSinhXaHoi: "/an-sinh-xa-hoi",
+  
 } as const;
