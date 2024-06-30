@@ -6,11 +6,13 @@ import style from "./Sider.module.scss";
 
 import {
   HomeOutlined,
+  LogoutOutlined,
   SettingOutlined,
   TagOutlined,
-  UserOutlined,
 } from "@ant-design/icons";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../../redux-setup/redux";
 
 const { Sider } = Layout;
 
@@ -26,7 +28,6 @@ const items: MenuItem[] = [
     key: "/auth/manager-blog",
     icon: <HomeOutlined />,
   },
-
   {
     label: "Create Blog",
     key: "/auth/create-blog",
@@ -36,6 +37,11 @@ const items: MenuItem[] = [
     label: "Edit Banner",
     key: "/auth/settings",
     icon: <SettingOutlined />,
+  },
+  {
+    label: "Logout",
+    key: "/logout",
+    icon: <LogoutOutlined />,
   },
 ];
 
@@ -47,8 +53,14 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ collapsed, setCollapsed }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const handleMenuClick = ({ key }: { key: string }) => {
+    if (key === "/logout") {
+      dispatch(logout());
+      navigate("/login");
+      return;
+    }
     navigate(key);
   };
 

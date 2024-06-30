@@ -48,7 +48,7 @@ const RelatedArticles: React.FC<RelatedArticlesProps> = ({
   return (
     <div className={styles.relatedArticlesContainer}>
       <h1>TIN TỨC - SỰ KIỆN</h1>
-      {/* <Swiper
+      <Swiper
         spaceBetween={30}
         centeredSlides={true}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
@@ -77,7 +77,7 @@ const RelatedArticles: React.FC<RelatedArticlesProps> = ({
             </div>
           </SwiperSlide>
         ))}
-      </Swiper> */}
+      </Swiper>
     </div>
   );
 };

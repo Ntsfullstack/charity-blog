@@ -94,12 +94,21 @@ const SetInfoPost = (props: any) => {
         thumbnail: urlImage,
         category: value,
       };
+
+      let res;
       if (props?.title) {
-        await updatePost(postData);
+        res = await updatePost(postData);
       } else {
-        await createPost(postData);
+        res = await createPost(postData);
       }
-      toast.success("Post created successfully.");
+
+      if (res?.status === 200) {
+        toast.success(
+          `Post ${props?.title ? "updated" : "created"} successfully.`
+        );
+      } else {
+        toast.error(res?.data?.message || "Something went wrong.");
+      }
     } catch (err) {
       console.error(err);
       message.error("Error creating post.", 2);

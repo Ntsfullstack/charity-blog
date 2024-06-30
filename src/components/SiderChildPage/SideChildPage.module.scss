@@ -1,10 +1,9 @@
-@import "../../../style/index.module.scss";
+@import "../../style/index.module.scss";
 .cardContainer {
   display: flex;
-
+  justify-content: flex-start;
   flex-wrap: wrap; /* Allow cards to wrap to the next line */
   gap: scale(30); // 30px / 16 = 1.875rem
-  justify-content: flex-start;
   padding: scale(30); // 30px / 16 = 1.875rem
   margin: 0 auto;
 }
@@ -13,7 +12,7 @@
   h4 {
     text-align: center;
     font-size: 35px; // 18px / 16 = 1.125rem
-    color: #2d2e82;
+    color: #fc4f88;
     font-weight: bold;
   }
 }
@@ -22,7 +21,10 @@
   display: flex;
   margin-top: 40px;
 }
-
+.fieldImage {
+  max-width: 50%;
+  padding-bottom: 10px;
+}
 .categoriesSidebar {
   width: 200px;
   margin-left: 10%;
@@ -43,7 +45,7 @@
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #ff0000;
+    background-color: #fc4f88;
   }
 
   a {
@@ -60,7 +62,7 @@
   }
 }
 .categoryBox.active {
-  background-color: red; // or whatever style you want for the active category
+  background-color: #fc4f88; // or whatever style you want for the active category
 }
 .categoryBox.active a {
   color: white; // Set text color to white
@@ -72,7 +74,7 @@
 .title {
   margin-bottom: 20px;
   text-align: center;
-  color: #2d2e82;
+  color: #fc4f88;
   display: flex;
   flex-direction: column;
 
@@ -80,7 +82,7 @@
     font-weight: bold;
     font-size: 45px;
     margin-bottom: 10px;
-    color: #2d2e82;
+    color: #fc4f88;
   }
 
   // .line {
@@ -94,16 +96,60 @@
   p {
     margin-bottom: 10px;
     font-size: 20px;
-    color: #2d2e82;
+    color: #fc4f88;
   }
 
   h4 {
     padding: 20px;
     text-align: center;
     font-size: 40px;
-    color: #2d2e82;
+    color: #fc4f88;
     font-weight: bold;
   }
+}
+.fieldContainer {
+  display: flex;
+  align-items: center;
+  // padding-right: 7%;
+  // padding-left: 4%;
+  justify-content: space-evenly;
+}
+
+.fieldImage {
+  object-fit: cover;
+  border-radius: 5px;
+  // width: 50%; /* Adjust width as needed */
+}
+
+.fieldText {
+  max-width: 25%;
+  flex: 1; /* Allow text to take remaining space */
+}
+
+.fieldText h2 {
+  font-family: "calibri bold", "Roboto", sans-serif;
+  font-size: 40px;
+  color: #fc4f88;
+  margin-top: 0;
+  text-align: left;
+  font-weight: bold; /* Corrected font-weight property */
+}
+
+.fieldText h3 {
+  font-size: 18px;
+  color: #fc4f88;
+  margin-top: 0;
+  text-align: left;
+}
+
+.fieldText p {
+  text-align: left;
+  font-family: "calibri", "Roboto", sans-serif;
+  font-size: 18px;
+  color: #333;
+  margin: 0; /* Reset default margins */
+  color: #868686;
+  max-width: 100%; /* Ensure text doesn't overflow */
 }
 
 // .cardContainer {

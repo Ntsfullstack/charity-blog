@@ -12,8 +12,7 @@
   border-radius: 0.625rem; // 10px / 16 = 0.625rem
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); // 0 4px 8px
   overflow: hidden;
-  aspect-ratio: 3 / 4.1; /* Maintain 3:4 aspect ratio */
-  width: 20%; /* Adjust for better responsiveness */
+  width: 30%; /* Adjust for better responsiveness */
   transition: transform 0.2s ease; /* Add transition for hover effect */
   display: flex; /* Use flexbox for layout within the card */
   flex-direction: column;
@@ -58,6 +57,14 @@
   flex-direction: column;
   flex: 1; /* Allow content to expand and push button down */
 }
+.button {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  & button {
+    width: 70%;
+  }
+}
 
 .cardTitle {
   color: #111827;
@@ -72,6 +79,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-word;
+  margin: 0;
 }
 
 .cardMeta {
@@ -89,9 +97,10 @@ small {
   color: #374151;
   font-family: "Roboto", sans-serif;
   line-height: 1.5rem; /* Equivalent to 24px */
-  margin: 0.75rem 0; // 12px / 16 = 0.75rem
+  margin: 0 0 0.75rem 0; // 12px / 16 = 0.75rem
   display: -webkit-box;
   max-width: 100%;
+  margin-bottom: 2rem;
   font-size: 1rem; /* Equivalent to 16px */
   text-align: left;
   -webkit-line-clamp: 3;

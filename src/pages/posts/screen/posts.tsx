@@ -27,7 +27,7 @@ const Post: React.FC = () => {
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const [relatedArticles, setRelatedArticles] = useState<any[]>([]);
   const { slug } = useParams<{ slug: string }>();
 
   useEffect(() => {
@@ -36,6 +36,7 @@ const Post: React.FC = () => {
         const res = await getBlog(slug as string);
         if (res?.status === 200) {
           setPost(res.data.Post);
+          setRelatedArticles(res.data.data);
         } else {
           setError("Blog post not found");
         }
@@ -89,7 +90,7 @@ const Post: React.FC = () => {
         </p>
         <Rate></Rate>
       </div>
-      <RelatedArticles currentArticleId={post._id}></RelatedArticles>
+      <RelatedArticles relatedArticles={relatedArticles}></RelatedArticles>
     </div>
   );
 };

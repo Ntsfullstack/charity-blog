@@ -15,7 +15,6 @@ const RecruitmentPage = () => {
   const [limit, setLimit] = useState<number>(10);
   const location = useLocation();
 
-
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
@@ -59,13 +58,9 @@ const RecruitmentPage = () => {
           <div className={styles.title}>
             <h3>TUYỂN DỤNG - TÌNH NGUYỆN</h3>
             <div className={styles.cardContainer}>
-              <CardItemsCategory
-                cardData={highlightedNews}
-                loading={isLoading}
-              />
+              <Card cardData={highlightedNews} loading={isLoading} />
             </div>
-                    <div className={styles.fieldContainer}>
-    </div>
+            <div className={styles.fieldContainer}></div>
           </div>
         </div>
       </div>

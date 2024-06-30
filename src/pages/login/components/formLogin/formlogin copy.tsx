@@ -1,62 +1,64 @@
 import React from "react";
-import type { FormProps } from "antd";
-import { Button, Form, Input, message } from "antd";
+import { Form, Input, Button, message } from "antd";
 import { Login } from "../../api/login.api";
 import { LoginParams } from "../../types/type";
+import { useNavigate } from "react-router-dom";
+import styles from "./formLogin.module.scss";
 
 const FormLogin = () => {
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
+
   const onFinish = async (values: LoginParams) => {
     try {
       const response = await Login(values);
       if (response.status === 200) {
         localStorage.setItem("token", JSON.stringify(response));
-        window.location.href = "/auth/manager-blog";
+        navigate("/auth/manager-blog");
       } else {
+        console.error("Failed to set token in localStorage");
         message.error("Login failed. Please try again.");
       }
     } catch (error: any) {
+      console.error("Login Error:", error.message);
       message.error("Login failed. Please try again.");
     }
   };
 
-  const onFinishFailed: FormProps<LoginParams>["onFinishFailed"] = (
-    errorInfo
-  ) => {
-    console.log("Failed:", errorInfo);
-  };
+  const onFinishFailed = () => {
+    message.error("Please fill in the form correctly.");
+  };  
 
   return (
     <Form
-      name="basic"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      style={{ maxWidth: 600 }}
-      initialValues={{ remember: true }}
+      form={form}
+      layout="vertical"
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-      autoComplete="off"
+      initialValues={{ remember: true }}
     >
-      <Form.Item<LoginParams>
-        label="Username"
+      <div className={styles.header}>
+        <h1 className={styles.header__title}>Đăng nhập</h1>
+      </div>
+      <Form.Item
         name="username"
+        label="Username:"
         rules={[{ required: true, message: "Please input your username!" }]}
       >
-        <Input />
+        <Input placeholder="Enter your username" />
       </Form.Item>
-
-      <Form.Item<LoginParams>
-        label="Password"
+      <Form.Item
         name="password"
+        label="Password:"
         rules={[{ required: true, message: "Please input your password!" }]}
       >
-        <Input.Password />
+        <Input.Password placeholder="Enter your password" />
       </Form.Item>
-
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+      <div className={styles.buttonGroup}>
         <Button type="primary" htmlType="submit">
-          Submit
+          Sign In
         </Button>
-      </Form.Item>
+      </div>
     </Form>
   );
 };

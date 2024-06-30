@@ -16,7 +16,7 @@ const Banner = () => {
         const data = await getBanner();
         setBannerData(data);
       } catch (err) {
-        setError("Error fetching banner data");
+        console.log("Error fetching banner data:", err);
       } finally {
         setIsLoading(false);
       }

@@ -61,23 +61,7 @@ const Activity = () => {
 
   return (
     <div className={styles.mainContainer}>
-      <Banner />
       <div className={styles.content}>
-        <div className={styles.categoriesSidebar}>
-          <ul>
-            {categories.map((category) => (
-              <li key={category.name}>
-                <div
-                  className={`${styles.categoryBox} ${
-                    location.pathname === category.path ? styles.active : ""
-                  }`}
-                >
-                  <Link to={category.path}>{category.name}</Link>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
         <div className={styles.mainContent}>
           <div className={styles.title}>
             <h3>VĂN HÓA - GIÁO DỤC</h3>
@@ -106,7 +90,7 @@ const Activity = () => {
             </div>
           </div>
           <div className={styles.cardContainer}>
-            <CardItemsCategory cardData={highlightedNews} loading={isLoading} />
+            <Card cardData={highlightedNews} loading={isLoading} />
           </div>
           {/* <h4>TIN TỨC KHÁC</h4>
           <div className={styles.cardContainer}>

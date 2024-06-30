@@ -6,7 +6,6 @@ import { Navigate } from "react-router-dom";
 const token = localStorage.getItem("token");
 // Kiểm tra và lấy giá trị isAuthenticated từ token
 const isAuthenticated = token ? JSON.parse(token).user.role === "admin" : false;
-console.log(isAuthenticated);
 interface ProtectedRouteProps {
   children: ReactElement;
 }

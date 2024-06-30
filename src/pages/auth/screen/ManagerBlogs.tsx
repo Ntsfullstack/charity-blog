@@ -1,89 +1,56 @@
 import React, { useEffect, useRef, useState } from "react";
-import { SearchOutlined } from "@ant-design/icons";
-import type { InputRef, TableColumnsType, TableColumnType } from "antd";
-import { Button, Input, Popconfirm, Space, Table } from "antd";
-import type { FilterDropdownProps } from "antd/es/table/interface";
+import type { GetProp, InputRef, TableProps } from "antd";
+import { Button, Popconfirm, Space, Table, TableColumnType, Input } from "antd";
+import type { SorterResult } from "antd/es/table/interface";
+import qs from "qs";
 import { deletePost, getListBlogs } from "../api/auth.api";
 import { useNavigate } from "react-router-dom";
+import { BlogData } from "../types/types";
+import { SearchOutlined } from "@ant-design/icons";
+import type { FilterDropdownProps } from "antd/es/table/interface";
 import Highlighter from "react-highlight-words";
-import Loading from "../../../components/Loading/Loading";
-import style from "./ManagerBlogs.module.scss";
-interface DataType {
-  _id: string;
-  title: string;
-  slug: string;
-  thumbnail: string;
-  likes: any;
-  author: string;
-  description: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-  authorId: {
-    _id: string;
-    username: string;
-    email: string;
-    avatar: string;
-    role: string;
-    createdAt: string;
-    updatedAt: string;
-    __v: number;
-  };
+import { toast } from "react-toastify";
+type ColumnsType<T> = TableProps<T>["columns"];
+type TablePaginationConfig = Exclude<
+  GetProp<TableProps, "pagination">,
+  boolean
+>;
+
+interface TableParams {
+  pagination?: TablePaginationConfig;
+  sortField?: SorterResult<any>["field"];
+  sortOrder?: SorterResult<any>["order"];
+  filters?: Parameters<GetProp<TableProps, "onChange">>[1];
 }
 
-type DataIndex = keyof DataType;
+type DataIndex = keyof BlogData;
+const handleDelete = async (slug: string) => {
+  const res = await deletePost(slug);
+  if (res?.status === 200) {
+    // setData(data.filter((item) => item.slug !== slug));
+  }
+};
 
-const ManthumbnailrBlogs: React.FC = () => {
+const getRandomuserParams = (params: TableParams) => ({
+  results: params.pagination?.pageSize,
+  page: params.pagination?.current,
+  ...params,
+});
+
+const ManageBlogs: React.FC = () => {
+  const [data, setData] = useState<any>([]);
+  const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
-  const [data, setData] = useState<DataType[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const limit = 10;
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const res = await getListBlogs(page, limit);
-        setLoading(true);
-
-        if (res && res.status === (200 as any)) {
-          setData(
-            res.data.map((item: DataType) => ({
-              _id: item._id, // Ensure _id is present and unique
-              slug: item.slug,
-              title: item.title,
-              thumbnail: item.thumbnail,
-              author: item.authorId.username,
-              description: item.description,
-            }))
-          );
-        } else {
-          // Handle the case where the response is not successful
-          console.error("API response not successful:", res);
-        }
-      } catch (error) {
-        console.error("Error fetching blogs:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBlogs(); // Call the function here
-  }, []);
-
-  const handleEdit = async (slug: any) => {
-    navigate(`/auth/edit-blog/${slug}`);
-  };
-  const handleDelete = async (slug: string) => {
-    const res = await deletePost(slug);
-    if (res?.status === 200) {
-      setData(data.filter((item) => item.slug !== slug));
-    }
-  };
+  const [tableParams, setTableParams] = useState<TableParams>({
+    pagination: {
+      current: 1,
+      pageSize: 10,
+    },
+  });
+  const Navigate = useNavigate();
+  const [error, setError] = useState<string | null>(null);
 
   const handleSearch = (
     selectedKeys: string[],
@@ -102,7 +69,7 @@ const ManthumbnailrBlogs: React.FC = () => {
 
   const getColumnSearchProps = (
     dataIndex: DataIndex
-  ): TableColumnType<DataType> => ({
+  ): TableColumnType<BlogData> => ({
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -191,7 +158,7 @@ const ManthumbnailrBlogs: React.FC = () => {
       ),
   });
 
-  const columns: TableColumnsType<DataType> = [
+  const columns: ColumnsType<BlogData> = [
     {
       title: "Thumbnail",
       dataIndex: "thumbnail",
@@ -220,9 +187,6 @@ const ManthumbnailrBlogs: React.FC = () => {
       dataIndex: "author",
       width: "10%",
       key: "author",
-      ...getColumnSearchProps("author"),
-      sorter: (a, b) => a.author.length - b.author.length,
-      sortDirections: ["descend", "ascend"],
     },
     {
       title: "Action",
@@ -248,26 +212,84 @@ const ManthumbnailrBlogs: React.FC = () => {
     },
   ];
 
+  const handleDelete = async (slug: string) => {
+    const res = await deletePost(slug);
+    if (res?.status === 200) {
+      toast.success("Delete success");
+      setData(data.filter((item: any) => item.slug !== slug));
+    } else {
+      toast.error("Delete failed");
+    }
+  };
+  const handleEdit = async (slug: any) => {
+    Navigate(`/auth/edit-blog/${slug}`);
+  };
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      await getListBlogs(qs.stringify(getRandomuserParams(tableParams))).then(
+        (res) => {
+          setData(res.data.content); // Lấy dữ liệu content từ response và cập nhật vào state
+          setLoading(false); // Đặt trạng thái loading về false khi đã tải xong dữ liệu
+          setTableParams({
+            ...tableParams,
+            pagination: {
+              ...tableParams.pagination,
+              total: Number(res.data.pagination.total), // Cập nhật tổng số lượng trang
+            },
+          });
+        }
+      );
+    } catch (error: any) {
+      console.error("There was a problem with the fetch operation:", error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, [
+    tableParams.pagination?.current,
+    tableParams.pagination?.pageSize,
+    tableParams?.sortOrder,
+    tableParams?.sortField,
+    JSON.stringify(tableParams.filters),
+  ]);
+
+  const handleTableChange: TableProps<BlogData>["onChange"] = (
+    pagination,
+    filters,
+    sorter
+  ) => {
+    setTableParams({
+      pagination,
+      filters,
+      sortOrder: Array.isArray(sorter) ? undefined : sorter.order,
+      sortField: Array.isArray(sorter) ? undefined : sorter.field,
+    });
+
+    // `dataSource` is useless since `pageSize` changed
+    if (pagination.pageSize !== tableParams.pagination?.pageSize) {
+      setData([]);
+    }
+  };
+
   return (
-    <>
-      <h1>Trình quản lí bài viết</h1>
-      {loading ? (
-        <Loading></Loading>
-      ) : (
-        <Table
-          scroll={{ x: "700px" }}
-          className={style.table}
-          columns={columns}
-          dataSource={data}
-          rowKey="slug"
-          pagination={{
-            defaultPageSize: 8,
-          }}
-        />
-      )}
-      ;
-    </>
+    <div>
+      {error && <div style={{ color: "red" }}>Error: {error}</div>}
+      <Table
+        columns={columns}
+        rowKey={(record) => record._id}
+        dataSource={data}
+        pagination={tableParams.pagination}
+        loading={loading}
+        onChange={handleTableChange}
+      />
+    </div>
   );
 };
 
-export default ManthumbnailrBlogs;
+export default ManageBlogs;

@@ -4,10 +4,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import Loading from "../components/Loading/Loading";
 import ProtectedRoute from "../layout/ProtectedRoute"; // Import ProtectedRoute
-import path from "path";
 import RecruitmentPage from "../pages/main_page/components/recruitment/RecruitmentPage";
 import SharedLayout from "../pages/main_page/screen/SharedLayout";
 import NewspaperPage from "../pages/main_page/components/newspapers/NewspaperPage";
+import PageChildLayout from "../layout/PageChildLayout";
 
 // Import components using lazy loading
 // const  AboutUs = React.lazy(() => import ("../pages/main_page"));
@@ -105,46 +105,50 @@ const routerConfig = [
             ],
           },
           {
-            path: ROUTES.Activity,
-            element: (
-              <Suspense fallback={<Loading />}>
-                <Activity />
-              </Suspense>
-            ),
+            element: <PageChildLayout />, // Use SharedLayout here
+            children: [
+              {
+                path: ROUTES.Activity,
+                element: (
+                  <Suspense fallback={<Loading />}>
+                    <Activity />
+                  </Suspense>
+                ),
+              },
+              {
+                path: ROUTES.about,
+                element: (
+                  <Suspense fallback={<Loading />}>
+                    <Activity />
+                  </Suspense>
+                ),
+              },
+              {
+                path: ROUTES.suckhoecongdong,
+                element: (
+                  <Suspense fallback={<Loading />}>
+                    <Activity />
+                  </Suspense>
+                ),
+              },
+              {
+                path: ROUTES.hoTroSinhKe,
+                element: (
+                  <Suspense fallback={<Loading />}>
+                    <Activity />
+                  </Suspense>
+                ),
+              },
+              {
+                path: ROUTES.anSinhXaHoi,
+                element: (
+                  <Suspense fallback={<Loading />}>
+                    <Activity />
+                  </Suspense>
+                ),
+              },
+            ],
           },
-          {
-            path: ROUTES.about,
-            element: (
-              <Suspense fallback={<Loading />}>
-                <Activity />
-              </Suspense>
-            ),
-          },
-          {
-          path: ROUTES.suckhoecongdong,
-          element: (
-            <Suspense fallback={<Loading />}>
-              <Activity />
-            </Suspense>
-          ),
-          },
-          {
-            path: ROUTES.hoTroSinhKe,
-            element: (
-              <Suspense fallback={<Loading />}>
-                <Activity />
-              </Suspense>
-            ),
-          },
-          {
-            path: ROUTES.anSinhXaHoi,
-            element: (
-              <Suspense fallback={<Loading />}>
-                <Activity />
-              </Suspense>
-            ),
-          }
-
         ],
       },
       {
@@ -231,14 +235,15 @@ const routerConfig = [
   },
 ];
 
-// Create the router
 const router = createBrowserRouter(routerConfig);
 
 function Router() {
   return (
-    <ErrorBoundary>
-      <RouterProvider router={router} />
-    </ErrorBoundary>
+    <>
+      <ErrorBoundary>
+        <RouterProvider router={router} />
+      </ErrorBoundary>
+    </>
   );
 }
 

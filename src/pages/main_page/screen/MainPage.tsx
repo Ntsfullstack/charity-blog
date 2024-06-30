@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
 import styles from "./MainPage.module.scss";
-import { getListBlogs } from "../../auth/api/auth.api";
 import Card from "../../../components/card/Card";
-import { BlogPostData } from "../types/blogdata.type";
+import { getListBlogMore } from "../api/mainPage.api";
+import { BlogData } from "../../auth/types/types";
 
 const MainPage = () => {
-  const [cardData, setCardData] = useState<BlogPostData[]>([]);
+  const [cardData, setCardData] = useState<BlogData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const page = 1;
   const [limit, setLimit] = useState<number>(10);
 
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
-        const response = await getListBlogs(page, limit);
-        if (response?.status === 200) {
-          setCardData(response.data);
+        const response = await getListBlogMore(limit);
+        if (response) {
+          setCardData(response?.data.content);
         }
       } catch (error) {
         console.error("Error fetching blog data:", error);
@@ -29,7 +28,6 @@ const MainPage = () => {
         setIsLoading(false);
       }
     };
-
     fetchBlogData();
   }, [limit]);
 

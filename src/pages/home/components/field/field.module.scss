@@ -1,7 +1,7 @@
 .fieldContent h1 {
   color: #ea2227;
   font-size: 62px;
- font-weight: bold;
+  font-weight: bold;
   position: relative;
   margin-bottom: 40px;
   margin-top: 10px;
@@ -27,7 +27,7 @@
 }
 
 .fieldText h2 {
-  font-family: 'calibri bold', 'Roboto', sans-serif;
+  font-family: "calibri bold", "Roboto", sans-serif;
   font-size: 40px;
   color: #fc4f88;
   margin-top: 0;
@@ -62,7 +62,6 @@
 }
 
 .fieldImage2 {
-
   object-fit: cover;
   border-radius: 5px;
   // width: 50%; /* Adjust width as needed */
@@ -74,7 +73,7 @@
 }
 
 .fieldText2 h2 {
-  font-family: 'calibri bold', 'Roboto', sans-serif;
+  font-family: "calibri bold", "Roboto", sans-serif;
   font-size: 40px;
   color: #009ee2;
   margin-top: 0;
@@ -100,6 +99,10 @@
 }
 
 @media (max-width: 768px) {
+  .fieldText,
+  .fieldText2 {
+    max-width: 100%;
+  }
   .fieldContainer,
   .fieldContainer2 {
     padding-left: 5%;

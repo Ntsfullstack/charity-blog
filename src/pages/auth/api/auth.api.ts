@@ -1,4 +1,6 @@
+import { AxiosResponse } from "axios";
 import axiosInstance from "../../../server/auth.api";
+import { BlogResponse } from "../types/types";
 
 const storedToken = localStorage.getItem("token");
 const token = storedToken ? JSON.parse(storedToken)?.token : null;
@@ -56,21 +58,12 @@ export const getListUsers = async () => {
   }
 };
 
-export const getComments = async (params: any) => {
+export async function getListBlogs(
+  params: string
+): Promise<AxiosResponse<BlogResponse>> {
   try {
-    const response = await axiosInstance.get("/comments", {
-      params,
-    });
-    return response.data;
-  } catch (error: any) {
-    console.error("Login Error:", error.message);
-  }
-};
-export const getListBlogs = async (page: number, limit: number) => {
-  try {
-    const token = localStorage.getItem("token"); // Retrieve token from localStorage
-    const response = await axiosInstance.get("/Post", {
-      params: { page, limit },
+    const token = localStorage.getItem("token"); // Lấy token từ localStorage
+    const response = await axiosInstance.get<BlogResponse>(`/Post?${params}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -80,7 +73,7 @@ export const getListBlogs = async (page: number, limit: number) => {
     console.error("Error:", error.message);
     throw error;
   }
-};
+}
 export const getBlog = async (slug: string) => {
   try {
     const response = await axiosInstance.get(`/${slug}`, {

@@ -28,7 +28,7 @@ const CardItem: React.FC<CardItemProps> = (props) => {
           by
           <a href={`/author/${props.authorId._id}`} className={styles.link}>
             {" "}
-            {props.authorId.username}
+            {props.authorId.username || "Admin"}
           </a>{" "}
           - <span>{dayjs(props.createdAt).format("MMMM D, YYYY")}</span>
         </small>

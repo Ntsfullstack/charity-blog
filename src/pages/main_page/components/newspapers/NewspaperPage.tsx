@@ -5,7 +5,6 @@ import { getPostsByCategories } from "../../../activity/api/activity.api";
 import Card from "../../../../components/card/Card";
 import { BlogPostData } from "../../types/blogdata.type";
 import Banner from "../../../../components/banner/Banner";
-import CardItemsCategory from "../../../../components/cardItems/CardItemsCategory";
 
 const NewspaperPage = () => {
   const [cardData, setCardData] = useState<BlogPostData[]>([]);
@@ -13,8 +12,6 @@ const NewspaperPage = () => {
   const [error, setError] = useState<string | null>(null);
   const page = 1;
   const [limit, setLimit] = useState<number>(10);
-  const location = useLocation();
-
 
   useEffect(() => {
     const fetchBlogData = async () => {
@@ -59,13 +56,9 @@ const NewspaperPage = () => {
           <div className={styles.title}>
             <h3>THÔNG CÁO BÁO CHÍ</h3>
             <div className={styles.cardContainer}>
-              <CardItemsCategory
-                cardData={highlightedNews}
-                loading={isLoading}
-              />
+              <Card cardData={highlightedNews} loading={isLoading} />
             </div>
-                    <div className={styles.fieldContainer}>
-    </div>
+            <div className={styles.fieldContainer}></div>
           </div>
         </div>
       </div>
