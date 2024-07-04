@@ -5,7 +5,7 @@ import SetInfoPost from "../components/setInfoPost/SetinfoPost";
 import { getBlog } from "../api/auth.api";
 
 interface DataType {
-  Post: {
+  post: {
     _id: string;
     slug: string;
     title: string;
@@ -27,7 +27,6 @@ const EditBlog = () => {
         const res = await getBlog(slug as string);
 
         if (res?.status === 200) {
-          console.log(res);
           setData(res.data); // Assuming API returns a single DataType object
         } else {
           console.error("API response not successful:", res);
@@ -47,7 +46,7 @@ const EditBlog = () => {
       <h1>Edit Blog</h1>
       {data ? (
         <>
-          <MyEditor page={page} setPage={setPage} content={data.Post.content} />
+          <MyEditor page={page} setPage={setPage} content={data.post.content} />
           <SetInfoPost page={page} setPage={setPage} title={data} />
         </>
       ) : (

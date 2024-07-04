@@ -9,7 +9,6 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"; //
 import { storage } from "../../../../config/firebase"; // Adjust the path based on your folder structure
 import styles from "./Editor.module.scss";
 
-
 const MyEditor = (props: any) => {
   const [editorState, setEditorState] = useState<EditorState>(() => {
     if (props.content) {

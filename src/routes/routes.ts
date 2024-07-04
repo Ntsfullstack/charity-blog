@@ -4,6 +4,7 @@ export const ROUTES = {
   register: "/register",
   auth: "/auth",
   managerBlogs: "manager-blog",
+  managerUsers: "manager-user",
   createBlog: "create-blog",
   editUser: "edit-user/:id",
   editBlog: "edit-blog/:slug",
@@ -21,5 +22,4 @@ export const ROUTES = {
   suckhoecongdong: "/suc-khoe-cong-dong",
   hoTroSinhKe: "/ho-tro-sinh-ke",
   anSinhXaHoi: "/an-sinh-xa-hoi",
-  
 } as const;

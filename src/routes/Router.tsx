@@ -25,6 +25,9 @@ const ImageUpload = React.lazy(() => import("../config/uploadImage"));
 const Setting = React.lazy(() => import("../pages/auth/screen/Setting"));
 const SearchPost = React.lazy(() => import("../pages/SeachPost/SearchPost"));
 const Activity = React.lazy(() => import("../pages/activity/screen/Activity"));
+const ManagerUsers = React.lazy(
+  () => import("../pages/auth/screen/ManagerUses")
+);
 const ManagerBlogs = React.lazy(
   () => import("../pages/auth/screen/ManagerBlogs")
 );
@@ -187,6 +190,16 @@ const routerConfig = [
               <ProtectedRoute>
                 <Suspense fallback={<Loading />}>
                   <ManagerBlogs />
+                </Suspense>
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: ROUTES.managerUsers,
+            element: (
+              <ProtectedRoute>
+                <Suspense fallback={<Loading />}>
+                  <ManagerUsers />
                 </Suspense>
               </ProtectedRoute>
             ),

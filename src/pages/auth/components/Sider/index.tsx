@@ -9,6 +9,7 @@ import {
   LogoutOutlined,
   SettingOutlined,
   TagOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -27,6 +28,11 @@ const items: MenuItem[] = [
     label: "Manager Blog",
     key: "/auth/manager-blog",
     icon: <HomeOutlined />,
+  },
+  {
+    label: "Manager User",
+    key: "/auth/manager-user",
+    icon: <UserOutlined />,
   },
   {
     label: "Create Blog",

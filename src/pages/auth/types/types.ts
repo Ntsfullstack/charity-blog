@@ -43,3 +43,8 @@ export interface BlogResponse {
     pages: number | string;
   };
 }
+
+export interface UserData {
+  _id: string;
+  email: string;
+}

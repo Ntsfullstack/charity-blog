@@ -5,8 +5,6 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { createPost, getTagCategory, updatePost } from "../../api/auth.api";
 import style from "./SetInfoPost.module.scss";
-import { MyEditorProps } from "../../types/types";
-// import TagsCategory from "../TagCategory/tagCategory";
 import type { SelectProps } from "antd";
 import { toast } from "react-toastify";
 import { Toast } from "react-toastify/dist/components";
@@ -17,32 +15,36 @@ const SetInfoPost = (props: any) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const content = localStorage.getItem("htmlContent");
   const [urlImage, setUrlImage] = useState<string>("");
-  const [categories, setCategories] = useState<any[]>([]);
+  const [categories, setCategories] = useState<any>();
   const [options, setOptions] = useState<ItemProps[]>([]);
   const [value, setValue] = useState<any>([]);
 
   useEffect(() => {
     if (props?.title) {
       form.setFieldsValue({
-        title: props.title.Post.title,
-        slug: props.title.Post.slug,
-        description: props.title.Post.description,
-        thumbnail: props.title.Post.thumbnail,
+        title: props.title.post.title,
+        slug: props.title.post.slug,
+        description: props.title.post.description,
+        thumbnail: props.title.post.thumbnail,
       });
-      if (props.title.Post.thumbnail) {
+
+      if (props.title.post.thumbnail) {
         setFileList([
           {
             uid: "-1",
             name: "thumbnail.png",
             status: "done",
-            url: props.title.Post.thumbnail,
+            url: props.title.post.thumbnail,
           },
         ]);
-        setUrlImage(props.title.Post.thumbnail);
+        setUrlImage(props.title.post.thumbnail);
       }
     }
   }, [props.title, form]);
 
+  const handleChange = (value: any) => {
+    setValue(value);
+  };
   const handleUpload = async (file: UploadFile) => {
     try {
       const fileName = `images/${Date.now()}-${file.name}`;
@@ -104,7 +106,7 @@ const SetInfoPost = (props: any) => {
 
       if (res?.status === 200) {
         toast.success(
-          `Post ${props?.title ? "updated" : "created"} successfully.`
+          `post ${props?.title ? "updated" : "created"} successfully.`
         );
       } else {
         toast.error(res?.data?.message || "Something went wrong.");
@@ -156,7 +158,6 @@ const SetInfoPost = (props: any) => {
     label: string;
     value: string;
   }
-  const notify = () => toast("Wow so easy!");
   const handleChangePage = () => {
     props.setPage(1);
   };
@@ -188,32 +189,12 @@ const SetInfoPost = (props: any) => {
 
     fetchCategories();
   }, []);
-
-  const sharedProps: SelectProps = {
-    mode: "multiple",
-    style: { width: "100%" },
-    options,
-    placeholder: "Select Item...",
-    maxTagCount: "responsive",
-  };
-
-  useEffect(() => {
-    const datas = categories.map((category: any) => ({
-      // label: category.title,
-      value: category._id,
-    }));
-    setValue(datas);
-  }, [categories]);
-
-  const selectProps: SelectProps = {
-    value,
-    onChange: setValue,
-  };
+  console.log(categories);
   return (
     checkPage && (
       <div className={style.InfoPost}>
         <div className={style.header}>
-          <h1>Set Info Post</h1>
+          <h1>Set Info post</h1>
           <Button type="link" onClick={handleChangePage}>
             Back
           </Button>
@@ -271,7 +252,14 @@ const SetInfoPost = (props: any) => {
           >
             <Input.TextArea rows={4} />
           </Form.Item>
-          <Select {...sharedProps} {...selectProps} />
+          <Select
+            defaultValue={props.title?.categories[0]._id}
+            style={{ width: 120 }}
+            onChange={handleChange}
+            options={options}
+            allowClear
+          />
+
           <Form.Item
             wrapperCol={{ offset: 8, span: 16 }}
             className={style.submitItem}

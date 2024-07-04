@@ -20,18 +20,18 @@ export const getInfoUser = async (params: string) => {
   }
 };
 
-export const updateInfoUser = async (id: any, params: any) => {
-  try {
-    const response = await axiosInstance.put(`/synthetic/users/${id}`, params, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error: any) {
-    console.error("Login Error:", error.message);
-  }
-};
+// export const updateInfoUser = async (id: any, params: any) => {
+//   try {
+//     const response = await axiosInstance.put(`/synthetic/users/${id}`, params, {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+//     return response.data;
+//   } catch (error: any) {
+//     console.error("Login Error:", error.message);
+//   }
+// };
 export const deleteUsers = async (params: any) => {
   try {
     const response = await axiosInstance.delete(`/synthetic/users/${params}`, {
@@ -45,18 +45,22 @@ export const deleteUsers = async (params: any) => {
   }
 };
 
-export const getListUsers = async () => {
+export async function getListUsers(
+  params: string
+): Promise<AxiosResponse<any>> {
   try {
-    const response = await axiosInstance.get("/auth/users", {
+    const token = localStorage.getItem("token"); // Lấy token từ localStorage
+    const response = await axiosInstance.get<any>(`/auth/users?${params}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }); // Axios instance handles the token
+    });
     return response;
   } catch (error: any) {
-    throw error; // Re-throw the error to propagate it
+    console.error("Error:", error.message);
+    throw error;
   }
-};
+}
 
 export async function getListBlogs(
   params: string
