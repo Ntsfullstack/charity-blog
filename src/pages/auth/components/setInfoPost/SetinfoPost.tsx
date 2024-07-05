@@ -7,7 +7,7 @@ import { createPost, getTagCategory, updatePost } from "../../api/auth.api";
 import style from "./SetInfoPost.module.scss";
 import type { SelectProps } from "antd";
 import { toast } from "react-toastify";
-import { Toast } from "react-toastify/dist/components";
+import { LeftOutlined, RollbackOutlined } from "@ant-design/icons";
 
 const SetInfoPost = (props: any) => {
   const [form] = Form.useForm();
@@ -81,7 +81,11 @@ const SetInfoPost = (props: any) => {
 
   const handlePostSubmit = async () => {
     if (!urlImage) {
-      message.error("Please upload an image first.", 2);
+      message.error("Vui lòng tải lên một hình ảnh đầu tiên.", 2);
+      return;
+    }
+    if (categories?.length === 0) {
+      message.error("Vui lòng chọn thể loại ");
       return;
     }
 
@@ -103,17 +107,13 @@ const SetInfoPost = (props: any) => {
       } else {
         res = await createPost(postData);
       }
-
-      if (res?.status === 200) {
-        toast.success(
-          `post ${props?.title ? "updated" : "created"} successfully.`
-        );
+      if (res.status === 200) {
+        toast.success(res?.message);
       } else {
-        toast.error(res?.data?.message || "Something went wrong.");
+        toast.error(res?.message || "Something went wrong.");
       }
     } catch (err) {
       console.error(err);
-      message.error("Error creating post.", 2);
     } finally {
       setPostingData(false);
     }
@@ -189,15 +189,14 @@ const SetInfoPost = (props: any) => {
 
     fetchCategories();
   }, []);
-  console.log(categories);
   return (
     checkPage && (
       <div className={style.InfoPost}>
         <div className={style.header}>
-          <h1>Set Info post</h1>
           <Button type="link" onClick={handleChangePage}>
-            Back
+            <RollbackOutlined />
           </Button>
+          <h1>Thông tin bài viết</h1>
         </div>
 
         <Form
@@ -206,7 +205,7 @@ const SetInfoPost = (props: any) => {
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           onFinish={handlePostSubmit}
-          className={style.form}
+          className={style.UploadFile}
         >
           <Upload
             listType="picture-card"
@@ -249,16 +248,23 @@ const SetInfoPost = (props: any) => {
             name="description"
             label="Description"
             className={style.formItem}
+            rules={[{ required: true }]}
           >
             <Input.TextArea rows={4} />
           </Form.Item>
-          <Select
-            defaultValue={props.title?.categories[0]._id}
-            style={{ width: 120 }}
-            onChange={handleChange}
-            options={options}
-            allowClear
-          />
+          <div className={style.formItem}>
+            <span>*Thể loại bài viết : </span>
+            <Select
+              defaultValue={
+                props.title?.categories[0]._id || "chọn thể loại bài viết"
+              }
+              style={{ width: 160 }}
+              onChange={handleChange}
+              options={options}
+              allowClear
+              aria-required
+            />
+          </div>
 
           <Form.Item
             wrapperCol={{ offset: 8, span: 16 }}

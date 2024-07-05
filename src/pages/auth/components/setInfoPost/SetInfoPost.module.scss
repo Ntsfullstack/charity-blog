@@ -12,8 +12,6 @@
 }
 .InfoPost {
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   .header {
     display: flex;
@@ -52,4 +50,64 @@
       text-align: right;
     }
   }
+}
+/* style.module.css */
+.InfoPost {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px; /* Tăng padding cho thoáng hơn */
+  border: 1px solid #e0e0e0; /* Màu xám nhạt */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* Điều chỉnh tỉ lệ label:input */
+  gap: 15px;
+}
+
+.formItem,
+.submitItem {
+  grid-column: span 2;
+}
+
+.formItem label {
+  font-weight: 500;
+}
+
+.Upload {
+  border: 1px dashed #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.Upload .ant-upload-list-picture-card-container {
+  width: 150px; /* Điều chỉnh kích thước ảnh upload */
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Select {
+  width: 100%;
+}
+
+.submitItem button[type="submit"] {
+  background-color: #1890ff; /* Màu xanh dương */
+  border-color: #1890ff;
+  padding: 8px 16px; /* Tăng kích thước nút */
+  border-radius: 4px;
 }

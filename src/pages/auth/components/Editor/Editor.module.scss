@@ -77,3 +77,62 @@ pre > * {
     padding: 0.625rem; // 10px / 16 = 0.625rem
   }
 }
+.myEditor__toolbar {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.myEditor__wrapper {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.myEditor__editor {
+  min-height: 300px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fefefe;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.myEditor__editor:focus {
+  outline: none;
+  border-color: #40a9ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+.customButton {
+  background-color: #007bff; /* Blue background */
+  color: white; /* White text */
+  border: none; /* No border */
+  margin-top: 10px;
+  position: relative;
+  padding: 10px 20px; /* Padding */
+  font-size: 16px; /* Font size */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+.customButton:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.customButton:disabled {
+  background-color: #cccccc; /* Grey background for disabled state */
+  cursor: not-allowed; /* Not-allowed cursor on hover when disabled */
+}
+.myEditor__button {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}

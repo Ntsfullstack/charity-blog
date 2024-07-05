@@ -117,8 +117,10 @@ const MyEditor = (props: any) => {
             },
           }}
         ></Editor>
-        <div>
-          <Button onClick={handleChangePage}>Next</Button>
+        <div className={styles.myEditor__button}>
+          <Button className={styles.customButton} onClick={handleChangePage}>
+            Next
+          </Button>
         </div>
       </div>
     )

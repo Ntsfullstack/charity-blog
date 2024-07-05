@@ -35,8 +35,8 @@ const Post: React.FC = () => {
       try {
         const res = await getBlog(slug as string);
         if (res?.status === 200) {
-          setPost(res.data.Post);
-          setRelatedArticles(res.data.data);
+          setPost(res.data.post);
+          setRelatedArticles(res.data.relatedArticles);
         } else {
           setError("Blog post not found");
         }

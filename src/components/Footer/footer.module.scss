@@ -5,8 +5,8 @@
 //   line-height: 24px;
 // }
 .footer {
-  background-color: #daa75c;
-  color: #fff;
+  background-color: #f1f5f9;
+  color: #475569;
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
@@ -40,7 +40,7 @@
   list-style-type: none;
   padding: 0;
 }
-.contactInfo li  {
+.contactInfo li {
   list-style-type: none;
   padding: 5px;
 }
@@ -210,4 +210,87 @@
 .footer .row a i {
   font-size: 2em;
   margin: 0% 1%;
+}
+
+.column {
+  flex: 1;
+  min-width: 250px;
+  margin: 10px;
+}
+
+.logoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+}
+.subscribeButton {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.companyName {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.contactInfo {
+  list-style: none;
+  padding: 0;
+}
+
+.contactInfo li {
+  margin-bottom: 10px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.inputContainer .ant-input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.subscribeText {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.copyRight {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .column {
+    min-width: 100%;
+    margin: 20px 0;
+  }
+
+  .inputContainer .ant-input {
+    width: 80%;
+  }
+  .subscribeButton {
+    width: 100%;
+    margin-top: 10px;
+  }
 }

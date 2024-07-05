@@ -43,6 +43,9 @@ const Footer: React.FC = () => {
         </ul>
       </div>
       <div className={styles.column}>
+        <p className={styles.subscribeText}>
+          Đăng ký để nhận thông tin mới nhất từ chúng tôi
+        </p>
         <div className={styles.inputContainer}>
           <Input
             placeholder="Nhập email của bạn"
@@ -50,16 +53,14 @@ const Footer: React.FC = () => {
             onChange={handleChange}
             size="large"
           />
-          <Button type="primary" onClick={handleSubmit}>
+          <Button
+            className={styles.subscribeButton}
+            type="primary"
+            onClick={handleSubmit}
+          >
             Gửi
           </Button>
-          <p className={styles.subscribeText}>
-            Đăng ký để nhận thông tin mới nhất từ chúng tôi
-          </p>
         </div>
-      </div>
-      <div className={styles.copyRight}>
-        &copy; 2024 Inferno - All rights reserved || Designed By: Zilong
       </div>
     </footer>
   );

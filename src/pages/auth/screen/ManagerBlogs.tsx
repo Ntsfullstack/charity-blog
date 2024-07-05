@@ -271,7 +271,6 @@ const ManageBlogs: React.FC = () => {
       sortField: Array.isArray(sorter) ? undefined : sorter.field,
     });
 
-    // `dataSource` is useless since `pageSize` changed
     if (pagination.pageSize !== tableParams.pagination?.pageSize) {
       setData([]);
     }
@@ -279,7 +278,6 @@ const ManageBlogs: React.FC = () => {
 
   return (
     <div>
-      {error && <div style={{ color: "red" }}>Error: {error}</div>}
       <Table
         columns={columns}
         rowKey={(record) => record._id}
