@@ -13,6 +13,7 @@ import PageChildLayout from "../layout/PageChildLayout";
 // const  AboutUs = React.lazy(() => import ("../pages/main_page"));
 const MainPage = React.lazy(() => import("../pages/main_page/screen/MainPage"));
 const EditBlog = React.lazy(() => import("../pages/auth/screen/EditBlog"));
+const Album = React.lazy(() => import("../pages/auth/screen/album"));
 const RootLayout = React.lazy(() => import("../layout/root/RootLayout"));
 const AdminLayout = React.lazy(() => import("../layout/AdminLayout"));
 const ErrorPage = React.lazy(() => import("../components/error/ErrorPage"));
@@ -25,6 +26,7 @@ const ImageUpload = React.lazy(() => import("../config/uploadImage"));
 const Setting = React.lazy(() => import("../pages/auth/screen/Setting"));
 const SearchPost = React.lazy(() => import("../pages/SeachPost/SearchPost"));
 const Activity = React.lazy(() => import("../pages/activity/screen/Activity"));
+
 const ManagerUsers = React.lazy(
   () => import("../pages/auth/screen/ManagerUses")
 );
@@ -200,6 +202,16 @@ const routerConfig = [
               <ProtectedRoute>
                 <Suspense fallback={<Loading />}>
                   <ManagerUsers />
+                </Suspense>
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: ROUTES.album,
+            element: (
+              <ProtectedRoute>
+                <Suspense fallback={<Loading />}>
+                  <Album />
                 </Suspense>
               </ProtectedRoute>
             ),

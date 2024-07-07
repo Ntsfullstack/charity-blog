@@ -48,3 +48,15 @@ export interface UserData {
   _id: string;
   email: string;
 }
+// Option 1: Interface
+export interface ImageData {
+  _id: string; // Assuming MongoDB's ObjectId for unique identifiers
+  images: string; // Assuming a URL string for the image
+}
+export interface PaginatedResponse {
+  status: number;
+  data: ImageData[];
+  totalImages: number;
+  currentPage: number;
+  total: number | string;
+}

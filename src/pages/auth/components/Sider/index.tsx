@@ -5,6 +5,7 @@ import expandedLogo from "../../../../assets/images/expandedLogo.png";
 import style from "./Sider.module.scss";
 
 import {
+  FileImageOutlined,
   HomeOutlined,
   LogoutOutlined,
   SettingOutlined,
@@ -44,6 +45,12 @@ const items: MenuItem[] = [
     key: "/auth/settings",
     icon: <SettingOutlined />,
   },
+  {
+    label: "Edit Album",
+    key: "/auth/album",
+    icon: <FileImageOutlined />,
+  },
+
   {
     label: "Logout",
     key: "/logout",

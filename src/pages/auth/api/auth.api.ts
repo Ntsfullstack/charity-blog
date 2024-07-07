@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import axiosInstance from "../../../server/auth.api";
-import { BlogResponse } from "../types/types";
+import { BlogResponse, PaginatedResponse } from "../types/types";
 
 const storedToken = localStorage.getItem("token");
 const token = storedToken ? JSON.parse(storedToken)?.token : null;
@@ -20,21 +20,9 @@ export const getInfoUser = async (params: string) => {
   }
 };
 
-// export const updateInfoUser = async (id: any, params: any) => {
-//   try {
-//     const response = await axiosInstance.put(`/synthetic/users/${id}`, params, {
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
-//     return response.data;
-//   } catch (error: any) {
-//     console.error("Login Error:", error.message);
-//   }
-// };
 export const deleteUsers = async (params: any) => {
   try {
-    const response = await axiosInstance.delete(`/synthetic/users/${params}`, {
+    const response = await axiosInstance.delete(`/auth/Client/${params}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -135,5 +123,35 @@ export const getTagCategory = async () => {
     return response;
   } catch (error: any) {
     console.error(" Error:", error.message);
+  }
+};
+
+export const getAllImageInAlbum = async (
+  page: number,
+  pageSize: number
+): Promise<AxiosResponse<PaginatedResponse>> => {
+  try {
+    const response: AxiosResponse<PaginatedResponse> = await axiosInstance.get(
+      `Album`,
+      {
+        params: {
+          page,
+          limit: pageSize, // Use 'limit' to match backend's query parameter
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error("Lỗi khi lấy ảnh:", error);
+    throw error;
+  }
+};
+export const deleteImageInAlbum = async (id: string) => {
+  try {
+    const response = await axiosInstance.delete(`auth/Album/${id}`);
+    return response;
+  } catch (error) {
+    console.error("Lỗi khi xóa ảnh:", error);
+    throw error;
   }
 };

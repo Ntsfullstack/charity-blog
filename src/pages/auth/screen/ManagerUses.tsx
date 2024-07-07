@@ -3,7 +3,7 @@ import type { GetProp, InputRef, TableProps } from "antd";
 import { Button, Popconfirm, Space, Table, TableColumnType, Input } from "antd";
 import type { SorterResult } from "antd/es/table/interface";
 import qs from "qs";
-import { deletePost, getListUsers } from "../api/auth.api";
+import { deleteUsers, getListUsers } from "../api/auth.api";
 import { UserData } from "../types/types";
 import { SearchOutlined } from "@ant-design/icons";
 import type { FilterDropdownProps } from "antd/es/table/interface";
@@ -153,11 +153,6 @@ const ManagerUsers: React.FC = () => {
 
   const columns: ColumnsType<UserData> = [
     {
-      title: "ID",
-      dataIndex: "_id",
-      key: "_id",
-    },
-    {
       title: "email",
       dataIndex: "email",
       key: "email",
@@ -188,9 +183,12 @@ const ManagerUsers: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      await deletePost(id);
-      toast.success("Delete success");
-      fetchData();
+      const res = await deleteUsers(id);
+      console.log(res);
+      if (res?.status === 200) {
+        toast.success("Delete success");
+        fetchData();
+      }
     } catch (error: any) {
       toast.error("Delete failed");
       console.error("Error deleting user:", error);
