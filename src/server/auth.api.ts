@@ -2,6 +2,7 @@ import axios from "axios";
 
 // Lấy token từ local storage hoặc môi trường khác phù hợp
 const storedToken = localStorage.getItem("token");
+console.log(storedToken);
 const token = storedToken ? JSON.parse(storedToken).token : null;
 
 // Tạo một instance của Axios
@@ -9,7 +10,6 @@ const axiosInstance = axios.create({
   baseURL: "http://localhost:4000/", // Thay thế bằng URL gốc của API của bạn
 });
 
-// Intercept yêu cầu
 axiosInstance.interceptors.request.use(
   (config) => {
     // Đặt header Authorization với token truy cập
@@ -28,7 +28,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => {
     // Xử lý phản hồi thành công
-    return response.data;
+    return response;
   },
   (error) => {
     // Xử lý lỗi phản hồi

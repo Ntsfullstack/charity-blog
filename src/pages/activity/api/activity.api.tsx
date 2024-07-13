@@ -5,7 +5,7 @@ export const getPostsByCategories = async (categories: string) => {
     const response = await axiosInstance.get(
       `/getPostsByCategories/${categories}`
     );
-    return response;
+    return response.data;
   } catch (error: any) {
     console.error(" Error:", error.message);
   }

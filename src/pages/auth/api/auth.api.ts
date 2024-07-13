@@ -1,6 +1,5 @@
-import { AxiosResponse } from "axios";
 import axiosInstance from "../../../server/auth.api";
-import { BlogResponse, PaginatedResponse } from "../types/types";
+import { BlogResponse, PaginatedResponse, UsersResponse } from "../types/types";
 
 const storedToken = localStorage.getItem("token");
 const token = storedToken ? JSON.parse(storedToken)?.token : null;
@@ -27,7 +26,7 @@ export const deleteUsers = async (params: any) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response;
+    return response.data;
   } catch (error: any) {
     console.error("Login Error:", error.message);
   }
@@ -35,15 +34,15 @@ export const deleteUsers = async (params: any) => {
 
 export async function getListUsers(
   params: string
-): Promise<AxiosResponse<any>> {
+) {
   try {
-    const token = localStorage.getItem("token"); // Lấy token từ localStorage
-    const response = await axiosInstance.get<any>(`/auth/users?${params}`, {
+    const token = localStorage.getItem("token"); 
+    const response = await axiosInstance.get<UsersResponse>(`/auth/users?${params}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response;
+    return response.data;
   } catch (error: any) {
     console.error("Error:", error.message);
     throw error;
@@ -52,7 +51,7 @@ export async function getListUsers(
 
 export async function getListBlogs(
   params: string
-): Promise<AxiosResponse<BlogResponse>> {
+): Promise<BlogResponse> {
   try {
     const token = localStorage.getItem("token"); // Lấy token từ localStorage
     const response = await axiosInstance.get<BlogResponse>(`/Post?${params}`, {
@@ -60,12 +59,13 @@ export async function getListBlogs(
         Authorization: `Bearer ${token}`,
       },
     });
-    return response;
+    return response.data;
   } catch (error: any) {
     console.error("Error:", error.message);
     throw error;
   }
 }
+
 export const getBlog = async (slug: string) => {
   try {
     const response = await axiosInstance.get(`/${slug}`, {
@@ -73,7 +73,7 @@ export const getBlog = async (slug: string) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response;
+    return response.data;
   } catch (error: any) {
     console.error(" Error:", error.message);
   }
@@ -95,7 +95,7 @@ export const updatePost = async (params: any) => {
 export const deletePost = async (slug: string) => {
   try {
     const response = await axiosInstance.delete("/auth/Post/" + slug);
-    return response;
+    return response.data;
   } catch (error) {
     console.log(error);
   }
@@ -103,7 +103,7 @@ export const deletePost = async (slug: string) => {
 export const createPost = async (data: any) => {
   try {
     const response = await axiosInstance.post("/auth/Post", data);
-    return response;
+    return response.data;
   } catch (error: any) {
     console.error(" Error:", error.message);
   }
@@ -120,29 +120,27 @@ export const updateBanner = async (data: any) => {
 export const getTagCategory = async () => {
   try {
     const response = await axiosInstance.get("/getCategories");
-    return response;
+    return response.data;
   } catch (error: any) {
     console.error(" Error:", error.message);
   }
-};
-
-export const getAllImageInAlbum = async (
+};export const getAllImageInAlbum = async (
   page: number,
   pageSize: number
-): Promise<AxiosResponse<PaginatedResponse>> => {
+) => {
   try {
-    const response: AxiosResponse<PaginatedResponse> = await axiosInstance.get(
-      `Album`,
+    const response = await axiosInstance.get<PaginatedResponse>(
+      '/album',
       {
         params: {
           page,
-          limit: pageSize, // Use 'limit' to match backend's query parameter
+          limit: pageSize, // Sử dụng 'limit' để phù hợp với tham số query của backend
         },
       }
     );
-    return response;
+    return response.data;
   } catch (error) {
-    console.error("Lỗi khi lấy ảnh:", error);
+    console.error('Lỗi khi lấy ảnh:', error);
     throw error;
   }
 };

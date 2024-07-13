@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Button, PaginationProps, Popconfirm, Table } from "antd";
-import { deleteImageInAlbum, getAllImageInAlbum } from "../api/auth.api";
-import PaginatedResponse from "../types/type";
-interface ImageData {
-  _id: string; // Assuming MongoDB's ObjectId for unique identifiers
-  images: string; // Assuming a URL string for the image
-}
+import { PaginationProps } from "antd";
+import React, { useEffect, useState } from "react";
+import { getAllImageInAlbum } from "../api/auth.api";
+
+
 
 const Album: React.FC = () => {
-  const [images, setImages] = useState<ImageData[]>([]);
+  // const [images, setImages] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [pagination, setPagination] = useState<PaginationProps>({
@@ -16,30 +13,34 @@ const Album: React.FC = () => {
     pageSize: 10,
     total: 0,
   });
-  const handleDeleteImage = async (id: string) => {
-    try {
-      await deleteImageInAlbum(id);
-      setImages((prevImages) => prevImages.filter((image) => image._id !== id));
-    } catch (error) {
-      console.error("Failed to delete image:", error);
-    }
-  };
+
+  // const handleDeleteImage = async (id: string) => {
+  //   try {
+  //     await deleteImageInAlbum(id);
+  //     setImages((prevImages) => prevImages.filter((image) => image._id !== id));
+  //   } catch (error) {
+  //     console.error("Failed to delete image:", error);
+  //   }
+  // };
+
   useEffect(() => {
     const fetchImages = async () => {
       setLoading(true);
       try {
         const response = await getAllImageInAlbum(
-          pagination?.current || 1,
-          pagination?.pageSize || 10
+          pagination.current || 1,
+          pagination.pageSize || 10
         );
-        if (response.data.status === 200) {
-          const dataAlbum: ImageData[] = response.data.data;
-          setImages(dataAlbum);
-          setPagination((prev) => ({
-            ...prev,
-            total: response.data.totalImages,
-            current: response.data.currentPage,
-          }));
+
+        console.log(response);
+        if (response.status === 200) {
+
+          // setImages(dataAlbum);
+          // setPagination((prev) => ({
+          //   ...prev,
+          //   total: response.data.total,
+          //   current: response.data.currentPage,
+          // }));
         } else {
           setError("Lỗi khi lấy dữ liệu album");
         }
@@ -57,31 +58,47 @@ const Album: React.FC = () => {
     setPagination(newPagination);
   };
 
-  const columns = [
-    {
-      title: "Images",
-      dataIndex: "images",
-      key: "images",
-      render: (image: string) => <img src={image} alt="Ảnh" width="100" />,
-    },
-    {
-      title: "Action",
-      key: "action",
-      width: "10%",
-      render: (_: any, record: ImageData) => (
-        <Popconfirm
-          title="Bạn có chắc chắn muốn xóa ảnh này?"
-          onConfirm={() => {
-            handleDeleteImage(record._id);
-          }}
-          okText="Yes"
-          cancelText="No"
-        >
-          <Button danger>Delete</Button>
-        </Popconfirm>
-      ),
-    },
-  ];
+  // const columns = [
+  //   {
+  //     title: "Images",
+  //     dataIndex: "images",
+  //     key: "images",
+  //     render: (images: string[]) => (
+  //       <div>
+  //         {images.map((image, idx) => (
+  //           <img
+  //             key={idx}
+  //             src={image}
+  //             alt={`Ảnh ${idx + 1}`}
+  //             width="100"
+  //             style={{ margin: '5px' }}
+  //           />
+  //         ))}
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     title: "title",
+  //     dataIndex: "title",
+  //     key: "title",
+  //     render: (title: string) => title,
+  //   },
+  //   {
+  //     title: "Action",
+  //     key: "action",
+  //     width: "10%",
+  //     render: (record: ImageData) => (
+  //       <Popconfirm
+  //         title="Bạn có chắc chắn muốn xóa ảnh này?"
+  //         onConfirm={() => handleDeleteImage(record._id)}
+  //         okText="Yes"
+  //         cancelText="No"
+  //       >
+  //         <Button danger>Delete</Button>
+  //       </Popconfirm>
+  //     ),
+  //   },
+  // ];
 
   return (
     <div>
@@ -90,13 +107,16 @@ const Album: React.FC = () => {
       ) : error ? (
         <p>{error}</p>
       ) : (
-        <Table
-          dataSource={images}
-          columns={columns}
-          pagination={pagination}
-          onChange={handleTableChange}
-          rowKey={(record) => record._id}
-        />
+        <div>
+
+        </div>
+        // <Table
+        //   dataSource={images}
+        //   columns={columns}
+        //   pagination={pagination}
+        //   onChange={handleTableChange}
+        //   rowKey={(record) => record._id}
+        // />
       )}
     </div>
   );

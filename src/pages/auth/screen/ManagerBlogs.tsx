@@ -1,15 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import type { GetProp, InputRef, TableProps } from "antd";
-import { Button, Popconfirm, Space, Table, TableColumnType, Input } from "antd";
-import type { SorterResult } from "antd/es/table/interface";
-import qs from "qs";
-import { deletePost, getListBlogs } from "../api/auth.api";
-import { useNavigate } from "react-router-dom";
-import { BlogData } from "../types/types";
 import { SearchOutlined } from "@ant-design/icons";
-import type { FilterDropdownProps } from "antd/es/table/interface";
+import type { GetProp, InputRef, TableProps } from "antd";
+import { Button, Input, Popconfirm, Space, Table, TableColumnType } from "antd";
+import type { FilterDropdownProps, SorterResult } from "antd/es/table/interface";
+import qs from "qs";
+import React, { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { deletePost, getListBlogs } from "../api/auth.api";
+import { BlogData } from "../types/types";
 type ColumnsType<T> = TableProps<T>["columns"];
 type TablePaginationConfig = Exclude<
   GetProp<TableProps, "pagination">,
@@ -231,13 +230,13 @@ const ManageBlogs: React.FC = () => {
     try {
       await getListBlogs(qs.stringify(getRandomuserParams(tableParams))).then(
         (res) => {
-          setData(res.data.content); // Lấy dữ liệu content từ response và cập nhật vào state
+          setData(res.content); // Lấy dữ liệu content từ response và cập nhật vào state
           setLoading(false); // Đặt trạng thái loading về false khi đã tải xong dữ liệu
           setTableParams({
             ...tableParams,
             pagination: {
               ...tableParams.pagination,
-              total: Number(res.data.pagination.total), // Cập nhật tổng số lượng trang
+              total: Number(res.pagination.total), // Cập nhật tổng số lượng trang
             },
           });
         }

@@ -48,15 +48,31 @@ export interface UserData {
   _id: string;
   email: string;
 }
-// Option 1: Interface
+
+
 export interface ImageData {
-  _id: string; // Assuming MongoDB's ObjectId for unique identifiers
-  images: string; // Assuming a URL string for the image
+  _id: string;
+  title: string;
+  images: string[];
+  __v: number;
 }
+
 export interface PaginatedResponse {
   status: number;
-  data: ImageData[];
-  totalImages: number;
+  data: ImageData[]; // Đảm bảo data là một mảng các đối tượng ImageData
   currentPage: number;
-  total: number | string;
+  totalPage: number;
+}
+
+
+export interface UsersResponse {
+  status: number
+  data: User[]
+  currentPage: number
+  totalPage: number
+}
+
+export interface User {
+  _id: string
+  email: string
 }

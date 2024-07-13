@@ -1,11 +1,9 @@
-import CheckableTag from "antd/es/tag/CheckableTag";
 import React, { ReactElement } from "react";
 import { Navigate } from "react-router-dom";
 
 // Lấy token từ localStorage
-const token = localStorage.getItem("token");
-// Kiểm tra và lấy giá trị isAuthenticated từ token
-const isAuthenticated = token ? JSON.parse(token).user.role === "admin" : false;
+const token = localStorage.getItem("token");// Kiểm tra và lấy giá trị isAuthenticated từ token
+const isAuthenticated = token ? JSON.parse(token).data.role === "admin" : false;
 interface ProtectedRouteProps {
   children: ReactElement;
 }

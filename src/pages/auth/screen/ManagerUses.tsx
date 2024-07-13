@@ -1,14 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
-import type { GetProp, InputRef, TableProps } from "antd";
-import { Button, Popconfirm, Space, Table, TableColumnType, Input } from "antd";
-import type { SorterResult } from "antd/es/table/interface";
-import qs from "qs";
-import { deleteUsers, getListUsers } from "../api/auth.api";
-import { UserData } from "../types/types";
 import { SearchOutlined } from "@ant-design/icons";
-import type { FilterDropdownProps } from "antd/es/table/interface";
+import type { GetProp, InputRef, TableProps } from "antd";
+import { Button, Input, Popconfirm, Space, Table, TableColumnType } from "antd";
+import type { FilterDropdownProps, SorterResult } from "antd/es/table/interface";
+import qs from "qs";
+import React, { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import { toast } from "react-toastify";
+import { deleteUsers, getListUsers } from "../api/auth.api";
+import { UserData } from "../types/types";
 
 type ColumnsType<T> = TableProps<T>["columns"];
 type TablePaginationConfig = Exclude<
@@ -203,12 +202,13 @@ const ManagerUsers: React.FC = () => {
       const response = await getListUsers(
         qs.stringify(getRandomuserParams(tableParams))
       );
-      setData(response.data.users);
+      console.log(response);
+      setData(response.data);
       setTableParams({
         ...tableParams,
         pagination: {
           ...tableParams.pagination,
-          total: Number(response.data.totalUsers),
+          total: Number(response.totalPage),
         },
       });
     } catch (error: any) {

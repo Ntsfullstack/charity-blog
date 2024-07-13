@@ -1,6 +1,6 @@
-import React from "react";
 import type { FormProps } from "antd";
 import { Button, Form, Input, message } from "antd";
+import React from "react";
 import { Login } from "../../api/login.api";
 import { LoginParams } from "../../types/type";
 
@@ -9,7 +9,7 @@ const FormLogin = () => {
     try {
       const response = await Login(values);
       if (response.status === 200) {
-        localStorage.setItem("token", JSON.stringify(response));
+        localStorage.setItem("token", JSON.stringify(response.data));
         window.location.href = "/auth/manager-blog";
       } else {
         message.error("Login failed. Please try again.");
