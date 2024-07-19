@@ -1,13 +1,13 @@
-import React, { Suspense } from "react";
-import { ROUTES } from "./routes";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
+import React, { Suspense } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Loading from "../components/Loading/Loading";
+import PageChildLayout from "../layout/PageChildLayout";
 import ProtectedRoute from "../layout/ProtectedRoute"; // Import ProtectedRoute
+import NewspaperPage from "../pages/main_page/components/newspapers/NewspaperPage";
 import RecruitmentPage from "../pages/main_page/components/recruitment/RecruitmentPage";
 import SharedLayout from "../pages/main_page/screen/SharedLayout";
-import NewspaperPage from "../pages/main_page/components/newspapers/NewspaperPage";
-import PageChildLayout from "../layout/PageChildLayout";
+import { ROUTES } from "./routes";
 
 // Import components using lazy loading
 // const  AboutUs = React.lazy(() => import ("../pages/main_page"));
@@ -16,10 +16,11 @@ const EditBlog = React.lazy(() => import("../pages/auth/screen/EditBlog"));
 const Album = React.lazy(() => import("../pages/auth/screen/album"));
 const RootLayout = React.lazy(() => import("../layout/root/RootLayout"));
 const AdminLayout = React.lazy(() => import("../layout/AdminLayout"));
-const ErrorPage = React.lazy(() => import("../components/error/ErrorPage"));
+const ErrorPage = React.lazy(() => import("../pages/Error/Error"));
 const HomeLayout = React.lazy(() => import("../layout/HomeLayout"));
 const Homepage = React.lazy(() => import("../pages/home/screen/Home"));
 const CreateBlog = React.lazy(() => import("../pages/auth/screen/CreateBlog"));
+const AddAlbum = React.lazy(() => import("../pages/auth/screen/addAlbum"));
 const Login = React.lazy(() => import("../pages/login/login"));
 const Register = React.lazy(() => import("../pages/register/register"));
 const ImageUpload = React.lazy(() => import("../config/uploadImage"));
@@ -212,6 +213,16 @@ const routerConfig = [
               <ProtectedRoute>
                 <Suspense fallback={<Loading />}>
                   <Album />
+                </Suspense>
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: ROUTES.addAlbum,
+            element: (
+              <ProtectedRoute>
+                <Suspense fallback={<Loading />}>
+                  <AddAlbum />
                 </Suspense>
               </ProtectedRoute>
             ),

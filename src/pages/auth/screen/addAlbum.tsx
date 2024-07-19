@@ -1,11 +1,10 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, message, Upload } from "antd";
+import { Button, Form, Input, message, Upload } from "antd";
 import React, { useState } from "react";
 import { firestore, storage } from "../../../config/firebase";
 
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { updateBanner } from "../api/auth.api";
 
 interface ImageItem {
   url: string;
@@ -15,13 +14,14 @@ interface ImageItem {
 
 interface SettingProps {}
 
-const Setting: React.FC<SettingProps> = () => {
+const AddAlbum: React.FC<SettingProps> = () => {
   const [fileList, setFileList] = useState<any[]>([]);
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [previewVisible, setPreviewVisible] = useState<boolean>(false);
   const [previewImage, setPreviewImage] = useState<string>("");
   const [previewTitle, setPreviewTitle] = useState<string>("");
-  const [url, setUrl] = useState<any[]>([]);
+  const [title, setTitle] = useState<string>("");
+  const [uploadUrls, setUploadUrls] = useState<string[]>([]);
 
   const handlePreview = async (file: any) => {
     if (!file.url && !file.preview) {
@@ -43,11 +43,34 @@ const Setting: React.FC<SettingProps> = () => {
     return false;
   };
 
-  const handleChange = ({ fileList }: { fileList: any[] }) =>
+  const handleChange = async ({
+    file,
+    fileList,
+  }: {
+    file: any;
+    fileList: any[];
+  }) => {
+    if (file.status === "done") {
+      const fileName = `uploads/images/${Date.now()}-${file.name}`;
+      const fileRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(fileRef, file.originFileObj);
+
+      const snapshot = await uploadTask;
+      const downloadUrl = await getDownloadURL(snapshot.ref);
+
+      setUploadUrls((prevUrls) => [...prevUrls, downloadUrl]);
+    }
     setFileList(fileList.filter((file) => file.status !== "error"));
+  };
 
   const onRemove = async (file: any) => {
     setFileList((prev) => prev.filter((item) => item.uid !== file.uid));
+    setUploadUrls((prevUrls) =>
+      prevUrls.filter((url, index) => fileList[index].uid !== file.uid)
+    );
+  };
+  const submit = () => {
+    console.log(title);
   };
 
   const handleFinish = async () => {
@@ -62,10 +85,8 @@ const Setting: React.FC<SettingProps> = () => {
           const fileRef = ref(storage, fileName);
           const uploadTask = uploadBytesResumable(fileRef, file.originFileObj);
 
-          // Wait for upload to complete
           const snapshot = await uploadTask;
 
-          // Get download URL
           const downloadUrl = await getDownloadURL(snapshot.ref);
 
           const item: ImageItem = {
@@ -75,15 +96,12 @@ const Setting: React.FC<SettingProps> = () => {
           };
 
           uploadedUrls.push(downloadUrl);
-          if (fileList.length === uploadedUrls.length) {
-            const res = await updateBanner(uploadedUrls);
-            if (res) {
-              setSubmitting(false);
-            }
-          }
+
+          console.log("Uploaded URLs:", uploadedUrls);
           await addDoc(collection(firestore, "images"), item);
         })
       );
+      setUploadUrls(uploadedUrls);
 
       setFileList([]);
       message.success(`Images added successfully.`, 2);
@@ -94,7 +112,7 @@ const Setting: React.FC<SettingProps> = () => {
       setSubmitting(false);
     }
   };
-  console.log(url);
+
   const getBase64 = (file: File) =>
     new Promise<string>((resolve, reject) => {
       const reader = new FileReader();
@@ -114,6 +132,23 @@ const Setting: React.FC<SettingProps> = () => {
     <div className="mediaFormContainer">
       <div className="header">Upload Images</div>
       <Form onFinish={handleFinish}>
+        <Form.Item
+          name="title"
+          label="Title"
+          rules={[
+            {
+              required: true,
+              message: "Please input your title!",
+            },
+          ]}
+        >
+          <Input
+            placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </Form.Item>
+
         <div className="uploadContainer">
           <Upload.Dragger
             listType="picture-card"
@@ -136,7 +171,12 @@ const Setting: React.FC<SettingProps> = () => {
           </Upload.Dragger>
         </div>
         <Form.Item {...tailLayout}>
-          <Button shape="round" htmlType="submit" loading={submitting}>
+          <Button
+            shape="round"
+            htmlType="submit"
+            loading={submitting}
+            onClick={submit}
+          >
             {submitting ? "Uploading" : "Upload"}
           </Button>
         </Form.Item>
@@ -145,4 +185,4 @@ const Setting: React.FC<SettingProps> = () => {
   );
 };
 
-export default Setting;
+export default AddAlbum;

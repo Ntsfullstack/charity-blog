@@ -23,4 +23,5 @@ export const ROUTES = {
   hoTroSinhKe: "/ho-tro-sinh-ke",
   anSinhXaHoi: "/an-sinh-xa-hoi",
   album: "album",
+  addAlbum: "add-album",
 } as const;

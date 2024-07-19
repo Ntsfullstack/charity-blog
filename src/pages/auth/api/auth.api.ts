@@ -153,3 +153,14 @@ export const deleteImageInAlbum = async (id: string) => {
     throw error;
   }
 };
+
+export const uploadImageToAlbum = async (data: any) => {
+  console.log(data)
+  try {
+    const response = await axiosInstance.post("/auth/Album", data);
+    return response.data;
+  } catch (error) {
+    console.error("Lỗi khi upload ảnh:", error);
+    throw error;
+  }
+}

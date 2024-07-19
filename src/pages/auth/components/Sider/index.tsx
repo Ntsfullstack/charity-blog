@@ -1,10 +1,12 @@
-import React, { ReactNode } from "react";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, MenuProps } from "antd";
+import React from "react";
 import collapsedLogo from "../../../../assets/images/collapsedLogo.png";
 import expandedLogo from "../../../../assets/images/expandedLogo.png";
 import style from "./Sider.module.scss";
 
 import {
+  BookOutlined,
+  EditOutlined,
   FileImageOutlined,
   HomeOutlined,
   LogoutOutlined,
@@ -12,17 +14,13 @@ import {
   TagOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../../../../redux-setup/redux";
 
 const { Sider } = Layout;
 
-type MenuItem = {
-  label: string;
-  key: string;
-  icon: ReactNode;
-};
+type MenuItem = Required<MenuProps>['items'][number]
 
 const items: MenuItem[] = [
   {
@@ -46,9 +44,17 @@ const items: MenuItem[] = [
     icon: <SettingOutlined />,
   },
   {
-    label: "Edit Album",
-    key: "/auth/album",
+    label: " Album",
+    key: "1",
     icon: <FileImageOutlined />,
+    children: [
+      { key: '/auth/add-album', label: 'Add', 
+        icon: <BookOutlined />
+      },
+      { key: '/auth/album', label: 'mana', 
+        icon: <EditOutlined />
+      },
+    ],
   },
 
   {
@@ -90,11 +96,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, setCollapsed }) => {
         theme="dark"
         selectedKeys={[location.pathname]}
         mode="inline"
-        items={items.map((item) => ({
-          key: item.key,
-          icon: item.icon,
-          label: item.label,
-        }))}
+        items={items}
         onClick={handleMenuClick}
       />
     </Sider>

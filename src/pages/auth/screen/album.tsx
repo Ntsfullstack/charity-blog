@@ -1,11 +1,12 @@
-import { PaginationProps } from "antd";
+import { Button, PaginationProps, Popconfirm, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { getAllImageInAlbum } from "../api/auth.api";
+import { ImageData } from "../types/types";
 
 
 
 const Album: React.FC = () => {
-  // const [images, setImages] = useState();
+  const [images, setImages] = useState<ImageData[]>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [pagination, setPagination] = useState<PaginationProps>({
@@ -34,13 +35,13 @@ const Album: React.FC = () => {
 
         console.log(response);
         if (response.status === 200) {
-
-          // setImages(dataAlbum);
-          // setPagination((prev) => ({
-          //   ...prev,
-          //   total: response.data.total,
-          //   current: response.data.currentPage,
-          // }));
+          const dataAlbum = response.data;
+          setImages(dataAlbum);
+          setPagination((prev) => ({
+            ...prev,
+            total: response.totalPage,
+            current: response.currentPage,
+          }));
         } else {
           setError("Lỗi khi lấy dữ liệu album");
         }
@@ -58,47 +59,47 @@ const Album: React.FC = () => {
     setPagination(newPagination);
   };
 
-  // const columns = [
-  //   {
-  //     title: "Images",
-  //     dataIndex: "images",
-  //     key: "images",
-  //     render: (images: string[]) => (
-  //       <div>
-  //         {images.map((image, idx) => (
-  //           <img
-  //             key={idx}
-  //             src={image}
-  //             alt={`Ảnh ${idx + 1}`}
-  //             width="100"
-  //             style={{ margin: '5px' }}
-  //           />
-  //         ))}
-  //       </div>
-  //     ),
-  //   },
-  //   {
-  //     title: "title",
-  //     dataIndex: "title",
-  //     key: "title",
-  //     render: (title: string) => title,
-  //   },
-  //   {
-  //     title: "Action",
-  //     key: "action",
-  //     width: "10%",
-  //     render: (record: ImageData) => (
-  //       <Popconfirm
-  //         title="Bạn có chắc chắn muốn xóa ảnh này?"
-  //         onConfirm={() => handleDeleteImage(record._id)}
-  //         okText="Yes"
-  //         cancelText="No"
-  //       >
-  //         <Button danger>Delete</Button>
-  //       </Popconfirm>
-  //     ),
-  //   },
-  // ];
+  const columns = [
+    {
+      title: "Images",
+      dataIndex: "images",
+      key: "images",
+      render: (images: string[]) => (
+        <div>
+          {images.map((image, idx) => (
+            <img
+              key={idx}
+              src={image}
+              alt={`Ảnh ${idx + 1}`}
+              width="100"
+              style={{ margin: '5px' }}
+            />
+          ))}
+        </div>
+      ),
+    },
+    {
+      title: "title",
+      dataIndex: "title",
+      key: "title",
+      render: (title: string) => title,
+    },
+    {
+      title: "Action",
+      key: "action",
+      width: "10%",
+      render: (record: ImageData) => (
+        <Popconfirm
+          title="Bạn có chắc chắn muốn xóa ảnh này?"
+          // onConfirm={() => handleDeleteImage(record._id)}
+          okText="Yes"
+          cancelText="No"
+        >
+          <Button danger>Delete</Button>
+        </Popconfirm>
+      ),
+    },
+  ];
 
   return (
     <div>
@@ -107,16 +108,14 @@ const Album: React.FC = () => {
       ) : error ? (
         <p>{error}</p>
       ) : (
-        <div>
 
-        </div>
-        // <Table
-        //   dataSource={images}
-        //   columns={columns}
-        //   pagination={pagination}
-        //   onChange={handleTableChange}
-        //   rowKey={(record) => record._id}
-        // />
+        <Table
+          dataSource={images}
+          columns={columns}
+          pagination={pagination}
+          onChange={handleTableChange}
+          rowKey={(record: ImageData) => record._id}
+        />
       )}
     </div>
   );

@@ -1,7 +1,7 @@
 // firebase.js
 import { initializeApp } from "firebase/app";
-import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -11,10 +11,11 @@ const firebaseConfig = {
   storageBucket: "blog-upload-image.appspot.com",
   messagingSenderId: "115182234241",
   appId: "1:115182234241:web:a9585bb273fd8a2d2bbb80",
-  measurementId: "G-F2GB6LMWHZ"
+  measurementId: "G-F2GB6LMWHZ",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
 export const storage = getStorage(app);
 export const firestore = getFirestore(app);

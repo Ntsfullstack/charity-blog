@@ -1,0 +1,116 @@
+a {
+  text-decoration: none;
+}
+
+[class^="iconerror-"],
+[class*="iconerror-"] {
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+  vertical-align: middle;
+  background-size: 140px 50px;
+}
+.iconerror_dmx {
+  background-position: 0 0;
+  height: 18px;
+  width: 103px;
+}
+.iconerror_facebook {
+  background-position: -110px 0;
+  height: 18px;
+  width: 18px;
+}
+.iconerror_facebookblue {
+  background-position: -110px -25px;
+  height: 18px;
+  width: 18px;
+}
+.iconerror_tgdd {
+  background-position: 0 -25px;
+  height: 18px;
+  width: 108px;
+}
+
+.error404 .error_img img {
+  max-width: 481px;
+}
+
+.error500 .error_img img {
+  max-width: 552px;
+}
+
+.error404,
+.error500 {
+  align-items: center;
+  display: flex;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 145px 0 130px;
+  text-align: center;
+}
+.error404 .error_content {
+  margin: 15px 0 0 -40px;
+}
+.error500 .error_content {
+  margin: 50px 0 0 -140px;
+}
+.error404 .error_content h3 {
+  margin-bottom: 30px;
+}
+.error500 .error_content h3 {
+  margin-bottom: 12px;
+}
+.error_content h3 {
+  color: #30425b;
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 57px;
+  max-width: 460px;
+}
+.list_contact {
+  display: flex;
+  justify-content: center;
+}
+.list_contact .itemct {
+  margin: 0 10px;
+  width: 130px;
+}
+.list_contact .itemct p {
+  color: #666;
+  font-size: 12px;
+  line-height: 17px;
+  margin-bottom: 5px;
+}
+.error_content .link {
+  align-items: center;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  height: 40px;
+}
+.error_content .link__blue {
+  background-color: #2f80ed;
+}
+.error_content .link__yellow {
+  background-color: #ffd400;
+}
+.error_content .link_tel {
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+}
+.error_content .link_fb {
+  color: #000;
+  font-size: 16px;
+}
+.error_content .link_fb i {
+  margin-right: 5px;
+}
+.error_content .txt {
+  color: #30425b;
+  font-size: 24px;
+  line-height: 27px;
+  margin-bottom: 15px;
+}

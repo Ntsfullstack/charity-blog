@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
-import Router from "./routes/Router";
 import "antd/dist/reset.css";
-import "./style/index.module.scss";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "./redux-setup/redux";
-import { useNavigate } from "react-router-dom";
+import Router from "./routes/Router";
+import "./style/index.module.scss";
 
 const parseJwt = (token: string | undefined) => {
   if (!token) return null;
@@ -24,8 +23,6 @@ function App() {
     if (storedToken) {
       const user = JSON.parse(storedToken);
       const decodedJwt = parseJwt(user.token);
-      console.log(decodedJwt.exp * 1000 - Date.now());
-      console.log(decodedJwt && decodedJwt.exp * 1000 < Date.now());
       if (decodedJwt && decodedJwt.exp * 1000 < Date.now()) {
         dispatch(logout());
       }
