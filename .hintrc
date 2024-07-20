@@ -28,7 +28,8 @@
       {
         "ignore": [
           "position: sticky",
-          "max-width: fit-content"
+          "max-width: fit-content",
+          "backdrop-filter"
         ]
       }
     ],
