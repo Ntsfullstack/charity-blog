@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MyEditor from "../components/Editor/Editor";
-import SetInfoPost from "../components/setInfoPost/SetinfoPost";
+// import SetInfoPost from "../components/setInfoPost/SetinfoPost";
 import { getBlog } from "../api/auth.api";
 
 interface DataType {
@@ -47,7 +47,7 @@ const EditBlog = () => {
       {data ? (
         <>
           <MyEditor page={page} setPage={setPage} content={data.post.content} />
-          <SetInfoPost page={page} setPage={setPage} title={data} />
+          {/* <SetInfoPost page={page} setPage={setPage} title={data} /> */}
         </>
       ) : (
         <p>Loading...</p>

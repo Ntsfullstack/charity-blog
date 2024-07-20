@@ -24,7 +24,7 @@ const AddAlbum = React.lazy(() => import("../pages/auth/screen/addAlbum"));
 const Login = React.lazy(() => import("../pages/login/login"));
 const Register = React.lazy(() => import("../pages/register/register"));
 const ImageUpload = React.lazy(() => import("../config/uploadImage"));
-const Setting = React.lazy(() => import("../pages/auth/screen/Setting"));
+// const Setting = React.lazy(() => import("../pages/auth/screen/Setting"));
 const SearchPost = React.lazy(() => import("../pages/SeachPost/SearchPost"));
 const Activity = React.lazy(() => import("../pages/activity/screen/Activity"));
 
@@ -247,16 +247,16 @@ const routerConfig = [
               </ProtectedRoute>
             ),
           },
-          {
-            path: ROUTES.settings,
-            element: (
-              <ProtectedRoute>
-                <Suspense fallback={<Loading />}>
-                  <Setting />
-                </Suspense>
-              </ProtectedRoute>
-            ),
-          },
+          // {
+          //   path: ROUTES.settings,
+          //   element: (
+          //     <ProtectedRoute>
+          //       <Suspense fallback={<Loading />}>
+          //         <Setting />
+          //       </Suspense>
+          //     </ProtectedRoute>
+          //   ),
+          // },
         ],
       },
     ],

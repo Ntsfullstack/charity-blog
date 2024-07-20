@@ -155,7 +155,6 @@ export const deleteImageInAlbum = async (id: string) => {
 };
 
 export const uploadImageToAlbum = async (data: any) => {
-  console.log(data)
   try {
     const response = await axiosInstance.post("/auth/Album", data);
     return response.data;
