@@ -1,113 +1,92 @@
-.InfoPost {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f0f0f0;
-  padding: 20px;
-  position: absolute;
-  inset: 0;
-  z-index: 100;
-}
-.InfoPost {
-  padding: 20px;
+.infoPost {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   .header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-  }
+    margin-bottom: 2rem;
 
-  h1 {
-    font-size: 28px;
-    font-family: Oswald;
-    margin: 0;
-  }
-
-  .form {
-    .ant-form-item-label label {
-      font-weight: 500;
+    .backButton {
+      font-size: 1.2rem;
+      margin-right: 1rem;
     }
 
-    .uploadItem .ant-upload.ant-upload-select-picture-card {
-      width: 180px;
-      height: 180px;
-    }
-
-    .uploadButton {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .formItem {
-      margin-bottom: 16px;
-    }
-
-    .submitItem {
-      text-align: right;
+    .title {
+      font-size: 1.8rem;
+      margin: 0;
+      color: #333;
     }
   }
-}
-/* style.module.css */
-.InfoPost {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 30px; /* Tăng padding cho thoáng hơn */
-  border: 1px solid #e0e0e0; /* Màu xám nhạt */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+
+  .content {
+    .uploadForm {
+      margin-bottom: 2rem;
+
+      .uploader {
+        display: flex;
+        justify-content: center;
+
+        :global(.ant-upload-list-item-info) {
+          border-radius: 8px;
+          overflow: hidden;
+        }
+      }
+    }
+
+    .infoForm {
+      .formItem {
+        margin-bottom: 1.5rem;
+
+        :global(.ant-form-item-label) {
+          text-align: left;
+          label {
+            font-weight: 600;
+            color: #555;
+          }
+        }
+
+        input, textarea {
+          border-radius: 4px;
+        }
+      }
+
+      .submitItem {
+        margin-top: 2rem;
+        text-align: right;
+
+        .submitButton {
+          min-width: 120px;
+          height: 40px;
+          font-size: 1rem;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+// Responsive adjustments
+@media (max-width: 768px) {
+  .infoPost {
+    padding: 1rem;
 
-.header h1 {
-  margin: 0;
-  font-size: 1.8rem;
-}
+    .header {
+      .title {
+        font-size: 1.5rem;
+      }
+    }
 
-.form {
-  display: grid;
-  grid-template-columns: 1fr 2fr; /* Điều chỉnh tỉ lệ label:input */
-  gap: 15px;
-}
-
-.formItem,
-.submitItem {
-  grid-column: span 2;
-}
-
-.formItem label {
-  font-weight: 500;
-}
-
-.Upload {
-  border: 1px dashed #ccc;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.Upload .ant-upload-list-picture-card-container {
-  width: 150px; /* Điều chỉnh kích thước ảnh upload */
-  height: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.Select {
-  width: 100%;
-}
-
-.submitItem button[type="submit"] {
-  background-color: #1890ff; /* Màu xanh dương */
-  border-color: #1890ff;
-  padding: 8px 16px; /* Tăng kích thước nút */
-  border-radius: 4px;
+    .content {
+      .infoForm {
+        :global(.ant-form-item-label) {
+          text-align: left;
+        }
+      }
+    }
+  }
 }

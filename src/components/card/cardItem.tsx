@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "antd";
 import dayjs from "dayjs";
-import styles from "./Card.module.scss";
+import styles from "./CardItems.module.scss";
 import clsx from "clsx";
 
 interface CardItemProps {

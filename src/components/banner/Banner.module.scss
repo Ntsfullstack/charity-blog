@@ -1,45 +1,93 @@
-/* src/components/banner/style.scss */
-
 .banner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 600px;
-  width: 100%;
-  background-size: cover;
-  background-position: center;
   position: relative;
-  transition: background-image 2s ease-in-out;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
+  .slideshow {
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1;
+    position: relative;
+
+    div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+
+      &.active {
+        opacity: 1;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
   }
 
-  .prev_slide,
-  .next_slide {
+  .slideshow-controls {
     position: absolute;
     top: 50%;
+    left: 0;
+    right: 0;
     transform: translateY(-50%);
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+
+    button {
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.7);
+      }
+    }
   }
 
-  .prev_slide {
-    left: 10px; /* Adjust left position */
-  }
+  .slideshow-indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
 
-  .next_slide {
-    right: 10px; /* Adjust right position */
+    .indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &.active {
+        background: white;
+      }
+    }
   }
+}
+
+.loading-container,
+.error-container,
+.no-data-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  background: #f0f0f0;
+  color: #333;
+  font-size: 18px;
 }

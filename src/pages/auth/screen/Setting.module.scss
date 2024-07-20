@@ -1,78 +1,123 @@
-// .Setting {
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-around;
-//   flex-wrap: wrap;
-// }
+.imageUploadContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+    .title {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+  
+    .uploadWrapper {
+      margin-bottom: 2rem;
+    }
+  
+    .uploadArea {
+      :global(.ant-upload-list) {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+  
+      :global(.ant-upload-list-item) {
+        width: calc(25% - 0.75rem);
+        margin: 0 !important;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+  
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        }
+      }
+  
+      :global(.ant-upload-select) {
+        width: calc(25% - 0.75rem) !important;
+        margin: 0 !important;
+        border-radius: 8px;
+        border: 2px dashed #d9d9d9;
+        background-color: #fafafa;
+        transition: all 0.3s ease;
+  
+        &:hover {
+          border-color: #40a9ff;
+        }
+      }
+    }
+  
+    .uploadButton {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+  
+    .uploadIcon {
+      font-size: 2rem;
+      color: #999;
+      margin-bottom: 0.5rem;
+    }
+  
+    .uploadText {
+      color: #666;
+    }
+  
+    .submitButton {
+      display: block;
+      width: 100%;
+      max-width: 200px;
+      margin: 2rem auto 0;
+      height: 40px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      background-color: #1890ff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+  
+      &:hover {
+        background-color: #40a9ff;
+      }
+  
+      &:active {
+        background-color: #096dd9;
+      }
+    }
+  }
+  
+  .previewImage {
+    width: 100%;
+    height: auto;
 
-// .code_snippet {
-//   position: relative;
-//   border: 1px solid #ddd;
-//   background-color: #f7f7f7;
-//   padding: 1rem;
-//   border-radius: 0.3125rem; // 5px
-//   margin-bottom: 1.25rem; // 20px
-//   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1); // 0 2px 4px
-//   overflow: hidden;
-// }
-
-// pre {
-//   margin: 0;
-// }
-
-// .copy_button {
-//   position: absolute;
-//   top: 0.3125rem; // 5px
-//   right: 0.3125rem; // 5px
-//   padding: 0.3125rem 0.625rem; // 5px 10px
-//   border: none;
-//   background-color: #007bff;
-//   color: #fff;
-//   border-radius: 0.1875rem; // 3px
-//   cursor: pointer;
-//   font-family: Arial, sans-serif;
-//   font-size: 0.875rem; // 14px
-//   text-transform: uppercase;
-//   transition: background-color 0.3s ease;
-// }
-
-// .copy_button:hover {
-//   background-color: #0056b3;
-// }
-
-// .FormLink,
-// .getLinkImage {
-//   flex-basis: 40%;
-//   max-width: 40%;
-// }
-
-// .form {
-//   display: flex;
-//   align-items: center;
-//   gap: 1.25rem; // 20px
-// }
-
-// .getLinkImage {
-//   display: flex;
-//   justify-content: center;
-//   gap: 1.25rem; // 20px
-//   flex-direction: column;
-// }
-
-// /* Responsive Design */
-// @media (max-width: 768px) {
-//   .FormLink,
-//   .getLinkImage {
-//     flex-basis: 100%;
-//     max-width: 100%;
-//   }
-
-//   .form {
-//     flex-direction: column;
-//   }
-
-//   .Setting {
-//     flex-direction: column;
-//     align-items: center;
-//   }
-// }
+    border-radius: 8px;
+  }
+  :global(.ant-upload-list-item){
+    width: 100% !important;
+  }
+  
+  @media (max-width: 768px) {
+    .imageUploadContainer {
+      padding: 1rem;
+  
+      .title {
+        font-size: 1.5rem;
+      }
+  
+      .uploadArea {
+        :global(.ant-upload-list-item),
+        :global(.ant-upload-select) {
+          width: calc(50% - 0.5rem) !important;
+        }
+      }
+    }
+  }

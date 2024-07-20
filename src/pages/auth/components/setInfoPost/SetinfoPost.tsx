@@ -1,288 +1,223 @@
-// import React, { useState, useEffect } from "react";
-// import { Input, Form, Upload, Button, message, UploadFile, Select } from "antd";
-// import { storage, firestore } from "../../../../config/firebase";
-// import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-// import { collection, addDoc, Timestamp } from "firebase/firestore";
-// import { createPost, getTagCategory, updatePost } from "../../api/auth.api";
-// import style from "./SetInfoPost.module.scss";
-// import type { SelectProps } from "antd";
-// import { toast } from "react-toastify";
-// import { LeftOutlined, RollbackOutlined } from "@ant-design/icons";
+import React, { useState, useEffect } from "react";
+import { Input, Form, Upload, Button, message, UploadFile, Select } from "antd";
+import { RcFile, UploadProps } from "antd/lib/upload";
+import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../../../../config/firebase";
+import { createPost, getTagCategory, updatePost } from "../../api/auth.api";
+import style from "./SetInfoPost.module.scss";
+import type { SelectProps } from "antd";
+import { toast } from "react-toastify";
+import { RollbackOutlined } from "@ant-design/icons";
+import { v4 as uuidv4 } from 'uuid';
 
-// const SetInfoPost = (props: any) => {
-//   const [form] = Form.useForm();
-//   const [postingData, setPostingData] = useState(false);
-//   const [fileList, setFileList] = useState<UploadFile[]>([]);
-//   const content = localStorage.getItem("htmlContent");
-//   const [urlImage, setUrlImage] = useState<string>("");
-//   const [categories, setCategories] = useState<any>();
-//   const [options, setOptions] = useState<ItemProps[]>([]);
-//   const [value, setValue] = useState<any>([]);
+interface ItemProps {
+  label: string;
+  value: string;
+}
 
-//   useEffect(() => {
-//     if (props?.title) {
-//       form.setFieldsValue({
-//         title: props.title.post.title,
-//         slug: props.title.post.slug,
-//         description: props.title.post.description,
-//         thumbnail: props.title.post.thumbnail,
-//       });
+interface AlbumItem {
+  url: string;
+  id: string;
+}
 
-//       if (props.title.post.thumbnail) {
-//         setFileList([
-//           {
-//             uid: "-1",
-//             name: "thumbnail.png",
-//             status: "done",
-//             url: props.title.post.thumbnail,
-//           },
-//         ]);
-//         setUrlImage(props.title.post.thumbnail);
-//       }
-//     }
-//   }, [props.title, form]);
+const SetInfoPost = (props: any) => {
+  const [form] = Form.useForm();
+  const [postingData, setPostingData] = useState(false);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const content = localStorage.getItem("htmlContent");
+  const [urlImage, setUrlImage] = useState<string>("");
+  const [options, setOptions] = useState<ItemProps[]>([]);
+  const [categoryValue, setCategoryValue] = useState<string>("");
 
-//   const handleChange = (value: any) => {
-//     setValue(value);
-//   };
-//   const handleUpload = async (file: UploadFile) => {
-//     try {
-//       const fileName = `images/${Date.now()}-${file.name}`;
-//       const fileRef = ref(storage, fileName);
-//       const uploadTask = uploadBytesResumable(
-//         fileRef,
-//         file.originFileObj as any
-//       );
+  useEffect(() => {
+    if (props?.title) {
+      form.setFieldsValue({
+        title: props.title.post.title,
+        slug: props.title.post.slug,
+        description: props.title.post.description,
+        category: props.title.post.category,
+      });
 
-//       uploadTask.on(
-//         "state_changed",
-//         null,
-//         (error) => {
-//           message.error("Upload failed.", 2);
-//           console.error(error);
-//         },
-//         async () => {
-//           const downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
-//           setUrlImage(downloadUrl);
-//           const item = {
-//             url: downloadUrl,
-//             path: fileName,
-//             uploadedAt: Timestamp.now(),
-//           };
-//           await addDoc(collection(firestore, "images"), item);
-//           message.success("Image uploaded successfully.", 2);
-//         }
-//       );
-//     } catch (err) {
-//       console.error(err);
-//       message.error("Error uploading image.", 2);
-//     }
-//   };
+      if (props.title.post.thumbnail) {
+        setFileList([
+          {
+            uid: '-1',
+            name: 'image.png',
+            status: 'done',
+            url: props.title.post.thumbnail,
+          },
+        ]);
+        setUrlImage(props.title.post.thumbnail);
+      }
+      setCategoryValue(props.title.post.category);
+    }
+  }, [props.title, form]);
 
-//   const handlePostSubmit = async () => {
-//     if (!urlImage) {
-//       message.error("Vui lòng tải lên một hình ảnh đầu tiên.", 2);
-//       return;
-//     }
-//     if (categories?.length === 0) {
-//       message.error("Vui lòng chọn thể loại ");
-//       return;
-//     }
+  const handleCategoryChange = (value: string) => {
+    setCategoryValue(value);
+  };
 
-//     try {
-//       setPostingData(true);
-//       const values = form.getFieldsValue();
-//       const postData = {
-//         content,
-//         slug: values.slug,
-//         description: values.description,
-//         title: values.title,
-//         thumbnail: urlImage,
-//         category: value,
-//       };
+  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
 
-//       let res;
-//       if (props?.title) {
-//         res = await updatePost(postData);
-//       } else {
-//         res = await createPost(postData);
-//       }
-//       if (res.status === 200) {
-//         toast.success(res?.message);
-//       } else {
-//         toast.error(res?.message || "Something went wrong.");
-//       }
-//     } catch (err) {
-//       console.error(err);
-//     } finally {
-//       setPostingData(false);
-//     }
-//   };
+  const uploadToFirebase = async (file: RcFile): Promise<string> => {
+    const imageId = uuidv4();
+    const imageRef = storageRef(storage, `products/${imageId}`);
+    const snapshot = await uploadBytes(imageRef, file);
+    const downloadURL = await getDownloadURL(snapshot.ref);
+    return downloadURL;
+  };
 
-//   const beforeUpload = (file: any) => {
-//     if (!["image/jpeg", "image/png"].includes(file.type)) {
-//       message.error(`${file.name} is not a valid image type`, 2);
-//       return Upload.LIST_IGNORE;
-//     }
-//     return false;
-//   };
+  const handlePostSubmit = async (values: any) => {
+    setPostingData(true);
+    try {
+      let imageUrl = urlImage;
 
-//   const onChange = async ({ fileList }: { fileList: UploadFile[] }) => {
-//     setFileList(fileList.filter((file) => file.status !== "error"));
-//     const latestFile = fileList[fileList.length - 1];
-//     if (latestFile) {
-//       await handleUpload(latestFile);
-//     }
-//   };
+      // If there's a new file, upload it to Firebase
+      if (fileList.length > 0 && fileList[0].originFileObj) {
+        imageUrl = await uploadToFirebase(fileList[0].originFileObj as RcFile);
+      }
 
-//   const onRemove = (file: UploadFile) => {
-//     setFileList((prev) => prev.filter((item) => item.uid !== file.uid));
-//   };
+      const postData = {
+        ...values,
+        thumbnail: imageUrl,
+        content: content || "",
+        category: categoryValue,
+      };
 
-//   const onPreview = async (file: UploadFile) => {
-//     let src = file.url as string;
-//     if (!src) {
-//       src = await new Promise((resolve) => {
-//         const reader = new FileReader();
-//         reader.readAsDataURL(file.originFileObj as File);
-//         reader.onload = () => resolve(reader.result as string);
-//       });
-//     }
-//     const image = new Image();
-//     image.src = src;
-//     const imgWindow = window.open(src);
-//     imgWindow?.document.write(image.outerHTML);
-//   };
+      if (props?.title) {
+        await updatePost( postData);
+        toast.success("Post updated successfully!");
+      } else {
+        await createPost(postData);
+        toast.success("Post created successfully!");
+      }
 
-//   interface ItemProps {
-//     label: string;
-//     value: string;
-//   }
-//   const handleChangePage = () => {
-//     props.setPage(1);
-//   };
+      // Reset form and state after successful submission
+      form.resetFields();
+      setFileList([]);
+      setUrlImage("");
+      setCategoryValue("");
 
-//   const checkPage = props.page === 2;
+      // Optionally, redirect or update UI as needed
+    } catch (error) {
+      console.error("Error submitting post:", error);
+      toast.error("Failed to submit post. Please try again.");
+    } finally {
+      setPostingData(false);
+    }
+  };
 
-//   useEffect(() => {
-//     if (props.title?.dataCategory) {
-//       setCategories(props.title.dataCategory);
-//     }
-//   }, [props.title]);
+  const handleChangePage = () => {
+    props.setPage(1);
+  };
 
-//   useEffect(() => {
-//     const fetchCategories = async () => {
-//       try {
-//         const response = await getTagCategory();
-//         if (!response || !response.data) return;
+  const checkPage = props.page === 2;
 
-//         const categories: ItemProps[] = response.data.map((category: any) => ({
-//           label: category.title,
-//           value: category._id,
-//         }));
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await getTagCategory();
+        if (!response || !response.data) return;
 
-//         setOptions(categories);
-//       } catch (error) {
-//         console.error("Failed to fetch categories:", error);
-//       }
-//     };
+        const categories: ItemProps[] = response.data.map((category: any) => ({
+          label: category.title,
+          value: category._id,
+        }));
 
-//     fetchCategories();
-//   }, []);
-//   return (
-//     checkPage && (
-//       <div className={style.InfoPost}>
-//         <div className={style.header}>
-//           <Button type="link" onClick={handleChangePage}>
-//             <RollbackOutlined />
-//           </Button>
-//           <h1>Thông tin bài viết</h1>
-//         </div>
+        setOptions(categories);
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      }
+    };
 
-//         <Form
-//           form={form}
-//           name="setInfoPost"
-//           labelCol={{ span: 8 }}
-//           wrapperCol={{ span: 16 }}
-//           onFinish={handlePostSubmit}
-//           className={style.UploadFile}
-//         >
-//           <Upload
-//             listType="picture-card"
-//             fileList={fileList}
-//             beforeUpload={beforeUpload}
-//             maxCount={1}
-//             onChange={onChange}
-//             onPreview={onPreview}
-//             onRemove={onRemove}
-//           >
-//             {fileList.length < 1 && "+ Upload"}
-//           </Upload>
-//         </Form>
+    fetchCategories();
+  }, []);
 
-//         <Form
-//           form={form}
-//           name="postInfo"
-//           labelCol={{ span: 8 }}
-//           wrapperCol={{ span: 16 }}
-//           onFinish={handlePostSubmit}
-//           className={style.form}
-//         >
-//           <Form.Item
-//             name="title"
-//             label="Title"
-//             rules={[{ required: true }]}
-//             className={style.formItem}
-//           >
-//             <Input />
-//           </Form.Item>
-//           <Form.Item
-//             name="slug"
-//             label="Slug"
-//             rules={[{ required: true }]}
-//             className={style.formItem}
-//           >
-//             <Input />
-//           </Form.Item>
-//           <Form.Item
-//             name="description"
-//             label="Description"
-//             className={style.formItem}
-//             rules={[{ required: true }]}
-//           >
-//             <Input.TextArea rows={4} />
-//           </Form.Item>
-//           <div className={style.formItem}>
-//             <span>*Thể loại bài viết : </span>
-//             <Select
-//               defaultValue={
-//                 props.title?.categories[0]._id || "chọn thể loại bài viết"
-//               }
-//               style={{ width: 160 }}
-//               onChange={handleChange}
-//               options={options}
-//               allowClear
-//               aria-required
-//             />
-//           </div>
+  return (
+    checkPage && (
+      <div className={style.infoPost}>
+        <div className={style.header}>
+          <Button type="link" onClick={handleChangePage} className={style.backButton}>
+            <RollbackOutlined />
+          </Button>
+          <h1 className={style.title}>Thông tin bài viết</h1>
+        </div>
 
-//           <Form.Item
-//             wrapperCol={{ offset: 8, span: 16 }}
-//             className={style.submitItem}
-//           >
-//             <Button
-//               type="primary"
-//               htmlType="submit"
-//               loading={postingData}
-//               disabled={!urlImage}
-//             >
-//               Submit
-//             </Button>
-//           </Form.Item>
-//         </Form>
-//       </div>
-//     )
-//   );
-// };
+        <div className={style.content}>
+          <Form
+            form={form}
+            name="setInfoPost"
+            onFinish={handlePostSubmit}
+            className={style.uploadForm}
+          >
+            <Upload
+              listType="picture-card"
+              fileList={fileList}
+              onChange={handleChange}
+              maxCount={1}
+              className={style.uploader}
+              beforeUpload={() => false} // Prevent auto upload
+            >
+              {fileList.length < 1 && "+ Upload"}
+            </Upload>
 
-// export default SetInfoPost;
+            <Form.Item
+              name="title"
+              label="Title"
+              rules={[{ required: true, message: "Please input the title!" }]}
+              className={style.formItem}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="slug"
+              label="Slug"
+              rules={[{ required: true, message: "Please input the slug!" }]}
+              className={style.formItem}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="description"
+              label="Description"
+              rules={[{ required: true, message: "Please input the description!" }]}
+              className={style.formItem}
+            >
+              <Input.TextArea rows={4} />
+            </Form.Item>
+            <Form.Item
+              name="category"
+              label="Thể loại bài viết"
+              rules={[{ required: true, message: "Please select a category!" }]}
+              className={style.formItem}
+            >
+              <Select
+                style={{ width: '100%' }}
+                placeholder="Select a category"
+                onChange={handleCategoryChange}
+                options={options}
+                value={categoryValue}
+              />
+            </Form.Item>
+
+            <Form.Item className={style.submitItem}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={postingData}
+                disabled={fileList.length === 0 || !categoryValue}
+                className={style.submitButton}
+              >
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
+      </div>
+    )
+  );
+};
+
+export default SetInfoPost;

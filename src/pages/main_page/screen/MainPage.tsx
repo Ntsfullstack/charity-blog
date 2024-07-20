@@ -15,7 +15,7 @@ const MainPage = () => {
       try {
         const response = await getListBlogMore(limit);
         if (response) {
-          setCardData(response?.data.content);
+          setCardData(response?.content);
         }
       } catch (error) {
         console.error("Error fetching blog data:", error);

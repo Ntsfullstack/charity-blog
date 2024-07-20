@@ -7,7 +7,6 @@ import { storage } from '../../../config/firebase';
 import { v4 as uuidv4 } from 'uuid';
 import { uploadImageToAlbum } from '../api/auth.api';
 import { toast } from 'react-toastify';
-// import { PostToAlbum } from '../../../api/auth.api';
 
 interface AlbumItem {
   url: string;

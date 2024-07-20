@@ -112,7 +112,7 @@ export const createPost = async (data: any) => {
 export const updateBanner = async (data: any) => {
   try {
     const response = await axiosInstance.put("/updatebanner", data);
-    return response;
+    return response.data;
   } catch (error: any) {
     console.error(" Error:", error.message);
   }
