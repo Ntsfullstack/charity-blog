@@ -141,7 +141,6 @@ const DropdownMenu = () => {
         },
         { key: "letter", label: "Thư Ngỏ" },
         { key: "history", label: "Lịch sử" },
-        { key: "contact", label: "Liên Hệ" },
       ],
     },
     {
@@ -184,11 +183,11 @@ const DropdownMenu = () => {
         </Link>
       </Menu.Item>
 
-      <Menu.Item>
+      {/* <Menu.Item>
         <Link to="/about/contact" className={styles.dropdown_link_title}>
           Liên hệ
         </Link>
-      </Menu.Item>
+      </Menu.Item> */}
     </Menu>
   );
 
@@ -196,42 +195,42 @@ const DropdownMenu = () => {
     <Menu>
       <Menu.Item>
         <Link to="/MainPage" className={styles.dropdown_link_title}>
-          Tin tức - sự kiện
+          Sự kiện
         </Link>
       </Menu.Item>
 
       <Menu.Item>
         <Link className={styles.dropdown_link} to="/thong-cao-bao-chi">
-          Thông cáo, báo chí
+          Truyền thông báo chí
         </Link>
       </Menu.Item>
     </Menu>
   );
 
-  // const menuHoatDong = (
-  //   <Menu>
-  //     <Menu.Item>
-  //       <Link to="/Volunteer" className={styles.dropdown_link_title}>
-  //         Thiện Nguyện
-  //       </Link>
-  //     </Menu.Item>
-  //     <Menu.Item>
-  //       <Link className={styles.dropdown_link} to="/branding">
-  //         Chăm sóc sức khỏe cộng đồng
-  //       </Link>
-  //     </Menu.Item>
-  //     <Menu.Item>
-  //       <Link className={styles.dropdown_link} to="/illustrations">
-  //         Hỗ trợ sinh kế
-  //       </Link>
-  //     </Menu.Item>
-  //     <Menu.Item>
-  //       <Link to="/photography" className={styles.dropdown_link_title}>
-  //         An sinh xã hội
-  //       </Link>
-  //     </Menu.Item>
-  //   </Menu>
-  // );
+  const menuHoatDong = (
+    <Menu>
+      <Menu.Item>
+        <Link to="/Volunteer" className={styles.dropdown_link_title}>
+          Hoạt động thiện nguyện
+        </Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link className={styles.dropdown_link} to="/branding">
+          Chăm sóc sức khỏe cộng đồng
+        </Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link className={styles.dropdown_link} to="/illustrations">
+          Hỗ trợ sinh kế
+        </Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to="/photography" className={styles.dropdown_link_title}>
+          An sinh xã hội
+        </Link>
+      </Menu.Item>
+    </Menu>
+  );
 
   const handleMenuClick = ({ key }: { key: string }) => {
     navigate(key);
@@ -298,8 +297,15 @@ const DropdownMenu = () => {
                     </Dropdown>
                   </li>
                   <li>
-                    <Button className={clsx(styles.nav_link, styles.work)}>
-                      HOẠT ĐỘNG Tài TrỢ
+                    <Dropdown overlay={menuHoatDong}>
+                      <Button className={clsx(styles.nav_link, styles.work)}>
+                      HOẠT ĐỘNG 
+                    </Button>
+                    </Dropdown>
+                  </li>
+                  <li className="contact">
+                      <Button className={clsx(styles.nav_link, styles.work)}>
+                      LIÊN HỆ
                     </Button>
                   </li>
                 </ul>

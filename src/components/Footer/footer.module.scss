@@ -17,7 +17,12 @@
 
 .column {
   flex: 1;
-  margin-right: 20px;
+}
+.column h3 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 20px;
+  margin-left: 20px;
+  color: var(--text-color1);
 }
 
 .logoContainer {
@@ -49,6 +54,14 @@
   flex-direction: column;
 }
 
+.inputContainer > * {
+  margin-bottom: 5px; /* Adds space between each child element */
+}
+
+.inputContainer > *:last-child {
+  margin-bottom: 0; /* Removes margin from the last child (the button) */
+}
+
 .subscribeText {
   margin-top: 10px;
   font-size: 14px;
@@ -60,31 +73,31 @@
   width: 100%;
 }
 
-// .end_footer {
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-//   padding: 20px;
-// }
-// .social_icons {
-//   display: flex;
-//   flex-direction: row;
-//   gap: 10px;
-//   list-style-type: none;
-// }
-// .facebook,
-// .twitter,
-// .youtube,
-// .linkedin {
-//   width: 40px;
-//   height: 40px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// }
-// .copyright-text {
-//   margin: 0;
-// }
+.end_footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+}
+.social_icons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  list-style-type: none;
+}
+.facebook,
+.twitter,
+.youtube,
+.linkedin {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.copyright-text {
+  margin: 0;
+}
 @media (max-width: 991px) {
   .site-footer [class^="col-"] {
     margin-bottom: 30px;
