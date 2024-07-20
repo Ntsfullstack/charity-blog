@@ -3,6 +3,8 @@ import styles from "./footer.module.scss";
 import logo from "../../assets/images/expandedLogo.png";
 import { Input, Button } from "antd";
 import { postsClient } from "./Footer.api"; // Thay đổi đường dẫn tới hàm postsClient
+import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 
 const Footer: React.FC = () => {
   const [name, setName] = useState("");
@@ -34,49 +36,50 @@ const Footer: React.FC = () => {
 
   return (
     <footer className={styles.footer}>
+      <div className={styles.shape}></div>
       <div className={styles.column}>
         <div className={styles.logoContainer}>
           <img src={logo} alt="Company Logo" className={styles.logo} />
           <p className={styles.companyName}>
-            QUỸ TỪ THIỆN BẢO PHONG
+            {t('BAO PHONG CHARITY FUND')}
           </p>
         </div>
       </div>
       <div className={styles.column}>
-        <h3>GIỚI THIỆU</h3>
+        <h3>{t('about')}</h3>
         <ul className={styles.contactInfo}>
-          <li>Tầm nhìn sứ mệnh</li>
-          <li>Thư ngỏ</li>
+          <li>{t('vision-mission')}</li>
+          <li>{t('open letter')}</li>
         </ul>
       </div>
       <div className={styles.column}>
-        <h3>TIN TỨC</h3>
+        <h3>{t('news')}</h3>
         <ul className={styles.contactInfo}>
-          <li>Sự kiện</li>
-          <li>Truyền thông, báo chí</li>
+          <li>{t('event')}</li>
+          <li>{t('communication, journalism')}</li>
         </ul>
       </div>
       <div className={styles.column}>
-        <h3>HOẠT ĐỘNG</h3>
+        <h3>{t('activity')}</h3>
         <ul className={styles.contactInfo}>
-          <li>Hoạt động thiện nguyện</li>
-          <li>Chăm sóc sức khỏe cộng đồng</li>
-          <li>An sinh xã hội</li>
-          <li>Hoạt động tài trợ</li>
+          <li>{t('volunteer')}</li>
+          <li>{t('health')}</li>
+          <li>{t('social security')}</li>
+          <li>{t('sponsor')}</li>
         </ul>
       </div>
       <div className={styles.column}>
-        <h3>KẾT NỐI VỚI CHÚNG TÔI</h3>
+        <h3>{t('contact us')}</h3>
         <div className={styles.inputContainer}>
           <Input
-            placeholder="Họ và tên"
+            placeholder={t('name')}
             name="name"
             value={name}
             onChange={handleChange}
             size="large"
           />
           <Input
-            placeholder="Số điện thoại"
+            placeholder={t('phone')}
             name="phone"
             value={phone}
             onChange={handleChange}
@@ -90,7 +93,7 @@ const Footer: React.FC = () => {
             size="large"
           />
           <Input
-            placeholder="Thông tin cần giúp đỡ"
+            placeholder={t('information')}
             name="information"
             value={information}
             onChange={handleChange}
@@ -101,7 +104,7 @@ const Footer: React.FC = () => {
             type="primary"
             onClick={handleSubmit}
           >
-            Gửi
+            {t('send')}
           </Button>
         </div>
       </div>

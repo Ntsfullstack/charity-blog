@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "./redux-setup/redux";
 import Router from "./routes/Router";
 import "./style/index.module.scss";
+import './i18n';
 
 const parseJwt = (token: string | undefined) => {
   if (!token) return null;

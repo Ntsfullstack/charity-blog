@@ -47,11 +47,12 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-size: 16px;
-  color: #333;
+  font-size: 18px;
+  color: #000000;
   position: relative;
   text-decoration: none;
+  font-family: 'Crimson Pro', serif;
+  font-weight: 600;
 }
 .Discover:focus ~ .NEWS {
   visibility: visible;
@@ -112,6 +113,7 @@
 .dropdown_link_title {
   color: var(--dark-grey);
   text-decoration: none;
+  font-family: 'Crime Pro', serif;
 }
 
 .icon {
@@ -157,6 +159,7 @@
   padding: 0.3rem;
   min-width: 60px;
   margin: 0 0.6rem;
+  font-family: 'helvetica', sans-serif;
 }
 
 .menu-bar .nav-link:hover,

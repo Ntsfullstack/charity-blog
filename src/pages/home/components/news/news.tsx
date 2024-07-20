@@ -7,6 +7,7 @@ import "swiper";
 import dayjs from "dayjs";
 import styles from "./news.module.scss";
 import { getRelatedArticles } from "../../../../relatedArticles/RelatedArticles.api";
+import { t } from 'i18next';
 
 interface RelatedArticlesProps {
   currentArticleId: string;
@@ -47,7 +48,7 @@ const RelatedArticles: React.FC<RelatedArticlesProps> = ({
 
   return (
     <div className={styles.relatedArticlesContainer}>
-      <h1>TIN TỨC - SỰ KIỆN</h1>
+      <h1>{t('news-event')}</h1>
       <Swiper
         spaceBetween={30}
         centeredSlides={true}

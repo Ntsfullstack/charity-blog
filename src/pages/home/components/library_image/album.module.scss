@@ -1,26 +1,24 @@
 .imageLibrary {
-    padding: 20px;
+    padding: 0 20px;
+    position: relative; // Để định vị các mũi tên
   }
   
   .libraryHeader {
-    padding-top: 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Đặt tiêu đề giữa và nút ở góc phải */
     align-items: center;
     margin-bottom: 20px;
-    flex-direction: row;
   }
   
   .libraryTitle {
-    margin-bottom: 20px;
     font-size: 24px;
     color: var(--text-color1);
     margin: 0;
+    align-items: center;
+    justify-content: space-between;
     font-family: 'helvetica', sans-serif;
-  }
-  
-  .listAlbum {
-    padding: 30px;
+    text-align: center; /* Đặt tiêu đề ở giữa */
+    flex: 1; /* Cho phép tiêu đề chiếm không gian còn lại */
   }
   
   .viewAllButton {
@@ -29,14 +27,33 @@
     border: none;
   }
   
+  .listAlbum {
+    position: relative;
+    overflow: hidden; // Ẩn nội dung vượt ra ngoài vùng chứa
+    display: flex;
+    align-items: center;
+  }
+  
+  .carousel {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  .albumItem {
+    flex: 0 0 33.333%; // Hiển thị 3 ảnh
+    padding: 0 10px;
+  }
+  
   .albumCard {
     margin-bottom: 16px;
   }
   
   .albumImage {
     width: 100%;
-    height: 200px; /* Adjust the height as needed */
-    object-fit: cover;
+    height: 200px; /* Điều chỉnh chiều cao theo nhu cầu */
+    object-fit: cover; /* Đảm bảo hình ảnh che phủ toàn bộ khu vực */
+    object-position: top; /* Đặt hình ảnh nằm ở phần trên của phần tử chứa */
   }
   
   .albumTitle {
@@ -55,3 +72,32 @@
     color: #999;
   }
   
+  .arrowLeft, .arrowRight {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+  }
+  
+  .arrowLeft {
+    left: 10px;
+  }
+  
+  .arrowRight {
+    right: 10px;
+  }
+  .shape {
+    width: 100%;
+    height: 3px;
+    position: absolute;
+    background-color: var(--text-color3);
+  }

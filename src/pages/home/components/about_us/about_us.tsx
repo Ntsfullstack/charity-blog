@@ -1,24 +1,26 @@
 import React from 'react';
 import styles from './AboutUs.module.scss';
+import { t } from 'i18next';
 
 const AboutUs: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <h1>VỀ CHÚNG TÔI</h1>
-        <p>Giảm bớt bất bình đằng trong xã hội</p>
+        <h1>{t('about us')}</h1>
+        <p>{t('Reduce social inequality')}</p>
+        <p>{t('Volunteering activities help reduce social inequality and build a fair and civilized community. By helping those in need, we can create balance and reduce social distance.')}</p>
+        <p>{t('Enhance community unity and cohesion')}</p>
         <p>
-          Hoạt động thiện nguyện giúp giảm bớt bất bình đẳng trong xã hội và xây dựng một cộng đồng công bằng và văn minh. Bằng cách giúp đỡ những người gặp khó khăn, chúng ta có thể tạo ra sự cân bằng và giảm bớt khoảng cách xã hội.
-        </p>
-        <p>Tăng cường sự đoàn kết và gắn bó trong cộng đồng</p>
-        <p>
-          Hoạt động thiện nguyện là một hoạt động cộng đồng, tạo điểm kết nối giữa mọi người. Thông qua việc tham gia vào hoạt động này, mọi người có cơ hội gặp gỡ trao đổi và hợp tác để đạt được mục tiêu chung. Điều này góp phần tăng cường sự đoàn kết và gắn bó cộng đồng
+          {t('Volunteering activities help enhance community unity and cohesion. When people come together to help others, they build a strong bond and create a sense of belonging to the community.')}
         </p>
         <p>
-          Xây dựng tinh thần nhân ái yêu thương
+          {t('Build a spirit of compassion and love')}
         </p>
-        <p>Hoạt động thiện nguyện giúp lan tỏa tinh thần nhân ái và yêu thương trong cộng đòng. khi mọi người cùng nhau thao gia hoạt động này, họ trải nghiệm niềm vui từ việc giúp đỡ người khác</p>
+        <p>
+          {t('Volunteering activities help spread the spirit of compassion and love in the community. When people come together to help others, they experience the joy of giving and receiving love.')}
+          </p>
       </div>
+
     </div>
   );
 }

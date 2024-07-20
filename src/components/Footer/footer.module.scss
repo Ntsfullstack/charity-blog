@@ -5,8 +5,8 @@
 //   line-height: 24px;
 // }
 .footer {
-  background-color: #f1f5f9;
-  color: #475569;
+  background-color: #ffffff;
+
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
@@ -131,6 +131,7 @@
   font-weight: 700;
   font-size: 13px;
 }
+
 /* Màu sắc cho từng biểu tượng */
 // .facebook {
 //   background-color: #3b5998;
@@ -185,13 +186,13 @@
   width: 100%;
   font-size: 0.8em;
   padding: 0 !important;
-  font-family: fantasy;
+
 }
 
 .footer .row a {
   text-decoration: none;
   transition: 0.5s;
-  font-family: fantasy;
+  font-family: 'Crimson Pro', serif;
 }
 
 .footer .row a:hover {
@@ -218,11 +219,13 @@
 .footer .row ul li {
   display: inline-block;
   margin: 0px 30px;
+  font-family: 'Crimson Pro', serif;
 }
 
 .footer .row a i {
   font-size: 2em;
   margin: 0% 1%;
+  font-family: 'Crimson Pro', serif;
 }
 
 .column {
@@ -239,9 +242,8 @@
 }
 
 .logo {
-  width: 100px;
+  width: 100%;
   height: auto;
-  margin-bottom: 10px;
 }
 .subscribeButton {
   width: 100%;
@@ -260,6 +262,7 @@
 
 .contactInfo li {
   margin-bottom: 10px;
+  font-family: 'Crimson Pro', serif;
 }
 
 .inputContainer {
