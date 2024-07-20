@@ -178,7 +178,7 @@ const DropdownMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item>
-        <Link to="/about/letter" className={styles.dropdown_link}>
+        <Link to="/about/letter" className={styles.dropdown_link_title}>
           Thư ngỏ
         </Link>
       </Menu.Item>
@@ -200,7 +200,7 @@ const DropdownMenu = () => {
       </Menu.Item>
 
       <Menu.Item>
-        <Link className={styles.dropdown_link} to="/thong-cao-bao-chi">
+        <Link className={styles.dropdown_link_title} to="/thong-cao-bao-chi">
           Truyền thông báo chí
         </Link>
       </Menu.Item>
@@ -215,12 +215,12 @@ const DropdownMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item>
-        <Link className={styles.dropdown_link} to="/branding">
+        <Link className={styles.dropdown_link_title} to="/branding">
           Chăm sóc sức khỏe cộng đồng
         </Link>
       </Menu.Item>
       <Menu.Item>
-        <Link className={styles.dropdown_link} to="/illustrations">
+        <Link className={styles.dropdown_link_title} to="/illustrations">
           Hỗ trợ sinh kế
         </Link>
       </Menu.Item>
@@ -276,7 +276,7 @@ const DropdownMenu = () => {
               {width > 768 ? (
                 <ul className={styles.menu_bar}>
                   <li>
-                    <Link to="/" className={styles.dropdown_link_title}>
+                    <Link to="/" className={styles.nav_link}>
                       TRANG CHỦ
                     </Link>
                   </li>

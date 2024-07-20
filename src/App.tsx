@@ -1,4 +1,4 @@
-import "antd/dist/reset.css";
+
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "./redux-setup/redux";
