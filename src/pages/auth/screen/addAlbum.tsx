@@ -1,187 +1,151 @@
-import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, message, Upload } from "antd";
-import React, { useState } from "react";
-import { firestore, storage } from "../../../config/firebase";
+import React, { useEffect, useState } from 'react';
+import { Upload, message, Image, Modal, Input, Button } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { RcFile, UploadFile, UploadProps } from 'antd/es/upload';
+import { getDownloadURL, ref as storageRef, uploadBytes } from "firebase/storage";
+import { storage } from '../../../config/firebase';
+import { v4 as uuidv4 } from 'uuid';
+import { uploadImageToAlbum } from '../api/auth.api';
+import { toast } from 'react-toastify';
+// import { PostToAlbum } from '../../../api/auth.api';
 
-import { addDoc, collection, Timestamp } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-
-interface ImageItem {
+interface AlbumItem {
   url: string;
-  path: string;
-  uploadedAt: Timestamp;
+  id: string;
 }
 
-interface SettingProps {}
+const AddAlbum: React.FC = () => {
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewTitle, setPreviewTitle] = useState('');
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [album, setAlbum] = useState<AlbumItem[]>([]);
+  const [title, setTitle] = useState<string>('');
 
-const AddAlbum: React.FC<SettingProps> = () => {
-  const [fileList, setFileList] = useState<any[]>([]);
-  const [submitting, setSubmitting] = useState<boolean>(false);
-  const [previewVisible, setPreviewVisible] = useState<boolean>(false);
-  const [previewImage, setPreviewImage] = useState<string>("");
-  const [previewTitle, setPreviewTitle] = useState<string>("");
-  const [title, setTitle] = useState<string>("");
-  const [uploadUrls, setUploadUrls] = useState<string[]>([]);
-
-  const handlePreview = async (file: any) => {
-    if (!file.url && !file.preview) {
-      file.preview = (await getBase64(file.originFileObj)) as string;
-    }
-
-    setPreviewImage(file.url || file.preview);
-    setPreviewVisible(true);
-    setPreviewTitle(
-      file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
-    );
-  };
-
-  const beforeUpload = (file: any) => {
-    if (!["image/jpeg", "image/png"].includes(file.type)) {
-      message.error(`${file.name} is not a valid image type`, 2);
-      return Upload.LIST_IGNORE;
-    }
-    return false;
-  };
-
-  const handleChange = async ({
-    file,
-    fileList,
-  }: {
-    file: any;
-    fileList: any[];
-  }) => {
-    if (file.status === "done") {
-      const fileName = `uploads/images/${Date.now()}-${file.name}`;
-      const fileRef = ref(storage, fileName);
-      const uploadTask = uploadBytesResumable(fileRef, file.originFileObj);
-
-      const snapshot = await uploadTask;
-      const downloadUrl = await getDownloadURL(snapshot.ref);
-
-      setUploadUrls((prevUrls) => [...prevUrls, downloadUrl]);
-    }
-    setFileList(fileList.filter((file) => file.status !== "error"));
-  };
-
-  const onRemove = async (file: any) => {
-    setFileList((prev) => prev.filter((item) => item.uid !== file.uid));
-    setUploadUrls((prevUrls) =>
-      prevUrls.filter((url, index) => fileList[index].uid !== file.uid)
-    );
-  };
-  const submit = () => {
-    console.log(title);
-  };
-
-  const handleFinish = async () => {
-    try {
-      setSubmitting(true);
-
-      const uploadedUrls: string[] = [];
-
-      await Promise.all(
-        fileList.map(async (file) => {
-          const fileName = `uploads/images/${Date.now()}-${file.name}`;
-          const fileRef = ref(storage, fileName);
-          const uploadTask = uploadBytesResumable(fileRef, file.originFileObj);
-
-          const snapshot = await uploadTask;
-
-          const downloadUrl = await getDownloadURL(snapshot.ref);
-
-          const item: ImageItem = {
-            url: downloadUrl,
-            path: fileName,
-            uploadedAt: Timestamp.now(),
-          };
-
-          uploadedUrls.push(downloadUrl);
-
-          console.log("Uploaded URLs:", uploadedUrls);
-          await addDoc(collection(firestore, "images"), item);
-        })
-      );
-      setUploadUrls(uploadedUrls);
-
-      setFileList([]);
-      message.success(`Images added successfully.`, 2);
-    } catch (err) {
-      console.error(err);
-      message.error(`Error adding images.`, 2);
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const getBase64 = (file: File) =>
-    new Promise<string>((resolve, reject) => {
+  const getBase64 = (file: RcFile): Promise<string> =>
+    new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => resolve(reader.result as string);
       reader.onerror = (error) => reject(error);
     });
 
-  const tailLayout = {
-    wrapperCol: {
-      offset: 18,
-      span: 12,
-    },
+  const handlePreview = async (file: UploadFile) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj as RcFile);
+    }
+
+    setPreviewImage(file.url || (file.preview as string));
+    setPreviewOpen(true);
+    setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
+  };
+
+  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
+    setFileList(newFileList);
+
+  const customUpload = async (options: any) => {
+    const { onSuccess, onError, file } = options;
+    
+    try {
+      const imageId = uuidv4();
+      const imageRef = storageRef(storage, `products/${imageId}`);
+      const snapshot = await uploadBytes(imageRef, file);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      
+      onSuccess({ url: downloadURL, id: imageId });
+    } catch (error: any) {
+      onError({ error });
+      message.error(error.message);
+    }
+  };
+
+  const handleCancel = () => setPreviewOpen(false);
+
+  useEffect(() => {
+    const newAlbum = fileList.map((file) => ({
+      url: file.url || file.response?.url,
+      id: file.uid || file.response?.id,
+    })).filter((item): item is AlbumItem => 
+      item.url != null && item.id != null 
+    );
+    
+    setAlbum(newAlbum);
+  }, [fileList]);
+
+  const uploadToFirebase = async (file: RcFile): Promise<AlbumItem> => {
+    const imageId = uuidv4();
+    const imageRef = storageRef(storage, `products/${imageId}`);
+    const snapshot = await uploadBytes(imageRef, file);
+    const downloadURL = await getDownloadURL(snapshot.ref);
+    return { url: downloadURL, id: imageId };
+  };
+
+  const handleSubmit = async () => {
+    try {
+      // Tải lên các file chưa được tải lên Firebase
+      const uploadPromises = fileList
+        .filter(file => !file.url && !file.response)
+        .map(file => uploadToFirebase(file.originFileObj as RcFile));
+
+      const uploadedFiles = await Promise.all(uploadPromises);
+
+      // Kết hợp các file đã tải lên trước đó với các file mới tải lên
+      const allFiles = [
+        ...album,
+        ...uploadedFiles
+      ];
+
+      // Gọi API PostToAlbum
+      const response = await uploadImageToAlbum({
+        title,
+        images: allFiles
+      });
+      if(response.status === 200) {
+        toast.success('Album created successfully!');
+        setTitle('');
+        setFileList([]);
+        setAlbum([]);
+      } else {
+        toast.error('Failed to create album. Please try again.');
+      }
+
+
+     
+    } catch (error) {
+      // Xử lý lỗi (ví dụ: hiển thị thông báo lỗi)
+      message.error('Failed to create album. Please try again.');
+      console.error(error);
+    }
   };
 
   return (
-    <div className="mediaFormContainer">
-      <div className="header">Upload Images</div>
-      <Form onFinish={handleFinish}>
-        <Form.Item
-          name="title"
-          label="Title"
-          rules={[
-            {
-              required: true,
-              message: "Please input your title!",
-            },
-          ]}
-        >
-          <Input
-            placeholder="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </Form.Item>
-
-        <div className="uploadContainer">
-          <Upload.Dragger
-            listType="picture-card"
-            fileList={fileList}
-            beforeUpload={beforeUpload}
-            onPreview={handlePreview}
-            onChange={handleChange}
-            onRemove={onRemove}
-            multiple={true}
-            maxCount={5}
-          >
-            <div className="uploadIcon">
-              <UploadOutlined />
-            </div>
-            <div className="uploadText">
-              <p>Drag and drop here</p>
-              <p>OR</p>
-              <p>Click</p>
-            </div>
-          </Upload.Dragger>
-        </div>
-        <Form.Item {...tailLayout}>
-          <Button
-            shape="round"
-            htmlType="submit"
-            loading={submitting}
-            onClick={submit}
-          >
-            {submitting ? "Uploading" : "Upload"}
-          </Button>
-        </Form.Item>
-      </Form>
-    </div>
+    <>
+      <Input 
+        placeholder="Enter album title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <Upload
+        listType="picture-card"
+        fileList={fileList}
+        onPreview={handlePreview}
+        onChange={handleChange}
+        customRequest={customUpload}
+        onDrop={(event) => {
+          event.preventDefault();
+        }}
+        multiple={true}
+      >
+        <button style={{ border: 0, background: 'none' }} type="button">
+          <PlusOutlined />
+          <div style={{ marginTop: 8 }}>Upload</div>
+        </button>
+      </Upload>
+      <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
+        <img alt="example" style={{ width: '100%' }} src={previewImage} />
+      </Modal>
+      <Button onClick={handleSubmit}>Submit</Button>
+    </>
   );
 };
 
