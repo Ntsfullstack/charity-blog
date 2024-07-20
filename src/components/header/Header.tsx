@@ -9,6 +9,7 @@ import logo from "../../assets/images/expandedLogo.png";
 import clsx from "clsx";
 import { searchBlog } from "../../server/api";
 import SearchPost from "../../pages/SeachPost/SearchPost";
+import { useTranslation } from 'react-i18next';
 const DropdownMenu = () => {
   const [isLogin, setIsLogin] = useState(!!localStorage.getItem("token"));
   const [openDropdown, setDropdown] = useState(false);
@@ -78,6 +79,7 @@ const DropdownMenu = () => {
     e.preventDefault();
     setDropdown(!openDropdown);
   };
+  const {t} = useTranslation();
 
   const items = [
     {
@@ -174,12 +176,12 @@ const DropdownMenu = () => {
     <Menu>
       <Menu.Item>
         <Link to="/about/vision" className={styles.dropdown_link_title}>
-          Tầm nhìn, sứ mệnh
+          {t('vision-mission')}
         </Link>
       </Menu.Item>
       <Menu.Item>
-        <Link to="/about/letter" className={styles.dropdown_link}>
-          Thư ngỏ
+        <Link to="/about/letter" className={styles.dropdown_link_title}>
+          {t('open letter')}
         </Link>
       </Menu.Item>
 
@@ -195,13 +197,13 @@ const DropdownMenu = () => {
     <Menu>
       <Menu.Item>
         <Link to="/MainPage" className={styles.dropdown_link_title}>
-          Sự kiện
+          {t('event')}
         </Link>
       </Menu.Item>
 
       <Menu.Item>
-        <Link className={styles.dropdown_link} to="/thong-cao-bao-chi">
-          Truyền thông báo chí
+        <Link className={styles.dropdown_link_title} to="/thong-cao-bao-chi">
+          {t('communication, journalism')}
         </Link>
       </Menu.Item>
     </Menu>
@@ -211,22 +213,22 @@ const DropdownMenu = () => {
     <Menu>
       <Menu.Item>
         <Link to="/Volunteer" className={styles.dropdown_link_title}>
-          Hoạt động thiện nguyện
+          {t('volunteer')}
         </Link>
       </Menu.Item>
       <Menu.Item>
-        <Link className={styles.dropdown_link} to="/branding">
-          Chăm sóc sức khỏe cộng đồng
+        <Link className={styles.dropdown_link_title} to="/branding">
+          {t('health')}
         </Link>
       </Menu.Item>
       <Menu.Item>
-        <Link className={styles.dropdown_link} to="/illustrations">
-          Hỗ trợ sinh kế
+        <Link className={styles.dropdown_link_title} to="/illustrations">
+          {t('social security')}
         </Link>
       </Menu.Item>
       <Menu.Item>
         <Link to="/photography" className={styles.dropdown_link_title}>
-          An sinh xã hội
+          {t('sponsor')}
         </Link>
       </Menu.Item>
     </Menu>
@@ -276,14 +278,14 @@ const DropdownMenu = () => {
               {width > 768 ? (
                 <ul className={styles.menu_bar}>
                   <li>
-                    <Link to="/" className={styles.dropdown_link_title}>
-                      TRANG CHỦ
+                    <Link to="/" className={clsx(styles.nav_link)}>
+                     {t('home')}
                     </Link>
                   </li>
                   <li>
                     <Dropdown overlay={menuGioiThieu}>
                       <Button className={clsx(styles.nav_link, styles.work)}>
-                        GIỚI THIỆU
+                        {t('about')}
                       </Button>
                     </Dropdown>
                   </li>
@@ -292,20 +294,20 @@ const DropdownMenu = () => {
                       <Button
                         className={clsx(styles.nav_link, styles.discover)}
                       >
-                        TIN TỨC
+                        {t('news')}
                       </Button>
                     </Dropdown>
                   </li>
                   <li>
                     <Dropdown overlay={menuHoatDong}>
                       <Button className={clsx(styles.nav_link, styles.work)}>
-                      HOẠT ĐỘNG 
+                      {t('activity')} 
                     </Button>
                     </Dropdown>
                   </li>
                   <li className="contact">
                       <Button className={clsx(styles.nav_link, styles.work)}>
-                      LIÊN HỆ
+                      {t('contact')}
                     </Button>
                   </li>
                 </ul>

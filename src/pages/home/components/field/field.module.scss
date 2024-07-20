@@ -1,10 +1,11 @@
 .fieldContent h1 {
-  color: #ea2227;
+  color: var(--text-color1);
   font-size: 62px;
   font-weight: bold;
   position: relative;
   margin-bottom: 40px;
   margin-top: 10px;
+  font-family: 'helvetica', sans-serif;
 }
 
 .fieldContainer {
@@ -29,7 +30,7 @@
 .fieldText h2 {
   font-family: "calibri bold", "Roboto", sans-serif;
   font-size: 40px;
-  color: #fc4f88;
+  color: var(--text-color1);
   margin-top: 0;
   text-align: left;
   font-weight: bold; /* Corrected font-weight property */
@@ -37,7 +38,7 @@
 
 .fieldText h3 {
   font-size: 18px;
-  color: #fc4f88;
+  color: var(--text-color2);
   margin-top: 0;
   text-align: left;
 }
@@ -46,9 +47,8 @@
   text-align: left;
   font-family: "calibri", "Roboto", sans-serif;
   font-size: 18px;
-  color: #333;
+  color: var(--text-color1);
   margin: 0; /* Reset default margins */
-  color: #868686;
   max-width: 100%; /* Ensure text doesn't overflow */
 }
 
@@ -75,7 +75,7 @@
 .fieldText2 h2 {
   font-family: "calibri bold", "Roboto", sans-serif;
   font-size: 40px;
-  color: #009ee2;
+  color: var(--text-color1);
   margin-top: 0;
   text-align: right;
   font-weight: bold; /* Corrected font-weight property */
@@ -83,7 +83,7 @@
 
 .fieldText2 h3 {
   font-size: 18px;
-  color: #009ee2;
+  color:var(--text-color2);
   margin-top: 0;
   text-align: right;
 }
@@ -92,9 +92,8 @@
   text-align: right;
   font-family: "calibri", "Roboto", sans-serif;
   font-size: 18px;
-  color: #333;
+  color: var(--text-color1);
   margin: 0; /* Reset default margins */
-  color: #868686;
   max-width: 100%; /* Ensure text doesn't overflow */
 }
 
