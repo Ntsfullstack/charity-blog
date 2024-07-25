@@ -35,8 +35,10 @@ const Footer: React.FC = () => {
   };
 
   return (
+  <div className={styles.container}>
+    <div className={styles.shape}></div>
     <footer className={styles.footer}>
-      <div className={styles.shape}></div>
+
       <div className={styles.column}>
         <div className={styles.logoContainer}>
           <img src={logo} alt="Company Logo" className={styles.logo} />
@@ -109,6 +111,22 @@ const Footer: React.FC = () => {
         </div>
       </div>
     </footer>
+    <div className={styles.social}>
+      <h3>2024 BAO PHONG CHARITY FUND. All rights reserved.</h3>
+      <div className={styles.socialContainer}>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+          <img src="https://img.icons8.com/?size=100&id=118497&format=png&color=000000" alt="Facebook" className={styles.logo} />
+        </a>
+        <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
+          <img src="https://img.icons8.com/?size=100&id=19318&format=png&color=000000" alt="YouTube" className={styles.logo} />
+        </a>
+        <a href="https://www.gmail.com/" target="_blank" rel="noopener noreferrer">
+          <img src="https://img.icons8.com/?size=100&id=P7UIlhbpWzZm&format=png&color=000000" alt="Gmail" className={styles.logo} />
+        </a>
+      </div>
+    </div>
+  </div>
+
   );
 };
 

@@ -5,20 +5,19 @@ import { Outlet } from "react-router-dom";
 import styles from "./HomeLayout.module.scss"; // Import styles correctly
 import Banner from "../components/banner/Banner";
 
-const HomeLayout = () => {
+const Vision = () => {
   return (
     <>
       <Header />
 
       <div className={styles.mainContentWrapper}>
-      {/* <Banner /> */}
+      <Banner />
         <div className={styles.mainContent}>
           <Outlet />
         </div>
-        <Footer />
       </div>
     </>
   );
 };
 
-export default HomeLayout;
+export default Vision;

@@ -42,13 +42,12 @@
 }
 
 .nav_link {
-  background: none;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   font-size: 18px;
-  color: #000000;
+  color: var(--text-color1);
   position: relative;
   text-decoration: none;
   font-family: 'Crimson Pro', serif;
@@ -90,15 +89,15 @@
   display: flex;
 }
 
-.visible {
-  top: 0;
-  transition: top 0.4s ease-out;
-}
+// .visible {
+//   top: 0;
+//   transition: top 0.4s ease-out;
+// }
 
-.hidden {
-  top: -100px;
-  transition: top 0.4s ease-out;
-}
+// .hidden {
+//   top: -100px;
+//   transition: top 0.4s ease-out;
+// }
 /* style.css */
 .btn {
   display: block;
@@ -164,7 +163,7 @@
 
 .menu-bar .nav-link:hover,
 .dropdowns-link:hover {
-  color: var(--primary-color);
+  color: #3c1605;
 }
 
 .nav-start,

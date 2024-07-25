@@ -46,7 +46,7 @@ const Banner: React.FC = () => {
   useEffect(() => {
     if (bannerData && bannerData.images.length > 0) {
       const interval = setInterval(() => {
-        setCurrentSlide((prevSlide) => (prevSlide + 1) % bannerData.images.length);
+        setCurrentSlide((prevSlide) => (prevSlide + 1) % bannerData.images.length );
       }, 7000);
 
       return () => clearInterval(interval);

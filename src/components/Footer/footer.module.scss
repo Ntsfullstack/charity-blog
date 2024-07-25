@@ -6,8 +6,6 @@
 // }
 .footer {
   background-color: #ffffff;
-
-  padding: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -21,7 +19,6 @@
 .column h3 {
   font-family: 'Crimson Pro', serif;
   font-size: 20px;
-  margin-left: 20px;
   color: var(--text-color1);
 }
 
@@ -32,9 +29,6 @@
 }
 
 .logo {
-  width: 90%;
-  height: auto;
-  margin-bottom: 10px;
 }
 
 .companyName {
@@ -49,17 +43,15 @@
   list-style-type: none;
   padding: 5px;
 }
-.inputContainer {
-  display: flex;
-  flex-direction: column;
-}
-
 .inputContainer > * {
-  margin-bottom: 5px; /* Adds space between each child element */
+  margin-bottom: 5px; 
+  width: 80%;
 }
 
 .inputContainer > *:last-child {
   margin-bottom: 0; /* Removes margin from the last child (the button) */
+  width: 20%;
+  margin-left: 60%;
 }
 
 .subscribeText {
@@ -78,6 +70,12 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 20px;
+}
+.shape {
+  width: 100%;
+  height: 3px;
+  position: absolute;
+  background-color: var(--text-color3);
 }
 .social_icons {
   display: flex;
@@ -200,7 +198,7 @@
 }
 
 .footer .row ul {
-  width: 100%;
+  width: 70%;
 }
 
 .footer .row a {
@@ -210,10 +208,6 @@
 
 .footer .row a:hover {
   color: #fff;
-}
-
-.footer .row ul {
-  width: 100%;
 }
 
 .footer .row ul li {
@@ -235,6 +229,7 @@
 }
 
 .logoContainer {
+  margin-top: 10%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -242,7 +237,8 @@
 }
 
 .logo {
-  width: 100%;
+  margin-top: -10%;
+  width: 70%;
   height: auto;
 }
 .subscribeButton {
@@ -251,8 +247,11 @@
 }
 
 .companyName {
+  color: var(--text-color1);
+  font-family: "Crimson Pro", serif;
   font-size: 18px;
   font-weight: bold;
+  margin-top: -8%;
 }
 
 .contactInfo {
@@ -261,6 +260,7 @@
 }
 
 .contactInfo li {
+  font-size: 21px;
   margin-bottom: 10px;
   font-family: 'Crimson Pro', serif;
 }
@@ -268,7 +268,6 @@
 .inputContainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
   text-align: center;
 }
 
@@ -290,7 +289,25 @@
   font-size: 14px;
   color: #ccc;
 }
+.social {
+  color: white;
+  background-color: var(--text-color1);
+  display: flex;
+  justify-content: center;
+text-align: center;
+  list-style-type: none;
+.socialContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
 
+}
+.socialContainer a{
+width: 40px;
+
+}
+}
 @media (max-width: 768px) {
   .footer {
     flex-direction: column;

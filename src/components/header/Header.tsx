@@ -130,10 +130,6 @@ const DropdownMenu = () => {
       ),
     },
     {
-      key: "/",
-      label: "Trang chủ",
-    },
-    {
       key: "about",
       label: "Giới Thiệu",
       children: [
@@ -172,27 +168,21 @@ const DropdownMenu = () => {
     },
   ];
 
+
   const menuGioiThieu = (
     <Menu>
       <Menu.Item>
-        <Link to="/about/vision" className={styles.dropdown_link_title}>
+        <Link to="/vision" className={styles.dropdown_link_title}>
           {t('vision-mission')}
         </Link>
       </Menu.Item>
       <Menu.Item>
-        <Link to="/about/letter" className={styles.dropdown_link_title}>
+        <Link to="/letter" className={styles.dropdown_link_title}>
           {t('open letter')}
         </Link>
       </Menu.Item>
-
-      {/* <Menu.Item>
-        <Link to="/about/contact" className={styles.dropdown_link_title}>
-          Liên hệ
-        </Link>
-      </Menu.Item> */}
     </Menu>
   );
-
   const menuTinTuc = (
     <Menu>
       <Menu.Item>
@@ -212,22 +202,22 @@ const DropdownMenu = () => {
   const menuHoatDong = (
     <Menu>
       <Menu.Item>
-        <Link to="/Volunteer" className={styles.dropdown_link_title}>
+        <Link to="/Activity" className={styles.dropdown_link_title}>
           {t('volunteer')}
         </Link>
       </Menu.Item>
       <Menu.Item>
-        <Link className={styles.dropdown_link_title} to="/branding">
+        <Link className={styles.dropdown_link_title} to="/suc-khoe-cong-dong">
           {t('health')}
         </Link>
       </Menu.Item>
       <Menu.Item>
-        <Link className={styles.dropdown_link_title} to="/illustrations">
-          {t('social security')}
+        <Link className={styles.dropdown_link_title} to="/ho-tro-sinh-ke">
+          {t('Social security')}
         </Link>
       </Menu.Item>
       <Menu.Item>
-        <Link to="/photography" className={styles.dropdown_link_title}>
+        <Link to="/an-sinh-xa-hoi" className={styles.dropdown_link_title}>
           {t('sponsor')}
         </Link>
       </Menu.Item>
@@ -278,7 +268,7 @@ const DropdownMenu = () => {
               {width > 768 ? (
                 <ul className={styles.menu_bar}>
                   <li>
-                    <Link to="/" className={clsx(styles.nav_link)}>
+                    <Link to="/" className={clsx(styles.nav_link, styles.work)}>
                      {t('home')}
                     </Link>
                   </li>

@@ -4,7 +4,7 @@ import styles from "./Activity.module.scss";
 import { getListBlogs } from "../../auth/api/auth.api";
 import Card from "../../../components/card/Card";
 import { BlogPostData } from "../types/blogdata.type";
-import Banner from "../../../components/banner/Banner";
+// import Banner from "../../../components/banner/Banner";
 import { getPostsByCategories } from "../api/activity.api";
 import CardItemsCategory from "../../../components/cardItems/CardItemsCategory";
 
@@ -19,10 +19,9 @@ const Activity = () => {
   const categories = [
     { name: "VĂN HÓA GIÁO DỤC", path: "/Activity" },
     { name: "CHĂM SÓC SỨC KHỎE CỘNG ĐỒNG", path: "/suc-khoe-cong-dong" },
-    { name: "HỖ TRỢ SINH KẾ", path: "/ho-tro-sinh-ke" },
-    { name: "AN SINH XÃ HỘI", path: "/an-sinh-xa-hoi" },
-  ];
-
+    { name: "AN SINH XÃ HÔI", path: "/ho-tro-sinh-ke" },
+    { name: "HOẠT ĐỘNG TÀI TRỢ", path: "/an-sinh-xa-hoi" },
+  ]; 
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
@@ -65,8 +64,6 @@ const Activity = () => {
         <div className={styles.mainContent}>
           <div className={styles.title}>
             <h3>VĂN HÓA - GIÁO DỤC</h3>
-            {/* <div className={styles.line}></div> */}
-            {/* <h4>TIN NỔI BẬT</h4> */}
             <div className={styles.fieldContainer}>
               <div className={styles.fieldText}>
                 <h2>

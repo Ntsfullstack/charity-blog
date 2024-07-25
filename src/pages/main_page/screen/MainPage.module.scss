@@ -1,18 +1,10 @@
 @import "../../../style/index.module.scss";
-.cardContainer {
-  display: flex;
 
-  flex-wrap: wrap; /* Allow cards to wrap to the next line */
-  gap: scale(30); // 30px / 16 = 1.875rem
-  justify-content: flex-start;
-  padding: scale(30); // 30px / 16 = 1.875rem
-  margin: 0 auto;
-}
 .mainContainer {
   width: 100%;
   h4 {
     text-align: center;
-    font-size: 35px; // 18px / 16 = 1.125rem
+    font-size: 35px;
     color: #2d2e82;
     font-weight: bold;
   }
@@ -24,7 +16,7 @@
 }
 
 .categoriesSidebar {
-  width: 200px;
+  width: 220px;
   margin-left: 10%;
 
   ul {
@@ -58,13 +50,16 @@
       color: #ffffff;
     }
   }
+
+  &.active {
+    background-color: var(--text-color1);
+
+    a {
+      color: white;
+    }
+  }
 }
-.categoryBox.active {
-  background-color: red; // or whatever style you want for the active category
-}
-.categoryBox.active a {
-  color: white; // Set text color to white
-}
+
 .mainContent {
   flex: 1;
 }
@@ -83,14 +78,6 @@
     color: #2d2e82;
   }
 
-  // .line {
-  //   width: 50px;
-  //   height: 2px;
-  //   background-color: #000;
-  //   margin-bottom: 10px;
-  //   align-items: center;
-  // }
-
   p {
     margin-bottom: 10px;
     font-size: 20px;
@@ -106,34 +93,74 @@
   }
 }
 
-// .cardContainer {
-//   // margin-top: 20px;
-// }
-
-.BtnLoadMore {
-  margin-top: 20px;
-  text-align: center;
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: scale(30);
+  justify-content: flex-start;
+  padding: scale(30);
 }
 
-.loadMoreButton {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.sliderContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0 scale(30);
+}
 
-  &:hover {
-    background-color: #0056b3;
+.sliderWrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+
+.sliderItem {
+  flex: 0 0 33.33%; // Hiển thị chính xác 3 items
+  padding: 0 scale(10);
+}
+
+.sliderButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  color: #2d2e82;
+  transition: color 0.3s ease;
+
+  &:hover:not(:disabled) {
+    color: #ff0000;
+  }
+
+  &:disabled {
+    color: #cccccc;
+    cursor: not-allowed;
+  }
+
+  &:first-child {
+    left: scale(-30);
+  }
+
+  &:last-child {
+    right: scale(-30);
   }
 }
 
+// Keeping the load more button styles for potential future use
 .BtnLoadMore {
   width: 100%;
   align-items: center;
   display: flex;
   justify-content: center;
 }
+
 .loadMoreButton {
   margin-top: 20px;
   padding: 10px 20px;

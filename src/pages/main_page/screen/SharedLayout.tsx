@@ -8,8 +8,7 @@ const SharedLayout = () => {
 
   const categories = [
     { name: "TIN TỨC - SỰ KIỆN", path: "/MainPage" },
-    { name: "TUYỂN DỤNG", path: "/tuyen-dung" },
-    { name: "THÔNG CÁO BÁO CHÍ", path: "/thong-cao-bao-chi" }
+    { name: "TRUYỀN THÔNG BÁO CHÍ", path: "/thong-cao-bao-chi" }
   ];
 
   return (
