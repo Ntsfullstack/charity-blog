@@ -45,7 +45,7 @@
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #fc4f88;
+    background-color:var(--text-color1);
   }
 
   a {
@@ -57,12 +57,12 @@
     font-weight: bold;
 
     &:hover {
-      color: #ffffff;
+      background-color:var(--text-color1);
     }
   }
 }
 .categoryBox.active {
-  background-color: #fc4f88; // or whatever style you want for the active category
+  background-color:var(--text-color1); // or whatever style you want for the active category
 }
 .categoryBox.active a {
   color: white; // Set text color to white

@@ -35,7 +35,7 @@
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #ff0000;
+    background-color:var(--text-color1);
   }
 
   a {
@@ -98,7 +98,7 @@
   flex-wrap: wrap;
   gap: scale(30);
   justify-content: flex-start;
-  padding: scale(30);
+  padding-left: scale(200);
 }
 
 .sliderContainer {
