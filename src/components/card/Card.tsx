@@ -36,7 +36,7 @@ const Card: React.FC<CardProps> = ({ cardData, loading }) => {
               </div>
             </div>
           ))
-        : cardData.map((card, index) => <CardItem key={index} {...card} />)}
+        : cardData?.map((card, index) => <CardItem key={index} {...card} />)}
     </>
   );
 };

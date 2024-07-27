@@ -14,6 +14,7 @@ import { ROUTES } from "./routes";
 const MainPage = React.lazy(() => import("../pages/main_page/screen/MainPage"));
 const EditBlog = React.lazy(() => import("../pages/auth/screen/EditBlog"));
 const Album = React.lazy(() => import("../pages/auth/screen/album"));
+const AlbumPage = React.lazy(() => import("../pages/auth/screen/editAlbum"));
 const RootLayout = React.lazy(() => import("../layout/root/RootLayout"));
 const AdminLayout = React.lazy(() => import("../layout/AdminLayout"));
 const ErrorPage = React.lazy(() => import("../pages/Error/Error"));
@@ -169,14 +170,7 @@ const routerConfig = [
           </Suspense>
         ),
       },
-      // {
-      //   path: "/upload",
-      //   element: (
-      //     <Suspense fallback={<Loading />}>
-      //       <ImageUpload />
-      //     </Suspense>
-      //   ),
-      // },
+
       {
         path: ROUTES.auth,
         element: (
@@ -223,6 +217,16 @@ const routerConfig = [
               <ProtectedRoute>
                 <Suspense fallback={<Loading />}>
                   <AddAlbum />
+                </Suspense>
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: ROUTES.AlbumPage,
+            element: (
+              <ProtectedRoute>
+                <Suspense fallback={<Loading />}>
+                  <AlbumPage />
                 </Suspense>
               </ProtectedRoute>
             ),

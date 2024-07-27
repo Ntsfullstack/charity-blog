@@ -27,7 +27,7 @@ const Banner: React.FC = () => {
       try {
         setIsLoading(true);
         const data = await getBanner();
-        if (Array.isArray(data) && data.length > 0) {
+        if (Array.isArray(data) && data?.length > 0) {
           setBannerData(data[0]);
         } else {
           throw new Error("Invalid banner data format");
@@ -44,9 +44,9 @@ const Banner: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (bannerData && bannerData.images.length > 0) {
+    if (bannerData && bannerData?.images.length > 0) {
       const interval = setInterval(() => {
-        setCurrentSlide((prevSlide) => (prevSlide + 1) % bannerData.images.length);
+        setCurrentSlide((prevSlide) => (prevSlide + 1) % bannerData?.images.length);
       }, 7000);
 
       return () => clearInterval(interval);
@@ -72,14 +72,14 @@ const Banner: React.FC = () => {
     return <div className={styles['error-container']}>{error}</div>;
   }
 
-  if (!bannerData || bannerData.images.length === 0) {
+  if (!bannerData || bannerData?.images.length === 0) {
     return <div className={styles['no-data-container']}>No banner images available</div>;
   }
 
   return (
     <div className={styles.banner}>
       <div className={styles.slideshow}>
-        {bannerData.images.map((image, index) => (
+        {bannerData?.images.map((image, index) => (
           <div
             key={image._id}
             className={index === currentSlide ? styles.active : ''}
@@ -97,7 +97,7 @@ const Banner: React.FC = () => {
         </button>
       </div>
       <div className={styles['slideshow-indicators']}>
-        {bannerData.images.map((_, index) => (
+        {bannerData?.images.map((_, index) => (
           <button
             key={index}
             className={`${styles.indicator} ${index === currentSlide ? styles.active : ''}`}

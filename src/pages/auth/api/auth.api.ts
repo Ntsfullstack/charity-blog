@@ -1,5 +1,6 @@
+import { Root } from "react-dom/client";
 import axiosInstance from "../../../server/auth.api";
-import { BlogResponse, PaginatedResponse, UsersResponse } from "../types/types";
+import { AlbumsDetailResponse, BlogResponse, PaginatedResponse, UsersResponse } from "../types/types";
 
 const storedToken = localStorage.getItem("token");
 const token = storedToken ? JSON.parse(storedToken)?.token : null;
@@ -124,13 +125,14 @@ export const getTagCategory = async () => {
   } catch (error: any) {
     console.error(" Error:", error.message);
   }
-};export const getAllImageInAlbum = async (
+};
+export const getAllAlbum = async (
   page: number,
   pageSize: number
 ) => {
   try {
     const response = await axiosInstance.get<PaginatedResponse>(
-      '/album',
+      '/albums',
       {
         params: {
           page,
@@ -144,12 +146,21 @@ export const getTagCategory = async () => {
     throw error;
   }
 };
-export const deleteImageInAlbum = async (id: string) => {
+export const getAllImageInAlbum = async (
+  id: string | number,
+) => {
   try {
-    const response = await axiosInstance.delete(`auth/Album/${id}`);
-    return response;
+    const response = await axiosInstance.get<AlbumsDetailResponse>(
+      '/album',
+      {
+        params: {
+          id
+        },
+      }
+    );
+    return response.data;
   } catch (error) {
-    console.error("Lỗi khi xóa ảnh:", error);
+    console.error('Lỗi khi lấy ảnh:', error);
     throw error;
   }
 };
@@ -163,3 +174,14 @@ export const uploadImageToAlbum = async (data: any) => {
     throw error;
   }
 }
+export const updateAlbum = async ({id,updatedAlbumData}: { id: string, updatedAlbumData: any }) => {
+  try {
+    const response = await axiosInstance.put(`/auth/Album/${id}`, 
+      updatedAlbumData
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Lỗi khi upload ảnh:", error);
+    throw error;
+  }
+};

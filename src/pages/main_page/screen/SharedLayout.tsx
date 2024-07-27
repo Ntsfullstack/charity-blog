@@ -7,7 +7,7 @@ const SharedLayout = () => {
   const location = useLocation();
 
   const categories = [
-    { name: "TIN TỨC - SỰ KIỆN", path: "/MainPage" },
+    { name: "TIN TỨC - SỰ KIỆN", path: "/main-page" },
     { name: "TUYỂN DỤNG", path: "/tuyen-dung" },
     { name: "THÔNG CÁO BÁO CHÍ", path: "/thong-cao-bao-chi" }
   ];

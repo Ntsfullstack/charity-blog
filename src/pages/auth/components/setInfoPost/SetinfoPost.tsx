@@ -93,14 +93,10 @@ const SetInfoPost = (props: any) => {
         await createPost(postData);
         toast.success("Post created successfully!");
       }
-
-      // Reset form and state after successful submission
       form.resetFields();
       setFileList([]);
       setUrlImage("");
       setCategoryValue("");
-
-      // Optionally, redirect or update UI as needed
     } catch (error) {
       console.error("Error submitting post:", error);
       toast.error("Failed to submit post. Please try again.");

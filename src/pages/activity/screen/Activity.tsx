@@ -12,16 +12,9 @@ const Activity = () => {
   const [cardData, setCardData] = useState<BlogPostData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const page = 1;
   const [limit, setLimit] = useState<number>(10);
-  const location = useLocation();
 
-  const categories = [
-    { name: "VĂN HÓA GIÁO DỤC", path: "/Activity" },
-    { name: "CHĂM SÓC SỨC KHỎE CỘNG ĐỒNG", path: "/suc-khoe-cong-dong" },
-    { name: "HỖ TRỢ SINH KẾ", path: "/ho-tro-sinh-ke" },
-    { name: "AN SINH XÃ HỘI", path: "/an-sinh-xa-hoi" },
-  ];
+  
 
   useEffect(() => {
     const fetchBlogData = async () => {
@@ -53,7 +46,6 @@ const Activity = () => {
   };
 
   const highlightedNews = cardData.slice(0, 3);
-  const otherNews = cardData.slice(3);
 
   if (error) {
     return <div>Error: {error}</div>;

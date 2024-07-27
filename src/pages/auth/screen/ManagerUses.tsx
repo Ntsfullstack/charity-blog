@@ -1,6 +1,6 @@
-import { SearchOutlined } from "@ant-design/icons";
+import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
 import type { GetProp, InputRef, TableProps } from "antd";
-import { Button, Input, Popconfirm, Space, Table, TableColumnType } from "antd";
+import { Button, Input, Modal, Popconfirm, Space, Table, TableColumnType, Tooltip } from "antd";
 import type { FilterDropdownProps, SorterResult } from "antd/es/table/interface";
 import qs from "qs";
 import React, { useEffect, useRef, useState } from "react";
@@ -36,6 +36,8 @@ const ManagerUsers: React.FC = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<UserData | null>(null);
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
       current: 1,
@@ -150,23 +152,90 @@ const ManagerUsers: React.FC = () => {
       ),
   });
 
+  const showUserModal = (user: UserData) => {
+    setSelectedUser(user);
+    setModalVisible(true);
+  };
+
+  const truncateText = (text: string | undefined, limit: number) => {
+    if (text === undefined) return "";
+    if (text.length <= limit) return text;
+    return text.slice(0, limit) + '...';
+  };
+
   const columns: ColumnsType<UserData> = [
     {
-      title: "email",
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      width: "15%",
+      ...getColumnSearchProps("name"),
+      render: (text) => (
+        <Tooltip title={text}>
+          <span>{truncateText(text, 20)}</span>
+        </Tooltip>
+      ),
+    },
+    {
+      title: "Phone",
+      dataIndex: "phone",
+      key: "phone",
+      width: "15%",
+      ...getColumnSearchProps("phone"),
+      render: (text) => (
+        <Tooltip title={text}>
+          <span>{truncateText(text, 15)}</span>
+        </Tooltip>
+      ),
+    },
+    {
+      title: "Email",
       dataIndex: "email",
       key: "email",
-      width: "40%",
+      width: "20%",
       ...getColumnSearchProps("email"),
+      render: (text) => (
+        <Tooltip title={text}>
+          <span>{truncateText(text, 25)}</span>
+        </Tooltip>
+      ),
     },
-
+    {
+      title: "Question",
+      dataIndex: "question",
+      key: "question",
+      width: "20%",
+      render: (text) => (
+        <Tooltip title={text}>
+          <span>{truncateText(text, 30)}</span>
+        </Tooltip>
+      ),
+    },
+    {
+      title: "Time",
+      dataIndex: "time",
+      key: "time",
+      width: "15%",
+      render: (text) => (
+        <Tooltip title={text}>
+          <span>{truncateText(text, 20)}</span>
+        </Tooltip>
+      ),
+    },
     {
       title: "Action",
       key: "action",
-      width: "10%",
+      width: "15%",
       render: (_, record) => (
         <Space size="middle">
+          <Button 
+            icon={<EyeOutlined />} 
+            onClick={() => showUserModal(record)}
+          >
+            View
+          </Button>
           <Popconfirm
-            title="Are you sure you want to delete this blog?"
+            title="Are you sure you want to delete this user?"
             onConfirm={() => handleDelete(record._id)}
             okText="Yes"
             cancelText="No"
@@ -203,7 +272,7 @@ const ManagerUsers: React.FC = () => {
         qs.stringify(getRandomuserParams(tableParams))
       );
       console.log(response);
-      setData(response.data);
+      setData(response?.data);
       setTableParams({
         ...tableParams,
         pagination: {
@@ -258,6 +327,22 @@ const ManagerUsers: React.FC = () => {
         onChange={handleTableChange}
         rowKey={(record) => record._id}
       />
+      <Modal
+        title="User Details"
+        visible={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        footer={null}
+      >
+        {selectedUser && (
+          <div>
+            <p><strong>Name:</strong> {selectedUser.name}</p>
+            <p><strong>Phone:</strong> {selectedUser.phone}</p>
+            <p><strong>Email:</strong> {selectedUser.email}</p>
+            <p><strong>Question:</strong> {selectedUser.question}</p>
+            <p><strong>Time:</strong> {selectedUser.time}</p>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };

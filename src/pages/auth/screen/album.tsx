@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Button, PaginationProps, Popconfirm, Table } from "antd";
-import { getAllImageInAlbum } from "../api/auth.api";
+import { getAllAlbum } from "../api/auth.api";
 import { ImageData } from "../types/types";
+import { useNavigate } from "react-router-dom";
 
 const Album: React.FC = () => {
+  const navigate = useNavigate();
   const [images, setImages] = useState<ImageData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -17,7 +19,7 @@ const Album: React.FC = () => {
     const fetchImages = async () => {
       setLoading(true);
       try {
-        const response = await getAllImageInAlbum(
+        const response = await getAllAlbum(
           pagination.current || 1,
           pagination.pageSize || 10
         );
@@ -47,8 +49,7 @@ const Album: React.FC = () => {
   };
 
   const handleEditImage = (id: string) => {
-    // Implement edit functionality
-    console.log("Edit image with id:", id);
+    navigate(`/auth/album-page/${id}`);
   };
 
   const handleDeleteImage = (id: string) => {
@@ -61,18 +62,20 @@ const Album: React.FC = () => {
       title: "Title",
       dataIndex: "title",
       key: "title",
-      width: "60%",
+      width: "40%",
     },
     {
-      title: "number of images",
+      title: "Number of Images",
       dataIndex: "images",
       key: "images",
       render: (images: string[]) => images.length,
+      width: "10%",
     },
+    
     {
       title: "Action",
       key: "action",
-      width: "20%",
+      width: "10%",
       render: (record: ImageData) => (
         <>
           <Button onClick={() => handleEditImage(record._id)} style={{ marginRight: 8 }}>

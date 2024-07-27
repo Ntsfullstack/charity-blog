@@ -1,3 +1,5 @@
+@import url(../../../../style/index.module.scss);
+
 .relatedArticlesContainer {
   margin: 20px;
   padding: 20px;
@@ -11,6 +13,7 @@
   position: relative;
   margin-bottom: 40px;
   margin-top: 10px;
+  font-family: 'HelveticaWorld', sans-serif;
 
 }
 .relatedArticlesContainer h2 {

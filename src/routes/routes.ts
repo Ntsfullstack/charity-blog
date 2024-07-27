@@ -10,7 +10,7 @@ export const ROUTES = {
   editBlog: "edit-blog/:slug",
   settings: "settings",
   post: "/post/:slug",
-  MainPage: "/MainPage",
+  MainPage: "/main-page",
   SearchPost: "/search/:query",
   Mission: "/mission",
   Activity: "/Activity",
@@ -24,4 +24,5 @@ export const ROUTES = {
   anSinhXaHoi: "/an-sinh-xa-hoi",
   album: "album",
   addAlbum: "add-album",
+  AlbumPage: "album-page/:id",
 } as const;

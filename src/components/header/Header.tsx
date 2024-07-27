@@ -8,7 +8,6 @@ import { logout } from "../../redux-setup/redux";
 import logo from "../../assets/images/expandedLogo.png";
 import clsx from "clsx";
 import { searchBlog } from "../../server/api";
-import SearchPost from "../../pages/SeachPost/SearchPost";
 import { useTranslation } from 'react-i18next';
 const DropdownMenu = () => {
   const [isLogin, setIsLogin] = useState(!!localStorage.getItem("token"));
@@ -196,7 +195,7 @@ const DropdownMenu = () => {
   const menuTinTuc = (
     <Menu>
       <Menu.Item>
-        <Link to="/MainPage" className={styles.dropdown_link_title}>
+        <Link to="/main-page" className={styles.dropdown_link_title}>
           {t('event')}
         </Link>
       </Menu.Item>

@@ -5,12 +5,13 @@ import { Input, Button } from "antd";
 import { postsClient } from "./Footer.api"; // Thay đổi đường dẫn tới hàm postsClient
 // import { useTranslation } from 'react-i18next';
 import { t } from 'i18next';
+import { toast } from "react-toastify";
 
 const Footer: React.FC = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [information, setinformation] = useState("");
+  const [question, setquestion] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -24,14 +25,29 @@ const Footer: React.FC = () => {
       case 'email':
         setEmail(value);
         break;
-      case 'information':
-        setinformation(value);
+      case 'question':
+        setquestion(value);
         break;
     }
   };
 
   const handleSubmit = () => {
-    postsClient(name, phone, email, information);
+    postsClient({name, phone, email, question})
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success(res.message);
+          setName("");
+          setPhone("");
+          setEmail("");
+          setquestion("");
+        } else {
+          toast.error(res.message);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("An error occurred.");
+      });
   };
 
   return (
@@ -93,9 +109,9 @@ const Footer: React.FC = () => {
             size="large"
           />
           <Input
-            placeholder={t('information')}
-            name="information"
-            value={information}
+            placeholder={t('question')}
+            name="question"
+            value={question}
             onChange={handleChange}
             size="large"
           />

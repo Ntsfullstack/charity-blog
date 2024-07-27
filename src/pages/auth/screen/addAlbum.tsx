@@ -10,7 +10,6 @@ import { toast } from 'react-toastify';
 
 interface AlbumItem {
   url: string;
-  id: string;
 }
 
 const AddAlbum: React.FC = () => {
@@ -51,7 +50,7 @@ const AddAlbum: React.FC = () => {
       const snapshot = await uploadBytes(imageRef, file);
       const downloadURL = await getDownloadURL(snapshot.ref);
       
-      onSuccess({ url: downloadURL, id: imageId });
+      onSuccess({ url: downloadURL });
     } catch (error: any) {
       onError({ error });
       message.error(error.message);
@@ -63,9 +62,8 @@ const AddAlbum: React.FC = () => {
   useEffect(() => {
     const newAlbum = fileList.map((file) => ({
       url: file.url || file.response?.url,
-      id: file.uid || file.response?.id,
     })).filter((item): item is AlbumItem => 
-      item.url != null && item.id != null 
+      item.url != null 
     );
     
     setAlbum(newAlbum);
@@ -76,7 +74,7 @@ const AddAlbum: React.FC = () => {
     const imageRef = storageRef(storage, `products/${imageId}`);
     const snapshot = await uploadBytes(imageRef, file);
     const downloadURL = await getDownloadURL(snapshot.ref);
-    return { url: downloadURL, id: imageId };
+    return { url: downloadURL};
   };
 
   const handleSubmit = async () => {

@@ -4,13 +4,14 @@ import { useLocation } from "react-router-dom";
 import styles from "./SearchPost.module.scss";
 const SearchPost = (props: any) => {
   const location = useLocation();
-  const searchData = location.state.data;
+  const searchData = location.state.data.data;
   const [loading, setLoading] = useState();
   if (searchData.length === 0) {
     return <p>No results found.</p>;
   }
 
   return (
+    console.log(searchData),
     <div className={styles.cardContainer}>
       <Card cardData={searchData} loading={false} />
     </div>

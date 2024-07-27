@@ -47,6 +47,11 @@ export interface BlogResponse {
 export interface UserData {
   _id: string;
   email: string;
+  name: string;
+  phone: string | number;
+  question: string;
+  time : string ;
+
 }
 
 
@@ -73,6 +78,31 @@ export interface UsersResponse {
 }
 
 export interface User {
+  _id: string;
+  email: string;
+  name: string;
+  phone: string | number;
+  question: string;
+  time : string ;
+  
+  
+}
+export interface AlbumsDetailResponse {
+  status: number
+  data: AlbumDetail []
+  currentPage: number
+  totalPage: number
+}
+
+export interface AlbumDetail {
   _id: string
-  email: string
+  title: string
+  images: Image[]
+  __v: number
+}
+
+export interface Image {
+  id: string
+  url: string
+  _id: string
 }
