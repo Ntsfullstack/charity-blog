@@ -62,9 +62,23 @@ export interface UserData {
 export interface ImageData {
   _id: string;
   title: string;
-  images: string[];
+  images: {
+    url : string;
+    _id : string;
+  };
   total: number ;
 }
+export interface AlbumInfoData {
+  _id: string;
+  title: string;
+  images: {
+    url : string;
+    _id : string;
+
+  };
+  total: number ;
+}
+
 
 export interface PaginatedResponse {
   status: number;

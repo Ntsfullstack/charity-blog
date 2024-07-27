@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import CardItem from "../components/card/cardItem";
-import { getRelatedArticles } from "./RelatedArticles.api";
 import styles from "./relatedArticles.module.scss";
 
 interface RelatedArticlesProps {

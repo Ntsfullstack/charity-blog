@@ -29,4 +29,6 @@ export const ROUTES = {
   album: "album",
   addAlbum: "add-album",
   AlbumPage: "album-page/:id",
+  ImageGallery: "album-all",
+  ImagePreview: "album/:id",
 } as const;

@@ -26,6 +26,8 @@ const Homepage = React.lazy(() => import("../pages/home/screen/Home"));
 const CreateBlog = React.lazy(() => import("../pages/auth/screen/CreateBlog"));
 const AddAlbum = React.lazy(() => import("../pages/auth/screen/addAlbum"));
 const Login = React.lazy(() => import("../pages/login/login"));
+const ImagePreview = React.lazy(() => import("../pages/home/components/library_image/ImagePreview"));
+const ImageGallery = React.lazy(() => import("../pages/home/components/library_image/album_all"));
 const Register = React.lazy(() => import("../pages/register/register"));
 // const ImageUpload = React.lazy(() => import("../config/uploadImage"));
 const Setting = React.lazy(() => import("../pages/auth/screen/Setting"));
@@ -85,6 +87,22 @@ const routerConfig = [
             element: (
               <Suspense fallback={<Loading />}>
                 <Post />
+              </Suspense>
+            ),
+          },
+          {
+            path: ROUTES.ImagePreview,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <ImagePreview />
+              </Suspense>
+            ),
+          },
+          {
+            path: ROUTES.ImageGallery,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <ImageGallery />
               </Suspense>
             ),
           },

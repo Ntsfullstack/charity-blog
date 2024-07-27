@@ -126,8 +126,8 @@ export const getTagCategory = async () => {
   }
 };
 export const getAllAlbum = async (
-  page: number,
-  pageSize: number
+  page?: number,
+  limit?: number
 ) => {
   try {
     const response = await axiosInstance.get<PaginatedResponse>(
@@ -135,7 +135,7 @@ export const getAllAlbum = async (
       {
         params: {
           page,
-          limit: pageSize, // Sử dụng 'limit' để phù hợp với tham số query của backend
+          limit: limit, // Sử dụng 'limit' để phù hợp với tham số query của backend
         },
       }
     );
