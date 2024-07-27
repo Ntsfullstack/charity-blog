@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./MainPage.module.scss";
 import Card from "../../../components/card/Card";
-import { getListBlogMore } from "../api/mainPage.api";
+import { getCategoryPosts } from "../api/mainPage.api";
 import { BlogData } from "../../auth/types/types";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -14,9 +14,9 @@ const MainPage = () => {
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
-        const response = await getListBlogMore(30);
-        if (response) {
-          setCardData(response?.content);
+        const response = await getCategoryPosts("667c308ca7e983158ba550be", false, 1, 4);
+        if (response.status === 200) {
+          setCardData(response?.data);
         }
       } catch (error) {
         console.error("Error fetching blog data:", error);
@@ -32,13 +32,12 @@ const MainPage = () => {
     fetchBlogData();
   }, []);
 
-  const highlightedNews = cardData.slice(0, 3);
-  const otherNews = cardData.slice(3);
+console.log(cardData);
 
   const scroll = (direction: 'left' | 'right') => {
     if (direction === 'left' && currentIndex > 0) {
       setCurrentIndex(prev => prev - 1);
-    } else if (direction === 'right' && currentIndex < otherNews.length - 3) {
+    } else if (direction === 'right' && currentIndex < cardData.length - 3) {
       setCurrentIndex(prev => prev + 1);
     }
   };
@@ -51,11 +50,13 @@ const MainPage = () => {
     <div className={styles.mainPage}>
       <div className={styles.title}>
         <h3>TIN TỨC - SỰ KIỆN</h3>
-        <div className={styles.line}></div>
+        <div className={styles.cardContainer}>
+          <Card cardData={cardData} loading={isLoading} />
+        </div>
         <p>Hãy cập nhật những dự án mới nhất của chúng tôi</p>
         <h4>TIN NỔI BẬT</h4>
         <div className={styles.cardContainer}>
-          <Card cardData={highlightedNews} loading={isLoading} />
+          <Card cardData={cardData} loading={isLoading} />
         </div>
       </div>
       <h4>TIN TỨC KHÁC</h4>
@@ -75,7 +76,7 @@ const MainPage = () => {
               transition: 'transform 0.3s ease-in-out',
             }}
           >
-            {otherNews.map((news, index) => (
+            {cardData.map((news, index) => (
               <div key={index} className={styles.sliderItem}>
                 <Card cardData={[news]} loading={isLoading} />
               </div>
@@ -85,7 +86,7 @@ const MainPage = () => {
         <button 
           onClick={() => scroll('right')} 
           className={styles.sliderButton}
-          disabled={currentIndex >= otherNews.length - 3}
+          disabled={currentIndex >= cardData.length - 3}
         >
           <ChevronRight />
         </button>

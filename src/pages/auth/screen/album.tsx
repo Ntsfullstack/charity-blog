@@ -65,10 +65,9 @@ const Album: React.FC = () => {
       width: "40%",
     },
     {
-      title: "Number of Images",
-      dataIndex: "images",
+      title: "Count",
+      dataIndex: "total",
       key: "images",
-      render: (images: string[]) => images.length,
       width: "10%",
     },
     

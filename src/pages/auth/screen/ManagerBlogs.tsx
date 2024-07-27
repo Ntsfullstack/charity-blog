@@ -1,6 +1,6 @@
 import { SearchOutlined } from "@ant-design/icons";
 import type { GetProp, InputRef, TableProps } from "antd";
-import { Button, Input, Popconfirm, Space, Table, TableColumnType } from "antd";
+import { Alert, Button, Input, Popconfirm, Space, Table, TableColumnType } from "antd";
 import type { FilterDropdownProps, SorterResult } from "antd/es/table/interface";
 import qs from "qs";
 import React, { useEffect, useRef, useState } from "react";
@@ -182,10 +182,13 @@ const ManageBlogs: React.FC = () => {
       render: (value) => <p>{value}</p>,
     },
     {
-      title: "author",
-      dataIndex: "author",
+      title: "category",
+      dataIndex: ["categoryId", "title"],
       width: "10%",
-      key: "author",
+      key: "category",
+      sorter: true,
+
+      
     },
     {
       title: "Action",
@@ -230,7 +233,7 @@ const ManageBlogs: React.FC = () => {
     try {
       await getListBlogs(qs.stringify(getRandomuserParams(tableParams))).then(
         (res) => {
-          setData(res.content); // Lấy dữ liệu content từ response và cập nhật vào state
+          setData(res?.data); // Lấy dữ liệu content từ response và cập nhật vào state
           setLoading(false); // Đặt trạng thái loading về false khi đã tải xong dữ liệu
           setTableParams({
             ...tableParams,
@@ -274,7 +277,9 @@ const ManageBlogs: React.FC = () => {
       setData([]);
     }
   };
-
+  if(error){
+    return <Alert message={error} type="error" />;
+  }
   return (
     <div>
       <Table

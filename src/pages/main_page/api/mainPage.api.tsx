@@ -1,14 +1,19 @@
 import { BlogResponse } from "../../auth/types/types";
 import axiosInstance from "../../../server/auth.api";
 
-export async function getListBlogMore(
-  params: number
+export async function getCategoryPosts(
+  categoryId: string,
+  featured: boolean,
+  page: number,
+  limit: number
 ){
   try {
     const token = localStorage.getItem("token"); // Lấy token từ localStorage
-    const response = await axiosInstance.get<BlogResponse>(`/Posts`, {
+    const response = await axiosInstance.get<BlogResponse>(`/getCategoryPosts/${categoryId}`, {
       params: {
-        limit: params,
+        featured,
+        page,
+        limit,
       },
       headers: {
         Authorization: `Bearer ${token}`,

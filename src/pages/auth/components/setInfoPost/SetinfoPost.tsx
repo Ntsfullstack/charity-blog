@@ -15,10 +15,7 @@ interface ItemProps {
   value: string;
 }
 
-interface AlbumItem {
-  url: string;
-  id: string;
-}
+
 
 const SetInfoPost = (props: any) => {
   const [form] = Form.useForm();
@@ -83,7 +80,7 @@ const SetInfoPost = (props: any) => {
         ...values,
         thumbnail: imageUrl,
         content: content || "",
-        category: categoryValue,
+        categoryId: categoryValue,
       };
 
       if (props?.title) {
@@ -184,7 +181,7 @@ const SetInfoPost = (props: any) => {
               <Input.TextArea rows={4} />
             </Form.Item>
             <Form.Item
-              name="category"
+              name="categoryId"
               label="Thể loại bài viết"
               rules={[{ required: true, message: "Please select a category!" }]}
               className={style.formItem}

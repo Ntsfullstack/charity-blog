@@ -22,6 +22,9 @@ export interface BlogData {
   createdAt: string;
   updatedAt: string;
   __v: number;
+  categoryId:{
+    title: string;
+  }
   authorId: {
     _id: string;
     username: string;
@@ -35,7 +38,8 @@ export interface BlogData {
 }
 
 export interface BlogResponse {
-  content: BlogData[];
+  status: number;
+  data: BlogData[];
   pagination: {
     current: number | string;
     pageSize: number | string;
@@ -59,7 +63,7 @@ export interface ImageData {
   _id: string;
   title: string;
   images: string[];
-  __v: number;
+  total: number ;
 }
 
 export interface PaginatedResponse {
