@@ -10,7 +10,6 @@ const MainPageLayout = () => {
     <>
       <Header />
       <div className={styles.mainContentWrapper}>
-      {/* <Banner /> */}
         <div className={styles.mainContent}>
           <Outlet />
         </div>

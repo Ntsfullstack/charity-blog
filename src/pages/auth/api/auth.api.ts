@@ -1,4 +1,3 @@
-import { Root } from "react-dom/client";
 import axiosInstance from "../../../server/auth.api";
 import { AlbumsDetailResponse, BlogResponse, PaginatedResponse, UsersResponse } from "../types/types";
 
@@ -182,6 +181,15 @@ export const updateAlbum = async ({id,updatedAlbumData}: { id: string, updatedAl
     return response.data;
   } catch (error) {
     console.error("Lỗi khi upload ảnh:", error);
+    throw error;
+  }
+};
+export const deleteAlbum = async (id:string) => {
+  try {
+    const response = await axiosInstance.delete(`/auth/Album/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Lỗi khi xoá album:", error);
     throw error;
   }
 };

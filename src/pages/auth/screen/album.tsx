@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button, PaginationProps, Popconfirm, Table } from "antd";
-import { getAllAlbum } from "../api/auth.api";
+import { deleteAlbum, getAllAlbum } from "../api/auth.api";
 import { ImageData } from "../types/types";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Album: React.FC = () => {
   const navigate = useNavigate();
@@ -52,9 +53,15 @@ const Album: React.FC = () => {
     navigate(`/auth/album-page/${id}`);
   };
 
-  const handleDeleteImage = (id: string) => {
-    // Implement delete functionality
-    console.log("Delete image with id:", id);
+  const handleDeleteImage = async (id: string) => {
+    const resul = await deleteAlbum(id);
+    if (resul?.status === 200) {
+      setImages(images.filter((img) => img._id!== id));
+      toast.success(`Album deleted successfully`);
+    } else {
+      setError("L��i khi xóa ");
+      toast.error(`Failed to delete album`);
+    }
   };
 
   const columns = [
