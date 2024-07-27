@@ -252,7 +252,6 @@ const ManagerUsers: React.FC = () => {
   const handleDelete = async (id: string) => {
     try {
       const res = await deleteUsers(id);
-      console.log(res);
       if (res?.status === 200) {
         toast.success("Delete success");
         fetchData();

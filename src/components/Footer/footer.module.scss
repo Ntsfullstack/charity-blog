@@ -4,6 +4,7 @@
 //   font-size: 15px;
 //   line-height: 24px;
 // }
+@import url(../../style/index.module.scss);
 .footer {
   background-color: #ffffff;
   display: flex;
@@ -11,6 +12,11 @@
   justify-content: space-between;
   align-items: flex-start;
   font-family: Arial, sans-serif;
+  background-image: url(../../assets/images/footer.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 380px;
+  padding: 50px;
 }
 
 .column {

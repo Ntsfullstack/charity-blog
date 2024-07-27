@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "./redux-setup/redux";
 import Router from "./routes/Router";
+
 import "./style/index.module.scss";
 import './i18n';
 
@@ -33,9 +34,9 @@ function App() {
   }, [window.location.pathname]);
 
   return (
-    <>
+    <div className="app">
       <Router />
-    </>
+    </div>
   );
 }
 
