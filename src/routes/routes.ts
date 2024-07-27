@@ -12,7 +12,7 @@ export const ROUTES = {
   editBlog: "edit-blog/:slug",
   settings: "settings",
   post: "/post/:slug",
-  MainPage: "/main-page",
+  MainPage: "/MainPage",
   SearchPost: "/search/:query",
   Mission: "/mission",
   Activity: "/Activity",

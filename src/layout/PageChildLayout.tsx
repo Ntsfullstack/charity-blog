@@ -18,13 +18,13 @@ const PageChildLayout = () => {
   return (
     <>
       <Header />
+      
       <div className={styles.mainContentWrapper}>
-        <Banner />
+      <Banner />
         <div className={styles.mainContent}>
           <SideChildPage categories={categories} />
           <Outlet />
         </div>
-        <Footer />
       </div>
     </>
   );

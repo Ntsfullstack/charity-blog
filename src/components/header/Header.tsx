@@ -185,7 +185,7 @@ const DropdownMenu = () => {
   const menuTinTuc = (
     <Menu>
       <Menu.Item>
-        <Link to="/main-page" className={styles.dropdown_link_title}>
+        <Link to="/MainPage" className={styles.dropdown_link_title}>
           {t('event')}
         </Link>
       </Menu.Item>

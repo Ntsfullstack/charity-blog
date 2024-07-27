@@ -10,7 +10,7 @@ const Activity = () => {
     <>
       <Header />
       <div className={styles.mainContentWrapper}>
-        {/* <Banner /> */}
+  
         <div className={styles.mainContent}>
           <Outlet />
         </div>

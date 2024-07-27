@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Card, Button, Modal } from 'antd';
 import styles from './album.module.scss';
 import { t } from 'i18next';
-import { getAllImageInAlbum } from '../../../auth/api/auth.api'; 
+import { getAllAlbum, getAllImageInAlbum } from '../../../auth/api/auth.api';
+import { ImageData, AlbumDetail } from '../../../auth/types/types'; // Đảm bảo import các type cần thiết
 
 const ImageLibrary: React.FC = () => {
-  const [albums, setAlbums] = useState<Album[]>([]);
+  const [albums, setAlbums] = useState<ImageData[]>([]);
   const [startIndex, setStartIndex] = useState(0);
   const visibleCount = 3; // Số lượng album hiển thị
-  const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
+  const [selectedAlbum, setSelectedAlbum] = useState<AlbumDetail | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
@@ -17,7 +18,10 @@ const ImageLibrary: React.FC = () => {
 
   const fetchAlbums = async () => {
     try {
-      const response = await getAllImageInAlbum('id');
+      const page = 1;
+      const pageSize = 10;
+      
+      const response = await getAllAlbum(page, pageSize);
       if (response && response.data) {
         setAlbums(response.data);
       }
@@ -36,9 +40,16 @@ const ImageLibrary: React.FC = () => {
 
   const displayedAlbums = albums.slice(startIndex, startIndex + visibleCount);
 
-  const handleAlbumClick = (album: Album) => {
-    setSelectedAlbum(album);
-    setIsModalVisible(true);
+  const handleAlbumClick = async (album: ImageData) => {
+    try {
+      const response = await getAllImageInAlbum(album._id);
+      if (response && response.data && response.data.length > 0) {
+        setSelectedAlbum(response.data[0]);
+        setIsModalVisible(true);
+      }
+    } catch (error) {
+      console.error('Lỗi khi lấy chi tiết album:', error);
+    }
   };
 
   const handleModalClose = () => {
@@ -60,10 +71,10 @@ const ImageLibrary: React.FC = () => {
               <div key={album._id} className={styles.albumItem} onClick={() => handleAlbumClick(album)}>
                 <Card
                   hoverable
-                  cover={<img src={album.images[0]?.url} alt={album.title} className={styles.albumImage} />}
+                  cover={<img src={album.images[0]} alt={album.title} className={styles.albumImage} />}
                   className={styles.albumCard}
                 >
-                  <Card.Meta title={album.title} description={`${album.images.length} ảnh`} />
+                  <Card.Meta title={album.title} description={`${album.total} ảnh`} />
                 </Card>
               </div>
             ))}
@@ -71,7 +82,7 @@ const ImageLibrary: React.FC = () => {
           <button onClick={nextSlide} className={styles.arrowRight}>&#9654;</button>
         </div>
       </div>
-
+      
       <Modal
         title={selectedAlbum?.title}
         visible={isModalVisible}
