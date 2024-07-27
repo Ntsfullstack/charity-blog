@@ -1,3 +1,5 @@
+import Vision from "../layout/VisionLayout";
+
 export const ROUTES = {
   main: "/",
   login: "/login",
@@ -14,6 +16,8 @@ export const ROUTES = {
   SearchPost: "/search/:query",
   Mission: "/mission",
   Activity: "/Activity",
+  Vision: "/Vision",
+  Letter: "/Letter",
   tuyenDung: "/tuyen-dung",
   thongBaoBaoChi: "/thong-cao-bao-chi",
   about: "/about",

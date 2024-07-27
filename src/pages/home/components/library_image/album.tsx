@@ -93,7 +93,7 @@ const ImageLibrary: React.FC = () => {
         </div>
 
       </div>
-      <div className={styles.shape}></div>
+
     </div>
 
     );

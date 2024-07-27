@@ -11,8 +11,8 @@ const PageChildLayout = () => {
   const categories = [
     { name: "VĂN HÓA GIÁO DỤC", path: "/Activity" },
     { name: "CHĂM SÓC SỨC KHỎE CỘNG ĐỒNG", path: "/suc-khoe-cong-dong" },
-    { name: "HỖ TRỢ SINH KẾ", path: "/ho-tro-sinh-ke" },
-    { name: "AN SINH XÃ HỘI", path: "/an-sinh-xa-hoi" },
+    { name: "AN SINH XÃ HỘI", path: "/ho-tro-sinh-ke" },
+    { name: "HOẠT ĐỘNG TÀI TRỢ", path: "/an-sinh-xa-hoi" },
   ];
 
   return (

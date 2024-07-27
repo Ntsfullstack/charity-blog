@@ -8,6 +8,9 @@ import NewspaperPage from "../pages/main_page/components/newspapers/NewspaperPag
 import RecruitmentPage from "../pages/main_page/components/recruitment/RecruitmentPage";
 import SharedLayout from "../pages/main_page/screen/SharedLayout";
 import { ROUTES } from "./routes";
+import VisionLayout from "../layout/VisionLayout";
+import LetterLayout from "../layout/Letterlayout";
+
 
 // Import components using lazy loading
 // const  AboutUs = React.lazy(() => import ("../pages/main_page"));
@@ -28,6 +31,9 @@ const Register = React.lazy(() => import("../pages/register/register"));
 const Setting = React.lazy(() => import("../pages/auth/screen/Setting"));
 const SearchPost = React.lazy(() => import("../pages/SeachPost/SearchPost"));
 const Activity = React.lazy(() => import("../pages/activity/screen/Activity"));
+const Vision = React.lazy(() => import("../pages/vision/screen/Vision"));
+const Letter = React.lazy(() => import("../pages/letter/screen/Letter"));
+
 
 const ManagerUsers = React.lazy(
   () => import("../pages/auth/screen/ManagerUses")
@@ -151,6 +157,32 @@ const routerConfig = [
                 element: (
                   <Suspense fallback={<Loading />}>
                     <Activity />
+                  </Suspense>
+                ),
+              },
+            ],
+          },
+          {
+            element: <VisionLayout/>, // Use SharedLayout here
+            children: [
+              {
+                path: ROUTES.Vision,
+                element: (
+                  <Suspense fallback={<Loading />}>
+                    <Vision />
+                  </Suspense>
+                ),
+              },
+            ],
+          },
+          {
+            element: <LetterLayout/>, // Use SharedLayout here
+            children: [
+              {
+                path: ROUTES.Letter,
+                element: (
+                  <Suspense fallback={<Loading />}>
+                    <Letter />
                   </Suspense>
                 ),
               },

@@ -56,7 +56,7 @@ const resources = {
         'health' : 'Chăm sóc sức khỏe cộng đồng',
         'social security' : 'An sinh xã hội',
         'sponsor' : 'Hoạt động tài trợ',
-        'contact us' : 'Liên hệ',
+        'contact us' : 'KẾT NỐI VỚI CHÚNG TÔI',
         'news-event': 'TIN TỨC - SỰ KIỆN',
         'main activity': 'CÁC HOẠT ĐỘNG CHÍNH',
         'volunteer activity': 'HOẠT ĐỘNG THIỆN NGUYỆN',
@@ -89,7 +89,7 @@ i18n
     .use(initReactI18next)
     .init({
         resources,
-        lng: 'en',
+        lng: 'vi',
         fallbackLng: 'vi',
         interpolation: {
             escapeValue: false

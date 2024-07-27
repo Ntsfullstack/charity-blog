@@ -61,7 +61,7 @@
   }
 }
 .categoryBox.active {
-  background-color: red; // or whatever style you want for the active category
+  background-color: var(--text-color1); // or whatever style you want for the active category
 
 }
 .categoryBox.active a {
