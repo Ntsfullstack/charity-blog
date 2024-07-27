@@ -5,16 +5,31 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: rgb(255 255 255 / 20%);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 999;
   box-sizing: border-box;
+  overflow: hidden;
 }
+
+.blurredBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.441);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: -1;
+}
+.nav-content {
+  position: relative;
+  z-index: 1; /* Đặt lên trên lớp blur */
+}
+
 :global(.ant-btn-default){
   background-color: transparent;
   border: none;
@@ -23,6 +38,7 @@
 
 .nav_start,
 .nav_end {
+z-index: 99999;
   display: flex;
   align-items: center;
   height: 100%;

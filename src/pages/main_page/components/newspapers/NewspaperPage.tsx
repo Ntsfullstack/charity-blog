@@ -54,7 +54,7 @@ const NewspaperPage = () => {
       <div className={styles.content}>
         <div className={styles.mainContent}>
           <div className={styles.title}>
-            <h3>THÔNG CÁO BÁO CHÍ</h3>
+            <h3>TRUYỀN THÔNG BÁO CHÍ</h3>
             <div className={styles.cardContainer}>
               <Card cardData={highlightedNews} loading={isLoading} />
             </div>

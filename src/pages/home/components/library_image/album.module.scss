@@ -95,3 +95,15 @@
   .arrowRight {
     right: 10px;
   }
+  .albumDetailGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+  }
+  
+  .albumDetailImage {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+  }

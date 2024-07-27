@@ -55,6 +55,7 @@ const resources = {
         'volunteer' : 'Hoạt động thiện nguyện',
         'health' : 'Chăm sóc sức khỏe cộng đồng',
         'social security' : 'An sinh xã hội',
+        'Social security': 'AN SINH XÃ HỘI',
         'sponsor' : 'Hoạt động tài trợ',
         'contact us' : 'KẾT NỐI VỚI CHÚNG TÔI',
         'news-event': 'TIN TỨC - SỰ KIỆN',

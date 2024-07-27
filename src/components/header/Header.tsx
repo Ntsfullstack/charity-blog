@@ -230,6 +230,7 @@ const DropdownMenu = () => {
     <div>
       <header id="nav_menu">
         <div className={clsx(styles.container, cls)}>
+          <div className={styles.blurredBackground}></div>
           <div className={styles.nav_start}>
             {!showSearch && (
               <div className={styles.logo}>
