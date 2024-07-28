@@ -1,7 +1,7 @@
 import { SearchOutlined } from "@ant-design/icons";
 import type { GetProp, InputRef, TableProps } from "antd";
 import { Alert, Button, Input, Popconfirm, Space, Table, TableColumnType } from "antd";
-import type { FilterDropdownProps, SorterResult } from "antd/es/table/interface";
+import type { FilterDropdownProps, SorterResult, TableRowSelection } from "antd/es/table/interface";
 import qs from "qs";
 import React, { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
@@ -23,12 +23,7 @@ interface TableParams {
 }
 
 type DataIndex = keyof BlogData;
-const handleDelete = async (slug: string) => {
-  const res = await deletePost(slug);
-  if (res?.status === 200) {
-    // setData(data.filter((item) => item.slug !== slug));
-  }
-};
+
 
 const getRandomuserParams = (params: TableParams) => ({
   results: params.pagination?.pageSize,
@@ -42,6 +37,9 @@ const ManageBlogs: React.FC = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
+
+  const [selectedRowKeys, setSelectedRowKeys] = useState< []>([]);
+
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
       current: 1,
@@ -280,8 +278,20 @@ const ManageBlogs: React.FC = () => {
   if(error){
     return <Alert message={error} type="error" />;
   }
+
+  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
+    console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+    // setSelectedRowKeys(newSelectedRowKeys);
+  };
+
+  const rowSelection: TableRowSelection<BlogData> = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+
+  };
   return (
     <div>
+    
       <Table
         columns={columns}
         rowKey={(record) => record._id}
@@ -289,6 +299,7 @@ const ManageBlogs: React.FC = () => {
         pagination={tableParams.pagination}
         loading={loading}
         onChange={handleTableChange}
+        rowSelection={rowSelection}
       />
     </div>
   );

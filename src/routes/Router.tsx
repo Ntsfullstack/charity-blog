@@ -1,3 +1,4 @@
+import { ROUTES } from "./routes";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import React, { Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -7,7 +8,6 @@ import ProtectedRoute from "../layout/ProtectedRoute"; // Import ProtectedRoute
 import NewspaperPage from "../pages/main_page/components/newspapers/NewspaperPage";
 import RecruitmentPage from "../pages/main_page/components/recruitment/RecruitmentPage";
 import SharedLayout from "../pages/main_page/screen/SharedLayout";
-import { ROUTES } from "./routes";
 import VisionLayout from "../layout/VisionLayout";
 import LetterLayout from "../layout/Letterlayout";
 
@@ -29,7 +29,6 @@ const Login = React.lazy(() => import("../pages/login/login"));
 const ImagePreview = React.lazy(() => import("../pages/home/components/library_image/ImagePreview"));
 const ImageGallery = React.lazy(() => import("../pages/home/components/library_image/album_all"));
 const Register = React.lazy(() => import("../pages/register/register"));
-// const ImageUpload = React.lazy(() => import("../config/uploadImage"));
 const Setting = React.lazy(() => import("../pages/auth/screen/Setting"));
 const SearchPost = React.lazy(() => import("../pages/SeachPost/SearchPost"));
 const Activity = React.lazy(() => import("../pages/activity/screen/Activity"));

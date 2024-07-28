@@ -6,8 +6,9 @@ import "swiper/css/pagination";
 import "swiper";
 import dayjs from "dayjs";
 import styles from "./news.module.scss";
-import { getRelatedArticles } from "../../../../relatedArticles/RelatedArticles.api";
 import { t } from 'i18next';
+import { getCategoryPosts } from "../../../main_page/api/mainPage.api";
+import { BlogData, BlogResponse } from "../../../auth/types/types";
 
 interface RelatedArticlesProps {
   currentArticleId: string;
@@ -16,7 +17,7 @@ interface RelatedArticlesProps {
 const RelatedArticles: React.FC<RelatedArticlesProps> = ({
   currentArticleId,
 }) => {
-  const [articles, setArticles] = useState<any[]>([]);
+  const [articles, setArticles] = useState<BlogData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,9 +25,9 @@ const RelatedArticles: React.FC<RelatedArticlesProps> = ({
     const fetchRelatedArticles = async () => {
       setLoading(true);
       try {
-        const response = await getRelatedArticles(currentArticleId);
+        const response = await getCategoryPosts("667c308ca7e983158ba550be");
         if (response) {
-          setArticles(response);
+          setArticles(response.data);
         }
       } catch (err: any) {
         setError(err.message || "An error occurred while fetching articles.");
@@ -70,9 +71,8 @@ const RelatedArticles: React.FC<RelatedArticlesProps> = ({
                   href={`/author/${article.authorId._id}`}
                   className={styles.link}
                 >
-                  {" "}
                   {article.authorId.username}
-                </a>{" "}
+                </a>
                 - <span>{dayjs(article.createdAt).format("MMMM D, YYYY")}</span>
               </small>
             </div>
