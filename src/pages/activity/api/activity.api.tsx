@@ -3,7 +3,7 @@ import axiosInstance from "../../../server/auth.api";
 export const getPostsByCategories = async (categories: string) => {
   try {
     const response = await axiosInstance.get(
-      `/getPostsByCategories/${categories}`
+      `/getCategoryPosts/${categories}`
     );
     return response.data;
   } catch (error: any) {

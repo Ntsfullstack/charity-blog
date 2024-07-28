@@ -17,7 +17,7 @@ const AboutUs: React.FC = () => {
           {t('Build a spirit of compassion and love')}
         </p>
         <p>
-          {t('Volunteering activities help spread the spirit of compassion and love in the community. When people come together to help others, they experience the joy of giving and receiving love.')}
+          {t( 'volunteering activities help spread the spirit of compassion and love in the community. When people participate in this activity together, they experience the joy of helping others')}
           </p>
       </div>
 

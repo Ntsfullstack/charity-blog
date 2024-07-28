@@ -211,12 +211,12 @@ const DropdownMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item>
-        <Link className={styles.dropdown_link_title} to="/ho-tro-sinh-ke">
+        <Link className={styles.dropdown_link_title} to="/an-sinh-xa-hoi">
           {t('Social security')}
         </Link>
       </Menu.Item>
       <Menu.Item>
-        <Link to="/an-sinh-xa-hoi" className={styles.dropdown_link_title}>
+        <Link to="/hoat-dong-tai-tro" className={styles.dropdown_link_title}>
           {t('sponsor')}
         </Link>
       </Menu.Item>

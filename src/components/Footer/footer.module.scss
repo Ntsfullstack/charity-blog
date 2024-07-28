@@ -15,8 +15,8 @@
   background-image: url(../../assets/images/footer.png);
   background-repeat: no-repeat;
   background-size: cover;
-  height: 380px;
-  padding: 50px;
+  height: 400px;
+  padding: 20px;
 }
 
 .column {
@@ -26,6 +26,7 @@
   font-family: 'Crimson Pro', serif;
   font-size: 20px;
   color: var(--text-color1);
+  padding-bottom: 10px;
 }
 
 .logoContainer {
@@ -47,7 +48,7 @@
 }
 .contactInfo li {
   list-style-type: none;
-  padding: 5px;
+  padding-bottom: 5px;
 }
 .inputContainer > * {
   margin-bottom: 5px; 
@@ -243,13 +244,16 @@
 }
 
 .logo {
-  margin-top: -10%;
   width: 70%;
   height: auto;
 }
 .subscribeButton {
   width: 100%;
   margin-top: 10px;
+}
+.social .logo {
+  width: 40%;
+  height: auto;
 }
 
 .companyName {
@@ -267,7 +271,6 @@
 
 .contactInfo li {
   font-size: 21px;
-  margin-bottom: 10px;
   font-family: 'Crimson Pro', serif;
 }
 
@@ -302,11 +305,12 @@
   justify-content: center;
 text-align: center;
   list-style-type: none;
+  align-items: center;
 .socialContainer {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-top: 20px;
+  align-items: center;
 
 }
 .socialContainer a{
