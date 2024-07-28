@@ -34,7 +34,6 @@ const ManageBlogs: React.FC = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
       current: 1,

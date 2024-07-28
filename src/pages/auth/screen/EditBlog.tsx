@@ -5,7 +5,6 @@ import { getBlog } from "../api/auth.api";
 import SetInfoPost from "../components/setInfoPost/SetinfoPost";
 
 interface DataType {
-  data: {
     _id: string;
     slug: string;
     title: string;
@@ -13,7 +12,6 @@ interface DataType {
     author: string;
     content: string;
     description: string;
-  };
 }
 
 const EditBlog = () => {
@@ -40,14 +38,14 @@ const EditBlog = () => {
       fetchBlog();
     }
   }, [slug]);
-
+  console.log(data)
   return (
     <div>
       <h1>Edit Blog</h1>
       {data ? (
         <>
-          <MyEditor page={page} setPage={setPage} content={data?.data?.content} />
-          <SetInfoPost page={page} setPage={setPage} title={data?.data} />
+          <MyEditor page={page} setPage={setPage} content={data?.content} />
+          <SetInfoPost page={page} setPage={setPage} title={data} />
         </>
       ) : (
         <p>Loading...</p>

@@ -5,7 +5,6 @@ import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage
 import { storage } from "../../../../config/firebase";
 import { createPost, getTagCategory, updatePost } from "../../api/auth.api";
 import style from "./SetInfoPost.module.scss";
-import type { SelectProps } from "antd";
 import { toast } from "react-toastify";
 import { RollbackOutlined } from "@ant-design/icons";
 import { v4 as uuidv4 } from 'uuid';
@@ -25,28 +24,29 @@ const SetInfoPost = (props: any) => {
   const [urlImage, setUrlImage] = useState<string>("");
   const [options, setOptions] = useState<ItemProps[]>([]);
   const [categoryValue, setCategoryValue] = useState<string>("");
-
+  console.log(props.title)
   useEffect(() => {
     if (props?.title) {
       form.setFieldsValue({
-        title: props.title.post.title,
-        slug: props.title.post.slug,
-        description: props.title.post.description,
-        category: props.title.post.category,
+        title: props.title?.title  ?? "",
+        slug: props.title?.slug  ?? "",
+        description: props?.title?.description ?? ""
+        ,
+        category: props?.title?.category ?? "",
       });
 
-      if (props.title.post.thumbnail) {
+      if (props.title?.thumbnail) {
         setFileList([
           {
             uid: '-1',
             name: 'image.png',
             status: 'done',
-            url: props.title.post.thumbnail,
+            url: props.title?.thumbnail,
           },
         ]);
-        setUrlImage(props.title.post.thumbnail);
+        setUrlImage(props.title?.thumbnail);
       }
-      setCategoryValue(props.title.post.category);
+      setCategoryValue(props.title?.category);
     }
   }, [props.title, form]);
 
