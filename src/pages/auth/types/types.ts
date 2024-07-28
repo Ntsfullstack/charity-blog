@@ -20,6 +20,7 @@ export interface BlogData {
   author: string;
   description: string;
   createdAt: string;
+  featured: boolean;
   updatedAt: string;
   __v: number;
   categoryId:{

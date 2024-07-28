@@ -1,19 +1,17 @@
 import { SearchOutlined } from "@ant-design/icons";
 import type { GetProp, InputRef, TableProps } from "antd";
-import { Alert, Button, Input, Popconfirm, Space, Table, TableColumnType } from "antd";
+import { Alert, Button, Input, Popconfirm, Space, Table, TableColumnType, Checkbox } from "antd";
 import type { FilterDropdownProps, SorterResult, TableRowSelection } from "antd/es/table/interface";
 import qs from "qs";
 import React, { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { deletePost, getListBlogs } from "../api/auth.api";
+import { deletePost, getListBlogs, updateFeaturedStatus } from "../api/auth.api";
 import { BlogData } from "../types/types";
+
 type ColumnsType<T> = TableProps<T>["columns"];
-type TablePaginationConfig = Exclude<
-  GetProp<TableProps, "pagination">,
-  boolean
->;
+type TablePaginationConfig = Exclude<GetProp<TableProps, "pagination">, boolean>;
 
 interface TableParams {
   pagination?: TablePaginationConfig;
@@ -24,7 +22,6 @@ interface TableParams {
 
 type DataIndex = keyof BlogData;
 
-
 const getRandomuserParams = (params: TableParams) => ({
   results: params.pagination?.pageSize,
   page: params.pagination?.current,
@@ -32,14 +29,12 @@ const getRandomuserParams = (params: TableParams) => ({
 });
 
 const ManageBlogs: React.FC = () => {
-  const [data, setData] = useState<any>([]);
+  const [data, setData] = useState<BlogData[]>([]);
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
-
-  const [selectedRowKeys, setSelectedRowKeys] = useState< []>([]);
-
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
       current: 1,
@@ -64,9 +59,7 @@ const ManageBlogs: React.FC = () => {
     setSearchText("");
   };
 
-  const getColumnSearchProps = (
-    dataIndex: DataIndex
-  ): TableColumnType<BlogData> => ({
+  const getColumnSearchProps = (dataIndex: DataIndex): TableColumnType<BlogData> => ({
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -155,6 +148,21 @@ const ManageBlogs: React.FC = () => {
       ),
   });
 
+  const handleFeaturedChange = async (id: string, featured: boolean) => {
+    try {
+      await updateFeaturedStatus(id, featured);
+      setData((prevData) =>
+        prevData.map((item) =>
+          item._id === id ? { ...item, featured } : item
+        )
+      );
+      toast.success(`Blog ${featured ? 'featured' : 'unfeatured'} successfully`);
+    } catch (error) {
+      console.error("Error updating featured status:", error);
+      toast.error("Failed to update featured status");
+    }
+  };
+
   const columns: ColumnsType<BlogData> = [
     {
       title: "Thumbnail",
@@ -169,14 +177,14 @@ const ManageBlogs: React.FC = () => {
       title: "title",
       dataIndex: "title",
       key: "title",
-      width: "25%",
+      width: "20%",
       ...getColumnSearchProps("title"),
     },
     {
       title: "description",
       dataIndex: "description",
       key: "description",
-      width: "45%",
+      width: "35%",
       render: (value) => <p>{value}</p>,
     },
     {
@@ -185,13 +193,23 @@ const ManageBlogs: React.FC = () => {
       width: "10%",
       key: "category",
       sorter: true,
-
-      
+    },
+    {
+      title: "Featured",
+      dataIndex: "featured",
+      key: "featured",
+      width: "10%",
+      render: (featured: boolean, record: BlogData) => (
+        <Checkbox
+          checked={featured}
+          onChange={(e) => handleFeaturedChange(record._id, e.target.checked)}
+        />
+      ),
     },
     {
       title: "Action",
       key: "action",
-      width: "10%",
+      width: "15%",
       render: (_, record) => (
         <Space size="middle">
           <Button type="primary" onClick={() => handleEdit(record.slug)}>
@@ -216,32 +234,31 @@ const ManageBlogs: React.FC = () => {
     const res = await deletePost(slug);
     if (res?.status === 200) {
       toast.success("Delete success");
-      setData(data.filter((item: any) => item.slug !== slug));
+      setData(data.filter((item: BlogData) => item.slug !== slug));
     } else {
       toast.error("Delete failed");
     }
   };
-  const handleEdit = async (slug: any) => {
+
+  const handleEdit = async (slug: string) => {
     Navigate(`/auth/edit-blog/${slug}`);
   };
+
   const fetchData = async () => {
     setLoading(true);
     setError(null);
 
     try {
-      await getListBlogs(qs.stringify(getRandomuserParams(tableParams))).then(
-        (res) => {
-          setData(res?.data); // Lấy dữ liệu content từ response và cập nhật vào state
-          setLoading(false); // Đặt trạng thái loading về false khi đã tải xong dữ liệu
-          setTableParams({
-            ...tableParams,
-            pagination: {
-              ...tableParams.pagination,
-              total: Number(res.pagination.total), // Cập nhật tổng số lượng trang
-            },
-          });
-        }
-      );
+      const res = await getListBlogs(qs.stringify(getRandomuserParams(tableParams)));
+      setData(res?.data);
+      setLoading(false);
+      setTableParams({
+        ...tableParams,
+        pagination: {
+          ...tableParams.pagination,
+          total: Number(res.pagination.total),
+        },
+      });
     } catch (error: any) {
       console.error("There was a problem with the fetch operation:", error);
       setError(error.message);
@@ -249,6 +266,7 @@ const ManageBlogs: React.FC = () => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, [
@@ -275,23 +293,15 @@ const ManageBlogs: React.FC = () => {
       setData([]);
     }
   };
-  if(error){
+
+
+  
+  if (error) {
     return <Alert message={error} type="error" />;
   }
 
-  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-    console.log('selectedRowKeys changed: ', newSelectedRowKeys);
-    // setSelectedRowKeys(newSelectedRowKeys);
-  };
-
-  const rowSelection: TableRowSelection<BlogData> = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-
-  };
   return (
     <div>
-    
       <Table
         columns={columns}
         rowKey={(record) => record._id}
@@ -299,7 +309,6 @@ const ManageBlogs: React.FC = () => {
         pagination={tableParams.pagination}
         loading={loading}
         onChange={handleTableChange}
-        rowSelection={rowSelection}
       />
     </div>
   );

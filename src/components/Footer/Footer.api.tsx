@@ -19,9 +19,9 @@ message: string;
 export const postsClient = async (params:Client) => {
   try {
     const response = await axiosInstance.post<
-    ClientResponse>(`/Client`, {
+    ClientResponse>(`/Client`, 
       params 
-    });
+    );
     return response.data;
   } catch (error: any) {
     console.error("Error:", error.message);
