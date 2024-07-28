@@ -84,7 +84,7 @@
     font-weight: bold;
     font-size: 45px;
     margin-bottom: 10px;
-    color: #fc4f88;
+    color: var(--text-color1);
   }
 
   // .line {
@@ -154,9 +154,6 @@
   max-width: 100%; /* Ensure text doesn't overflow */
 }
 
-// .cardContainer {
-//   // margin-top: 20px;
-// }
 
 .BtnLoadMore {
   margin-top: 20px;

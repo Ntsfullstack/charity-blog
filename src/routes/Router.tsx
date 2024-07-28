@@ -33,6 +33,9 @@ const Register = React.lazy(() => import("../pages/register/register"));
 const Setting = React.lazy(() => import("../pages/auth/screen/Setting"));
 const SearchPost = React.lazy(() => import("../pages/SeachPost/SearchPost"));
 const Activity = React.lazy(() => import("../pages/activity/screen/Activity"));
+const Activ = React.lazy(() => import("../pages/activity/screen/Community"));
+const SocialSecurity = React.lazy(() => import("../pages/activity/screen/SocialSecurity"));
+const Sponsorship = React.lazy(() => import("../pages/activity/screen/SponsorActivity"));
 const Vision = React.lazy(() => import("../pages/vision/screen/Vision"));
 const Letter = React.lazy(() => import("../pages/letter/screen/Letter"));
 
@@ -147,26 +150,18 @@ const routerConfig = [
                 ),
               },
               {
-                path: ROUTES.about,
-                element: (
-                  <Suspense fallback={<Loading />}>
-                    <Activity />
-                  </Suspense>
-                ),
-              },
-              {
                 path: ROUTES.suckhoecongdong,
                 element: (
                   <Suspense fallback={<Loading />}>
-                    <Activity />
+                    <Activ />
                   </Suspense>
                 ),
               },
               {
-                path: ROUTES.hoTroSinhKe,
+                path: ROUTES.hoatDongTaiTro,
                 element: (
                   <Suspense fallback={<Loading />}>
-                    <Activity />
+                    <Sponsorship />
                   </Suspense>
                 ),
               },
@@ -174,7 +169,7 @@ const routerConfig = [
                 path: ROUTES.anSinhXaHoi,
                 element: (
                   <Suspense fallback={<Loading />}>
-                    <Activity />
+                    <SocialSecurity />
                   </Suspense>
                 ),
               },

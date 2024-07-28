@@ -24,22 +24,22 @@ type MenuItem = Required<MenuProps>['items'][number]
 
 const items: MenuItem[] = [
   {
-    label: "Manager Blog",
+    label: "Quản lý bài viết",
     key: "/auth/manager-blog",
     icon: <HomeOutlined />,
   },
   {
-    label: "Manager User",
+    label: "Quản lý người dùng",
     key: "/auth/manager-user",
     icon: <UserOutlined />,
   },
   {
-    label: "Create Blog",
+    label: "Tạo bài viết",
     key: "/auth/create-blog",
     icon: <TagOutlined />,
   },
   {
-    label: "Edit Banner",
+    label: "Sửa banner",
     key: "/auth/settings",
     icon: <SettingOutlined />,
   },
@@ -48,10 +48,10 @@ const items: MenuItem[] = [
     key: "1",
     icon: <FileImageOutlined />,
     children: [
-      { key: '/auth/add-album', label: 'Add', 
+      { key: '/auth/add-album', label: 'Thêm Album', 
         icon: <BookOutlined />
       },
-      { key: '/auth/album', label: 'mana', 
+      { key: '/auth/album', label: 'Quản lý Album', 
         icon: <EditOutlined />
       },
     ],

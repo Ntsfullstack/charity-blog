@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import styles from "./footer.module.scss";
 import logo from "../../assets/images/expandedLogo.png";
-import { Input, Button } from "antd";
-import { postsClient } from "./Footer.api"; // Thay đổi đường dẫn tới hàm postsClient
-// import { useTranslation } from 'react-i18next';
+import { Input, Button, Input as AntInput } from "antd";
+
+import { postsClient } from "./Footer.api"; 
+
 import { t } from 'i18next';
 import { toast } from "react-toastify";
 
@@ -12,9 +13,11 @@ const Footer: React.FC = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [question, setquestion] = useState("");
+  const { TextArea } = AntInput;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange =  (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    
     switch(name) {
       case 'name':
         setName(value);
@@ -110,12 +113,13 @@ const Footer: React.FC = () => {
             onChange={handleChange}
             size="large"
           />
-          <Input
-            placeholder={t('question')}
+          <TextArea
+            placeholder={t('information')}
             name="question"
             value={question}
             onChange={handleChange}
             size="large"
+            rows={4}
           />
           <Button
             className={styles.subscribeButton}
@@ -129,8 +133,7 @@ const Footer: React.FC = () => {
     </footer>
     <div className={styles.social}>
       <h3>2024 BAO PHONG CHARITY FUND. All rights reserved.</h3>
-      <div className={styles.socialContainer}>
-        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
           <img src="https://img.icons8.com/?size=100&id=118497&format=png&color=000000" alt="Facebook" className={styles.logo} />
         </a>
         <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
@@ -139,6 +142,9 @@ const Footer: React.FC = () => {
         <a href="https://www.gmail.com/" target="_blank" rel="noopener noreferrer">
           <img src="https://img.icons8.com/?size=100&id=P7UIlhbpWzZm&format=png&color=000000" alt="Gmail" className={styles.logo} />
         </a>
+
+      <div className={styles.socialContainer}>
+
       </div>
     </div>
   </div>
