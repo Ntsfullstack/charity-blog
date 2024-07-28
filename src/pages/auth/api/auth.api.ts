@@ -175,7 +175,7 @@ export const uploadImageToAlbum = async (data: any) => {
 }
 export const updateFeaturedStatus = async (id: string , featured : boolean) => {
   try {
-    const response = await axiosInstance.post(`/auth/addFeaturedBlogPost/${id}`, featured);
+    const response = await axiosInstance.post(`/auth/FeaturedBlogPost/${id}`, {featured});
     return response.data;
   } catch (error) {
     console.error("Lỗi khi thêm:", error);
