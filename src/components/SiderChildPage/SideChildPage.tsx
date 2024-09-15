@@ -1,7 +1,10 @@
+// SideChildPage.tsx
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styles from "./SideChildPage.module.scss";
 import { getPostsByCategories } from "../../pages/activity/api/activity.api";
+import Card from "../card/Card";
+import { BlogPostData } from "../types/blogdata.type";
 
 interface Category {
   name: string;
@@ -43,6 +46,12 @@ const SiderChildPage: React.FC<SiderChildPageProps> = ({ categories }) => {
     fetchCategoryData();
   }, [activeCategory]);
 
+  const highlightedNews = cardData.slice(0, 3);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <div className={styles.siderChildPage}>
       <ul className={styles.categoryList}>
@@ -54,9 +63,13 @@ const SiderChildPage: React.FC<SiderChildPageProps> = ({ categories }) => {
       </ul>
       <div className={styles.categoryContent}>
         <h3>{activeCategory ? activeCategory.name : 'Select a category'}</h3>
+        <div className={styles.cardContainer}>
+          <Card cardData={highlightedNews} loading={isLoading} />
+        </div>
       </div>
     </div>
   );
 };
 
 export default SiderChildPage;
+

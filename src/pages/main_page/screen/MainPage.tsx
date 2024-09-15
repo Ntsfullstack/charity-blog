@@ -14,7 +14,7 @@ const MainPage = () => {
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
-        const response = await getCategoryPosts("667c30c1a7e983158ba550bf", false, 1, 4);
+        const response = await getCategoryPosts("667c308ca7e983158ba550be", false, 1, 4);
         if (response.status === 200) {
           setCardData(response?.data);
         }

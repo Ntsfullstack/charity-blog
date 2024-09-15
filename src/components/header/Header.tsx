@@ -212,7 +212,7 @@ const DropdownMenu = () => {
       </Menu.Item>
       <Menu.Item>
         <Link className={styles.dropdown_link_title} to="/an-sinh-xa-hoi">
-          {t('Social security')}
+          {t('social security')}
         </Link>
       </Menu.Item>
       <Menu.Item>

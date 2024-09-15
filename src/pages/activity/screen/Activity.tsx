@@ -54,7 +54,6 @@ const Activity = () => {
       <div className={styles.content}>
         <div className={styles.mainContent}>
           <div className={styles.cardContainer}>
-            <Card cardData={highlightedNews} loading={isLoading} />
           </div>
         </div>
       </div>
