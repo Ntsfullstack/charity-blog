@@ -11,6 +11,7 @@ export const ROUTES = {
   editUser: "edit-user/:id",
   editBlog: "edit-blog/:slug",
   settings: "settings",
+  settings_poster: "settings_poster",
   post: "/post/:slug",
   MainPage: "/MainPage",
   SearchPost: "/search/:query",

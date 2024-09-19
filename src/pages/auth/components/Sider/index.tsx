@@ -44,6 +44,11 @@ const items: MenuItem[] = [
     icon: <SettingOutlined />,
   },
   {
+    label: "Sửa poster",
+    key: "/auth/settings_poster",
+    icon: <SettingOutlined />,
+  },
+  {
     label: " Album",
     key: "1",
     icon: <FileImageOutlined />,

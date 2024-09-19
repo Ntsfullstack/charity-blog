@@ -9,13 +9,13 @@ import { updateBanner } from '../api/auth.api';
 import { toast } from 'react-toastify';
 import styles from './Setting.module.scss';
 
-interface ImageBanner {
+interface ImagePoster {
   url: string;
 }
 
 const Setting: React.FC = () => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const [album, setAlbum] = useState<ImageBanner[]>([]);
+  const [album, setAlbum] = useState<ImagePoster[]>([]);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
@@ -62,12 +62,12 @@ const Setting: React.FC = () => {
   useEffect(() => {
     const newAlbum = fileList.map((file) => ({
       url: file.url || file.response?.url,
-    })).filter((item): item is ImageBanner => item.url != null);
+    })).filter((item): item is ImagePoster => item.url != null);
 
     setAlbum(newAlbum);
   }, [fileList]);
 
-  const uploadToFirebase = async (file: RcFile): Promise<ImageBanner> => {
+  const uploadToFirebase = async (file: RcFile): Promise<ImagePoster> => {
     const imageId = uuidv4();
     const imageRef = storageRef(storage, `products/${imageId}`);
     const snapshot = await uploadBytes(imageRef, file);
@@ -109,7 +109,7 @@ const Setting: React.FC = () => {
 
   return (
     <div className={styles.imageUploadContainer}>
-      <h2 className={styles.title}>Cập nhật banner</h2>
+      <h2 className={styles.title}>Cập nhật poster</h2>
       <div className={styles.uploadWrapper}>
         <Upload
           listType="picture-card"

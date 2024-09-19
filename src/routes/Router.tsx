@@ -10,6 +10,7 @@ import RecruitmentPage from "../pages/main_page/components/recruitment/Recruitme
 import SharedLayout from "../pages/main_page/screen/SharedLayout";
 import VisionLayout from "../layout/VisionLayout";
 import LetterLayout from "../layout/Letterlayout";
+import path from "path";
 
 
 // Import components using lazy loading
@@ -37,6 +38,7 @@ const SocialSecurity = React.lazy(() => import("../pages/activity/screen/SocialS
 const Sponsorship = React.lazy(() => import("../pages/activity/screen/SponsorActivity"));
 const Vision = React.lazy(() => import("../pages/vision/screen/Vision"));
 const Letter = React.lazy(() => import("../pages/letter/screen/Letter"));
+const SettingPoster = React.lazy(() => import("../pages/auth/screen/UpdatePoster"));
 
 
 const ManagerUsers = React.lazy(
@@ -305,6 +307,16 @@ const routerConfig = [
               </ProtectedRoute>
             ),
           },
+          {
+            path: ROUTES.settings_poster,
+            element: (
+              <ProtectedRoute>
+                <Suspense fallback={<Loading />}>
+                  <SettingPoster/>
+                </Suspense>
+              </ProtectedRoute>
+            ),
+          }
         ],
       },
     ],
