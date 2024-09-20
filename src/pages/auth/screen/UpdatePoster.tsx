@@ -5,7 +5,7 @@ import { RcFile, UploadFile, UploadProps } from 'antd/es/upload';
 import { getDownloadURL, ref as storageRef, uploadBytes } from "firebase/storage";
 import { storage } from '../../../config/firebase';
 import { v4 as uuidv4 } from 'uuid';
-import { updateBanner } from '../api/auth.api';
+import { updatePoster} from '../api/auth.api';
 import { toast } from 'react-toastify';
 import styles from './Setting.module.scss';
 
@@ -90,7 +90,7 @@ const Setting: React.FC = () => {
         ...album
       ];
 
-      const response = await updateBanner({
+      const response = await updatePoster({
         images: allFiles
       });
 
