@@ -1,127 +1,138 @@
-.fieldContent h1 {
-  color: var(--text-color1);
-  font-size: 62px;
-  font-weight: bold;
-  position: relative;
-  margin-bottom: 40px;
-  margin-top: 10px;
-  font-family: 'helvetica', sans-serif;
+.fieldContent {
+  padding: 20px;
+  
+  h1 {
+    color: var(--text-color1);
+    font-size: clamp(32px, 5vw, 62px);
+    font-weight: bold;
+    position: relative;
+    margin-bottom: 40px;
+    margin-top: 10px;
+    font-family: 'helvetica', sans-serif;
+    text-align: center;
+  }
 }
 
-.fieldContainer {
+.fieldContainer,
+.fieldContainer2 {
   display: flex;
   align-items: center;
-  // padding-right: 7%;
-  // padding-left: 4%;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  gap: 40px;
 }
 
-.fieldImage {
+.fieldImage,
+.fieldImage2 {
+  max-width: 50%;
+  height: auto;
   object-fit: cover;
   border-radius: 5px;
-  // width: 50%; /* Adjust width as needed */
+}
+
+.fieldText,
+.fieldText2 {
+  flex: 1;
+  max-width: 50%;
+}
+
+.fieldText,
+.fieldText2 {
+  h2 {
+    font-family: "calibri bold", "Roboto", sans-serif;
+    font-size: clamp(24px, 4vw, 40px);
+    color: var(--text-color1);
+    margin-top: 0;
+    font-weight: bold;
+  }
+
+  h3 {
+    font-size: clamp(16px, 2vw, 18px);
+    color: var(--text-color2);
+    margin-top: 0;
+  }
+
+  p {
+    font-family: "calibri", "Roboto", sans-serif;
+    font-size: clamp(14px, 2vw, 18px);
+    color: var(--text-color1);
+    margin: 0;
+    line-height: 1.6;
+  }
 }
 
 .fieldText {
-  max-width: 30%;
-  flex: 1; /* Allow text to take remaining space */
-}
-
-.fieldText h2 {
-  font-family: "calibri bold", "Roboto", sans-serif;
-  font-size: 40px;
-  color: var(--text-color1);
-  margin-top: 0;
   text-align: left;
-  font-weight: bold; /* Corrected font-weight property */
-}
-
-.fieldText h3 {
-  font-size: 18px;
-  color: var(--text-color2);
-  margin-top: 0;
-  text-align: left;
-}
-
-.fieldText p {
-  text-align: left;
-  font-family: "calibri", "Roboto", sans-serif;
-  font-size: 18px;
-  color: var(--text-color1);
-  margin: 0; /* Reset default margins */
-  max-width: 100%; /* Ensure text doesn't overflow */
-}
-
-.fieldContainer2 {
-  justify-content: space-evenly;
-  display: flex;
-  align-items: center;
-  // padding-left: 5%; /* Adjust padding as needed */
-  // padding-right: 10%; /* Adjust padding as needed */
-  // flex-direction: row-reverse; /* Reverse the flex direction for right-aligned content */
-}
-
-.fieldImage2 {
-  object-fit: cover;
-  border-radius: 5px;
-  // width: 50%; /* Adjust width as needed */
 }
 
 .fieldText2 {
-  max-width: 25%;
-  flex: 1; /* Allow text to take remaining space */
-}
-
-.fieldText2 h2 {
-  font-family: "calibri bold", "Roboto", sans-serif;
-  font-size: 40px;
-  color: var(--text-color1);
-  margin-top: 0;
-  text-align: right;
-  font-weight: bold; /* Corrected font-weight property */
-}
-
-.fieldText2 h3 {
-  font-size: 18px;
-  color:var(--text-color2);
-  margin-top: 0;
   text-align: right;
 }
 
-.fieldText2 p {
-  text-align: right;
-  font-family: "calibri", "Roboto", sans-serif;
-  font-size: 18px;
-  color: var(--text-color1);
-  margin: 0; /* Reset default margins */
-  max-width: 100%; /* Ensure text doesn't overflow */
-}
-
-@media (max-width: 768px) {
-  .fieldText,
-  .fieldText2 {
-    max-width: 100%;
-  }
+@media (max-width: 992px) {
   .fieldContainer,
   .fieldContainer2 {
-    padding-left: 5%;
-    padding-right: 5%;
-    flex-direction: column; /* Stack content vertically on small screens */
-    text-align: center; /* Center align text on small screens */
+    flex-direction: column;
+    align-items: center;
   }
 
   .fieldImage,
-  .fieldImage2 {
-    width: 100%; /* Full width image on small screens */
-    margin-bottom: 20px; /* Add space between elements */
+  .fieldImage2,
+  .fieldText,
+  .fieldText2 {
+    max-width: 100%;
+    h2 {
+      padding: 5px;
+    }
+
+    h3 {
+      padding: 5px;
+    }
   }
 
-  .fieldText h2,
-  .fieldText2 h2,
-  .fieldText h3,
-  .fieldText2 h3,
-  .fieldText p,
-  .fieldText2 p {
-    text-align: center; /* Center align text on small screens */
+  .fieldText,
+  .fieldText2 {
+    text-align: center;
+  }
+
+  .fieldContainer2 {
+    flex-direction: column-reverse;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .fieldContent {
+    padding: 20px;
+    h1 {
+      font-size: clamp(25px, 5vw, 40px);
+      margin-bottom: 20px;
+    }
+  }
+  .fieldContainer {
+    gap: 30px;
+    .fieldText {
+      h2 {
+        padding: 5px;
+      }
+
+      h3 {
+        padding: 5px;
+      }
+  }
+}
+  .fieldContainer2 {
+    gap: 30px;
+    .fieldText2 {
+      h2 {
+        padding: 5px;
+      }
+
+      h3 {
+        padding: 5px;
+      }
+
+
+    }
   }
 }

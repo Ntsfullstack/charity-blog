@@ -1,94 +1,29 @@
 @import "../../../style/index.module.scss";
 
-.mainContainer {
+.mainPage {
   width: 100%;
-  h4 {
-    text-align: center;
-    font-size: 35px;
-    color: #2d2e82;
-    font-weight: bold;
-  }
-}
-
-.content {
-  display: flex;
-  margin-top: 40px;
-}
-
-.categoriesSidebar {
-  width: 220px;
-  margin-left: 10%;
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-
-    li {
-      margin-bottom: 10px;
-    }
-  }
-}
-
-.categoryBox {
-  border-radius: 8px;
-  overflow: hidden;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color:var(--text-color1);
-  }
-
-  a {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    color: #333;
-    transition: color 0.3s ease;
-    font-weight: bold;
-
-    &:hover {
-      color: #ffffff;
-    }
-  }
-
-  &.active {
-    background-color: var(--text-color1);
-
-    a {
-      color: white;
-    }
-  }
-}
-
-.mainContent {
-  flex: 1;
+  padding: 1rem;
 }
 
 .title {
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
   text-align: center;
   color: #2d2e82;
-  display: flex;
-  flex-direction: column;
 
   h3 {
     font-weight: bold;
-    font-size: 45px;
-    margin-bottom: 10px;
-    color: #2d2e82;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
   }
 
   p {
-    margin-bottom: 10px;
-    font-size: 20px;
-    color: #2d2e82;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
   }
 
   h4 {
-    padding: 20px;
-    text-align: center;
-    font-size: 40px;
-    color: #2d2e82;
+    padding: 1rem 0;
+    font-size: 2rem;
     font-weight: bold;
   }
 }
@@ -96,16 +31,18 @@
 .cardContainer {
   display: flex;
   flex-wrap: wrap;
-  gap: scale(30);
-  justify-content: flex-start;
-  padding-left: scale(200);
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
 
 .sliderContainer {
   position: relative;
   display: flex;
   align-items: center;
-  margin: 0 scale(200);
+  margin: 0 auto;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .sliderWrapper {
@@ -119,15 +56,15 @@
 }
 
 .sliderItem {
-  flex: 0 0 33.33%; // Hiển thị chính xác 3 items
-  padding: 0 scale(10);
+  flex: 0 0 100%;
+  padding: 0 0.5rem;
 }
 
 .sliderButton {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 24px;
+  font-size: 1.5rem;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -145,38 +82,72 @@
   }
 
   &:first-child {
-    left: scale(-30);
+    left: 0.5rem;
   }
 
   &:last-child {
-    right: scale(-30);
+    right: 0.5rem;
   }
 }
 
-// Keeping the load more button styles for potential future use
-.BtnLoadMore {
-  width: 100%;
-  align-items: center;
-  display: flex;
-  justify-content: center;
+.error {
+  color: #ff0000;
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 1rem;
 }
 
-.loadMoreButton {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #0056b3;
+@media (min-width: 768px) {
+  .sliderItem {
+    flex: 0 0 50%;
   }
 
-  &:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
+  .sliderButton {
+    &:first-child {
+      left: 1rem;
+    }
+
+    &:last-child {
+      right: 1rem;
+    }
+  }
+  p {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sliderItem {
+    flex: 0 0 33.33%;
+  }
+
+  .sliderButton {
+    &:first-child {
+      left: 1.5rem;
+    }
+
+    &:last-child {
+      right: 1.5rem;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .mainPage {
+    padding: 2rem;
+  }
+
+  .title {
+    h3 {
+      font-size: 3rem;
+    }
+
+    h4 {
+      font-size: 2.5rem;
+    }
+  }
+
+  .cardContainer {
+    gap: 1.5rem;
   }
 }

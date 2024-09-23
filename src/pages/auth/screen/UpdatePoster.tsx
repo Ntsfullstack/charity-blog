@@ -51,7 +51,7 @@ const Setting: React.FC = () => {
       const snapshot = await uploadBytes(imageRef, file);
       const downloadURL = await getDownloadURL(snapshot.ref);
 
-      file.url = downloadURL; // Update the file with the download URL
+      file.url = downloadURL; 
       onSuccess({ url: downloadURL, id: imageId });
     } catch (error: any) {
       onError({ error });

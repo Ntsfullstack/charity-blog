@@ -1,8 +1,10 @@
 import React from 'react';
 import styles from './AboutUs.module.scss';
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 const AboutUs: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -17,10 +19,9 @@ const AboutUs: React.FC = () => {
           {t('Build a spirit of compassion and love')}
         </p>
         <p>
-          {t( 'volunteering activities help spread the spirit of compassion and love in the community. When people participate in this activity together, they experience the joy of helping others')}
-          </p>
+          {t('volunteering activities help spread the spirit of compassion and love in the community. When people participate in this activity together, they experience the joy of helping others')}
+        </p>
       </div>
-
     </div>
   );
 }

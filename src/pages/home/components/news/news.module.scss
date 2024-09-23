@@ -5,70 +5,108 @@
   padding: 20px;
   border-radius: 8px;
 }
+
 .relatedArticlesContainer h1 {
   color: var(--text-color1);
-  font-size: 62px;
+  font-size: clamp(32px, 5vw, 62px);
   font-weight: bold;
   position: relative;
   margin-bottom: 40px;
   margin-top: 10px;
   font-family: 'HelveticaWorld', sans-serif;
-
-}
-.relatedArticlesContainer h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #333;
   text-align: center;
 }
 
-.swiper-container {
+.carousel {
   width: 100%;
   height: 100%;
 }
 
-.swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .cardItem {
-  width: 300px;
-  height: 400px;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  min-height: 350px;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardImage {
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; // 16:9 aspect ratio
+  position: relative;
+  overflow: hidden;
 }
 
 .cardImage img {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
 }
 
 .cardContent {
   padding: 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .cardTitle {
-  font-size: 18px;
+  font-size: clamp(16px, 3vw, 18px);
   font-weight: bold;
   margin-bottom: 10px;
   color: #333;
 }
 
 .cardMeta {
-  font-size: 14px;
+  font-size: clamp(12px, 2vw, 14px);
   color: #666;
 }
 
 .link {
   color: #007bff;
   text-decoration: none;
+  
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
-.link:hover {
-  text-decoration: underline;
+.loadingMessage,
+.errorMessage {
+  text-align: center;
+  font-size: clamp(16px, 3vw, 20px);
+  color: var(--text-color1);
+  margin: 20px 0;
+}
+
+@media (max-width: 768px) {
+  .relatedArticlesContainer {
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .relatedArticlesContainer h1 {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .relatedArticlesContainer {
+    margin: 5px;
+    padding: 5px;
+  }
+
+  .cardItem {
+    min-height: 300px;
+  }
 }

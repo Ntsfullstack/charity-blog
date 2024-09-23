@@ -32,8 +32,6 @@ const MainPage = () => {
     fetchBlogData();
   }, []);
 
-console.log(cardData);
-
   const scroll = (direction: 'left' | 'right') => {
     if (direction === 'left' && currentIndex > 0) {
       setCurrentIndex(prev => prev - 1);
@@ -43,7 +41,7 @@ console.log(cardData);
   };
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className={styles.error}>Error: {error}</div>;
   }
 
   return (
@@ -61,18 +59,18 @@ console.log(cardData);
       </div>
       <h4>TIN TỨC KHÁC</h4>
       <div className={styles.sliderContainer}>
-        <button 
-          onClick={() => scroll('left')} 
+        <button
+          onClick={() => scroll('left')}
           className={styles.sliderButton}
           disabled={currentIndex === 0}
         >
           <ChevronLeft />
         </button>
         <div className={styles.sliderWrapper}>
-          <div 
-            className={styles.slider} 
+          <div
+            className={styles.slider}
             style={{
-              transform: `translateX(-${currentIndex * 33.33}%)`,
+              transform: `translateX(-${currentIndex * 100}%)`,
               transition: 'transform 0.3s ease-in-out',
             }}
           >
@@ -83,10 +81,10 @@ console.log(cardData);
             ))}
           </div>
         </div>
-        <button 
-          onClick={() => scroll('right')} 
+        <button
+          onClick={() => scroll('right')}
           className={styles.sliderButton}
-          disabled={currentIndex >= cardData.length - 3}
+          disabled={currentIndex >= cardData.length - 1}
         >
           <ChevronRight />
         </button>
