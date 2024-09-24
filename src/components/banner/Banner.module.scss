@@ -92,3 +92,8 @@
   color: #333;
   font-size: 18px;
 }
+@media (max-width: 768px) {
+  .banner {
+    height: 500px;
+  }
+}
