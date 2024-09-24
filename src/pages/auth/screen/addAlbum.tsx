@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Upload, message, Image, Modal, Input, Button } from 'antd';
+import { Upload, message, Image, Modal, Input, Button, Form, Card } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { RcFile, UploadFile, UploadProps } from 'antd/es/upload';
 import { getDownloadURL, ref as storageRef, uploadBytes } from "firebase/storage";
@@ -7,6 +7,7 @@ import { storage } from '../../../config/firebase';
 import { v4 as uuidv4 } from 'uuid';
 import { uploadImageToAlbum } from '../api/auth.api';
 import { toast } from 'react-toastify';
+import styles from './AddAlbum.module.scss';
 
 interface AlbumItem {
   url: string;
@@ -116,33 +117,64 @@ const AddAlbum: React.FC = () => {
   };
 
   return (
-    <>
-      <Input 
-        placeholder="Enter album title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <Upload
-        listType="picture-card"
-        fileList={fileList}
-        onPreview={handlePreview}
-        onChange={handleChange}
-        customRequest={customUpload}
-        onDrop={(event) => {
-          event.preventDefault();
-        }}
-        multiple={true}
-      >
-        <button style={{ border: 0, background: 'none' }} type="button">
-          <PlusOutlined />
-          <div style={{ marginTop: 8 }}>Upload</div>
-        </button>
-      </Upload>
+    <div className={styles.formContainer}>
+      <Card title="Tạo Album Mới" className={styles.card}>
+        <Form layout="vertical" onFinish={handleSubmit}>
+          <Form.Item
+            name="title"
+            label="Tiêu đề Album"
+            rules={[{ required: true, message: 'Vui lòng nhập tiêu đề album' }]}
+          >
+            <Input 
+              placeholder="Nhập tiêu đề album"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className={styles.input}
+            />
+          </Form.Item>
+          
+          <Form.Item
+            name="images"
+            label="Hình ảnh"
+            valuePropName="fileList"
+            getValueFromEvent={(e) => {
+              if (Array.isArray(e)) {
+                return e;
+              }
+              return e && e.fileList;
+            }}
+          >
+            <Upload
+              listType="picture-card"
+              fileList={fileList}
+              onPreview={handlePreview}
+              onChange={handleChange}
+              customRequest={customUpload}
+              onDrop={(event) => {
+                event.preventDefault();
+              }}
+              multiple={true}
+              className={styles.uploadContainer}
+            >
+              <div className={styles.uploadButton}>
+                <PlusOutlined />
+                <div className={styles.uploadButtonText}>Tải lên</div>
+              </div>
+            </Upload>
+          </Form.Item>
+          
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className={styles.submitButton}>
+              Tạo Album
+            </Button>
+          </Form.Item>
+        </Form>
+      </Card>
+      
       <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
         <img alt="example" style={{ width: '100%' }} src={previewImage} />
       </Modal>
-      <Button onClick={handleSubmit}>Submit</Button>
-    </>
+    </div>
   );
 };
 

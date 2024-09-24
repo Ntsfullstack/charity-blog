@@ -43,27 +43,27 @@ const Footer: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.shape}></div>
       <footer className={styles.footer}>
-        <div className={styles.column}>
+        <div className={`${styles.column} ${styles.logoColumn}`}>
           <div className={styles.logoContainer}>
             <img src={logo} alt="Company Logo" className={styles.logo} />
             <p className={styles.companyName}>{t('BAO PHONG CHARITY FUND')}</p>
           </div>
         </div>
-        <div className={styles.column}>
+        <div className={`${styles.column} ${styles.infoColumn}`}>
           <h3>{t('about')}</h3>
           <ul className={styles.contactInfo}>
             <li>{t('vision-mission')}</li>
             <li>{t('open letter')}</li>
           </ul>
         </div>
-        <div className={styles.column}>
+        <div className={`${styles.column} ${styles.infoColumn}`}>
           <h3>{t('news')}</h3>
           <ul className={styles.contactInfo}>
             <li>{t('event')}</li>
             <li>{t('communication, journalism')}</li>
           </ul>
         </div>
-        <div className={styles.column}>
+        <div className={`${styles.column} ${styles.infoColumn}`}>
           <h3>{t('activity')}</h3>
           <ul className={styles.contactInfo}>
             <li>{t('volunteer')}</li>
@@ -72,7 +72,7 @@ const Footer: React.FC = () => {
             <li>{t('sponsor')}</li>
           </ul>
         </div>
-        <div className={styles.column}>
+        <div className={`${styles.column} ${styles.contactColumn}`}>
           <h3>{t('contact us')}</h3>
           <div className={styles.inputContainer}>
             <Input placeholder={t('name')} name="name" value={name} onChange={handleChange} />

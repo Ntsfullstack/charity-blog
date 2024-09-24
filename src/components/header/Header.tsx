@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Header.module.scss";
 import { Avatar, Button, Dropdown, Menu } from "antd";
 import { CloseOutlined, UserOutlined } from "@ant-design/icons";
@@ -8,7 +8,7 @@ import { logout } from "../../redux-setup/redux";
 import logo from "../../assets/images/expandedLogo.png";
 import clsx from "clsx";
 import { searchBlog } from "../../server/api";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 const DropdownMenu = () => {
   const [isLogin, setIsLogin] = useState(!!localStorage.getItem("token"));
   const [openDropdown, setDropdown] = useState(false);
@@ -78,7 +78,7 @@ const DropdownMenu = () => {
     e.preventDefault();
     setDropdown(!openDropdown);
   };
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const items = [
     {
@@ -167,17 +167,16 @@ const DropdownMenu = () => {
     },
   ];
 
-
   const menuGioiThieu = (
     <Menu>
       <Menu.Item>
         <Link to="/vision" className={styles.dropdown_link_title}>
-          {t('vision-mission')}
+          {t("vision-mission")}
         </Link>
       </Menu.Item>
       <Menu.Item>
         <Link to="/letter" className={styles.dropdown_link_title}>
-          {t('open letter')}
+          {t("open letter")}
         </Link>
       </Menu.Item>
     </Menu>
@@ -186,13 +185,13 @@ const DropdownMenu = () => {
     <Menu>
       <Menu.Item>
         <Link to="/MainPage" className={styles.dropdown_link_title}>
-          {t('event')}
+          {t("event")}
         </Link>
       </Menu.Item>
 
       <Menu.Item>
         <Link className={styles.dropdown_link_title} to="/thong-cao-bao-chi">
-          {t('communication, journalism')}
+          {t("communication, journalism")}
         </Link>
       </Menu.Item>
     </Menu>
@@ -202,22 +201,22 @@ const DropdownMenu = () => {
     <Menu>
       <Menu.Item>
         <Link to="/Activity" className={styles.dropdown_link_title}>
-          {t('volunteer')}
+          {t("volunteer")}
         </Link>
       </Menu.Item>
       <Menu.Item>
         <Link className={styles.dropdown_link_title} to="/suc-khoe-cong-dong">
-          {t('health')}
+          {t("health")}
         </Link>
       </Menu.Item>
       <Menu.Item>
         <Link className={styles.dropdown_link_title} to="/an-sinh-xa-hoi">
-          {t('social security')}
+          {t("social security")}
         </Link>
       </Menu.Item>
       <Menu.Item>
         <Link to="/hoat-dong-tai-tro" className={styles.dropdown_link_title}>
-          {t('sponsor')}
+          {t("sponsor")}
         </Link>
       </Menu.Item>
     </Menu>
@@ -230,7 +229,7 @@ const DropdownMenu = () => {
     <div>
       <header id="nav_menu">
         <div className={clsx(styles.container, cls)}>
-          <div className={styles.blurredBackground}></div>
+          {/* <div className={styles.blurredBackground}></div> */}
           <div className={styles.nav_start}>
             {!showSearch && (
               <div className={styles.logo}>
@@ -261,21 +260,24 @@ const DropdownMenu = () => {
                 />
               </svg>
             </label>
-            <button className={styles.closeButton} onClick={closeNav}>
+            <button
+              className={clsx(styles.closeButton, { [styles.active]: isNavOpen })}
+              onClick={closeNav}
+            >
               <CloseOutlined />
             </button>
-            <nav className={styles.menu}>
+            <nav className={clsx(styles.menu, { [styles.active]: isNavOpen })}>
               {width > 768 ? (
                 <ul className={styles.menu_bar}>
                   <li>
                     <Link to="/" className={clsx(styles.nav_link, styles.work)}>
-                     {t('home')}
+                      {t("home")}
                     </Link>
                   </li>
                   <li>
                     <Dropdown overlay={menuGioiThieu}>
                       <Button className={clsx(styles.nav_link, styles.work)}>
-                        {t('about')}
+                        {t("about")}
                       </Button>
                     </Dropdown>
                   </li>
@@ -284,20 +286,20 @@ const DropdownMenu = () => {
                       <Button
                         className={clsx(styles.nav_link, styles.discover)}
                       >
-                        {t('news')}
+                        {t("news")}
                       </Button>
                     </Dropdown>
                   </li>
                   <li>
                     <Dropdown overlay={menuHoatDong}>
                       <Button className={clsx(styles.nav_link, styles.work)}>
-                      {t('activity')} 
-                    </Button>
+                        {t("activity")}
+                      </Button>
                     </Dropdown>
                   </li>
                   <li className="contact">
-                      <Button className={clsx(styles.nav_link, styles.work)}>
-                      {t('contact')}
+                    <Button className={clsx(styles.nav_link, styles.work)}>
+                      {t("contact")}
                     </Button>
                   </li>
                 </ul>
@@ -427,9 +429,7 @@ S377.82,467.8,257.493,467.8z"
                 </form>
               )}
             </div>
-            {isNavOpen && (
-              <div className={styles.overlay} onClick={closeNav}></div>
-            )}
+
             {width > 768 && (
               <div className={styles.login}>
                 {isLogin ? (

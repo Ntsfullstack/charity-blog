@@ -19,6 +19,7 @@ const Setting: React.FC = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
 
   const getBase64 = (file: RcFile): Promise<string> =>
     new Promise((resolve, reject) => {
@@ -40,10 +41,14 @@ const Setting: React.FC = () => {
 
   const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
+    // Kiểm tra xem tất cả các file đã được tải lên chưa
+    const allUploaded = newFileList.every(file => file.status === 'done');
+    setIsUploading(!allUploaded);
   };
 
   const customUpload = async (options: any) => {
     const { onSuccess, onError, file } = options;
+    setIsUploading(true);
 
     try {
       const imageId = uuidv4();
@@ -55,7 +60,9 @@ const Setting: React.FC = () => {
       onSuccess({ url: downloadURL, id: imageId });
     } catch (error: any) {
       onError({ error });
-      message.error(error.message);
+      toast.error(error.message);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -91,18 +98,18 @@ const Setting: React.FC = () => {
       ];
 
       const response = await updatePoster({
-        images: allFiles
+        posters: allFiles.map(file => file.url)
       });
 
-      if(response?.status === 200) {
-        toast.success('Album created successfully!');
+      if (response?.status === 200) {
+        toast.success('Cập nhật poster thành công!');
         setFileList([]);
         setAlbum([]);
       } else {
-        toast.error('Failed to create album. Please try again.');
+        toast.error('Cập nhật poster thất bại. Vui lòng thử lại.');
       }
     } catch (error) {
-      message.error('Failed to create album. Please try again.');
+      toast.error('Cập nhật poster thất bại. Vui lòng thử lại.');
       console.error(error);
     }
   };
@@ -123,16 +130,22 @@ const Setting: React.FC = () => {
           multiple={true}
           className={styles.uploadArea}
         >
-          <div className={styles.uploadButton}>
-            <PlusOutlined className={styles.uploadIcon} />
-            <div className={styles.uploadText}>Thêm ảnh</div>
-          </div>
+          {fileList.length >= 8 ? null : (
+            <div className={styles.uploadButton}>
+              <PlusOutlined className={styles.uploadIcon} />
+              <div className={styles.uploadText}>Thêm ảnh</div>
+            </div>
+          )}
         </Upload>
       </div>
       <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
         <img alt="example" style={{ width: '100%' }} src={previewImage} />
       </Modal>
-      <Button onClick={handleSubmit} className={styles.submitButton}>
+      <Button 
+        onClick={handleSubmit} 
+        className={styles.submitButton}
+        disabled={isUploading || fileList.length === 0}
+      >
         Cập nhật
       </Button>
     </div>
