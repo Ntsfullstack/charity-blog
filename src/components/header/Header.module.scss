@@ -21,7 +21,7 @@
   right: 0;
   bottom: 0;
   background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(1px);
+  // backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(1px);
   z-index: -1;
 }
@@ -79,6 +79,38 @@ z-index: 99999;
   text-decoration: none;
   font-family: 'CrimsonPro-Regular', serif;
   font-weight: 600;
+  
+  /* Đảm bảo text không bị ảnh hưởng bởi độ trong suốt */
+  opacity: 1 !important;
+  
+  /* Đặt background là trong suốt */
+  background: transparent;
+  
+  /* Đảm bảo text luôn có màu đã định */
+  &, & * {
+    color: var(--text-color1) !important;
+  }
+  
+  /* Xử lý hover state nếu cần */
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+/* Áp dụng cho tất cả các phần tử text trong header */
+.container {
+  * {
+    color: inherit;
+  }
+}
+
+/* Đảm bảo độ tương phản cho text trên nền mờ */
+.blurredBackground {
+  /* Các thuộc tính khác của bạn */
+  & + * {
+    position: relative;
+    z-index: 1;
+  }
 }
 .Discover:focus ~ .NEWS {
   visibility: visible;
@@ -355,12 +387,17 @@ z-index: 99999;
   color: #f4f4f4;
 }
 @media (max-width: 768px) {
+
   .menu {
     margin-left: 0;
   }
   :global(.ant-menu) {
     width: 100% !important;
     top: 0;
+
+  }
+  .nav-start.logo {
+    display: none;
   }
 
   .menuToggle:checked .closeButton {
@@ -402,9 +439,6 @@ z-index: 99999;
     flex: 1;
   }
   .logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+    display: none;
   }
 }
