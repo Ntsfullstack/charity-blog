@@ -16,6 +16,7 @@
     "antd": "^5.17.4",
     "antd-img-crop": "^4.22.0",
     "axios": "^1.7.2",
+    "circular-json": "^0.5.9",
     "clsx": "^2.1.1",
     "compressorjs": "^1.2.1",
     "dayjs": "^1.11.11",
