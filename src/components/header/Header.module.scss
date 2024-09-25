@@ -476,3 +476,12 @@ video {
     justify-content: flex-start;
   }
 }
+
+.languageSwitch {
+  background-color: transparent;
+  border: none;
+  color: var(--text-color1);
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
+}

@@ -13,7 +13,10 @@ const AboutUs: React.FC = () => {
         <p>{t('Volunteering activities help reduce social inequality and build a fair and civilized community. By helping those in need, we can create balance and reduce social distance.')}</p>
         <p>{t('Enhance community unity and cohesion')}</p>
         <p>
-          {t('Volunteering activities help enhance community unity and cohesion. When people come together to help others, they build a strong bond and create a sense of belonging to the community.')}
+          {t(
+        'Volunteering is a community activity, creating a connection point between people. By participating in this activity, people have the opportunity to meet, exchange and cooperate to achieve common goals. This contributes to enhancing community unity and cohesion'
+            
+            )}
         </p>
         <p>
           {t('Build a spirit of compassion and love')}

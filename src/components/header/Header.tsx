@@ -12,11 +12,11 @@ import logo from "../../assets/images/expandedLogo.png";
 import useClickOutside from "./useClickOutside";
 import { searchBlog } from "../../server/api";
 
+
 const DropdownMenu = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLogin, setIsLogin] = useState(!!localStorage.getItem("token"));
-
   const [searchText, setSearchText] = useState("");
   const [position, setPosition] = useState(window.pageYOffset);
   const [visible, setVisible] = useState(true);
@@ -25,6 +25,27 @@ const DropdownMenu = () => {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const { t } = useTranslation();
   const searchRef = useRef<HTMLFormElement>(null);
+
+  const { t, i18n } = useTranslation();
+
+  const handleKeyDown = async (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    searchText: string
+  ) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      e.stopPropagation();
+
+      try {
+        if (!searchText || !searchText.trim()) return;
+        const data = await searchBlog(searchText);
+        navigate(`/search/${searchText}`, { state: { data } }); // Update URL on Enter press
+      } catch (error) {
+        console.error("Error searching:", error);
+        // Handle error if necessary
+      }
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -207,6 +228,11 @@ const DropdownMenu = () => {
     { key: "/an-sinh-xa-hoi", label: "social security" },
     { key: "/hoat-dong-tai-tro", label: "sponsor" },
   ]);
+
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+  };
 
   return (
     <header className={clsx(styles.header, cls)} id="header">

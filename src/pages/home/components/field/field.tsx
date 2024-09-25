@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./field.module.scss";
 import { useTranslation } from 'react-i18next';
+import volunteerImage from '../field/anh1.jpeg'; // Update the path as needed
+import socialSecurityImage from '../field/anh2.jpeg'; // Update the path as needed
 
 const Field: React.FC = () => {
   const { t } = useTranslation();
@@ -10,7 +12,7 @@ const Field: React.FC = () => {
       <h1>{t('main activity')}</h1>
       <div className={styles.fieldContainer}>
         <img
-          src="http://quythientam.com/mediacenter//media/images/905/menu/icons/anh1-1558063714.png"
+          src={volunteerImage}
           alt={t('volunteer activity')}
           className={styles.fieldImage}
         />
@@ -27,7 +29,7 @@ const Field: React.FC = () => {
           <p>{t('Volunteering is a noble form of service, focusing on caring, helping, and sharing with those facing difficulties in life. What is particularly special about volunteering is that it not only brings benefits to the recipients but also greatly enriches the lives of the volunteers themselves.')}</p>
         </div>
         <img
-          src="http://quythientam.com/mediacenter//media/images/905/menu/icons/anh2-1558063725.png"
+          src={socialSecurityImage}
           alt={t('Social security')}
           className={styles.fieldImage2}
         />
