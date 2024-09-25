@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import styles from "./Header.module.scss";
 import { Avatar, Button, Dropdown, Menu } from "antd";
@@ -12,8 +11,7 @@ import logo from "../../assets/images/expandedLogo.png";
 import useClickOutside from "./useClickOutside";
 import { searchBlog } from "../../server/api";
 
-
-const DropdownMenu = () => {
+const DropdownMenu: React.FC = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLogin, setIsLogin] = useState(!!localStorage.getItem("token"));
@@ -23,10 +21,8 @@ const DropdownMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isSearchActive, setIsSearchActive] = useState(false);
-  const { t } = useTranslation();
-  const searchRef = useRef<HTMLFormElement>(null);
-
   const { t, i18n } = useTranslation();
+  const searchRef = useRef<HTMLFormElement>(null);
 
   const handleKeyDown = async (
     e: React.KeyboardEvent<HTMLInputElement>,
@@ -39,10 +35,9 @@ const DropdownMenu = () => {
       try {
         if (!searchText || !searchText.trim()) return;
         const data = await searchBlog(searchText);
-        navigate(`/search/${searchText}`, { state: { data } }); // Update URL on Enter press
+        navigate(`/search/${searchText}`, { state: { data } });
       } catch (error) {
         console.error("Error searching:", error);
-        // Handle error if necessary
       }
     }
   };
@@ -75,6 +70,7 @@ const DropdownMenu = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY >= 85);
     const handleResize = () => {
@@ -99,7 +95,7 @@ const DropdownMenu = () => {
     window.location.reload();
   };
 
-  const handleAvatar = (e: any) => {
+  const handleAvatar = (e: React.MouseEvent) => {
     e.preventDefault();
   };
 
@@ -114,23 +110,6 @@ const DropdownMenu = () => {
 
   useClickOutside(searchRef, handleCloseSearch);
 
-  const handleKeyDown = async (
-    e: React.KeyboardEvent<HTMLInputElement>,
-    searchText: string
-  ) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      e.stopPropagation();
-
-      try {
-        if (!searchText || !searchText.trim()) return;
-        const data = await searchBlog(searchText);
-        navigate(`/search/${searchText}`, { state: { data } }); // Kiểm tra dữ liệu ở đây
-      } catch (error) {
-        console.error("Error searching:", error);
-      }
-    }
-  };
   const items = [
     {
       label: "Trang cài đặt",
@@ -228,7 +207,6 @@ const DropdownMenu = () => {
     { key: "/an-sinh-xa-hoi", label: "social security" },
     { key: "/hoat-dong-tai-tro", label: "sponsor" },
   ]);
-
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
