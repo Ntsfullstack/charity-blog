@@ -229,29 +229,29 @@ const DropdownMenu: React.FC = () => {
             </li>
             <li>
               <Dropdown overlay={menuGioiThieu}>
-                <Button className={clsx(styles.nav_link, styles.work)}>
+                <div className={clsx(styles.nav_link, styles.work)}>
                   {t("about")}
-                </Button>
+                </div>
               </Dropdown>
             </li>
             <li>
               <Dropdown overlay={menuTinTuc}>
-                <Button className={clsx(styles.nav_link, styles.discover)}>
+                <div className={clsx(styles.nav_link, styles.discover)}>
                   {t("news")}
-                </Button>
+                </div>
               </Dropdown>
             </li>
             <li>
               <Dropdown overlay={menuHoatDong}>
-                <Button className={clsx(styles.nav_link, styles.work)}>
+                <div className={clsx(styles.nav_link, styles.work)}>
                   {t("activity")}
-                </Button>
+                </div>
               </Dropdown>
             </li>
             <li className="contact">
-              <Button className={clsx(styles.nav_link, styles.work)}>
+              <div className={clsx(styles.nav_link, styles.work)}>
                 {t("contact")}
-              </Button>
+              </div>
             </li>
           </ul>
         ) : (

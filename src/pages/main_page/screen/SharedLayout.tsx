@@ -8,26 +8,29 @@ const SharedLayout = () => {
 
   const categories = [
     { name: "TIN TỨC - SỰ KIỆN", path: "/MainPage" },
-    { name: "TRUYỀN THÔNG BÁO CHÍ", path: "/thong-cao-bao-chi" }
+    { name: "TUYỂN DỤNG", path: "/tuyen-dung" }
   ];
 
   return (
     <div className={styles.mainContainer}>
       <Banner />
-      <div className={styles.content}>
-        <div className={styles.categoriesSidebar}>
-          <ul>
-            {categories.map((category) => (
-              <li key={category.name}>
-                <div className={`${styles.categoryBox} ${location.pathname === category.path ? styles.active : ''}`}>
-                  <a href={category.path}>{category.name}</a>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className={styles.mainContent}>
-          <Outlet />
+      <div className={styles.contentWrapper}>
+        <h1 className={styles.mainTitle}>HOẠT ĐỘNG THIỆN NGUYỆN</h1>
+        <div className={styles.content}>
+          <div className={styles.sidebar}>
+            <ul>
+              {categories.map((category) => (
+                <li key={category.name}>
+                  <div className={`${styles.categoryBox} ${location.pathname === category.path ? styles.active : ''}`}>
+                    <a href={category.path}>{category.name}</a>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className={styles.mainContent}>
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>
