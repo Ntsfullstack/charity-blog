@@ -12,7 +12,6 @@ import VisionLayout from "../layout/VisionLayout";
 import LetterLayout from "../layout/Letterlayout";
 import path from "path";
 
-
 // Import components using lazy loading
 // const  AboutUs = React.lazy(() => import ("../pages/main_page"));
 const MainPage = React.lazy(() => import("../pages/main_page/screen/MainPage"));
@@ -27,19 +26,28 @@ const Homepage = React.lazy(() => import("../pages/home/screen/Home"));
 const CreateBlog = React.lazy(() => import("../pages/auth/screen/CreateBlog"));
 const AddAlbum = React.lazy(() => import("../pages/auth/screen/addAlbum"));
 const Login = React.lazy(() => import("../pages/login/login"));
-const ImagePreview = React.lazy(() => import("../pages/home/components/library_image/ImagePreview"));
-const ImageGallery = React.lazy(() => import("../pages/home/components/library_image/album_all"));
+const ImagePreview = React.lazy(
+  () => import("../pages/home/components/library_image/ImagePreview")
+);
+const ImageGallery = React.lazy(
+  () => import("../pages/home/components/library_image/album_all")
+);
 const Register = React.lazy(() => import("../pages/register/register"));
 const Setting = React.lazy(() => import("../pages/auth/screen/Setting"));
 const SearchPost = React.lazy(() => import("../pages/SeachPost/SearchPost"));
 const Activity = React.lazy(() => import("../pages/activity/screen/Activity"));
 const Activ = React.lazy(() => import("../pages/activity/screen/Community"));
-const SocialSecurity = React.lazy(() => import("../pages/activity/screen/SocialSecurity"));
-const Sponsorship = React.lazy(() => import("../pages/activity/screen/SponsorActivity"));
+const SocialSecurity = React.lazy(
+  () => import("../pages/activity/screen/SocialSecurity")
+);
+const Sponsorship = React.lazy(
+  () => import("../pages/activity/screen/SponsorActivity")
+);
 const Vision = React.lazy(() => import("../pages/vision/screen/Vision"));
 const Letter = React.lazy(() => import("../pages/letter/screen/Letter"));
-const SettingPoster = React.lazy(() => import("../pages/auth/screen/UpdatePoster"));
-
+const SettingPoster = React.lazy(
+  () => import("../pages/auth/screen/UpdatePoster")
+);
 
 const ManagerUsers = React.lazy(
   () => import("../pages/auth/screen/ManagerUses")
@@ -177,7 +185,7 @@ const routerConfig = [
             ],
           },
           {
-            element: <VisionLayout/>, // Use SharedLayout here
+            element: <VisionLayout />, // Use SharedLayout here
             children: [
               {
                 path: ROUTES.Vision,
@@ -190,7 +198,7 @@ const routerConfig = [
             ],
           },
           {
-            element: <LetterLayout/>, // Use SharedLayout here
+            element: <LetterLayout />, // Use SharedLayout here
             children: [
               {
                 path: ROUTES.Letter,
@@ -312,11 +320,11 @@ const routerConfig = [
             element: (
               <ProtectedRoute>
                 <Suspense fallback={<Loading />}>
-                  <SettingPoster/>
+                  <SettingPoster />
                 </Suspense>
               </ProtectedRoute>
             ),
-          }
+          },
         ],
       },
     ],

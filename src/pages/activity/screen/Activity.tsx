@@ -53,8 +53,7 @@ const Activity = () => {
     <div className={styles.mainContainer}>
       <div className={styles.content}>
         <div className={styles.mainContent}>
-          <div className={styles.cardContainer}>
-          </div>
+          <div className={styles.cardContainer}></div>
         </div>
       </div>
     </div>

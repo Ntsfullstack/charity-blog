@@ -8,9 +8,8 @@ const HomeLayout = () => {
   return (
     <>
       <Header />
-
       <div className={styles.mainContentWrapper}>
-      {/* <Banner /> */}
+        {/* <Banner /> */}
         <div className={styles.mainContent}>
           <Outlet />
         </div>

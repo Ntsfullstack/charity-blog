@@ -11,15 +11,30 @@ const PageChildLayout = () => {
   console.log(location, location.pathname);
 
   const categories = [
-    { name: " HOẠT ĐỘNG THIỆN NGUYỆN", path: "/Activity", id: "667bcecfec596a8638ebd2a9" },
-    { name: "CHĂM SÓC SỨC KHỎE CỘNG ĐỒNG", path: "/suc-khoe-cong-dong", id: "667bcecfec596a8638ebd2a9" },
-    { name: "AN SINH XÃ HỘI", path: "/an-sinh-xa-hoi", id: "66a608ca946444899fe7f459" },
-    { name: "HOẠT ĐỘNG TÀI TRỢ", path: "/hoat-dong-tai-tro", id: "66a60905946444899fe7f45a" },
+    {
+      name: " HOẠT ĐỘNG THIỆN NGUYỆN",
+      path: "/Activity",
+      id: "667bcecfec596a8638ebd2a9",
+    },
+    {
+      name: "CHĂM SÓC SỨC KHỎE CỘNG ĐỒNG",
+      path: "/suc-khoe-cong-dong",
+      id: "667bcecfec596a8638ebd2a9",
+    },
+    {
+      name: "AN SINH XÃ HỘI",
+      path: "/an-sinh-xa-hoi",
+      id: "66a608ca946444899fe7f459",
+    },
+    {
+      name: "HOẠT ĐỘNG TÀI TRỢ",
+      path: "/hoat-dong-tai-tro",
+      id: "66a60905946444899fe7f45a",
+    },
   ];
 
   return (
     <>
-      <Header />
       <div className={styles.mainContentWrapper}>
         <Banner />
         <div className={styles.mainContent}>
