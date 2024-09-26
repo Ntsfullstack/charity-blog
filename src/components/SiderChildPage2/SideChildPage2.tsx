@@ -1,10 +1,9 @@
-// SideChildPage.tsx
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import styles from "./SideChildPage.module.scss";
-import { getPostsByCategories } from "../../pages/activity/api/activity.api";
+import styles from "../SiderChildPage2/SideChildPage2.module.scss";
+import { getCategoryPosts } from "../../pages/main_page/api/mainPage.api";
 import Card from "../card/Card";
-
+import { BlogPostData } from "../../pages/activity/types/blogdata.type";
 
 interface Category {
   name: string;
@@ -16,13 +15,12 @@ interface SiderChildPageProps {
   categories: Category[];
 }
 
-const SiderChildPage: React.FC<SiderChildPageProps> = ({ categories }) => {
+const SiderChildPage2: React.FC<SiderChildPageProps> = ({ categories }) => {
   const location = useLocation();
-  const [cardData, setCardData] = useState([]);
+  const [cardData, setCardData] = useState<BlogPostData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Find the active category based on the current path
   const activeCategory = categories.find(category => category.path === location.pathname);
 
   useEffect(() => {
@@ -30,9 +28,13 @@ const SiderChildPage: React.FC<SiderChildPageProps> = ({ categories }) => {
       if (activeCategory) {
         try {
           setIsLoading(true);
-          const response = await getPostsByCategories(activeCategory.id);
+          const response = await getCategoryPosts(activeCategory.id);
           if (response?.status === 200) {
-            setCardData(response.data);
+            const formattedData = response.data.map((post: any) => ({
+              ...post,
+              id: post._id,
+            }));
+            setCardData(formattedData);
           }
         } catch (error) {
           console.error("Error fetching category data:", error);
@@ -46,11 +48,13 @@ const SiderChildPage: React.FC<SiderChildPageProps> = ({ categories }) => {
     fetchCategoryData();
   }, [activeCategory]);
 
-  const highlightedNews = cardData.slice(0, 1);
+  const highlightedNews = cardData.slice(0, 2);
 
   if (error) {
     return <div>Error: {error}</div>;
   }
+
+  const showExtraContent = activeCategory?.id === "667c30c1a7e983158ba550bf";
 
   return (
     <div className={styles.siderChildPage}>
@@ -62,15 +66,16 @@ const SiderChildPage: React.FC<SiderChildPageProps> = ({ categories }) => {
         ))}
       </ul>
       <div className={styles.categoryContent}>
-       
         <h3>{activeCategory ? activeCategory.name : 'Select a category'}</h3>
+        {showExtraContent && <p>Hãy cập nhật những tin tức mới nhất của chúng tôi</p>}
         <div className={styles.cardContainer}>
           <Card cardData={highlightedNews} loading={isLoading} />
         </div>
+        {showExtraContent && <h3>TIN TỨC KHÁC</h3>}
+        <div></div>
       </div>
     </div>
   );
 };
 
-export default SiderChildPage;
-
+export default SiderChildPage2;

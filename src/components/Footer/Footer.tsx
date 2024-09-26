@@ -86,7 +86,7 @@ const Footer: React.FC = () => {
         </div>
       </footer>
       <div className={styles.social}>
-        <h3>2024 BAO PHONG CHARITY FUND. All rights reserved.</h3>
+        <h3>2024 BAO PHONG CHARITY FUND. All rights reserved </h3>
         <div className={styles.socialContainer}>
           <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
             <img src="https://img.icons8.com/?size=100&id=118497&format=png&color=000000" alt="Facebook" className={styles.socialLogo} />

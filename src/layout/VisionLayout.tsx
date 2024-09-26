@@ -8,8 +8,7 @@ import Banner from "../components/banner/Banner";
 const Vision = () => {
   return (
     <>
-      <Header />
-
+  
       <div className={styles.mainContentWrapper}>
       <Banner />
         <div className={styles.mainContent}>

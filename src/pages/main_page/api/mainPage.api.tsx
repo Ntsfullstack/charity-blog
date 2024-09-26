@@ -1,14 +1,15 @@
-import { BlogResponse } from "../../auth/types/types";
+import { BlogResponse, BlogData } from "../../auth/types/types";
 import axiosInstance from "../../../server/auth.api";
+import { BlogPostData } from "../types/blogdata.type";
 
 export async function getCategoryPosts(
   categoryId: string,
   featured?: boolean,
   page?: number,
   limit?: number
-){
+): Promise<BlogResponse> {
   try {
-    const token = localStorage.getItem("token"); // Lấy token từ localStorage
+    const token = localStorage.getItem("token");
     const response = await axiosInstance.get<BlogResponse>(`/getCategoryPosts/${categoryId}`, {
       params: {
         featured,

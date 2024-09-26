@@ -1,22 +1,39 @@
 import React from "react";
-import Header from "../components/header/Header";
-import Footer from "../components/Footer/Footer"; // Make sure the path is correct
-import { Outlet } from "react-router-dom";
-import styles from "./MainPageLayout.module.scss"; // Import styles correctly
+import { Outlet, useLocation } from "react-router-dom";
+import styles from "./HomeLayout.module.scss";
+import SideChildPage2 from "../components/SiderChildPage2/SideChildPage2";
 import Banner from "../components/banner/Banner";
+import MainPage from "../pages/main_page/screen/MainPage";
 
-const MainPageLayout = () => {
+const PageChildLayout2 = () => {
+  const location = useLocation();
+  console.log(location, location.pathname);
+
+  const categories = [
+    {
+      name: "TIN TỨC - SỰ KIỆN",
+      path: "/MainPage",
+      id: "667c30c1a7e983158ba550bf",
+    },
+    {
+      name: "TRUYỀN THÔNG BÁO CHÍ",
+      path: "/thong-cao-bao-chi",
+      id: "667d84a8dad624ab4905d016",
+    },
+  ];
+
   return (
     <>
-      <Header />
       <div className={styles.mainContentWrapper}>
+        <Banner />
         <div className={styles.mainContent}>
+          <SideChildPage2 categories={categories} />
+          {/* <MainPage /> */}
           <Outlet />
         </div>
-        <Footer />
       </div>
     </>
   );
 };
 
-export default MainPageLayout;
+export default PageChildLayout2;

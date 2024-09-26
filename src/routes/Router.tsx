@@ -4,13 +4,15 @@ import React, { Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Loading from "../components/Loading/Loading";
 import PageChildLayout from "../layout/PageChildLayout";
+import MainPageLayout from "../layout/MainPageLayout";
 import ProtectedRoute from "../layout/ProtectedRoute"; // Import ProtectedRoute
 import NewspaperPage from "../pages/main_page/components/newspapers/NewspaperPage";
 import RecruitmentPage from "../pages/main_page/components/recruitment/RecruitmentPage";
-import SharedLayout from "../pages/main_page/screen/SharedLayout";
+
 import VisionLayout from "../layout/VisionLayout";
 import LetterLayout from "../layout/Letterlayout";
 import path from "path";
+import { child } from "firebase/database";
 
 // Import components using lazy loading
 // const  AboutUs = React.lazy(() => import ("../pages/main_page"));
@@ -119,7 +121,7 @@ const routerConfig = [
             ),
           },
           {
-            element: <SharedLayout />, // Use SharedLayout here
+            element: <MainPageLayout/>, 
             children: [
               {
                 path: ROUTES.MainPage,
@@ -130,22 +132,16 @@ const routerConfig = [
                 ),
               },
               {
-                path: ROUTES.tuyenDung,
-                element: (
-                  <Suspense fallback={<Loading />}>
-                    <RecruitmentPage />
-                  </Suspense>
-                ),
-              },
-              {
                 path: ROUTES.thongBaoBaoChi,
-                element: (
-                  <Suspense fallback={<Loading />}>
-                    <NewspaperPage />
-                  </Suspense>
-                ),
-              },
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <NewspaperPage />
+                </Suspense>
+              ),
+              }
+            
             ],
+            
           },
           {
             element: <PageChildLayout />, // Use SharedLayout here

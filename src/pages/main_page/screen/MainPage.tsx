@@ -47,26 +47,26 @@ const MainPage = () => {
   return (
     <div className={styles.mainPage}>
       <div className={styles.title}>
-        <h3>TIN TỨC - SỰ KIỆN</h3>
-        <div className={styles.cardContainer}>
+        {/* <h3>TIN TỨC - SỰ KIỆN</h3> */}
+        {/* <div className={styles.cardContainer}>
           <Card cardData={cardData} loading={isLoading} />
-        </div>
-        <p>Hãy cập nhật những dự án mới nhất của chúng tôi</p>
-        <h4>TIN NỔI BẬT</h4>
-        <div className={styles.cardContainer}>
+        </div> */}
+        {/* <p>Hãy cập nhật những dự án mới nhất của chúng tôi</p>
+        <h4>TIN NỔI BẬT</h4> */}
+        {/* <div className={styles.cardContainer}>
           <Card cardData={cardData} loading={isLoading} />
-        </div>
+        </div> */}
       </div>
-      <h4>TIN TỨC KHÁC</h4>
+      {/* <h4>TIN TỨC KHÁC</h4> */}
       <div className={styles.sliderContainer}>
-        <button
+        {/* <button
           onClick={() => scroll('left')}
           className={styles.sliderButton}
           disabled={currentIndex === 0}
         >
           <ChevronLeft />
-        </button>
-        <div className={styles.sliderWrapper}>
+        </button> */}
+        {/* <div className={styles.sliderWrapper}>
           <div
             className={styles.slider}
             style={{
@@ -80,14 +80,14 @@ const MainPage = () => {
               </div>
             ))}
           </div>
-        </div>
-        <button
+        </div> */}
+        {/* <button
           onClick={() => scroll('right')}
           className={styles.sliderButton}
           disabled={currentIndex >= cardData.length - 1}
         >
           <ChevronRight />
-        </button>
+        </button> */}
       </div>
     </div>
   );

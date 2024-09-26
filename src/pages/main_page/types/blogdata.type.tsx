@@ -1,4 +1,4 @@
-export type BlogPostData = {
+export interface BlogPostData {
   thumbnail: string;
   title: string;
   description: string;
@@ -6,4 +6,4 @@ export type BlogPostData = {
   createdAt: string;
   slug: string;
   id: string;
-};
+}
