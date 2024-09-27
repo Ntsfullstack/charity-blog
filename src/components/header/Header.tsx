@@ -148,19 +148,18 @@ const DropdownMenu: React.FC = () => {
       key: "news",
       label: "Tin tức",
       children: [
-        { key: "news-events", label: "Tin tức - sự kiện" },
-        { key: "recruitment-volunteer", label: "Tuyển dụng , tình nguyện" },
-        { key: "press-release", label: "Thông cáo , báo chí" },
+        { key: "MainPage", label: "Tin tức - sự kiện" },
+        { key: "thong-cao-bao-chi", label: "Truyền thông báo chí" },
       ],
     },
     {
       key: "activities",
       label: "Hoạt động",
       children: [
-        { key: "culture-education", label: "Văn hóa giáo dục" },
-        { key: "community-healthcare", label: "Chăm sóc sức khỏe cộng đồng" },
-        { key: "economic-support", label: "Hỗ trợ kinh tế" },
-        { key: "social-welfare", label: "An sinh xã hội" },
+        { key: "Activity", label: "Văn hóa giáo dục" },
+        { key: "suc-khoe-cong-dong", label: "Chăm sóc sức khỏe cộng đồng" },
+        { key: "an-sinh-xa-hoi", label: "An sinh xã hội" },
+        { key: "hoat-dong-tai-tro", label: "Hoạt động tài trợ" },
       ],
     },
     {

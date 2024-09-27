@@ -3,6 +3,7 @@ import { Image, Typography, Space, message } from 'antd';
 import { getAllImageInAlbum } from '../../../auth/api/auth.api';
 import { useParams } from 'react-router-dom';
 import { AlbumDetail } from '../../../auth/types/types';
+import styles from './album_preview.module.scss'; // Import the CSS module
 
 const { Title } = Typography;
 
@@ -34,8 +35,8 @@ const ImagePreview = () => {
   }, [id]);
 
   return (
-    <div style={{ padding: 24 }}>
-      <Title level={2}>Ảnh Preview</Title>
+    <div className={styles.container} style={{ padding: 24,  }}>
+      {/* <Title level={3}>Ảnh Preview</Title> */}
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -43,7 +44,7 @@ const ImagePreview = () => {
           display: 'grid', 
           gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', 
           gap: '16px', 
-          marginTop: 16 
+          marginTop: 100 
         }}>
           {data?.images?.map((image, index) => (
             <div key={index} style={{ 

@@ -8,7 +8,7 @@ import Banner from "../components/banner/Banner";
 const Letter = () => {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
 
       <div className={styles.mainContentWrapper}>
       <Banner />
