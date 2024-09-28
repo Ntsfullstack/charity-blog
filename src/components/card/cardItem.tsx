@@ -1,5 +1,5 @@
-import React from "react";
-import { Button } from "antd";
+import React, { useState } from "react";
+import { Button, Spin } from "antd"; // Thêm import Spin
 import dayjs from "dayjs";
 import styles from "./CardItems.module.scss";
 import clsx from "clsx";
@@ -17,10 +17,23 @@ interface CardItemProps {
 }
 
 const CardItem: React.FC<CardItemProps> = (props) => {
+  const [loading, setLoading] = useState(true); // State để theo dõi trạng thái loading của hình ảnh
+
   return (
     <div className={styles.cardItem}>
       <div className={styles.cardImage}>
-        <img src={props.thumbnail} alt={props.title} />
+        {loading && (
+          <div className={styles.imageLoading}>
+            <Spin size="small" /> {/* Hiển thị loading spinner */}
+          </div>
+        )}
+        <img
+          src={props.thumbnail}
+          alt={props.title}
+          className={styles.image}
+          onLoad={() => setLoading(false)} // Đặt loading thành false khi hình ảnh đã tải xong
+          style={{ display: loading ? "none" : "block" }} // Ẩn hình ảnh khi đang loading
+        />
       </div>
       <div className={styles.cardContent}>
         <h2 className={styles.cardTitle}>{props.title}</h2>
@@ -37,7 +50,9 @@ const CardItem: React.FC<CardItemProps> = (props) => {
           href={`/post/${props.slug}`}
           className={clsx(styles.link, styles.button)}
         >
-          <Button type="primary">Đọc tiếp</Button>
+          <Button type="primary" className={styles.readMoreButton}>
+            Đọc tiếp
+          </Button>
         </a>
       </div>
     </div>

@@ -4,6 +4,7 @@ import styles from "../SiderChildPage2/SideChildPage2.module.scss";
 import { getCategoryPosts } from "../../pages/main_page/api/mainPage.api";
 import Card from "../card/Card";
 import { BlogPostData } from "../../pages/activity/types/blogdata.type";
+import { Skeleton, Spin } from "antd"; // Thêm import Skeleton
 
 interface Category {
   name: string;
@@ -21,7 +22,9 @@ const SiderChildPage2: React.FC<SiderChildPageProps> = ({ categories }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const activeCategory = categories.find(category => category.path === location.pathname);
+  const activeCategory = categories.find(
+    (category) => category.path === location.pathname
+  );
 
   useEffect(() => {
     const fetchCategoryData = async () => {
@@ -60,18 +63,37 @@ const SiderChildPage2: React.FC<SiderChildPageProps> = ({ categories }) => {
     <div className={styles.siderChildPage}>
       <ul className={styles.categoryList}>
         {categories.map((category) => (
-          <li key={category.path} className={category.path === location.pathname ? styles.active : ''}>
+          <li
+            key={category.path}
+            className={category.path === location.pathname ? styles.active : ""}
+          >
             <Link to={category.path}>{category.name}</Link>
           </li>
         ))}
       </ul>
       <div className={styles.categoryContent}>
-        <h3>{activeCategory ? activeCategory.name : 'Select a category'}</h3>
-        {showExtraContent && <p>Hãy cập nhật những tin tức mới nhất của chúng tôi</p>}
+        <h3 className={styles.title}>{activeCategory ? activeCategory.name : "Chọn một danh mục"}</h3>
+        {showExtraContent && (
+          <p className={styles.extraContent}>Hãy cập nhật những tin tức mới nhất của chúng tôi</p>
+        )}
         <div className={styles.cardContainer}>
-          <Card cardData={highlightedNews} loading={isLoading} />
+          {isLoading ? (
+            <Spin
+              size="large"
+              tip="Đang tải..."
+              style={{
+                width: "100%",
+                height: "200px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            />
+          ) : (
+            <Card cardData={highlightedNews} loading={isLoading} />
+          )}
         </div>
-        {showExtraContent && <h3>TIN TỨC KHÁC</h3>}
+        {showExtraContent && <h3 className={styles.otherNews}>TIN TỨC KHÁC</h3>}
         <div></div>
       </div>
     </div>

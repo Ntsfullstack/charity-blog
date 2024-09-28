@@ -1,33 +1,56 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
-import styles from "./Header.module.scss";
-import { Avatar, Button, Dropdown, Menu } from "antd";
-import { SearchOutlined, UserOutlined } from "@ant-design/icons";
+import React, { useState, useEffect } from "react";
+import { Menu, Button, Dropdown, Avatar } from "antd";
+import {
+  MenuOutlined,
+  SearchOutlined,
+  CloseOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import clsx from "clsx";
 import { logout } from "../../redux-setup/redux";
 import logo from "../../assets/images/expandedLogo.png";
-import useClickOutside from "./useClickOutside";
 import { searchBlog } from "../../server/api";
+import styles from "./Header.module.scss";
+import { MenuInfo } from "rc-menu/lib/interface";
 
-const DropdownMenu: React.FC = () => {
+const { SubMenu } = Menu;
+
+interface MenuItem {
+  key: string;
+  label: string;
+  children?: MenuItem[];
+}
+
+const Header: React.FC = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLogin, setIsLogin] = useState(!!localStorage.getItem("token"));
   const [searchText, setSearchText] = useState("");
-  const [position, setPosition] = useState(window.pageYOffset);
-  const [visible, setVisible] = useState(true);
+  const [isSearchActive, setIsSearchActive] = useState(false);
+  const [openKeys, setOpenKeys] = useState<string[]>([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isSearchActive, setIsSearchActive] = useState(false);
-  const { t, i18n } = useTranslation();
-  const searchRef = useRef<HTMLFormElement>(null);
+  const { t } = useTranslation();
 
-  const handleKeyDown = async (
-    e: React.KeyboardEvent<HTMLInputElement>,
-    searchText: string
-  ) => {
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const toggleMenu = () => setIsMenuActive(!isMenuActive);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    setIsLogin(false);
+    navigate("/");
+  };
+
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
       e.stopPropagation();
@@ -39,305 +62,211 @@ const DropdownMenu: React.FC = () => {
       } catch (error) {
         console.error("Error searching:", error);
       }
+      setIsSearchActive(false);
+      setSearchText("");
     }
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const moving = window.pageYOffset;
-      setVisible(position > moving);
-      setPosition(moving);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [position]);
-
-  const cls = visible ? styles.visible : styles.hidden;
-
-  const [width, setWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY >= 85);
-    const handleResize = () => {
-      setWidth(window.innerWidth);
-      if (window.innerWidth > 768) setIsMenuActive(false);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  const toggleMenu = () => setIsMenuActive(!isMenuActive);
-
-  const handleLogout = () => {
-    dispatch(logout());
-    setIsLogin(false);
-    window.location.reload();
+  const handleDesktopMenuClick = ({ key }: MenuInfo) => {
+    navigate(key as string);
   };
 
-  const handleAvatar = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleMobileMenuClick = ({ key }: MenuInfo) => {
+    const item = findMenuItem(menuItems, key as string);
+    if (item && !item.children) {
+      navigate(key as string);
+      setIsMenuActive(false);
+    } else if (item && item.children) {
+      setOpenKeys((prevKeys) =>
+        prevKeys.includes(key as string)
+          ? prevKeys.filter((k) => k !== key)
+          : [...prevKeys, key as string]
+      );
+    }
   };
 
-  const handleSearch = () => {
-    setIsSearchActive(true);
+  const findMenuItem = (items: MenuItem[], key: string): MenuItem | null => {
+    for (const item of items) {
+      if (item.key === key) return item;
+      if (item.children) {
+        const found = findMenuItem(item.children, key);
+        if (found) return found;
+      }
+    }
+    return null;
   };
 
-  const handleCloseSearch = useCallback(() => {
-    setIsSearchActive(false);
-    setSearchText("");
-  }, []);
-
-  useClickOutside(searchRef, handleCloseSearch);
-
-  const items = [
-    {
-      label: "Trang cài đặt",
-      key: "1",
-      onClick: () => navigate("/auth/manager-blog"),
-    },
-    {
-      label: "Đăng xuất",
-      key: "2",
-      danger: true,
-      onClick: handleLogout,
-    },
-  ];
-
-  const menuProps = { items };
-
-  const itemsNav = [
-    {
-      key: isLogin ? "/auth/manager-blog" : "/login",
-      label: isLogin ? (
-        <div onClick={() => navigate("/auth/manager-blog")}>Trang Đăng Bài</div>
-      ) : (
-        <div onClick={() => navigate("/login")}>Đăng Nhập</div>
-      ),
-    },
+  const menuItems: MenuItem[] = [
+    { key: "/", label: t("home") },
     {
       key: "about",
-      label: "Giới Thiệu",
+      label: t("about"),
       children: [
-        { key: "vision", label: "Tầm Nhìn, Sứ Mệnh" },
-        { key: "letter", label: "Thư Ngỏ" },
-        { key: "history", label: "Lịch sử" },
+        { key: "/vision", label: t("vision-mission") },
+        { key: "/letter", label: t("open letter") },
       ],
     },
     {
       key: "news",
-      label: "Tin tức",
+      label: t("news"),
       children: [
-        { key: "MainPage", label: "Tin tức - sự kiện" },
-        { key: "thong-cao-bao-chi", label: "Truyền thông báo chí" },
+        { key: "/MainPage", label: t("event") },
+        { key: "/thong-cao-bao-chi", label: t("communication, journalism") },
       ],
     },
     {
       key: "activities",
-      label: "Hoạt động",
+      label: t("activity"),
       children: [
-        { key: "Activity", label: "Văn hóa giáo dục" },
-        { key: "suc-khoe-cong-dong", label: "Chăm sóc sức khỏe cộng đồng" },
-        { key: "an-sinh-xa-hoi", label: "An sinh xã hội" },
-        { key: "hoat-dong-tai-tro", label: "Hoạt động tài trợ" },
+        { key: "/Activity", label: t("volunteer") },
+        { key: "/suc-khoe-cong-dong", label: t("health") },
+        { key: "/an-sinh-xa-hoi", label: t("social security") },
+        { key: "/hoat-dong-tai-tro", label: t("sponsor") },
       ],
     },
-    {
-      key: "logout",
-      label: "Đăng Xuất",
-      danger: true,
-      onClick: handleLogout,
-    },
+    { key: "/contact", label: t("contact") },
   ];
 
-  const handleMenuClick = ({ key }: { key: string }) => {
-    if (key === "logout") {
-      handleLogout();
-    } else {
-      navigate(key);
+  const renderMenuItem = (item: MenuItem) => {
+    if (item.children) {
+      return (
+        <SubMenu
+          key={item.key}
+          title={item.label}
+          onTitleClick={() =>
+            handleMobileMenuClick({ key: item.key } as MenuInfo)
+          }
+        >
+          {item.children.map(renderMenuItem)}
+        </SubMenu>
+      );
     }
+    return <Menu.Item key={item.key}>{item.label}</Menu.Item>;
   };
 
-  const renderMenu = (menuItems: any) => (
-    <Menu>
-      {menuItems.map((item: any) => (
-        <Menu.Item key={item.key}>
-          <Link to={item.key} className={styles.dropdown_link_title}>
-            {t(item.label)}
-          </Link>
-        </Menu.Item>
-      ))}
+  const renderMenu = (mode: "horizontal" | "vertical") => (
+    <Menu
+      mode={mode}
+      onClick={
+        mode === "horizontal" ? handleDesktopMenuClick : handleMobileMenuClick
+      }
+      openKeys={mode === "vertical" ? openKeys : undefined}
+      onOpenChange={
+        mode === "vertical" ? (keys: string[]) => setOpenKeys(keys) : undefined
+      }
+      className={mode === "vertical" ? styles.mobileMenu : ""}
+      selectedKeys={[]}
+    >
+      {menuItems.map(renderMenuItem)}
     </Menu>
   );
 
-  const menuGioiThieu = renderMenu([
-    { key: "/vision", label: "vision-mission" },
-    { key: "/letter", label: "open letter" },
-  ]);
-
-  const menuTinTuc = renderMenu([
-    { key: "/MainPage", label: "event" },
-    { key: "/thong-cao-bao-chi", label: "communication, journalism" },
-  ]);
-
-  const menuHoatDong = renderMenu([
-    { key: "/Activity", label: "volunteer" },
-    { key: "/suc-khoe-cong-dong", label: "health" },
-    { key: "/an-sinh-xa-hoi", label: "social security" },
-    { key: "/hoat-dong-tai-tro", label: "sponsor" },
-  ]);
-
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
+  const handleSearch = async () => {
+    try {
+      if (!searchText || !searchText.trim()) return;
+      const data = await searchBlog(searchText);
+      navigate(`/search/${searchText}`, { state: { data } });
+    } catch (error) {
+      console.error("Error searching:", error);
+    }
+    setIsSearchActive(false);
+    setSearchText("");
   };
 
   return (
-    <header className={clsx(styles.header, cls)} id="header">
-      <div className={clsx(styles.logo)}>
-        <Link to="/">
-          <img src={logo} alt="Logo" width={100} height={100} />
+    <header className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}>
+      <div className={styles.headerContainer}>
+        <Link to="/" className={styles.logo}>
+          <img src={logo} alt="Logo" />
         </Link>
-      </div>
-      <nav className={`${styles.navbar} ${styles.container}`}>
-        {width > 768 ? (
-          <ul className={styles.menu_bar}>
-            <li>
-              <Link to="/" className={clsx(styles.nav_link, styles.work)}>
-                {t("home")}
-              </Link>
-            </li>
-            <li>
-              <Dropdown overlay={menuGioiThieu}>
-                <div className={clsx(styles.nav_link, styles.work)}>
-                  {t("about")}
-                </div>
-              </Dropdown>
-            </li>
-            <li>
-              <Dropdown overlay={menuTinTuc}>
-                <div className={clsx(styles.nav_link, styles.discover)}>
-                  {t("news")}
-                </div>
-              </Dropdown>
-            </li>
-            <li>
-              <Dropdown overlay={menuHoatDong}>
-                <div className={clsx(styles.nav_link, styles.work)}>
-                  {t("activity")}
-                </div>
-              </Dropdown>
-            </li>
-            <li className="contact">
-              <div className={clsx(styles.nav_link, styles.work)}>
-                {t("contact")}
-              </div>
-            </li>
-          </ul>
-        ) : (
-          <>
-            <div className={styles.burger} id="burger" onClick={toggleMenu}>
-              <span className={styles.burgerLine}></span>
-              <span className={styles.burgerLine}></span>
-              <span className={styles.burgerLine}></span>
-            </div>
-            <div
-              className={`${styles.menu} ${isMenuActive ? styles.active : ""}`}
-              id="menu"
-            >
-              <Menu
-                defaultSelectedKeys={["1"]}
-                mode="inline"
-                items={itemsNav}
-                onClick={handleMenuClick}
-              />
-            </div>
-          </>
-        )}
-      </nav>
-      <form
-        ref={searchRef}
-        className={`${styles.search} ${isSearchActive ? styles.active : ""}`}
-        role="search"
-      >
-        {isSearchActive ? (
-          <>
-            <input
-              type="text"
-              name="search"
-              placeholder={t("search")}
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              onKeyDown={(e) => handleKeyDown(e, searchText)}
-              className={styles.searchInput}
-              autoFocus
-            />
-            <button type="button" className={styles.iconSearch}>
-              <SearchOutlined />
-            </button>
-          </>
-        ) : (
+
+        {/* Desktop Navigation */}
+        <nav className={styles.desktopNav}>{renderMenu("horizontal")}</nav>
+
+        <div className={styles.headerActions}>
           <button
-            type="button"
-            className={styles.iconSearch}
-            onClick={handleSearch}
+            className={styles.searchButton}
+            onClick={() => setIsSearchActive(true)}
           >
             <SearchOutlined />
           </button>
-        )}
-      </form>
-      {width > 768 && (
-        <div className={styles.login}>
+
           {isLogin ? (
-            <div className={styles.modal_container}>
-              <Dropdown
-                menu={menuProps}
-                trigger={["click"]}
-                overlayClassName={styles.dropdown}
-              >
-                <button
-                  onClick={handleAvatar}
-                  style={{
-                    border: "none",
-                    background: "none",
-                    padding: 0,
-                    cursor: "pointer",
-                  }}
-                >
-                  <Avatar size={50} icon={<UserOutlined />} />
-                </button>
-              </Dropdown>
-            </div>
+            <Dropdown
+              menu={{
+                items: [
+                  {
+                    key: "settings",
+                    label: t("Settings"),
+                    onClick: () => navigate("/auth/manager-blog"),
+                  },
+                  {
+                    key: "logout",
+                    label: t("Logout"),
+                    danger: true,
+                    onClick: handleLogout,
+                  },
+                ],
+              }}
+              trigger={["click"]}
+            >
+              <Avatar icon={<UserOutlined />} />
+            </Dropdown>
           ) : (
-            <div className={styles.authButtons}>
-              <Link to="/login">
-                <Button className={styles.loginBtn}>Login</Button>
-              </Link>
-            </div>
+            <Link to="/login">
+              <Button type="primary">{t("Login")}</Button>
+            </Link>
           )}
+
+          <button className={styles.menuToggle} onClick={toggleMenu}>
+            {isMenuActive ? <CloseOutlined /> : <MenuOutlined />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Navigation */}
+      <div
+        className={`${styles.mobileNavOverlay} ${
+          isMenuActive ? styles.active : ""
+        }`}
+      >
+        <button className={styles.closeMenu} onClick={toggleMenu}>
+          <CloseOutlined />
+        </button>
+        <Menu
+          defaultSelectedKeys={["1"]}
+          mode="inline"
+          items={menuItems}
+          onClick={handleMobileMenuClick}
+          className={styles.fullTextMenu}
+        />
+      </div>
+
+      {/* Search Overlay */}
+      {isSearchActive && (
+        <div className={styles.searchOverlay}>
+          <div className={styles.searchInputContainer}>
+            <input
+              type="text"
+              placeholder={t("search")}
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+            <button onClick={handleSearch}>
+              <SearchOutlined />
+            </button>
+          </div>
+          <button
+            className={styles.closeSearch}
+            onClick={() => setIsSearchActive(false)}
+          >
+            <CloseOutlined />
+          </button>
         </div>
       )}
     </header>
   );
 };
 
-export default DropdownMenu;
+export default Header;

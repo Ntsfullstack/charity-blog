@@ -91,10 +91,15 @@
   background: #f0f0f0;
   color: #333;
   font-size: 18px;
-  margin-top: 100px;
 }
 @media (max-width: 768px) {
   .banner {
     height: 500px;
+  }
+}
+@media (min-width: 48rem) {
+  .banner {
+    max-width: 80rem;
+    margin: 0 auto;
   }
 }

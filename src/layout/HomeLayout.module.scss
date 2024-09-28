@@ -1,11 +1,25 @@
 .mainContentWrapper {
+  padding-top: var(
+    --header-height
+  ); // Thêm padding-top bằng chiều cao của header
   display: flex;
   flex-direction: column;
-  min-height: 100vh; // Ensure footer is at the bottom
-  margin-top: auto; // Leave space for the fixed header
+  min-height: 100vh;
 }
 
 .mainContent {
-  flex: 1; // Take up remaining space between header and footer
-  // padding: 20px; // Add some padding for content
+  flex: 1;
+}
+
+@media (min-width: 48rem) {
+  .mainContentWrapper {
+    max-width: 80rem;
+    margin: 0 auto; // Bỏ margin-top ở đây
+  }
+}
+
+@media (max-width: 768px) {
+  .mainContentWrapper {
+    padding-top: var(--header-height); // Chiều cao của header trên mobile
+  }
 }

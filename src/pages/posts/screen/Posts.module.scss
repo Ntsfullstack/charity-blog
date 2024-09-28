@@ -1,44 +1,46 @@
 @import url(../../../style/index.module.scss);
 
 .blogContainer {
-  max-width: 75%; // 800px / 16 = 50rem
   margin: 0 auto;
-  padding: 1.25rem; // 20px / 16 = 1.25rem
-  background: #fff;
-  border-radius: 0.625rem; // 10px / 16 = 0.625rem
+  padding: 2rem; // Tăng padding cho không gian thoáng
+  background: #f9f9f9; // Thay đổi màu nền
+  border-radius: 0.625rem;
 }
 
 .header {
-  margin-bottom: 1.25rem; // 20px / 16 = 1.25rem
+  margin-bottom: 2rem; // Tăng khoảng cách dưới header
 }
 
 .metaData {
   display: flex;
   justify-content: space-between;
-  margin-top: 0.625rem; // 10px / 16 = 0.625rem
+  align-items: center;
+  font-size: 1rem; // Tăng kích thước chữ
+  color: #666; // Thay đổi màu sắc
+  margin-top: 0.5rem; // Thay đổi khoảng cách
 }
 
 .thumbnail {
   width: 100%;
   height: auto;
-  border-radius: 0.625rem; // 10px / 16 = 0.625rem
-  margin-bottom: 1.25rem; // 20px / 16 = 1.25rem
+  object-fit: cover;
+  margin-bottom: 2rem; // Tăng khoảng cách dưới hình ảnh
+  border-radius: 0.625rem;
 }
 
 .content {
-  font-size: 1rem; // 16px / 16 = 1rem
-  line-height: 1.5;
+  font-size: 1.1rem; // Tăng kích thước chữ nội dung
+  line-height: 1.8; // Tăng khoảng cách dòng
+  color: #444; // Thay đổi màu chữ nội dung
+  margin-bottom: 2rem; // Tăng khoảng cách dưới nội dung
 }
 
 .Title {
-  font-size: 3.25rem; // Đã là rem
-  line-height: 2.25rem; // Đã là rem
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  color: rgb(17, 24, 39);
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
+  font-size: 2.5rem; // Giảm kích thước tiêu đề
+  color: #333; // Thay đổi màu chữ tiêu đề
+  margin-bottom: 1rem;
 }
+
 .Rate {
   display: flex;
   align-items: center;
@@ -46,29 +48,39 @@
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
 }
+
 @media (max-width: 768px) {
   .blogContainer {
-    max-width: 100%;
+    padding: 1.5rem; // Giảm padding cho màn hình nhỏ
   }
 
   .Title {
-    font-size: 2rem;
+    font-size: 2rem; // Giảm kích thước tiêu đề
   }
-}
-:root {
-  --primary-color: #1890ff;
-  --text-color: #333;
-  --secondary-text-color: #666;
-  --background-color: #fff;
-  --max-width: 800px;
+
+  .metaData {
+    flex-direction: column; // Đặt metaData theo chiều dọc
+    align-items: flex-start; // Căn trái
+    font-size: 0.9rem; // Giảm kích thước chữ
+  }
+
+  .content {
+    font-size: 1rem; // Giảm kích thước chữ nội dung
+  }
+
+  .thumbnail {
+    margin-bottom: 1.5rem; // Giảm khoảng cách dưới hình ảnh
+  }
+
+  .rate {
+    margin-bottom: 1.5rem; // Giảm khoảng cách dưới phần đánh giá
+  }
 }
 
 .blogContainer {
-  max-width: var(--max-width);
-  margin-top: 5%;
+  max-width: 100%;
   padding: 2rem;
   background-color: var(--background-color);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .header {
@@ -90,7 +102,7 @@
 }
 
 .Link {
-  color: var(--primary-color);
+  color: #007bff; // Thay đổi màu liên kết
   text-decoration: none;
 }
 
@@ -119,23 +131,40 @@
 
 .rate p {
   margin-bottom: 0.5rem;
+  font-size: 1rem; // Tăng kích thước chữ
+  color: #666; // Thay đổi màu sắc
 }
 
 @media (max-width: 768px) {
   .blogContainer {
-    padding: 1rem;
+    padding: 1rem; // Giảm padding cho màn hình nhỏ
   }
 
   .Title {
-    font-size: 2rem;
+    font-size: 1.8rem; // Giảm kích thước tiêu đề
   }
 
   .metaData {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column; // Đặt metaData theo chiều dọc
+    align-items: flex-start; // Căn trái
   }
 
   .content {
-    font-size: 1rem;
+    font-size: 0.9rem; // Giảm kích thước chữ nội dung
+  }
+
+  .thumbnail {
+    margin-bottom: 1rem; // Giảm khoảng cách dưới hình ảnh
+  }
+
+  .rate {
+    margin-bottom: 1rem; // Giảm khoảng cách dưới phần đánh giá
+  }
+}
+
+@media (min-width: 48rem) {
+  .blogContainer {
+    margin: 0 auto;
+    max-width: 80rem;
   }
 }

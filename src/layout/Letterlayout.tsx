@@ -8,13 +8,10 @@ import Banner from "../components/banner/Banner";
 const Letter = () => {
   return (
     <>
-      {/* <Header /> */}
-
-      <div className={styles.mainContentWrapper}>
+      <Header />
       <Banner />
-        <div className={styles.mainContent}>
-          <Outlet />
-        </div>
+      <div className={styles.mainContent}>
+        <Outlet />
       </div>
     </>
   );

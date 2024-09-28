@@ -11,7 +11,6 @@ const SearchPost = (props: any) => {
   }
 
   return (
-    console.log(searchData),
     <div className={styles.cardContainer}>
       <Card cardData={searchData} loading={false} />
     </div>

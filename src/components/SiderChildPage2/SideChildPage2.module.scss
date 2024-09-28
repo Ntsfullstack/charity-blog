@@ -1,30 +1,32 @@
 .siderChildPage {
+  display: flex; /* Sử dụng flexbox cho layout */
   margin-top: 20px;
   padding: 0 5%;
 
   .categoryList {
+    flex: 0 0 250px; /* Chiều rộng cố định cho sidebar */
     list-style-type: none;
     padding: 0;
-    margin: 0 0 20px 0;
+    margin: 0;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column; /* Đặt chiều dọc cho danh sách */
+    gap: 10px; /* Khoảng cách giữa các mục */
 
     li {
-      padding: 8px 16px;
-      margin: 0 4px 8px 4px;
+      padding: 12px 16px; /* Tăng padding cho các mục */
       cursor: pointer;
-      border-radius: 8px;
+      border-radius: 8px; /* Bo góc nhẹ */
+      transition: background-color 0.3s; /* Thêm hiệu ứng chuyển tiếp */
 
       a {
         text-decoration: none;
         color: #333;
-        font-size: 14px;
-        display: block;
+        font-size: 16px; /* Cỡ chữ dễ đọc */
         font-weight: bold;
       }
 
-      &:hover, &.active {
+      &:hover,
+      &.active {
         background-color: var(--text-color1);
         a {
           color: #fff;
@@ -34,24 +36,37 @@
   }
 
   .categoryContent {
-    flex: 1;
-    margin-top: 16px;
-    align-items: center;
-    text-align: center;
+    flex: 1; /* Chiếm toàn bộ không gian còn lại */
+    margin-left: 20px; /* Khoảng cách giữa sidebar và nội dung */
+    display: flex;
+    flex-direction: column; /* Đặt chiều dọc cho nội dung */
+    align-items: center; /* Căn giữa nội dung */
 
     h3 {
-      font-size: 32px;
+      font-size: 28px; /* Kích thước tiêu đề */
       margin-bottom: 16px;
       color: var(--text-color1);
-      font-family: 'Crimson Pro', sans-serif;
+      font-family: "Crimson Pro", sans-serif;
+    }
+
+    .extraContent {
+      font-size: 16px; /* Cỡ chữ cho nội dung bổ sung */
+      color: #666; /* Màu sắc hài hòa */
+      text-align: center; /* Căn giữa */
     }
 
     .cardContainer {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: flex-start; /* Căn trái cho các thẻ card */
+      gap: 20px; /* Khoảng cách giữa các thẻ card */
       margin-top: 20px;
+    }
+
+    .otherNews {
+      font-size: 24px; /* Kích thước tiêu đề cho tin tức khác */
+      margin-top: 20px;
+      color: var(--text-color1);
     }
   }
 }
@@ -59,29 +74,16 @@
 // Media Queries
 @media (min-width: 768px) {
   .siderChildPage {
-    margin-top: 40px;
-    margin-left: 10%;
-    display: flex;
-    justify-content: space-between;
+    margin-top: 40px !important;
 
     .categoryList {
       flex-direction: column;
-      max-width: 300px;
-
-      li {
-        margin: 0 0 8px 0;
-
-        a {
-          font-size: 16px;
-        }
-      }
+      max-width: 250px; /* Chiều rộng tối đa cho sidebar */
     }
 
     .categoryContent {
       .cardContainer {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-around;
+        gap: 1.875rem; // 30px / 16 = 1.875rem
       }
     }
   }
@@ -91,7 +93,7 @@
   .siderChildPage {
     .categoryContent {
       h3 {
-        font-size: 25px;
+        font-size: 25px; /* Điều chỉnh cỡ chữ cho thiết bị nhỏ */
       }
     }
   }
@@ -101,8 +103,15 @@
   .siderChildPage {
     .categoryContent {
       h3 {
-        font-size: 20px;
+        font-size: 20px; /* Điều chỉnh cỡ chữ cho thiết bị rất nhỏ */
       }
     }
+  }
+}
+
+@media (min-width: 48rem) {
+  .siderChildPage {
+    max-width: 80rem;
+    margin: 0 auto;
   }
 }

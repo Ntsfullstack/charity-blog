@@ -35,12 +35,10 @@ const PageChildLayout = () => {
 
   return (
     <>
-      <div className={styles.mainContentWrapper}>
-        <Banner />
-        <div className={styles.mainContent}>
-          <SideChildPage categories={categories} />
-          <Outlet />
-        </div>
+      <Banner />
+      <div className={styles.mainContent}>
+        <SideChildPage categories={categories} />
+        <Outlet />
       </div>
     </>
   );

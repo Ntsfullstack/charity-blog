@@ -1,7 +1,19 @@
 import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
 import type { GetProp, InputRef, TableProps } from "antd";
-import { Button, Input, Modal, Popconfirm, Space, Table, TableColumnType, Tooltip } from "antd";
-import type { FilterDropdownProps, SorterResult } from "antd/es/table/interface";
+import {
+  Button,
+  Input,
+  Modal,
+  Popconfirm,
+  Space,
+  Table,
+  TableColumnType,
+  Tooltip,
+} from "antd";
+import type {
+  FilterDropdownProps,
+  SorterResult,
+} from "antd/es/table/interface";
 import qs from "qs";
 import React, { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
@@ -160,7 +172,7 @@ const ManagerUsers: React.FC = () => {
   const truncateText = (text: string | undefined, limit: number) => {
     if (text === undefined) return "";
     if (text.length <= limit) return text;
-    return text.slice(0, limit) + '...';
+    return text.slice(0, limit) + "...";
   };
 
   const columns: ColumnsType<UserData> = [
@@ -211,27 +223,14 @@ const ManagerUsers: React.FC = () => {
         </Tooltip>
       ),
     },
-    {
-      title: "Time",
-      dataIndex: "time",
-      key: "time",
-      width: "15%",
-      render: (text) => (
-        <Tooltip title={text}>
-          <span>{truncateText(text, 20)}</span>
-        </Tooltip>
-      ),
-    },
+
     {
       title: "Action",
       key: "action",
       width: "15%",
       render: (_, record) => (
         <Space size="middle">
-          <Button 
-            icon={<EyeOutlined />} 
-            onClick={() => showUserModal(record)}
-          >
+          <Button icon={<EyeOutlined />} onClick={() => showUserModal(record)}>
             View
           </Button>
           <Popconfirm
@@ -334,11 +333,21 @@ const ManagerUsers: React.FC = () => {
       >
         {selectedUser && (
           <div>
-            <p><strong>Name:</strong> {selectedUser.name}</p>
-            <p><strong>Phone:</strong> {selectedUser.phone}</p>
-            <p><strong>Email:</strong> {selectedUser.email}</p>
-            <p><strong>Question:</strong> {selectedUser.question}</p>
-            <p><strong>Time:</strong> {selectedUser.time}</p>
+            <p>
+              <strong>Name:</strong> {selectedUser.name}
+            </p>
+            <p>
+              <strong>Phone:</strong> {selectedUser.phone}
+            </p>
+            <p>
+              <strong>Email:</strong> {selectedUser.email}
+            </p>
+            <p>
+              <strong>Question:</strong> {selectedUser.question}
+            </p>
+            <p>
+              <strong>Time:</strong> {selectedUser.time}
+            </p>
           </div>
         )}
       </Modal>

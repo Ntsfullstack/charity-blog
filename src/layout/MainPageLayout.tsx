@@ -4,6 +4,7 @@ import styles from "./HomeLayout.module.scss";
 import SideChildPage2 from "../components/SiderChildPage2/SideChildPage2";
 import Banner from "../components/banner/Banner";
 import MainPage from "../pages/main_page/screen/MainPage";
+import Header from "../components/header/Header";
 
 const PageChildLayout2 = () => {
   const location = useLocation();
@@ -24,13 +25,12 @@ const PageChildLayout2 = () => {
 
   return (
     <>
-      <div className={styles.mainContentWrapper}>
-        <Banner />
-        <div className={styles.mainContent}>
-          <SideChildPage2 categories={categories} />
-          {/* <MainPage /> */}
-          <Outlet />
-        </div>
+      <Header />
+      <Banner />
+      <div className={styles.mainContent}>
+        <SideChildPage2 categories={categories} />
+        {/* <MainPage /> */}
+        <Outlet />
       </div>
     </>
   );

@@ -1,123 +1,145 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 .imageLibrary {
-    padding: 0 20px;
-    position: relative; // Để định vị các mũi tên
+  margin-top: 40px;
+}
+
+.libraryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.libraryTitle {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.viewAllButton {
+  font-size: 16px;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 20px;
+}
+
+.slideshow {
+  margin-top: 20px;
+  position: relative;
+  padding: 0 40px;
+}
+
+.swiper {
+  padding: 10px 0 40px;
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
-  
-  .libraryHeader {
-    display: flex;
-    justify-content: space-between; /* Đặt tiêu đề giữa và nút ở góc phải */
-    align-items: center;
-    margin-bottom: 20px;
+
+  &.prevButton {
+    left: 0;
   }
-  
+
+  &.nextButton {
+    right: 0;
+  }
+}
+
+.albumCard {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.albumImageWrapper {
+  height: 200px;
+  overflow: hidden;
+}
+
+.albumImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.placeholderImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: #f0f2f5;
+  color: #bfbfbf;
+  font-size: 48px;
+}
+
+.albumTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.albumDescription {
+  font-size: 14px;
+  color: #666;
+}
+
+.skeletonImage {
+  width: 100%;
+  height: 200px;
+}
+
+@media (max-width: 768px) {
   .libraryTitle {
     font-size: 24px;
-    color: var(--text-color1);
-    margin: 0;
-    align-items: center;
-    justify-content: space-between;
-    font-family: 'helvetica', sans-serif;
-    text-align: center; /* Đặt tiêu đề ở giữa */
-    flex: 1; /* Cho phép tiêu đề chiếm không gian còn lại */
   }
-  
+
   .viewAllButton {
-    background-color: #f0f0f0;
-    color: #333;
-    border: none;
-  }
-  
-  .listAlbum {
-    position: relative;
-    overflow: hidden; // Ẩn nội dung vượt ra ngoài vùng chứa
-    display: flex;
-    align-items: center;
-  }
-  
-  .carousel {
-    display: flex;
-    overflow: hidden;
-    width: 100%;
-  }
-  
-  .albumItem {
-    flex: 0 0 33.333%; // Hiển thị 3 ảnh
-    padding: 0 10px;
-  }
-  
-  .albumCard {
-    margin-bottom: 16px;
-  }
-  
-  .albumImage {
-    width: 100%;
-    height: 200px; /* Điều chỉnh chiều cao theo nhu cầu */
-    object-fit: cover; /* Đảm bảo hình ảnh che phủ toàn bộ khu vực */
-    object-position: top; /* Đặt hình ảnh nằm ở phần trên của phần tử chứa */
-  }
-  
-  .albumTitle {
     font-size: 14px;
-    color: #006699;
-  }
-  
-  .albumDescription {
-    font-size: 12px;
-    color: #666;
-  }
-  
-  .albumInfo {
-    margin-top: 8px;
-    font-size: 12px;
-    color: #999;
-  }
-  
-  .arrowLeft, .arrowRight {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    z-index: 1;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-  }
-  
-  .arrowLeft {
-    left: 10px;
-  }
-  
-  .arrowRight {
-    right: 10px;
-  }
-  .albumDetailGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 16px;
-  }
-  
-  .albumDetailImage {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 8px;
+    height: 36px;
+    padding: 0 16px;
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+  .navButton {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+}

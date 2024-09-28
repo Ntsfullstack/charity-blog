@@ -62,8 +62,7 @@ const SiderChildPage: React.FC<SiderChildPageProps> = ({ categories }) => {
         ))}
       </ul>
       <div className={styles.categoryContent}>
-       
-        <h3>{activeCategory ? activeCategory.name : 'Select a category'}</h3>
+        <h3>{activeCategory ? activeCategory.name : 'Chọn một danh mục'}</h3>
         <div className={styles.cardContainer}>
           <Card cardData={highlightedNews} loading={isLoading} />
         </div>

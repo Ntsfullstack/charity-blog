@@ -194,7 +194,7 @@ const routerConfig = [
             ],
           },
           {
-            element: <LetterLayout />, // Use SharedLayout here
+            element: <LetterLayout />, 
             children: [
               {
                 path: ROUTES.Letter,

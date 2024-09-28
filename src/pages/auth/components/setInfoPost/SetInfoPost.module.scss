@@ -1,31 +1,57 @@
+:root {
+  --primary-color: #4a90e2;
+  --secondary-color: #f5f7fa;
+  --text-color: #333333;
+  --border-color: #e0e0e0;
+  --success-color: #27ae60;
+  --error-color: #e74c3c;
+}
+
 .infoPost {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin: 2rem auto;
   max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
 
   .header {
-    display: flex;
     align-items: center;
+    display: flex;
     margin-bottom: 2rem;
 
     .backButton {
+      background-color: #4a90e2;
+      border: none;
+      border-radius: 50%;
+      color: var(--primary-color);
+      cursor: pointer;
       font-size: 1.2rem;
+      height: 40px;
       margin-right: 1rem;
+      transition: all 0.3s ease;
+      width: 40px;
+
+      &:hover {
+        background-color: var(--primary-color);
+        color: #ffffff;
+      }
     }
 
     .title {
+      color: var(--text-color);
       font-size: 1.8rem;
+      font-weight: 600;
       margin: 0;
-      color: #333;
     }
   }
 
   .content {
     .uploadForm {
+      background-color: var(--secondary-color);
+      border-radius: 8px;
       margin-bottom: 2rem;
+      padding: 1.5rem;
 
       .uploader {
         display: flex;
@@ -43,15 +69,25 @@
         margin-bottom: 1.5rem;
 
         :global(.ant-form-item-label) {
-          text-align: left;
           label {
-            font-weight: 600;
-            color: #555;
+            color: var(--text-color);
+            font-weight: 500;
           }
         }
 
-        input, textarea {
-          border-radius: 4px;
+        input,
+        textarea,
+        .ant-select-selector {
+          border: 1px solid var(--border-color);
+          border-radius: 8px;
+          padding: 0.75rem;
+          transition: all 0.3s ease;
+
+          &:focus,
+          &:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+          }
         }
       }
 
@@ -60,20 +96,37 @@
         text-align: right;
 
         .submitButton {
-          min-width: 120px;
-          height: 40px;
+          background-color: var(--primary-color);
+          border: none;
+          border-radius: 8px;
+          color: #ffffff;
+          cursor: pointer;
           font-size: 1rem;
-          border-radius: 4px;
+          font-weight: 500;
+          height: 48px;
+          min-width: 120px;
+          padding: 0 1.5rem;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background-color: #4a90e2;
+          }
+
+          &:disabled {
+            background-color: var(--border-color);
+            cursor: not-allowed;
+          }
         }
       }
     }
   }
 }
 
-// Responsive adjustments
 @media (max-width: 768px) {
   .infoPost {
-    padding: 1rem;
+    border-radius: 0;
+    margin: 0;
+    padding: 1.5rem;
 
     .header {
       .title {
@@ -82,9 +135,19 @@
     }
 
     .content {
+      .uploadForm {
+        padding: 1rem;
+      }
+
       .infoForm {
-        :global(.ant-form-item-label) {
-          text-align: left;
+        .formItem {
+          margin-bottom: 1rem;
+        }
+
+        .submitItem {
+          .submitButton {
+            width: 100%;
+          }
         }
       }
     }

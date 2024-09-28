@@ -1,123 +1,166 @@
 .imageUploadContainer {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-    background-color: #f8f9fa;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 768px) {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+
     .title {
-      font-size: 2rem;
-      color: #333;
-      margin-bottom: 1.5rem;
-      text-align: center;
+        font-size: 2.8rem;
+        color: #2c3e50;
+        margin-bottom: 2.5rem;
+        text-align: center;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+
+        @media (max-width: 768px) {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+        }
     }
-  
+
     .uploadWrapper {
-      margin-bottom: 2rem;
+        margin-bottom: 3rem;
+
+        @media (max-width: 768px) {
+            margin-bottom: 2rem;
+        }
     }
-  
+
     .uploadArea {
-      :global(.ant-upload-list) {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-      }
-  
-      :global(.ant-upload-list-item) {
-        width: calc(25% - 0.75rem);
-        margin: 0 !important;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-  
-        &:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        :global(.ant-upload-list) {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.8rem;
+
+            @media (max-width: 768px) {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1.2rem;
+            }
         }
-      }
-  
-      :global(.ant-upload-select) {
-        width: calc(25% - 0.75rem) !important;
-        margin: 0 !important;
-        border-radius: 8px;
-        border: 2px dashed #d9d9d9;
-        background-color: #fafafa;
-        transition: all 0.3s ease;
-  
-        &:hover {
-          border-color: #40a9ff;
+
+        :global(.ant-upload-list-item) {
+            width: 100% !important;
+            margin: 0 !important;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+            &:hover {
+                transform: translateY(-8px) scale(1.02);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            }
+
+            @media (max-width: 768px) {
+                border-radius: 12px;
+
+                &:hover {
+                    transform: translateY(-5px) scale(1.01);
+                }
+            }
         }
-      }
+
+        :global(.ant-upload-select) {
+            width: 100% !important;
+            height: 220px !important;
+            margin: 0 !important;
+            border-radius: 15px;
+            border: 2px dashed #bdc3c7;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+
+            &:hover {
+                border-color: #3498db;
+                background-color: #e3f2fd;
+            }
+
+            @media (max-width: 768px) {
+                height: 180px !important;
+                border-radius: 12px;
+            }
+        }
     }
-  
+
     .uploadButton {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
     }
-  
+
     .uploadIcon {
-      font-size: 2rem;
-      color: #999;
-      margin-bottom: 0.5rem;
+        font-size: 3.5rem;
+        color: #3498db;
+        margin-bottom: 1.2rem;
+
+        @media (max-width: 768px) {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
     }
-  
+
     .uploadText {
-      color: #666;
+        color: #34495e;
+        font-size: 1.2rem;
+        font-weight: 600;
+
+        @media (max-width: 768px) {
+            font-size: 1.1rem;
+        }
     }
-  
+
     .submitButton {
-      display: block;
-      width: 100%;
-      max-width: 200px;
-      margin: 2rem auto 0;
-      height: 40px;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #fff;
-      background-color: #1890ff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-  
-      &:hover {
-        background-color: #40a9ff;
-      }
-  
-      &:active {
-        background-color: #096dd9;
-      }
+        display: block;
+        width: 100%;
+        max-width: 300px;
+        margin: 3rem auto 0;
+        height: 56px;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #fff;
+        background-color: #3498db;
+        border: none;
+        border-radius: 28px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+
+        &:hover {
+            background-color: #2980b9;
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.6);
+            transform: translateY(-2px);
+        }
+
+        &:active {
+            background-color: #2573a7;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.4);
+            transform: translateY(1px);
+        }
+
+        @media (max-width: 768px) {
+            max-width: 250px;
+            height: 50px;
+            font-size: 1.2rem;
+            margin-top: 2.5rem;
+        }
     }
-  }
-  
-  .previewImage {
+}
+
+.previewImage {
     width: 100%;
     height: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 
-    border-radius: 8px;
-  }
-  :global(.ant-upload-list-item){
-    width: 100% !important;
-  }
-  
-  @media (max-width: 768px) {
-    .imageUploadContainer {
-      padding: 1rem;
-  
-      .title {
-        font-size: 1.5rem;
-      }
-  
-      .uploadArea {
-        :global(.ant-upload-list-item),
-        :global(.ant-upload-select) {
-          width: calc(50% - 0.5rem) !important;
-        }
-      }
+    @media (max-width: 768px) {
+        border-radius: 12px;
     }
-  }
+}

@@ -76,9 +76,15 @@
 }
 
 .articlesList {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem;
+  display: flex; // Sử dụng flexbox để sắp xếp các item
+  flex-wrap: wrap; // Cho phép các item xuống dòng nếu không đủ chỗ
+  gap: 40px; // Tăng khoảng cách giữa các item
+}
+
+.cardItem {
+  width: 200px; // Đặt chiều rộng cho mỗi item
+  height: auto; // Chiều cao tự động
+  // ... thêm các kiểu khác nếu cần ...
 }
 
 @media (max-width: 768px) {

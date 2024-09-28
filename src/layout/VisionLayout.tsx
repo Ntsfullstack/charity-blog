@@ -8,12 +8,10 @@ import Banner from "../components/banner/Banner";
 const Vision = () => {
   return (
     <>
-  
-      <div className={styles.mainContentWrapper}>
+      <Header></Header>
       <Banner />
-        <div className={styles.mainContent}>
-          <Outlet />
-        </div>
+      <div className={styles.mainContent}>
+        <Outlet />
       </div>
     </>
   );

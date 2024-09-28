@@ -1,81 +1,122 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Card, Button, Modal } from 'antd';
+import { Card, Button, Skeleton } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { PictureOutlined } from '@ant-design/icons';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
+import { t } from 'i18next';
+import styles from './album.module.scss';
+import { getAllAlbum } from '../../../auth/api/auth.api';
+import { ImageData } from '../../../auth/types/types';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import styles from './album.module.scss';
-import { t } from 'i18next';
-import { getAllAlbum, getAllImageInAlbum } from '../../../auth/api/auth.api';
-import { ImageData, AlbumDetail } from '../../../auth/types/types';
-import { useNavigate } from 'react-router-dom';
 
 const ImageLibrary: React.FC = () => {
   const [albums, setAlbums] = useState<ImageData[]>([]);
-  const swiperRef = useRef<SwiperType>();
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigate();
+  const swiperRef = useRef<SwiperType>();
 
   useEffect(() => {
+    const fetchAlbums = async () => {
+      try {
+        const response = await getAllAlbum();
+        setAlbums(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Lỗi khi tải album:', error);
+        setLoading(false);
+      }
+    };
+
     fetchAlbums();
   }, []);
 
-  const fetchAlbums = async () => {
-    try {
-      const page = 1;
-      const pageSize = 10;
-      const response = await getAllAlbum(page, pageSize);
-      if (response && response.data) {
-        setAlbums(response.data);
+  const renderAlbumCard = (album: ImageData) => (
+    <Card
+      hoverable
+      cover={
+        <div className={styles.albumImageWrapper}>
+          {album.images?.url ? (
+            <img src={album.images.url} alt={album.title} className={styles.albumImage} />
+          ) : (
+            <div className={styles.placeholderImage}>
+              <PictureOutlined />
+            </div>
+          )}
+        </div>
       }
-    } catch (error) {
-      console.error('Lỗi khi lấy albums:', error);
-    }
-  };
+      className={styles.albumCard}
+      onClick={() => navigation(`/album/${album._id}`)}
+    >
+      <Card.Meta 
+        title={<span className={styles.albumTitle}>{album.title}</span>}
+        description={<span className={styles.albumDescription}>{`${album.total} ảnh`}</span>}
+      />
+    </Card>
+  );
 
   return (
-    <div className='container'>
+    <div className={styles.container}>
       <div className={styles.imageLibrary}>
         <div className={styles.libraryHeader}>
           <h1 className={styles.libraryTitle}>{t('library')}</h1>
-          <Button type="primary" className={styles.viewAllButton} onClick={
-            () => navigation('/album-all')
-          }>{t('all album')}</Button>
+          <Button 
+            type="primary" 
+            className={styles.viewAllButton} 
+            onClick={() => navigation('/album-all')}
+          >
+            {t('all album')}
+          </Button>
         </div>
-        <div className={styles.listAlbum}>
-          <button className={styles.arrowLeft} onClick={() => swiperRef.current?.slidePrev()}>&#9664;</button>
+        <div className={styles.slideshow}>
+          <button 
+            className={`${styles.navButton} ${styles.prevButton}`}
+            onClick={() => swiperRef.current?.slidePrev()}
+          >
+            &#10094;
+          </button>
           <Swiper
             modules={[Navigation, Pagination]}
             spaceBetween={30}
-            slidesPerView={3}
+            slidesPerView={1}
             pagination={{ clickable: true }}
-            className={styles.swiper}
             onBeforeInit={(swiper) => {
               swiperRef.current = swiper;
             }}
+            breakpoints={{
+              640: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            }}
+            className={styles.swiper}
           >
-            {albums.map((album, index) => (
-              <SwiperSlide key={album._id} className={styles.swiperSlide}>
-                <div className={styles.albumItem} onClick={() => {
-                  navigation(`/album/${album._id}`);
-                }}>
-                  <Card
-                    hoverable
-                    cover={<img src={album.images?.url ?? 'https://via.placeholder.com/150'} alt={album.title} className={styles.albumImage} />}
-                    className={styles.albumCard}
-                  >
-                    <Card.Meta title={album.title} description={`${album.total} ảnh`} />
+            {loading ? (
+              Array.from({ length: 3 }).map((_, index) => (
+                <SwiperSlide key={index}>
+                  <Card className={styles.albumCard}>
+                    <Skeleton.Image active className={styles.skeletonImage} />
+                    <Skeleton active paragraph={{ rows: 1 }} />
                   </Card>
-                </div>
-              </SwiperSlide>
-            ))}
+                </SwiperSlide>
+              ))
+            ) : (
+              albums.map((album) => (
+                <SwiperSlide key={album._id}>
+                  {renderAlbumCard(album)}
+                </SwiperSlide>
+              ))
+            )}
           </Swiper>
-          <button className={styles.arrowRight} onClick={() => swiperRef.current?.slideNext()}>&#9654;</button>
+          <button 
+            className={`${styles.navButton} ${styles.nextButton}`}
+            onClick={() => swiperRef.current?.slideNext()}
+          >
+            &#10095;
+          </button>
         </div>
       </div>
-      
-      
     </div>
   );
 };

@@ -1,7 +1,8 @@
 .siderChildPage {
   margin-top: 20px;
   padding: 0 5%;
-
+  background-color: #f9f9f9; // Thêm màu nền nhẹ
+  border-radius: 10px; // Bo góc cho khung
   .categoryList {
     list-style-type: none;
     padding: 0;
@@ -11,21 +12,23 @@
     justify-content: center;
 
     li {
-      padding: 8px 16px;
+      padding: 10px 20px; // Tăng kích thước padding
       margin: 0 4px 8px 4px;
       cursor: pointer;
       border-radius: 8px;
+      transition: background-color 0.3s; // Thêm hiệu ứng chuyển tiếp
 
       a {
         text-decoration: none;
         color: #333;
-        font-size: 14px;
+        font-size: 16px; // Tăng kích thước chữ
         display: block;
         font-weight: bold;
       }
 
-      &:hover, &.active {
-        background-color: var(--text-color1);
+      &:hover,
+      &.active {
+        background-color: #007bff; // Thay đổi màu nền khi hover
         a {
           color: #fff;
         }
@@ -40,10 +43,10 @@
     text-align: center;
 
     h3 {
-      font-size: 32px;
+      font-size: 28px; // Giảm kích thước chữ
       margin-bottom: 16px;
-      color: var(--text-color1);
-      font-family: 'Crimson Pro', sans-serif;
+      color: #333; // Thay đổi màu chữ
+      font-family: "Crimson Pro", sans-serif;
     }
 
     .cardContainer {
@@ -65,6 +68,7 @@
     justify-content: space-between;
 
     .categoryList {
+      margin-right: 50px;
       flex-direction: column;
       max-width: 300px;
 
@@ -72,7 +76,7 @@
         margin: 0 0 8px 0;
 
         a {
-          font-size: 16px;
+          font-size: 18px; // Tăng kích thước chữ cho màn hình lớn
         }
       }
     }
@@ -81,7 +85,7 @@
       .cardContainer {
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: space-around;
+        justify-content: flex-start;
       }
     }
   }
@@ -91,7 +95,7 @@
   .siderChildPage {
     .categoryContent {
       h3 {
-        font-size: 25px;
+        font-size: 24px; // Giảm kích thước chữ cho màn hình nhỏ
       }
     }
   }
@@ -101,8 +105,17 @@
   .siderChildPage {
     .categoryContent {
       h3 {
-        font-size: 20px;
+        font-size: 20px; // Giảm kích thước chữ cho điện thoại
       }
     }
+  }
+}
+
+@media (min-width: 48rem) {
+  .siderChildPage {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 40px 5%;
+    padding: 40px 5%;
   }
 }

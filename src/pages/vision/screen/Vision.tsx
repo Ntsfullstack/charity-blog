@@ -1,12 +1,5 @@
 import React from "react";
 import styles from "./Vision.module.scss";
-import AboutUs from "../components/about_us/about_us";
-import Field from "../components/field/field";
-import banner from "../../../assets/images/banner.jpg";
-import RelatedArticles from "../components/news/news";
-import News from "../components/news/news";
-import ImageLibrary from "../components/library_image/album";
-import Card from "../../../components/card/Card";
 
 const Vision: React.FC = () => {
   return (

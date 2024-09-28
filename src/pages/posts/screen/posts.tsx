@@ -63,6 +63,7 @@ const Post: React.FC = () => {
     return <div>Blog post not found</div>;
   }
 
+
   return (
     <div className={styles.blogContainer}>
       <div className={styles.header}>
@@ -74,7 +75,10 @@ const Post: React.FC = () => {
               {post.authorId.username}
             </a>
           </Text>
-          <Text type="secondary">
+          <Text
+            type="secondary"
+            style={{ fontSize: "0.9rem", color: "#6c757d" }}
+          >
             {dayjs(post.createdAt).format("MMMM D, YYYY")}
           </Text>
         </div>
@@ -83,10 +87,13 @@ const Post: React.FC = () => {
       <div
         className={styles.content}
         dangerouslySetInnerHTML={{ __html: post.content }}
+        style={{ fontSize: "1.1rem", lineHeight: "1.8", color: "#333" }} // Cập nhật kích thước và màu chữ
       ></div>
-      <div className={styles.rate}>
+      <div className={styles.rate} style={{ marginTop: "1.5rem" }}>
         <p>
-          <Text type="secondary">Rate this post:</Text>
+          <Text type="secondary" style={{ fontSize: "1rem" }}>
+            Rate this post:
+          </Text>
         </p>
         <Rate></Rate>
       </div>

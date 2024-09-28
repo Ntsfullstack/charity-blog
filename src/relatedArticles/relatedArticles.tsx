@@ -23,7 +23,7 @@ const RelatedArticles: React.FC<RelatedArticlesProps> = ({
       <div className={styles.articlesList}>
         {relatedArticles &&
           relatedArticles.map((article: any, index: number) => (
-            <CardItem key={index} {...article} />
+            <CardItem className={styles.cardItem} key={index} {...article} />
           ))}
       </div>
     </div>
