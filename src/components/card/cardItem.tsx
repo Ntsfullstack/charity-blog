@@ -8,10 +8,6 @@ interface CardItemProps {
   thumbnail: string;
   title: string;
   description: string;
-  authorId: {
-    _id: string;
-    username: string;
-  };
   createdAt: string;
   slug: string;
 }
@@ -36,14 +32,13 @@ const CardItem: React.FC<CardItemProps> = (props) => {
         />
       </div>
       <div className={styles.cardContent}>
-        <h2 className={styles.cardTitle}>{props.title}</h2>
+        <a href={`/post/${props.slug}`}>
+          <h2 className={styles.cardTitle}>{props.title}</h2>
+        </a>
         <small className={styles.cardMeta}>
           by
-          <a href={`/author/${props.authorId._id}`} className={styles.link}>
-            {" "}
-            {props.authorId.username || "Admin"}
-          </a>{" "}
-          - <span>{dayjs(props.createdAt).format("MMMM D, YYYY")}</span>
+          <p className={styles.link}> "Admin"</p> -{" "}
+          <span>{dayjs(props.createdAt).format("MMMM D, YYYY")}</span>
         </small>
         <p className={styles.cardSubtitle}>{props.description}</p>
         <a

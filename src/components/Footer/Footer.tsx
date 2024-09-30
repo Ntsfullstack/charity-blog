@@ -1,44 +1,46 @@
 import React, { useState } from "react";
 import styles from "./footer.module.scss";
 import logo from "../../assets/images/expandedLogo.png";
-import { Input, Button } from "antd";
+import { Input, Button, Form } from "antd";
 import { postsClient } from "./Footer.api";
 import { t } from "i18next";
 import { toast } from "react-toastify";
 import facebook from "../../assets/icons/logo-facebook.svg";
 import youtube from "../../assets/icons/logo-youtube.svg";
+import { Toast } from "react-toastify/dist/components";
 import mail from "../../assets/icons/logo-mail.svg";
 
 const Footer: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    question: "",
-  });
+  const [form] = Form.useForm();
   const { TextArea } = Input;
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = () => {
-    postsClient(formData)
-      .then((res) => {
-        if (res.status === 200) {
-          toast.success(res.message);
-          setFormData({ name: "", phone: "", email: "", question: "" });
-        } else {
-          toast.error(res.message);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        toast.error("An error occurred.");
-      });
+  const handleSubmit = async () => {
+    try {
+      const values = await form.validateFields();
+      const res = await postsClient(values);
+      if (res.status === 201) {
+        toast.success(res.message);
+        form.resetFields();
+      } else {
+        toast.error(res.message);
+      }
+    } catch (error: any) {
+      console.error(error);
+      if (error.errorFields) {
+        error.errorFields.forEach(
+          (field: { name: string[]; errors: string[] }) => {
+            form.setFields([
+              {
+                name: field.name,
+                errors: field.errors,
+              },
+            ]);
+          }
+        );
+      } else {
+        toast.error("Đã xảy ra lỗi.");
+      }
+    }
   };
 
   return (
@@ -70,36 +72,49 @@ const Footer: React.FC = () => {
           </div>
           <div className={styles.contactSection}>
             <h3>{t("contact us")}</h3>
-            <form className={styles.contactForm}>
-              <Input
-                placeholder={t("name")}
+            <Form form={form} className={styles.contactForm} layout="vertical">
+              <Form.Item
                 name="name"
-                value={formData.name}
-                onChange={handleChange}
-              />
-              <Input
-                placeholder={t("phone")}
+                rules={[
+                  { required: true, message: t("Please enter your name") },
+                ]}
+              >
+                <Input placeholder={t("name")} />
+              </Form.Item>
+              <Form.Item
                 name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-              />
-              <Input
-                placeholder="Email"
+                rules={[
+                  {
+                    required: true,
+                    message: t("Please enter your phone number"),
+                  },
+                ]}
+              >
+                <Input placeholder={t("phone")} />
+              </Form.Item>
+              <Form.Item
                 name="email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-              <TextArea
-                placeholder={t("information")}
+                rules={[
+                  { required: true, message: t("Please enter your email") },
+                  { type: "email", message: t("Please enter a valid email") },
+                ]}
+              >
+                <Input placeholder="Email" />
+              </Form.Item>
+              <Form.Item
                 name="question"
-                value={formData.question}
-                onChange={handleChange}
-                rows={4}
-              />
-              <Button type="primary" onClick={handleSubmit}>
-                {t("send")}
-              </Button>
-            </form>
+                rules={[
+                  { required: true, message: t("Please enter your question") },
+                ]}
+              >
+                <TextArea placeholder={t("information")} rows={4} />
+              </Form.Item>
+              <Form.Item>
+                <Button type="primary" onClick={handleSubmit}>
+                  {t("send")}
+                </Button>
+              </Form.Item>
+            </Form>
           </div>
         </div>
       </div>

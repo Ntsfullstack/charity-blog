@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import dayjs from "dayjs";
 import styles from "./news.module.scss";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import { getCategoryPosts } from "../../../main_page/api/mainPage.api";
 import { BlogData } from "../../../auth/types/types";
 
 interface RelatedArticlesProps {
-  currentArticleId: string;
+  currentArticleId: string | null;
+  outstanding: boolean;
 }
 
 const RelatedArticles: React.FC<RelatedArticlesProps> = ({
   currentArticleId,
+  outstanding = false,
 }) => {
   const { t } = useTranslation();
   const [articles, setArticles] = useState<BlogData[]>([]);
@@ -24,14 +26,26 @@ const RelatedArticles: React.FC<RelatedArticlesProps> = ({
 
   useEffect(() => {
     const fetchRelatedArticles = async () => {
+      if (!currentArticleId) {
+        setLoading(false);
+        return;
+      }
+
       setLoading(true);
       try {
-        const response = await getCategoryPosts("667c308ca7e983158ba550be");
-        if (response) {
+        const response = await getCategoryPosts(
+          currentArticleId,
+          outstanding,
+          1,
+          4
+        );
+        if (response.status === 200) {
           setArticles(response.data);
+        } else {
+          throw new Error("Không thể tải bài viết liên quan");
         }
       } catch (err: any) {
-        setError(err.message || "An error occurred while fetching articles.");
+        setError(err.message || "Đã xảy ra lỗi khi tải bài viết.");
       } finally {
         setLoading(false);
       }
@@ -41,16 +55,20 @@ const RelatedArticles: React.FC<RelatedArticlesProps> = ({
   }, [currentArticleId]);
 
   if (loading) {
-    return <p className={styles.loadingMessage}>{t('loading')}</p>;
+    return <p className={styles.loadingMessage}>{t("loading")}</p>;
   }
 
   if (error) {
-    return <p className={styles.errorMessage}>{t('error_loading_articles')}: {error}</p>;
+    return (
+      <p className={styles.errorMessage}>
+        {t("error_loading_articles")}: {error}
+      </p>
+    );
   }
 
   return (
     <div className={styles.relatedArticlesContainer}>
-      <h1>{t('news-event')}</h1>
+      <h1>{t("news-event")}</h1>
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={20}
@@ -62,16 +80,16 @@ const RelatedArticles: React.FC<RelatedArticlesProps> = ({
         breakpoints={{
           320: {
             slidesPerView: 1,
-            spaceBetween: 10
+            spaceBetween: 10,
           },
           480: {
             slidesPerView: 2,
-            spaceBetween: 20
+            spaceBetween: 20,
           },
           768: {
             slidesPerView: 3,
-            spaceBetween: 30
-          }
+            spaceBetween: 30,
+          },
         }}
         className={styles.carousel}
       >
@@ -83,14 +101,15 @@ const RelatedArticles: React.FC<RelatedArticlesProps> = ({
             <div className={styles.cardContent}>
               <h2 className={styles.cardTitle}>{article.title}</h2>
               <small className={styles.cardMeta}>
-                {t('by')}&nbsp;
-                <a
-                  href={`/author/${article.authorId._id}`}
+                {t("by")}&nbsp;
+                <p
+                  
                   className={styles.link}
                 >
-                  {article.authorId.username}
-                </a>
-                &nbsp;- <span>{dayjs(article.createdAt).format("MMMM D, YYYY")}</span>
+                  Admin
+                </p>
+                &nbsp;-{" "}
+                <span>{dayjs(article.createdAt).format("MMMM D, YYYY")}</span>
               </small>
             </div>
           </SwiperSlide>

@@ -1,8 +1,10 @@
 .banner {
   position: relative;
   width: 100%;
-  height: 700px;
+  height: 70vh; // Sử dụng vh thay vì px để tương thích tốt hơn
   overflow: hidden;
+  max-width: 100%;
+  margin: 0 auto;
 
   .slideshow {
     width: 100%;
@@ -26,7 +28,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        margin-top: 100px;
       }
     }
   }
@@ -39,19 +40,21 @@
     transform: translateY(-50%);
     display: flex;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 10px;
 
     button {
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.3);
       color: white;
       border: none;
-      padding: 10px 15px;
-      font-size: 18px;
+      padding: 8px 12px;
+      font-size: 16px;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
+      border-radius: 50%;
 
       &:hover {
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(0, 0, 0, 0.6);
+        transform: scale(1.1);
       }
     }
   }
@@ -62,19 +65,20 @@
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 10px;
+    gap: 8px;
 
     .indicator {
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.5);
       border: none;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
 
-      &.active {
+      &.active, &:hover {
         background: white;
+        transform: scale(1.2);
       }
     }
   }
@@ -87,19 +91,40 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 400px;
-  background: #f0f0f0;
+  height: 70vh;
+  background: #f5f5f5;
   color: #333;
-  font-size: 18px;
+  font-size: 16px;
+  text-align: center;
+  padding: 20px;
 }
+
 @media (max-width: 768px) {
   .banner {
-    height: 500px;
+    height: 50vh;
+
+    .slideshow-controls {
+      button {
+        padding: 6px 10px;
+        font-size: 14px;
+      }
+    }
+
+    .slideshow-indicators {
+      .indicator {
+        width: 8px;
+        height: 8px;
+      }
+    }
   }
 }
+
 @media (min-width: 48rem) {
   .banner {
     max-width: 80rem;
     margin: 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 }

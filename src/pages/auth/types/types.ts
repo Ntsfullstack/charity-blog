@@ -23,18 +23,8 @@ export interface BlogData {
   featured: boolean;
   updatedAt: string;
   __v: number;
-  categoryId:{
+  categoryId: {
     title: string;
-  }
-  authorId: {
-    _id: string;
-    username: string;
-    email: string;
-    avatar: string;
-    role: string;
-    createdAt: string;
-    updatedAt: string;
-    __v: number;
   };
 }
 
@@ -49,37 +39,46 @@ export interface BlogResponse {
   };
 }
 
-export interface UserData {
-  _id: string;
-  email: string;
-  name: string;
-  phone: string | number;
-  question: string;
-  time : string ;
-
+export interface CategoryData {
+  data: Category[];
+  status: number;
 }
 
+export interface Category {
+  _id: string;
+  title: string;
+  path: string;
+  blogPosts: string[] | any;
+  __v: number;
+}
+export interface UserData {
+  _id: string;
+  email: string | any;
+  name: string | any;
+  phone: string | number;
+  question: string;
+  time: string;
+  createdAt: string;
+}
 
 export interface ImageData {
   _id: string;
   title: string;
   images: {
-    url : string;
-    _id : string;
+    url: string;
+    _id: string;
   };
-  total: number ;
+  total: number;
 }
 export interface AlbumInfoData {
   _id: string;
   title: string;
   images: {
-    url : string;
-    _id : string;
-
+    url: string;
+    _id: string;
   };
-  total: number ;
+  total: number;
 }
-
 
 export interface PaginatedResponse {
   status: number;
@@ -88,12 +87,17 @@ export interface PaginatedResponse {
   totalPage: number;
 }
 
-
 export interface UsersResponse {
-  status: number
-  data: User[]
-  currentPage: number
-  totalPage: number
+  status: number;
+  data: UserData[];
+  currentPage: number;
+  totalPage: number;
+  pagination: {
+    current: number | string;
+    pageSize: number | string;
+    total: number | string;
+    pages: number | string;
+  };
 }
 
 export interface User {
@@ -102,26 +106,24 @@ export interface User {
   name: string;
   phone: string | number;
   question: string;
-  time : string ;
-  
-  
+  time: string;
 }
 export interface AlbumsDetailResponse {
-  status: number
-  data: AlbumDetail []
-  currentPage: number
-  totalPage: number
+  status: number;
+  data: AlbumDetail[];
+  currentPage: number;
+  totalPage: number;
 }
 
 export interface AlbumDetail {
-  _id: string
-  title: string
-  images: Image[]
-  __v: number
+  _id: string;
+  title: string;
+  images: Image[];
+  __v: number;
 }
 
 export interface Image {
-  id: string
-  url: string
-  _id: string
+  id: string;
+  url: string;
+  _id: string;
 }

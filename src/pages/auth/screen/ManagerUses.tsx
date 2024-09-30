@@ -1,24 +1,28 @@
-import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import type { GetProp, InputRef, TableProps } from "antd";
 import {
+  Alert,
   Button,
   Input,
-  Modal,
   Popconfirm,
   Space,
   Table,
   TableColumnType,
-  Tooltip,
+  Checkbox,
+  Modal,
 } from "antd";
 import type {
   FilterDropdownProps,
   SorterResult,
+  TableRowSelection,
 } from "antd/es/table/interface";
+import date from "date-and-time";
 import qs from "qs";
 import React, { useEffect, useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { deleteUsers, getListUsers } from "../api/auth.api";
+import { getListUsers, deleteUsers } from "../api/auth.api";
 import { UserData } from "../types/types";
 
 type ColumnsType<T> = TableProps<T>["columns"];
@@ -42,21 +46,22 @@ const getRandomuserParams = (params: TableParams) => ({
   ...params,
 });
 
-const ManagerUsers: React.FC = () => {
+const ManageUsers: React.FC = () => {
   const [data, setData] = useState<UserData[]>([]);
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<UserData | null>(null);
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
       current: 1,
       pageSize: 10,
     },
   });
+  const Navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<UserData | null>(null);
 
   const handleSearch = (
     selectedKeys: string[],
@@ -164,83 +169,69 @@ const ManagerUsers: React.FC = () => {
       ),
   });
 
-  const showUserModal = (user: UserData) => {
-    setSelectedUser(user);
-    setModalVisible(true);
-  };
-
-  const truncateText = (text: string | undefined, limit: number) => {
-    if (text === undefined) return "";
-    if (text.length <= limit) return text;
-    return text.slice(0, limit) + "...";
-  };
-
   const columns: ColumnsType<UserData> = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      width: "15%",
-      ...getColumnSearchProps("name"),
-      render: (text) => (
-        <Tooltip title={text}>
-          <span>{truncateText(text, 20)}</span>
-        </Tooltip>
-      ),
-    },
-    {
-      title: "Phone",
-      dataIndex: "phone",
-      key: "phone",
-      width: "15%",
-      ...getColumnSearchProps("phone"),
-      render: (text) => (
-        <Tooltip title={text}>
-          <span>{truncateText(text, 15)}</span>
-        </Tooltip>
-      ),
-    },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
       width: "20%",
       ...getColumnSearchProps("email"),
-      render: (text) => (
-        <Tooltip title={text}>
-          <span>{truncateText(text, 25)}</span>
-        </Tooltip>
-      ),
     },
     {
-      title: "Question",
+      title: "Tên",
+      dataIndex: "name",
+      key: "name",
+      width: "20%",
+      ...getColumnSearchProps("name"),
+    },
+    {
+      title: "Số điện thoại",
+      dataIndex: "phone",
+      key: "phone",
+      width: "15%",
+    },
+    {
+      title: "Câu hỏi",
       dataIndex: "question",
       key: "question",
-      width: "20%",
-      render: (text) => (
-        <Tooltip title={text}>
-          <span>{truncateText(text, 30)}</span>
-        </Tooltip>
-      ),
+      width: "30%",
+      render: (value) => <p>{value}</p>,
     },
-
     {
-      title: "Action",
-      key: "action",
+      title: "Thời gian",
+      dataIndex: "createdAt",
+      key: "createdAt",
       width: "15%",
+      render: (value) => {
+        const date = new Date(value);
+        return date.toLocaleDateString("vi-VN", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        });
+      },
+    },
+    {
+      title: "Hành động",
+      key: "action",
+      width: "20%",
       render: (_, record) => (
         <Space size="middle">
-          <Button icon={<EyeOutlined />} onClick={() => showUserModal(record)}>
-            View
+          <Button
+            key={`view-${record._id}`}
+            type="primary"
+            onClick={() => handleView(record)}
+          >
+            Xem
           </Button>
           <Popconfirm
-            title="Are you sure you want to delete this user?"
+            title="Bạn có chắc chắn muốn xóa người dùng này không?"
             onConfirm={() => handleDelete(record._id)}
-            okText="Yes"
-            cancelText="No"
+            okText="Có"
+            cancelText="Không"
           >
-            <Button key={record._id} type="primary" danger>
-              Delete
+            <Button key={`delete-${record._id}`} type="primary" danger>
+              Xóa
             </Button>
           </Popconfirm>
         </Space>
@@ -252,13 +243,25 @@ const ManagerUsers: React.FC = () => {
     try {
       const res = await deleteUsers(id);
       if (res?.status === 200) {
-        toast.success("Delete success");
-        fetchData();
+        toast.success("Xóa thành công");
+        setData(data.filter((item: UserData) => item._id !== id));
+      } else {
+        toast.error("Xóa thất bại");
       }
-    } catch (error: any) {
-      toast.error("Delete failed");
-      console.error("Error deleting user:", error);
+    } catch (error) {
+      console.error("Lỗi khi xóa người dùng:", error);
+      toast.error("Xóa thất bại");
     }
+  };
+
+  const handleView = (record: UserData) => {
+    setSelectedUser(record);
+    setIsModalVisible(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalVisible(false);
+    setSelectedUser(null);
   };
 
   const fetchData = async () => {
@@ -266,20 +269,24 @@ const ManagerUsers: React.FC = () => {
     setError(null);
 
     try {
-      const response = await getListUsers(
+      const res = await getListUsers(
         qs.stringify(getRandomuserParams(tableParams))
       );
-      console.log(response);
-      setData(response?.data);
-      setTableParams({
-        ...tableParams,
-        pagination: {
-          ...tableParams.pagination,
-          total: Number(response.totalPage),
-        },
-      });
+      // Kiểm tra xem res.data có phải là một mảng không
+      if (Array.isArray(res?.data)) {
+        setData(res.data);
+        setTableParams({
+          ...tableParams,
+          pagination: {
+            ...tableParams.pagination,
+            total: Number(res.pagination.total),
+          },
+        });
+      } else {
+        throw new Error("Dữ liệu nhận được không phải là một mảng");
+      }
     } catch (error: any) {
-      console.error("Error fetching users:", error);
+      console.error("Có lỗi xảy ra khi lấy dữ liệu:", error);
       setError(error.message);
     } finally {
       setLoading(false);
@@ -308,45 +315,56 @@ const ManagerUsers: React.FC = () => {
       sortField: Array.isArray(sorter) ? undefined : sorter.field,
     });
 
-    // `dataSource` is useless since `pageSize` changed
     if (pagination.pageSize !== tableParams.pagination?.pageSize) {
       setData([]);
     }
   };
 
+  if (error) {
+    return <Alert message={error} type="error" />;
+  }
+
   return (
     <div>
-      {error && <div style={{ color: "red" }}>Error: {error}</div>}
       <Table
         columns={columns}
+        rowKey={(record) => record._id}
         dataSource={data}
         pagination={tableParams.pagination}
         loading={loading}
         onChange={handleTableChange}
-        rowKey={(record) => record._id}
       />
       <Modal
-        title="User Details"
-        visible={modalVisible}
-        onCancel={() => setModalVisible(false)}
-        footer={null}
+        title="Thông tin chi tiết người dùng"
+        visible={isModalVisible}
+        onCancel={handleModalClose}
+        footer={[
+          <Button key="close" onClick={handleModalClose}>
+            Đóng
+          </Button>,
+        ]}
       >
         {selectedUser && (
           <div>
             <p>
-              <strong>Name:</strong> {selectedUser.name}
-            </p>
-            <p>
-              <strong>Phone:</strong> {selectedUser.phone}
-            </p>
-            <p>
               <strong>Email:</strong> {selectedUser.email}
             </p>
             <p>
-              <strong>Question:</strong> {selectedUser.question}
+              <strong>Tên:</strong> {selectedUser.name}
             </p>
             <p>
-              <strong>Time:</strong> {selectedUser.time}
+              <strong>Số điện thoại:</strong> {selectedUser.phone}
+            </p>
+            <p>
+              <strong>Câu hỏi:</strong> {selectedUser.question}
+            </p>
+            <p>
+              <strong>Thời gian:</strong>{" "}
+              {new Date(selectedUser.createdAt).toLocaleDateString("vi-VN", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              })}
             </p>
           </div>
         )}
@@ -355,4 +373,4 @@ const ManagerUsers: React.FC = () => {
   );
 };
 
-export default ManagerUsers;
+export default ManageUsers;

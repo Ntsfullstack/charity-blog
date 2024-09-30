@@ -6,62 +6,75 @@ import Card from "../../../../components/card/Card";
 import { BlogPostData } from "../../types/blogdata.type";
 import Banner from "../../../../components/banner/Banner";
 import CardItemsCategory from "../../../../components/cardItems/CardItemsCategory";
+import { getCategory, getCategoryPosts } from "../../api/mainPage.api";
+import { BlogData } from "../../../auth/types/types";
 
 const RecruitmentPage = () => {
-  const [cardData, setCardData] = useState<BlogPostData[]>([]);
+  const [cardData, setCardData] = useState<BlogData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const page = 1;
-  const [limit, setLimit] = useState<number>(10);
-  const location = useLocation();
+  const [featurePosts, setFeaturePosts] = useState<BlogData[]>([]);
 
-  useEffect(() => {
-    const fetchBlogData = async () => {
-      try {
-        const response = await getPostsByCategories("667bcecfec596a8638ebd2a9");
-        if (response?.status === 200) {
-          setCardData(response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching blog data:", error);
-        if (error instanceof Error) {
-          setError(error.message);
+  const fetchPosts = async (featured: boolean) => {
+    try {
+      setIsLoading(true);
+      const categories = await getCategory();
+      if (categories?.status === 200 && categories?.data?.length > 0) {
+        const categoryId = categories.data[0]?._id;
+        if (categoryId) {
+          const response = await getCategoryPosts(categoryId, featured, 1, 4);
+          if (response?.status === 200) {
+            return response.data || [];
+          } else {
+            throw new Error("Không thể lấy bài viết cho danh mục");
+          }
         } else {
-          setError("An unknown error occurred.");
+          throw new Error("Không tìm thấy ID danh mục");
         }
-      } finally {
-        setIsLoading(false);
+      } else {
+        throw new Error("Không có danh mục nào được tìm thấy");
       }
-    };
-
-    fetchBlogData();
-  }, [limit]);
-
-  const handleLoadMore = () => {
-    if (limit > cardData.length) {
-      return;
+    } catch (error) {
+      console.error("Lỗi khi lấy dữ liệu:", error);
+      setError(
+        error instanceof Error ? error.message : "Đã xảy ra lỗi không xác định."
+      );
+      return [];
+    } finally {
+      setIsLoading(false);
     }
-    setLimit((prevLimit) => prevLimit + 5);
   };
 
-  const highlightedNews = cardData.slice(0, 3);
-  const otherNews = cardData.slice(3);
+  useEffect(() => {
+    const fetchAllPosts = async () => {
+      const regularPosts = await fetchPosts(false);
+      const featuredPosts = await fetchPosts(true);
+      setCardData(regularPosts);
+      setFeaturePosts(featuredPosts);
+    };
+
+    fetchAllPosts();
+  }, []);
+
+  if (isLoading) {
+    return <div className={styles.loading}>Đang tải...</div>;
+  }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className={styles.error}>Lỗi: {error}</div>;
   }
 
   return (
-    <div className={styles.mainContainer}>
-      <div className={styles.content}>
-        <div className={styles.mainContent}>
-          <div className={styles.title}>
-            <h3>TUYỂN DỤNG - TÌNH NGUYỆN</h3>
-            <div className={styles.cardContainer}>
-              <Card cardData={highlightedNews} loading={isLoading} />
-            </div>
-            <div className={styles.fieldContainer}></div>
-          </div>
+    <div className={styles.mainPage}>
+      <div className={styles.title}>
+        <h3>TIN TỨC - SỰ KIỆN</h3>
+        <div className={styles.cardContainer}>
+          <Card cardData={cardData} loading={isLoading} />
+        </div>
+        <p>Hãy cập nhật những dự án mới nhất của chúng tôi</p>
+        <h4>TIN NỔI BẬT</h4>
+        <div className={styles.cardContainer}>
+          <Card cardData={featurePosts} loading={isLoading} />
         </div>
       </div>
     </div>

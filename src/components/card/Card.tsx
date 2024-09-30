@@ -7,10 +7,6 @@ interface BlogPostData {
   title: string;
   thumbnail: string;
   description: string;
-  authorId: {
-    _id: string;
-    username: string;
-  };
   createdAt: string;
   slug: string;
 }

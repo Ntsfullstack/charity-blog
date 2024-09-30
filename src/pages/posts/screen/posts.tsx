@@ -6,7 +6,8 @@ import dayjs from "dayjs";
 import styles from "./Posts.module.scss";
 import Loading from "../../../components/Loading/Loading";
 import Rate from "../../../components/Rate/Rate";
-import RelatedArticles from "../../../relatedArticles/relatedArticles";
+import RelatedArticles from "../../home/components/news/news";
+// import RelatedArticles from "../../../relatedArticles/relatedArticles";
 
 const { Text } = Typography;
 
@@ -15,10 +16,6 @@ interface BlogPost {
   title: string;
   content: string;
   thumbnail: string;
-  authorId: {
-    _id: string;
-    username: string;
-  };
   createdAt: string;
   slug: string;
 }
@@ -27,7 +24,7 @@ const Post: React.FC = () => {
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [relatedArticles, setRelatedArticles] = useState<any[]>([]);
+  const [relatedArticles, setRelatedArticles] = useState<any>();
   const { slug } = useParams<{ slug: string }>();
 
   useEffect(() => {
@@ -36,7 +33,8 @@ const Post: React.FC = () => {
         const res = await getBlog(slug as string);
         if (res?.status === 200) {
           setPost(res.data);
-          setRelatedArticles(res.relatedPosts);
+          console.log(res.relatedPosts);
+          // setRelatedArticles(res.relatedPosts);
         } else {
           setError("Blog post not found");
         }
@@ -63,17 +61,13 @@ const Post: React.FC = () => {
     return <div>Blog post not found</div>;
   }
 
-
   return (
     <div className={styles.blogContainer}>
       <div className={styles.header}>
         <h1 className={styles.Title}>{post.title}</h1>
         <div className={styles.metaData}>
           <Text type="secondary">
-            By{" "}
-            <a href={`${post.authorId._id}`} className={styles.Link}>
-              {post.authorId.username}
-            </a>
+            By <p className={styles.Link}>Admin</p>
           </Text>
           <Text
             type="secondary"
@@ -97,7 +91,10 @@ const Post: React.FC = () => {
         </p>
         <Rate></Rate>
       </div>
-      <RelatedArticles relatedArticles={relatedArticles}></RelatedArticles>
+      <RelatedArticles
+        currentArticleId={relatedArticles}
+        outstanding
+      ></RelatedArticles>
     </div>
   );
 };

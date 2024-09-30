@@ -78,9 +78,8 @@
 
       .contactForm {
         display: grid;
-        gap: 0.5rem;
-
         input,
+
         textarea {
           padding: 0.5rem;
           border: 1px solid #ddd;
@@ -100,6 +99,7 @@
             background-color: #0056b3;
           }
         }
+       
       }
     }
   }

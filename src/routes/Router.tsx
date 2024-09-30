@@ -4,15 +4,12 @@ import React, { Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Loading from "../components/Loading/Loading";
 import PageChildLayout from "../layout/PageChildLayout";
-import MainPageLayout from "../layout/MainPageLayout";
+
 import ProtectedRoute from "../layout/ProtectedRoute"; // Import ProtectedRoute
 import NewspaperPage from "../pages/main_page/components/newspapers/NewspaperPage";
 import RecruitmentPage from "../pages/main_page/components/recruitment/RecruitmentPage";
-
 import VisionLayout from "../layout/VisionLayout";
 import LetterLayout from "../layout/Letterlayout";
-import path from "path";
-import { child } from "firebase/database";
 
 // Import components using lazy loading
 // const  AboutUs = React.lazy(() => import ("../pages/main_page"));
@@ -38,7 +35,9 @@ const Register = React.lazy(() => import("../pages/register/register"));
 const Setting = React.lazy(() => import("../pages/auth/screen/Setting"));
 const SearchPost = React.lazy(() => import("../pages/SeachPost/SearchPost"));
 const Activity = React.lazy(() => import("../pages/activity/screen/Activity"));
-const Activ = React.lazy(() => import("../pages/activity/screen/Community"));
+const Community = React.lazy(
+  () => import("../pages/activity/screen/Community")
+);
 const SocialSecurity = React.lazy(
   () => import("../pages/activity/screen/SocialSecurity")
 );
@@ -121,7 +120,7 @@ const routerConfig = [
             ),
           },
           {
-            element: <MainPageLayout/>, 
+            element: <PageChildLayout />,
             children: [
               {
                 path: ROUTES.MainPage,
@@ -133,53 +132,28 @@ const routerConfig = [
               },
               {
                 path: ROUTES.thongBaoBaoChi,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <NewspaperPage />
-                </Suspense>
-              ),
-              }
-            
+                element: (
+                  <Suspense fallback={<Loading />}>
+                    <NewspaperPage />
+                  </Suspense>
+                ),
+              },
             ],
-            
           },
           {
-            element: <PageChildLayout />, // Use SharedLayout here
+            element: <PageChildLayout />,
             children: [
               {
-                path: ROUTES.Activity,
-                element: (
-                  <Suspense fallback={<Loading />}>
-                    <Activity />
-                  </Suspense>
-                ),
+                path: ROUTES.suKien,
+                element: <MainPage />,
               },
               {
-                path: ROUTES.suckhoecongdong,
-                element: (
-                  <Suspense fallback={<Loading />}>
-                    <Activ />
-                  </Suspense>
-                ),
-              },
-              {
-                path: ROUTES.hoatDongTaiTro,
-                element: (
-                  <Suspense fallback={<Loading />}>
-                    <Sponsorship />
-                  </Suspense>
-                ),
-              },
-              {
-                path: ROUTES.anSinhXaHoi,
-                element: (
-                  <Suspense fallback={<Loading />}>
-                    <SocialSecurity />
-                  </Suspense>
-                ),
+                path: ROUTES.truyenThongBaoChi,
+                element: <Activity />,
               },
             ],
           },
+
           {
             element: <VisionLayout />, // Use SharedLayout here
             children: [
@@ -194,7 +168,7 @@ const routerConfig = [
             ],
           },
           {
-            element: <LetterLayout />, 
+            element: <LetterLayout />,
             children: [
               {
                 path: ROUTES.Letter,

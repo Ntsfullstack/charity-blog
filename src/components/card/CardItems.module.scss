@@ -66,6 +66,9 @@
   display: flex;
   flex-direction: column;
   flex: 1; /* Allow content to expand and push button down */
+  & a {
+    text-decoration: none;
+  }
 }
 
 .button {
@@ -75,8 +78,8 @@
   margin-top: auto; /* Push button to the bottom */
   & button {
     width: 70%;
-    background-color: #3B82F6; /* Primary color */
-    border-color: #3B82F6;
+    background-color: #3b82f6; /* Primary color */
+    border-color: #3b82f6;
     transition: background-color 0.2s ease, border-color 0.2s ease;
   }
 }
@@ -187,8 +190,8 @@
 .readMoreButton {
   width: 100%;
   margin-top: auto; // Đẩy nút xuống dưới cùng
-  background-color: #3B82F6; // Màu nền nút
-  border-color: #3B82F6; // Màu viền nút
+  background-color: #3b82f6; // Màu nền nút
+  border-color: #3b82f6; // Màu viền nút
   transition: background-color 0.2s ease, border-color 0.2s ease;
   &:hover {
     background-color: #2563eb; // Màu nền khi hover

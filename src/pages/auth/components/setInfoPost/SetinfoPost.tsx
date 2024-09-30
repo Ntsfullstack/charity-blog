@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Input, Form, Upload, Button, message, UploadFile, Select } from "antd";
 import { RcFile, UploadProps } from "antd/lib/upload";
-import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  ref as storageRef,
+  uploadBytes,
+  getDownloadURL,
+} from "firebase/storage";
 import { storage } from "../../../../config/firebase";
 import { createPost, getTagCategory, updatePost } from "../../api/auth.api";
 import style from "./SetInfoPost.module.scss";
 import { toast } from "react-toastify";
 import { RollbackOutlined } from "@ant-design/icons";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 interface ItemProps {
   label: string;
   value: string;
 }
-
-
 
 const SetInfoPost = (props: any) => {
   const [form] = Form.useForm();
@@ -24,23 +26,21 @@ const SetInfoPost = (props: any) => {
   const [urlImage, setUrlImage] = useState<string>("");
   const [options, setOptions] = useState<ItemProps[]>([]);
   const [categoryValue, setCategoryValue] = useState<string>("");
-  console.log(props.title)
+
   useEffect(() => {
     if (props?.title) {
       form.setFieldsValue({
-        title: props.title?.title  ?? "",
-        slug: props.title?.slug  ?? "",
-        description: props?.title?.description ?? ""
-        ,
+        title: props.title?.title ?? "",
+        description: props?.title?.description ?? "",
         category: props?.title?.category ?? "",
       });
 
       if (props.title?.thumbnail) {
         setFileList([
           {
-            uid: '-1',
-            name: 'image.png',
-            status: 'done',
+            uid: "-1",
+            name: "image.png",
+            status: "done",
             url: props.title?.thumbnail,
           },
         ]);
@@ -54,7 +54,7 @@ const SetInfoPost = (props: any) => {
     setCategoryValue(value);
   };
 
-  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
+  const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
 
@@ -76,15 +76,20 @@ const SetInfoPost = (props: any) => {
         imageUrl = await uploadToFirebase(fileList[0].originFileObj as RcFile);
       }
 
+      // Lấy slug từ cuối đường dẫn URL
+      const currentPath = window.location.pathname;
+      const slug = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+
       const postData = {
         ...values,
         thumbnail: imageUrl,
         content: content || "",
         categoryId: categoryValue,
+        slug: slug,
       };
 
       if (props?.title) {
-        await updatePost( postData);
+        await updatePost(postData);
         toast.success("Post updated successfully!");
       } else {
         await createPost(postData);
@@ -132,7 +137,11 @@ const SetInfoPost = (props: any) => {
     checkPage && (
       <div className={style.infoPost}>
         <div className={style.header}>
-          <Button type="link" onClick={handleChangePage} className={style.backButton}>
+          <Button
+            type="link"
+            onClick={handleChangePage}
+            className={style.backButton}
+          >
             <RollbackOutlined />
           </Button>
           <h1 className={style.title}>Thông tin bài viết</h1>
@@ -164,18 +173,13 @@ const SetInfoPost = (props: any) => {
             >
               <Input />
             </Form.Item>
-            <Form.Item
-              name="slug"
-              label="Slug"
-              rules={[{ required: true, message: "Please input the slug!" }]}
-              className={style.formItem}
-            >
-              <Input />
-            </Form.Item>
+
             <Form.Item
               name="description"
               label="Description"
-              rules={[{ required: true, message: "Please input the description!" }]}
+              rules={[
+                { required: true, message: "Please input the description!" },
+              ]}
               className={style.formItem}
             >
               <Input.TextArea rows={4} />
@@ -187,7 +191,7 @@ const SetInfoPost = (props: any) => {
               className={style.formItem}
             >
               <Select
-                style={{ width: '100%' }}
+                style={{ width: "100%" }}
                 placeholder="Select a category"
                 onChange={handleCategoryChange}
                 options={options}

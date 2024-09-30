@@ -1,4 +1,3 @@
-import Vision from "../layout/VisionLayout";
 
 export const ROUTES = {
   main: "/",
@@ -16,11 +15,12 @@ export const ROUTES = {
   MainPage: "/MainPage",
   SearchPost: "/search/:query",
   Mission: "/mission",
-  Activity: "/Activity",
+  suKien: "/su-kien",
   Vision: "/Vision",
   Letter: "/Letter",
   tuyenDung: "/tuyen-dung",
   thongBaoBaoChi: "/thong-cao-bao-chi",
+  truyenThongBaoChi: "/truyen-thong-bao-chi",
   about: "/about",
   contact: "/contact",
   privacy: "/privacy",

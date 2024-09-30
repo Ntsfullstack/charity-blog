@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Image, Typography, Space, message } from "antd";
+import { Image, Typography, Space, message, Empty } from "antd";
 import { getAllImageInAlbum } from "../../../auth/api/auth.api";
 import { useParams } from "react-router-dom";
 import { AlbumDetail } from "../../../auth/types/types";
-import styles from "./album_preview.module.scss"; // Import the CSS module
+import styles from "./album_preview.module.scss";
+import emptyBox from "../../../../assets/icons/empty-box.svg";
 
 const { Title } = Typography;
 
@@ -17,12 +18,12 @@ const ImagePreview = () => {
       setLoading(true);
       const response = await getAllImageInAlbum(id);
       if (response?.data) {
-        setData(response.data[0]); // Điều chỉnh theo cấu trúc dữ liệu API trả về
+        setData(response.data[0]);
       } else {
-        message.error("Failed to fetch album: No data received");
+        message.error("Không thể tải album: Không nhận được dữ liệu");
       }
     } catch (error) {
-      message.error("Failed to fetch album");
+      message.error("Không thể tải album");
     } finally {
       setLoading(false);
     }
@@ -38,8 +39,8 @@ const ImagePreview = () => {
     <div className={styles.container} style={{ padding: 24 }}>
       <Title level={3}>{data?.title}</Title>
       {loading ? (
-        <p>Loading...</p>
-      ) : (
+        <p>Đang tải...</p>
+      ) : data?.images && data.images.length > 0 ? (
         <div
           style={{
             display: "grid",
@@ -48,7 +49,7 @@ const ImagePreview = () => {
             marginBottom: 100,
           }}
         >
-          {data?.images?.map((image, index) => (
+          {data.images.map((image, index) => (
             <div
               key={index}
               style={{
@@ -69,6 +70,16 @@ const ImagePreview = () => {
             </div>
           ))}
         </div>
+      ) : (
+        <Empty
+          image={emptyBox}
+          imageStyle={{ height: 60 }}
+          description={
+            <span className={styles.emptyText}>
+              Không có ảnh nào trong album này
+            </span>
+          }
+        />
       )}
     </div>
   );
