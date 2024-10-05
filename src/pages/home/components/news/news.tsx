@@ -102,12 +102,7 @@ const RelatedArticles: React.FC<RelatedArticlesProps> = ({
               <h2 className={styles.cardTitle}>{article.title}</h2>
               <small className={styles.cardMeta}>
                 {t("by")}&nbsp;
-                <p
-                  
-                  className={styles.link}
-                >
-                  Admin
-                </p>
+                <span className={styles.link}>Admin</span>
                 &nbsp;-{" "}
                 <span>{dayjs(article.createdAt).format("MMMM D, YYYY")}</span>
               </small>

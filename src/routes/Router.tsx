@@ -10,6 +10,8 @@ import NewspaperPage from "../pages/main_page/components/newspapers/NewspaperPag
 import RecruitmentPage from "../pages/main_page/components/recruitment/RecruitmentPage";
 import VisionLayout from "../layout/VisionLayout";
 import LetterLayout from "../layout/Letterlayout";
+import PageChildLayout2 from "../layout/PageChildLayout2";
+import SponsorActivity from "../pages/activity/screen/SponsorActivity";
 
 // Import components using lazy loading
 // const  AboutUs = React.lazy(() => import ("../pages/main_page"));
@@ -123,7 +125,7 @@ const routerConfig = [
             element: <PageChildLayout />,
             children: [
               {
-                path: ROUTES.MainPage,
+                path: ROUTES.suKien,
                 element: (
                   <Suspense fallback={<Loading />}>
                     <MainPage />
@@ -131,7 +133,7 @@ const routerConfig = [
                 ),
               },
               {
-                path: ROUTES.thongBaoBaoChi,
+                path: ROUTES.truyenThongBaoChi,
                 element: (
                   <Suspense fallback={<Loading />}>
                     <NewspaperPage />
@@ -141,15 +143,24 @@ const routerConfig = [
             ],
           },
           {
-            element: <PageChildLayout />,
+            element: <PageChildLayout2 />,
             children: [
               {
-                path: ROUTES.suKien,
+                path: ROUTES.hoatDongThienNguyen,
                 element: <MainPage />,
               },
               {
-                path: ROUTES.truyenThongBaoChi,
-                element: <Activity />,
+                path: ROUTES.suckhoecongdong,
+                element: <Community />,
+              },
+
+              {
+                path: ROUTES.anSinhXaHoi,
+                element: <SocialSecurity />,
+              },
+              {
+                path: ROUTES.hoatDongTaiTro,
+                element: <SponsorActivity />,
               },
             ],
           },

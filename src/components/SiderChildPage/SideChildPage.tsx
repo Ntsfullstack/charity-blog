@@ -28,10 +28,7 @@ const SiderChildPage: React.FC<SiderChildPageProps> = ({
     <div className={styles.siderChildPage}>
       <ul className={styles.categoryList}>
         {categories.map((category: Category) => (
-          <Link
-            to={category.path}
-            key={category.path} // Thêm key ở đây
-          >
+          <Link to={category.path} key={category.path}>
             <li
               className={
                 category.path === selectedCategory ? styles.active : ""

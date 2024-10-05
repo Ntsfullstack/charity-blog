@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import styles from "./HomeLayout.module.scss";
 import SideChildPage from "../components/SiderChildPage/SideChildPage";
 import Banner from "../components/banner/Banner";
 import { getCategories } from "../pages/activity/api/activity.api";
 import { Category } from "../pages/auth/types/types";
-import Activity from "../pages/activity/screen/Activity";
 
-const PageChildLayout = () => {
+const PageChildLayout2 = () => {
   const [someCategories, setSomeCategories] = useState<Category[]>([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
       const response = await getCategories();
-      setSomeCategories(response.data.slice(0, 2));
+      setSomeCategories(response.data.slice(2, 5));
     };
 
     fetchCategories();
@@ -31,4 +30,4 @@ const PageChildLayout = () => {
   );
 };
 
-export default PageChildLayout;
+export default PageChildLayout2;

@@ -1,4 +1,3 @@
-
 export const ROUTES = {
   main: "/",
   login: "/login",
@@ -19,7 +18,6 @@ export const ROUTES = {
   Vision: "/Vision",
   Letter: "/Letter",
   tuyenDung: "/tuyen-dung",
-  thongBaoBaoChi: "/thong-cao-bao-chi",
   truyenThongBaoChi: "/truyen-thong-bao-chi",
   about: "/about",
   contact: "/contact",
@@ -27,6 +25,7 @@ export const ROUTES = {
   suckhoecongdong: "/suc-khoe-cong-dong",
   anSinhXaHoi: "/an-sinh-xa-hoi",
   hoatDongTaiTro: "/hoat-dong-tai-tro",
+  hoatDongThienNguyen: "/hoat-dong-thien-nguyen",
   album: "album",
   addAlbum: "add-album",
   AlbumPage: "album-page/:id",

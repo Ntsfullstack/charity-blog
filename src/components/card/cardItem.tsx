@@ -37,7 +37,7 @@ const CardItem: React.FC<CardItemProps> = (props) => {
         </a>
         <small className={styles.cardMeta}>
           by
-          <p className={styles.link}> "Admin"</p> -{" "}
+          <span className={styles.link}> "Admin"</span> -{" "}
           <span>{dayjs(props.createdAt).format("MMMM D, YYYY")}</span>
         </small>
         <p className={styles.cardSubtitle}>{props.description}</p>

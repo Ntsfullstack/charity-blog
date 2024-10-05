@@ -111,7 +111,7 @@ const Header: React.FC = () => {
       label: t("news"),
       children: [
         { key: "/su-kien", label: t("event") },
-        { key: "/thong-cao-bao-chi", label: t("communication, journalism") },
+        { key: "/truyen-thong-bao-chi", label: t("communication, journalism") },
       ],
     },
     {

@@ -67,7 +67,7 @@ const Post: React.FC = () => {
         <h1 className={styles.Title}>{post.title}</h1>
         <div className={styles.metaData}>
           <Text type="secondary">
-            By <p className={styles.Link}>Admin</p>
+            By <span className={styles.Link}>Admin</span>
           </Text>
           <Text
             type="secondary"

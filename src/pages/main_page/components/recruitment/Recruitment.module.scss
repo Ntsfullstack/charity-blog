@@ -4,7 +4,7 @@
 
   flex-wrap: wrap; /* Allow cards to wrap to the next line */
   gap: scale(30); // 30px / 16 = 1.875rem
-  justify-content: center;
+  justify-content: flex-start;
   padding: scale(30); // 30px / 16 = 1.875rem
   margin: 0 auto;
 }
@@ -15,7 +15,6 @@
     font-size: 35px; // 18px / 16 = 1.125rem
     color: #2d2e82;
     font-weight: bold;
-  
   }
 }
 
@@ -44,7 +43,7 @@
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color:var(--text-color1);
+    background-color: var(--text-color1);
   }
 
   a {
@@ -61,8 +60,9 @@
   }
 }
 .categoryBox.active {
-  background-color: var(--text-color1); // or whatever style you want for the active category
-
+  background-color: var(
+    --text-color1
+  ); // or whatever style you want for the active category
 }
 .categoryBox.active a {
   color: white; // Set text color to white
@@ -103,7 +103,7 @@
     padding: 20px;
     text-align: center;
     font-size: 40px;
-    color:#2d2e82;
+    color: #2d2e82;
     font-weight: bold;
   }
 }
@@ -129,10 +129,6 @@
     background-color: #0056b3;
   }
 }
-
-
-
-
 
 .BtnLoadMore {
   width: 100%;
