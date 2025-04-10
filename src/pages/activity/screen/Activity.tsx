@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-import styles from "./Activity.module.scss";
+import styles from "./Activity.scss";
 
 import Card from "../../../components/card/Card";
 
-import { getCategory, getCategoryPosts } from "../../main_page/api/mainPage.api";
+import {
+  getCategory,
+  getCategoryPosts,
+} from "../../main_page/api/mainPage.api";
 import { BlogData } from "../../auth/types/types";
 
 const Activity = () => {

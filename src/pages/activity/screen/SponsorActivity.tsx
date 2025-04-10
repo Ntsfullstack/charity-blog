@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Activity.module.scss";
+import styles from "./Activity.scss";
 import Card from "../../../components/card/Card";
 import {
   getCategory,
